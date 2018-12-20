@@ -10,19 +10,25 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-	<form:form action="application/handyWorker/edit.do" modelAttribute="application">
+		<spring:url var="createApplicationUrl" value="application/handyWorker/edit.do?fixUpTaskId={fixId}">
+						<spring:param name="fixId" value="${param.fixUpTaskId}" />
+					</spring:url>
+
+	<form:form action="${createApplicationUrl}" modelAttribute="application">
+	
 		
 		<!-- Hidden Attributes -->	
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		<form:hidden path="moment" />
+		<form:hidden path="comments" />
 		<form:hidden path="status" />
 		<form:hidden path="fixUpTask" />
 		<form:hidden path="handyWorker" />
 		
 		<!-- Offered Prices -->
 		<form:label path="offeredPrice">
-				<spring:message code="createApplication.offeredPrice" />	
+		<spring:message code="createApplication.offeredPrice" />	
 		</form:label>
 		<form:input path="offeredPrice" />
 		<form:errors cssClass="error" path="offeredPrice" />
@@ -30,8 +36,8 @@
 		
 		<input type="submit" name="create" value="<spring:message code="application.create"/>" />	
 	
-		<input type="submit" name="cancel" value="<spring:message code="application.cancel"/>" />	
 	
 	</form:form>
+
 
 </security:authorize>
