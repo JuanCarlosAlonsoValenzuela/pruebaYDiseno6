@@ -74,7 +74,7 @@
 	</definition>
 	
 	
-		<definition name="/complaint/customer/list.do" extends="master.page">	
+		<definition name="complaint/customer/list" extends="master.page">	
 		<put-attribute name="title" value="Complaints" />
 		<put-attribute name="body" value="/views/customer/complaints.jsp" />
 	</definition>
@@ -100,9 +100,9 @@
 		<put-attribute name="body" value="/views/customer/complaintsReport.jsp" />
 	</definition>
 	
-		<definition name="/complaint/attachment/list.do" extends="master.page">	
+		<definition name="attachment/customer/list" extends="master.page">	
 		<put-attribute name="title" value="Complaint's Attachments" />
-		<put-attribute name="body" value="/views/customer/complaintsAttachment.jsp" />
+		<put-attribute name="body" value="/views/customer/attachments.jsp" />
 	</definition>
 	
 	<definition name="/complaint/report/note/comment/edit.do" extends="master.page">	
