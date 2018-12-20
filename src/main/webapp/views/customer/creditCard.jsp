@@ -10,10 +10,7 @@
 
 <security:authorize access="hasRole('CUSTOMER')">
 
-<form:form action="creditCard/customer/edit.do" modelAttribute="creditCard" >
-	<form:hidden path="id"/>
-	<form:hidden path="version" />
-	
+<form:form action="application/customer/changeStatusWithCreditCard.do" modelAttribute="creditCard" >
 	<!-- Holder Name -->	
 	<form:label path="holderName">
 		<spring:message code="creditCard.holder" />	
@@ -28,18 +25,18 @@
 		</form:label>
 		
 		<form:select path="brandName">
-			<form:options
-				itemLabel="VISA"			
-				itemValue="VISA" />									
-			<form:options	
-				itemLabel="Master Card"		
-				itemValue="MASTER" />								
-			<form:options
-				itemLabel="Dinners"		
-				itemValue="DINNERS" />							
-			<form:options
-				itemLabel="Amex"		
-				itemValue="AMEX" />									
+			<form:option
+				label="VISA"			
+				value="VISA" />									
+			<form:option
+				label="Master Card"		
+				value="MASTER" />								
+			<form:option
+				label="Dinners"		
+				value="DINNERS" />							
+			<form:option
+				label="Amex"		
+				value="AMEX" />									
 		</form:select>
 		<form:errors cssClass="error" path="brandName" />
 		<br />
@@ -49,7 +46,7 @@
 			<spring:message code="creditCard.number" />		
 		</form:label>
 		
-		<form:input path="number" placeholder="1234 1234 1234 1234"/>
+		<form:input path="number" placeholder="1234123412341234"/>
 		
 		<form:errors cssClass="error" path="number" />
 		<br />
@@ -81,12 +78,13 @@
 		<form:input path="cvvCode" />
 		<form:errors cssClass="error" path="cvvCode" />
 		<br />
-	
+		
+	<input type="hidden" name="applicationId" value="${applicationId}"/>
 	
 	<input type="submit" name="create" value="<spring:message code="creditCard.create"/>" />		
-	
-	<input type="submit" name="cancel" value="<spring:message code="creditCard.cancel"/>" />	
 
 </form:form>
+
+<input type="submit" name="cancel" onclick="history.back()" value="<spring:message code="creditCard.cancel"/>" />	
 
 </security:authorize>

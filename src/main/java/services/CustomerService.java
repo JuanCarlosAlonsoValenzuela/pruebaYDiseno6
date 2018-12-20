@@ -532,7 +532,6 @@ public class CustomerService {
 		}
 
 		Assert.isTrue(!applicationFound.equals(null));
-		Assert.isTrue(applicationFound.getStatus().equals(Status.PENDING));
 
 		if (application.getStatus().equals(Status.ACCEPTED)) {
 			Assert.notNull(creditCard);

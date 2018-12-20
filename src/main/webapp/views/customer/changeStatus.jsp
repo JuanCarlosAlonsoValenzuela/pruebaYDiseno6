@@ -12,7 +12,13 @@
 	<form:form action="application/customer/changeStatus.do" modelAttribute="application">
 		<form:hidden path="id"/>
 		<form:hidden path="version" /> 
-		<form:hidden path="moment" />
+		
+		<form:label path="moment">
+			<spring:message code="customer.application.moment" />		
+		</form:label>
+		<form:input path="moment" readonly="true"/>
+		<br/>
+		
 		<form:hidden path="offeredPrice" />
 		<form:hidden path="comments" />
 		<form:hidden path="fixUpTask" />
@@ -24,17 +30,22 @@
 		</form:label>
 		
 		<form:select path="status">
-			<form:option label="Accepted" value="ACCEPTED" />									
-			<form:option label="Pending" value="PENDING" />	
-			<form:option label="Rejected" value="REJECTED" />
+			<spring:message var="accepted" code="customer.application.accepted"/>
+			<form:option label="${accepted}" value="ACCEPTED" />		
+			<spring:message var="pending" code="customer.application.pending"/>							
+			<form:option label="${pending}" value="PENDING" />	
+			<spring:message var="rejected" code="customer.application.rejected"/>
+			<form:option label="${rejected}" value="REJECTED" />
 		</form:select>
 
 		<form:errors cssClass="error" path="status" />
-		<br />
+		<br/><br/>
 		
-		<input type="submit" name="create" value="<spring:message code="application.create"/>" />		
-	
-		<!--<input type="submit" name="cancel" value="<spring:message code="application.cancel"/>" />-->
+		<input type="submit" name="save" value="<spring:message code="application.save"/>" />
 
 	</form:form>
+	
+	<spring:message var="cancel" code="application.cancel"/> 		
+	<input type="button" onclick="history.back()" name="back" value="${cancel}">
+	
 </security:authorize>

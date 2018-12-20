@@ -21,7 +21,7 @@
 		<put-attribute name="body" value="/views/customer/applications.jsp" />
 	</definition>
 	
-	<definition name="/comment/customer/list.do" extends="master.page">	
+	<definition name="customer/comments" extends="master.page">	
 		<put-attribute name="title" value="Comentarios" />
 		<put-attribute name="body" value="/views/customer/comments.jsp" />
 	</definition>
@@ -31,7 +31,7 @@
 		<put-attribute name="body" value="/views/customer/addComment.jsp" />
 	</definition>
 	
-	<definition name="/creditCard/customer/edit.do" extends="master.page">	
+	<definition name="customer/creditCard" extends="master.page">	
 		<put-attribute name="title" value="Tarjeta de Crédito" />
 		<put-attribute name="body" value="/views/customer/creditCard.jsp" />
 	</definition>

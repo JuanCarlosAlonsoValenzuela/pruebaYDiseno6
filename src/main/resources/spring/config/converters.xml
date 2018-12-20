@@ -69,6 +69,9 @@
 		<bean class="converters.SponsorToStringConverter" />
 		<bean class="converters.StringToSponsorConverter" />
 		
+		<bean class="converters.CreditCardToStringConverter" />
+		<bean class="converters.StringToCreditCardConverter" />
+		
 		<!-- 
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 

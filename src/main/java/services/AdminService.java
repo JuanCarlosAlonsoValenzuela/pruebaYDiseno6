@@ -270,8 +270,9 @@ public class AdminService {
 
 		warranties = this.listWarranty();
 
-		for (Warranty w : warranties)
+		for (Warranty w : warranties) {
 			result.put(w.getTitle(), w);
+		}
 		return result;
 
 	}
@@ -303,8 +304,9 @@ public class AdminService {
 
 		categories = this.listCategory();
 
-		for (Category c : categories)
+		for (Category c : categories) {
 			result.put(c.getName(), c);
+		}
 		return result;
 	}
 
@@ -368,6 +370,7 @@ public class AdminService {
 	 * number of applications
 	 */
 
+	// SERVICIO 1
 	public Map<String, Double[]> computeStatistics() {
 		this.loggedAsAdmin();
 
@@ -403,6 +406,7 @@ public class AdminService {
 	 * that cannot change its status because their time period’s elapsed.
 	 */
 
+	// SERVICIO 2
 	public Map<String, Double> computeStatisticsRatios() {
 		this.loggedAsAdmin();
 
