@@ -57,8 +57,9 @@
 		
 		<display:column titleKey="application.comments" style="color:${color}">
 				<jstl:set var="commentsSize" value="${row.comments.size()}" />
-				<spring:url var="commentsUrl" value="/comment/customer/list.do?applicationId={appId}">
+				<spring:url var="commentsUrl" value="/application/customer/listComments.do?fixUpTaskId={fixId}&applicationId={appId}">
 							<spring:param name="appId" value="${row.id}"/>
+							<spring:param name="fixId" value="${fixUpTaskId}"/>
 				</spring:url>
 				<a href="${commentsUrl}">
 							<spring:message var ="viewComments1" code="application.viewComments" />
@@ -72,17 +73,6 @@
 		
 		<display:column titleKey="application.score"  style="color:${color}">		
 				<jstl:out value="${row.handyWorker.score}" />
-		</display:column>
-		
-		<display:column style="color:${color}">		
-				<spring:url var="newComment" value="/application/customer/newComment.do?fixUpTaskId={fixId}&applicationId={appId}">
-							<spring:param name="appId" value="${row.id}"/>
-							<spring:param name="fixId" value="${fixUpTaskId}"/>
-				</spring:url>
-				<a href="${newComment}">
-							<spring:message var ="newComment1" code="application.comment.new" />
-							<jstl:out value="${newComment1}" />		
-				</a>
 		</display:column>
 	</display:table>
 

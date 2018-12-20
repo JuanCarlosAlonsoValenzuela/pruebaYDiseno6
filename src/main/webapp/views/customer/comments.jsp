@@ -10,22 +10,28 @@
 <p><spring:message code="customer.comment.list" /></p>
 
 <security:authorize access="hasRole('CUSTOMER')">
-	<jstl:forEach var="comment" items="comments">
-			<jstl:out value="${comment}" />
-			<br /> 
-	</jstl:forEach> 
-	
-	<!-- <jstl:if test="${application.status=='ACCEPTED'}">  -->
-			
-		<spring:url var="createCommentUrl" value="/comment/customer/edit.do?applicationId={appId}">
-				<spring:param name="appId" value="${application.id}"/>
-		</spring:url>
-	
-		<a href="${createCommentUrl}">
-				<spring:message code="comments.create" />			
-		</a>
-	
-	<!-- </jstl:if>	-->
-	
 
+<display:table pagesize="5" name="comments" id="row" class="displaytag" 
+					requestURI="/application/customer/listComments.do">
+	<display:column titleKey="application.comments">
+		<jstl:out value="${row}"/>
+	</display:column>
+</display:table>
+
+<spring:url var="newComment" value="/application/customer/newComment.do?fixUpTaskId={fixId}&applicationId={appId}">
+	<spring:param name="appId" value="${applicationId}"/>
+	<spring:param name="fixId" value="${fixUpTaskId}"/>
+</spring:url>
+<a href="${newComment}">
+	<spring:message var ="newComment1" code="application.comment.new" />
+	<input type="button" name="newComment" value="${newComment1}">
+</a>
+
+<spring:url var="urlApplications" value="/application/customer/list.do?fixUpTaskId={fixId}">
+	<spring:param name="fixId" value="${fixUpTaskId}"/>
+</spring:url>
+<a href="${urlApplications}">
+	<spring:message var ="back" code="application.back" />
+	<input type="button" name="back" value="${back}">
+</a>
 </security:authorize>
