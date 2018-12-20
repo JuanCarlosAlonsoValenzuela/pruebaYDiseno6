@@ -6,8 +6,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="customer.creditCard.edit" /></p>	
-
 <security:authorize access="hasRole('CUSTOMER')">
 
 <form:form action="application/customer/changeStatusWithCreditCard.do" modelAttribute="creditCard" >

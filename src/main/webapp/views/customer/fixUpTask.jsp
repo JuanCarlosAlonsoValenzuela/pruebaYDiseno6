@@ -6,8 +6,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="customer.fixUpTasks.list" /></p>		
-
 <security:authorize access="hasRole('CUSTOMER')">		 	
 
 	<display:table pagesize="5" name="fixUpTasks" id="row" class="displaytag" 

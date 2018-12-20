@@ -103,6 +103,7 @@ public class ApplicationCustomerController extends AbstractController {
 
 		result = new ModelAndView("customer/changeStatus");
 		result.addObject(application);
+		result.addObject("requestURI", "application/customer/edit.do");
 
 		return result;
 	}
@@ -177,6 +178,7 @@ public class ApplicationCustomerController extends AbstractController {
 		result.addObject("fixUpTaskId", fixUpTaskId);
 
 		result.addObject("comments", this.applicationService.findOne(applicationId).getComments());
+		result.addObject("requestURI", "application/customer/listComments.do");
 
 		return result;
 	}
