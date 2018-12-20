@@ -71,6 +71,14 @@
 		
 		<bean class="converters.CreditCardToStringConverter" />
 		<bean class="converters.StringToCreditCardConverter" />
+		<bean class="converters.ComplaintToStringConverter" />
+		<bean class="converters.StringToComplaintConverter" />
+		
+		<bean class="converters.ReportToStringConverter" />
+		<bean class="converters.StringToReportConverter" />
+    
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
 		
 		<!-- 
 			Add your own converters using entries of the following form: 
