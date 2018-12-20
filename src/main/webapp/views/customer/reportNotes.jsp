@@ -12,7 +12,7 @@
 
  	
 	<display:table pagesize="5" name="notes" id="row" class="displaytag"
-			requestURI="report/note/list.do"> 
+			requestURI="report/note/show.do"> 
 			
 	<display:column property="moment" titleKey="note.moment"/>
 	
@@ -25,7 +25,7 @@
 				</spring:url>
 				<a href="${commentsUrl}">
 							<spring:message var ="viewComments1" code="note.viewComments" />
-							<jstl:out value="$viewComments1}(${commentsSize})" />		
+							<jstl:out value="${viewComments1}(${commentsSize})" />		
 				</a>
 	</display:column>
 		
