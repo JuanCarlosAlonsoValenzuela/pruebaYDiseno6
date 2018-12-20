@@ -79,7 +79,7 @@ public class AnonymousController extends AbstractController {
 	protected ModelAndView createEditModelAndView(HandyWorker handyWorker, String messageCode) {
 		ModelAndView result;
 
-		result = new ModelAndView("register/createHandyWorker");
+		result = new ModelAndView("anonymous/createHandyWorker");
 		result.addObject("handyWorker", handyWorker);
 		result.addObject("message", messageCode);
 
