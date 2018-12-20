@@ -7,8 +7,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="customer.comment.list" /></p>
-
 <security:authorize access="hasRole('CUSTOMER')">
 
 <display:table pagesize="5" name="comments" id="row" class="displaytag" 

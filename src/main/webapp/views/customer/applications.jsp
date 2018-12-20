@@ -7,8 +7,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="customer.applications" /></p>
-
 <jsp:useBean id="now" class="java.util.Date"/>
 
 <security:authorize access="hasRole('CUSTOMER')">
