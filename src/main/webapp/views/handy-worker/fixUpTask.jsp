@@ -10,12 +10,12 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-	<spring:url var="finderUrl" value="/workPlan/handyWorker/list.do" />
+	<spring:url var="finderUrl" value="/finder/handyWorker/edit.do" />
 	
 	<a href="${finderUrl}">
 		<spring:message code="fixUpTask.filter" />				
 	</a>
-f
+
 	<display:table pagesize="5" name="fixUpTasks" id="row" class="displaytag" 
 					requestURI="/fixUpTask/handyWorker/list.do">
 		
@@ -74,7 +74,7 @@ f
 				
 				<jstl:set var="username" value="${map.get(row).userAccount.username}" />
 				
-				<spring:url var="customerUrl" value="/fixUpTask/handyWorker/list.do?customerId={customerId}">
+				<spring:url var="customerUrl" value="/fixUpTask/handyWorker/customerList.do?customerId={customerId}">
 							<spring:param name="customerId" value="${map.get(row).id}" />
 				</spring:url>
 				
