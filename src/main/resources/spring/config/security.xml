@@ -83,7 +83,7 @@
 		<security:intercept-url pattern="/report/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/note/customer/**" access="hasRole('CUSTOMER')" />
 		
-
+		<security:intercept-url pattern="/statistics/administrator/**" access="hasRole('ADMIN')"  />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 		

@@ -5,8 +5,6 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
-<p><spring:message code="customer.application.edit" /></p>	
  
 <security:authorize access="hasRole('CUSTOMER')">
 	<form:form action="application/customer/changeStatus.do" modelAttribute="application">
