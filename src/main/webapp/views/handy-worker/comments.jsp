@@ -19,18 +19,27 @@
 <p><spring:message code="handyWorker.comment.list" /></p>
 
 <security:authorize access="hasRole('HANDYWORKER')">
-	<jstl:forEach var="comment" items="comments">
-			<jstl:out value="${comment}" />
-			<br />
-	</jstl:forEach>
-	
-				
-	<spring:url var="createCommentUrl" value="/comment/handyWorker/edit.do?applicationId={appId}">
-		<spring:param name="appId" value="${application.id}"/>
+
+<display:table pagesize="5" name="comments" id="row" class="displaytag" 
+					requestURI="/application/handyWorker/listComments.do">
+	<display:column titleKey="application.comments">
+		<jstl:out value="${row}"/>
+	</display:column>
+</display:table>
+
+			
+	<spring:url var="createCommentUrl" value="/application/handyWorker/newComment.do?applicationId={appId}">
+		<spring:param name="appId" value="${param.applicationId}"/>
 	</spring:url>
 	
 	<a href="${createCommentUrl}">
 		<spring:message code="comments.create" />			
+	</a>
+	</br>
+	
+	<spring:url var="applicationUrl" value="/application/handyWorker/list.do"/>
+	<a href="${applicationUrl}">
+		<spring:message code="comment.back" />			
 	</a>
 
 

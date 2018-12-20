@@ -31,12 +31,12 @@
 		<put-attribute name="body" value="/views/handy-worker/fixUpTask.jsp" />
 	</definition>
 	
-	<definition name="/comment/handyWorker/edit.do" extends="master.page">	
+	<definition name="handy-worker/addComment" extends="master.page">	
 		<put-attribute name="title" value="Create a Comment" />
 		<put-attribute name="body" value="/views/handy-worker/addComment.jsp" />
 	</definition>
 	
-	<definition name="/application/handyWorker/edit.do" extends="master.page">	
+	<definition name="handy-worker/createApplication" extends="master.page">	
 		<put-attribute name="title" value="Create Application" />
 		<put-attribute name="body" value="/views/handy-worker/createApplication.jsp" />
 	</definition>

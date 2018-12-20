@@ -71,7 +71,7 @@
 		<div style=<jstl:out value="${color}"/>>
 		<display:column titleKey="application.comments">
 				<jstl:set var="commentsSize" value="${row.comments.size()}" />
-				<spring:url var="commentsUrl" value="/comment/handyWorker/list.do?applicationId={appId}">
+				<spring:url var="commentsUrl" value="application/handyWorker/listComments.do?applicationId={appId}">
 							<spring:param name="appId" value="${row.id}"/>
 				</spring:url>
 				<a href="${commentsUrl}">

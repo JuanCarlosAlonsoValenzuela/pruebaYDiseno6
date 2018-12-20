@@ -10,19 +10,25 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-<form:form action="comment/handyWorker/edit.do" modelAttribute="comment" >
+<form name="comment" id="comment" action="application/handyWorker/saveComment.do" method="post" >
 
-	<form:label path="text">
-			<spring:message code="comment.text" />	
-	</form:label>
-	<form:textarea path="text" placeholder=<spring:message code="comment.writeComment" /> />		
-	<form:errors cssClass="error" path="text" />
-	<br />
+	<label for="male"><spring:message code="comment.text" />: </label>
+	<input type="text" name="comment" id="comment" placeholder="<spring:message code="comment.writeComment"/>" value="${comment}"/>
+	<input type="hidden" name="applicationId" id="applicationId" value="<jstl:out value="${applicationId}"/>"/>
 	
 	<input type="submit" name="create" value="<spring:message code="comment.create"/>" />	
-	
-	<input type="submit" name="cancel" value="<spring:message code="comment.cancel"/>" />	
-	
-</form:form>
+</form>
+
+<jstl:if test="${comment=='' || comment!=null}">
+	<p style="color:red"><spring:message code="operation.error"/></p>
+</jstl:if>
+
+	<spring:url var="applicationUrl" value="/application/handyWorker/listComments.do?applicationId={appId}">
+	<spring:param name="appId" value="${param.applicationId}"/>
+	</spring:url>
+	<a href="${applicationUrl}">
+		<spring:message code="comment.cancel" />			
+	</a>
+
 
 </security:authorize>

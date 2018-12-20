@@ -76,6 +76,8 @@ public class HandyWorkerService {
 	private EndorserService			endorserSevice;
 	@Autowired
 	private CustomerService			customerService;
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Simple CRUD methods --------------------------------------------------------------------------------------------
@@ -362,6 +364,38 @@ public class HandyWorkerService {
 		curriculum.setProfessionalRecords(professionalRecords);
 		return this.curriculumService.save(curriculum);
 	}
+
+	public Application addComment(Application application, String comment) {
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
+		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
+
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+
+		Collection<Application> applications = logguedHandyWorker.getApplications();
+
+		Application applicationFound = null;
+		for (Application a : applications) {
+			if (application.getId() == a.getId()) {
+				applicationFound = a;
+				break;
+			}
+		}
+
+		Assert.isTrue(!applicationFound.equals(null));
+
+		List<String> comments = (List<String>) applicationFound.getComments();
+		comments.add(comment);
+		applicationFound.setComments(comments);
+
+		Application applicationSave = this.applicationService.save(application);
+
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
+
+		return applicationSave;
+	}
 	// Other business methods -------------------------------------------------------------------------------------------
 
 	//11.1 ------------------------------------------------------------------------------------------------------------------
@@ -533,6 +567,8 @@ public class HandyWorkerService {
 		Assert.notNull(newFixUpTask);
 		newFixUpTask.setPhases(newPhases);
 
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
+
 		this.fixUpTaskService.save(newFixUpTask);
 
 	}
@@ -570,6 +606,8 @@ public class HandyWorkerService {
 		Assert.isTrue(phases.contains(phase));
 
 		FixUpTask f = this.handyWorkerRepository.getFixUpTaskByPhase(phase.getId());
+
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
 
 		this.phaseService.save(phase);
 	}
@@ -660,6 +698,8 @@ public class HandyWorkerService {
 		notes.add(note);
 		report.setNotes(notes);
 
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
+
 		this.reportService.save(report);
 
 	}
@@ -690,6 +730,8 @@ public class HandyWorkerService {
 
 		Assert.isTrue(report.getNotes().contains(note));
 		note.getOptionalComments().add(comment);
+
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
 
 		this.noteService.save(note);
 
@@ -738,6 +780,8 @@ public class HandyWorkerService {
 
 		Assert.isTrue(logguedHandyWorker.getTutorials().contains(tutorial));
 
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
+
 		this.tutorialService.save(tutorial);
 	}
 
@@ -754,6 +798,8 @@ public class HandyWorkerService {
 		List<Tutorial> tutorials = logguedHandyWorker.getTutorials();
 		tutorials.add(tutorial);
 		logguedHandyWorker.setTutorials(tutorials);
+
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
 
 		this.handyWorkerRepository.save(logguedHandyWorker);
 
@@ -785,6 +831,8 @@ public class HandyWorkerService {
 
 		Assert.isTrue(logguedHandyWorker.getEndorsments().contains(endorsment));
 
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
+
 		this.endorsmentService.save(endorsment);
 	}
 
@@ -814,6 +862,9 @@ public class HandyWorkerService {
 
 		Endorser endorser1 = this.endorserSevice.findOne(endorsment.getWrittenTo().getId());
 		endorser1.setEndorsments(end);
+
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
+
 		this.endorserSevice.save(endorser1);
 
 		end = endorsment.getWrittenBy().getEndorsments();
