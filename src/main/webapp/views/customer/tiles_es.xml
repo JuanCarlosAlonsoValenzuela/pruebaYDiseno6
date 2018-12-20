@@ -89,7 +89,7 @@
 		<put-attribute name="body" value="/views/customer/addNote.jsp" />
 	</definition>
 	
-		<definition name="/complaint/report/list.do" extends="master.page">	
+	<definition name="report/customer/list" extends="master.page">	
 		<put-attribute name="title" value="Informes de la queja" />
 		<put-attribute name="body" value="/views/customer/complaintsReport.jsp" />
 	</definition>
@@ -110,7 +110,7 @@
 	</definition>
 	
 	
-	<definition name="complaint/report/note/list.do" extends="master.page">	
+	<definition name="note/customer/show" extends="master.page">	
 		<put-attribute name="title" value="Notas de los informes" />
 		<put-attribute name="body" value="/views/customer/reportNotes.jsp" />
 	</definition>

@@ -367,7 +367,9 @@ public class CustomerServiceTest extends AbstractTest {
 	public void testListReports() {
 		super.authenticate("PacoCustomer");
 		Customer customer = this.customerService.securityAndCustomer();
-		Assert.isTrue(this.customerService.listReports().size() == 3);
+		List<Complaint> complaints = (List<Complaint>) this.customerService.showComplaints();
+		Assert.notNull(this.customerService.listReports(complaints.get(0)));
+		Assert.isTrue(this.customerService.listReports(complaints.get(0)).size() == 1);
 		super.authenticate(null);
 	}
 }

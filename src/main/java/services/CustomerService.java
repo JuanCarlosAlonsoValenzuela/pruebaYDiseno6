@@ -765,9 +765,10 @@ public class CustomerService {
 		return this.reportService.findOne(report.getId());
 	}
 
-	public List<Report> listReports() {
+	public List<Report> listReports(Complaint complaint) {
 		Customer loggedCustomer = this.securityAndCustomer();
-		List<Report> lr = this.reportService.findAll();
+		Assert.isTrue(this.showComplaints().contains(complaint));
+		List<Report> lr = complaint.getReports();
 		List<Report> lr2 = new ArrayList<>();
 		for (Report report : lr) {
 			if (report.getFinalMode()) {

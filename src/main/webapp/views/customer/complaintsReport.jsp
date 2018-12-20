@@ -17,25 +17,25 @@
 	
 	<display:column property="description" titleKey="report.description"/>
 	
-	<display:column titleKey="report.attachments">
+	<display:column titleKey="customer.attachments">
 				<jstl:set var="attachmentsSize" value="${row.attachments.size()}" />
 				<spring:url var="attachmetsUrl" value="/attachment/list.do?reportId={repId}">
 							<spring:param name="repId" value="${row.id}"/>
 				</spring:url>
 				<a href="${attachmentsUrl}">
-							<spring:message var ="viewAttachments1" code="report.viewAttachments" />
-							<jstl:out value="$viewAttachments1}(${attachmentsSize})" />		
+							<spring:message var ="viewAttachments1" code="customer.viewAttachments" />
+							<jstl:out value="${viewAttachments1}(${attachmentsSize})" />		
 				</a>
 		</display:column>
 	
 	<display:column titleKey="report.notes">
 				<jstl:set var="notesSize" value="${row.notes.size()}" />
-				<spring:url var="notesUrl" value="/note/list.do?reportId={repId}">
+				<spring:url var="notesUrl" value="/note/customer/show.do?reportId={repId}">
 							<spring:param name="repId" value="${row.id}"/>
 				</spring:url>
 				<a href="${notesUrl}">
 							<spring:message var ="viewNotes1" code="report.viewNotes" />
-							<jstl:out value="$viewNotes1}(${NotesSize})" />		
+							<jstl:out value="${viewNotes1}(${NotesSize})" />		
 				</a>
 	</display:column>
 	

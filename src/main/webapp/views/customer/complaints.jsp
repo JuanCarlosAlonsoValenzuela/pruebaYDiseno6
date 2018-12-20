@@ -45,9 +45,7 @@
 				</spring:url>
 		
 	
-		<a href="${createComplaintUrl}">
-				<spring:message code="complaint.create" />			
-		</a>
+
 		
 
 		 
