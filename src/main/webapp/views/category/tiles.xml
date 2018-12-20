@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="category/list" extends="master.page">	
+		<put-attribute name="title" value="Categories" />
+		<put-attribute name="body" value="/views/category/list.jsp" />
+	</definition>
+	
+	<definition name="category/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Edit category" />
+		<put-attribute name="body" value="/views/category/edit.jsp" />
+	</definition>
+	
+	<definition name="category/subcategories.do" extends="master.page">	
+		<put-attribute name="title" value="Subcategories" />
+		<put-attribute name="body" value="/views/warranty/subCategories.jsp" />
+	</definition>
+	
+	<definition name="category/subcategory/create.do" extends="master.page">	
+		<put-attribute name="title" value="Create subcategory" />
+		<put-attribute name="body" value="/views/warranty/create.jsp" />
+	</definition>
+	
+</tiles-definitions>

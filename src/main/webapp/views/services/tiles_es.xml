@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="services/general-services" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Servicios generales" />
+		<put-attribute name="body" value="/views/services/general-services.jsp" />
+	</definition>
+	
+	<definition name="services/repairs" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Reparaciones" />
+		<put-attribute name="body" value="/views/services/repairs.jsp" />
+	</definition>
+	
+	<definition name="services/installations" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Instalaciones" />
+		<put-attribute name="body" value="/views/services/installations.jsp" />
+	</definition>
+	
+	<definition name="services/outdoor-services" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Servicios exterior" />
+		<put-attribute name="body" value="/views/services/outdoor-services.jsp" />
+	</definition>
+	
+	<definition name="services/indoor-services" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Servicios interior" />
+		<put-attribute name="body" value="/views/services/indoor-services.jsp" />
+	</definition>
+	
+	<definition name="services/carpentry" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Carpinteria" />
+		<put-attribute name="body" value="/views/services/carpentry.jsp" />
+	</definition>
+	
+	<definition name="services/cleaning" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Limpieza" />
+		<put-attribute name="body" value="/views/services/cleaning.jsp" />
+	</definition>
+	
+	<definition name="services/painting" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Pintura" />
+		<put-attribute name="body" value="/views/services/painting.jsp" />
+	</definition>
+	
+	<definition name="services/moving" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Traslados" />
+		<put-attribute name="body" value="/views/services/moving.jsp" />
+	</definition>
+	
+	
+	
+	<definition name="services/repairs/ceiling-repair" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Reparacion de techos" />
+		<put-attribute name="body" value="/views/services/repairs/ceiling-repair.jsp" />
+	</definition>
+	
+	<definition name="services/repairs/fence-repair" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Reparacion de vallas" />
+		<put-attribute name="body" value="/views/services/repairs/fence-repair.jsp" />
+	</definition>
+	
+	<definition name="services/repairs/plumbing-repairs" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Reparacion de tuberias" />
+		<put-attribute name="body" value="/views/services/repairs/plumbing-repairs.jsp" />
+	</definition>
+	
+	<definition name="services/repairs/sprinkler-repair" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Reparacion de aspersores" />
+		<put-attribute name="body" value="/views/services/repairs/sprinkler-repair.jsp" />
+	</definition>
+	
+	<definition name="services/repairs/window-repair" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Reparacion de ventanas" />
+		<put-attribute name="body" value="/views/services/repairs/window-repair.jsp" />
+	</definition>
+	
+	<definition name="services/repairs/lamp-repair" extends="master.page">	
+		<put-attribute name="title" value="Cliente: Reparacion de lamparas" />
+		<put-attribute name="body" value="/views/services/repairs/lamp-repair.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>

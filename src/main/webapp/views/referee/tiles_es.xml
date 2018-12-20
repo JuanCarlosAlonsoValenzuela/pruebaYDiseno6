@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+		<definition name="/complaint/list.do" extends="master.page">	
+		<put-attribute name="title" value="Quejas" />
+		<put-attribute name="body" value="/views/refere/complaints.jsp" />
+	</definition>
+	
+	<definition name="/complaint/referee/list.do" extends="master.page">	
+		<put-attribute name="title" value="Mis quejas" />
+		<put-attribute name="body" value="/views/referee/refereesComplaints.jsp" />
+	</definition>
+	
+	<definition name="/complaint/report/referee/list.do" extends="master.page">	
+		<put-attribute name="title" value="Informes de la queja" />
+		<put-attribute name="body" value="/views/referee/complaintsReport.jsp" />
+	</definition>
+	
+	<definition name="/complaint/attachment/list.do" extends="master.page">	
+		<put-attribute name="title" value="Archivos de la queja" />
+		<put-attribute name="body" value="/views/referee/complaintsAttachment.jsp" />
+	</definition>
+	
+	
+	<definition name="/complaint/report/note/list.do" extends="master.page">	
+		<put-attribute name="title" value="Notas del informe" />
+		<put-attribute name="body" value="/views/referee/reportNotes.jsp" />
+	</definition>
+	
+		<definition name="/complaint/report/attachment/referee/list.do" extends="master.page">	
+		<put-attribute name="title" value="Archivos del informe" />
+		<put-attribute name="body" value="/views/referee/reportsAttachments.jsp" />
+	</definition>
+	
+	<definition name="/complaint/report/note/comment/list.do" extends="master.page">	
+		<put-attribute name="title" value="Comentarios de la nota" />
+		<put-attribute name="body" value="/views/referee/noteComments.jsp" />
+	</definition>
+	
+	<definition name="/complaint/report/note/comment/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Añadir comentario" />
+		<put-attribute name="body" value="/views/referee/createCommentNote.jsp" />
+	</definition>
+	
+		<definition name="/complaint/report/note/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Añadir Nota" />
+		<put-attribute name="body" value="/views/referee/addNote.jsp" />
+	</definition>
+	
+		<definition name="/complaint/report/referee/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Editar informe" />
+		<put-attribute name="body" value="/views/referee/editReport.jsp" />
+	</definition>
+	
+		<definition name="/complaint/report/attachment/referee/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Añadir un archivo" />
+		<put-attribute name="body" value="/views/referee/createAttachmentReport.jsp" />
+	</definition>
+	
+</tiles-definitions>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ --> 
+ 
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions> 
+
+	<definition name="customer/applications" extends="master.page">	
+		<put-attribute name="title" value="My Applications" />
+		<put-attribute name="body" value="/views/customer/applications.jsp" />
+	</definition>
+	
+	<definition name="/comment/customer/list.do" extends="master.page">	
+		<put-attribute name="title" value="Comments" />
+		<put-attribute name="body" value="/views/customer/comments.jsp" />
+	</definition>
+	
+	<definition name="customer/addComment" extends="master.page">	
+		<put-attribute name="title" value="Create a Comment" />
+		<put-attribute name="body" value="/views/customer/addComment.jsp" />
+	</definition>
+	
+	<definition name="/creditCard/customer/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Credit Card" />
+		<put-attribute name="body" value="/views/customer/creditCard.jsp" />
+	</definition>
+	
+	<definition name="customer/changeStatus" extends="master.page">	
+		<put-attribute name="title" value="Change Status" />
+		<put-attribute name="body" value="/views/customer/changeStatus.jsp" />
+	</definition>
+	
+	<definition name="customer/fixUpTask" extends="master.page">	
+		<put-attribute name="title" value="My Fix Up Tasks" />
+		<put-attribute name="body" value="/views/customer/fixUpTask.jsp" />
+	</definition>
+	
+	<definition name="/fixUpTask/customer/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Create a Fix Up Task" />
+		<put-attribute name="body" value="/views/customer/createFixUpTask.jsp" />
+	</definition>
+	
+	<definition name="/warranty/customer/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Warranty" />
+		<put-attribute name="body" value="/views/customer/warranty.jsp" />
+	</definition>
+	
+		<definition name="/warranty/customer/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Show endorsements" />
+		<put-attribute name="body" value="/views/customer/listEndorsment.jsp" />
+	</definition>
+	
+	<definition name="/warranty/customer/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Edit endorsements" />
+		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+	</definition>
+	
+	<!-- Complaints and Reports -->
+	
+		<definition name="/report/list.do" extends="master.page">	
+		<put-attribute name="title" value="Complaints" />
+		<put-attribute name="body" value="/views/customer/complaintsReport.jsp" />
+	</definition>
+	
+	
+		<definition name="/complaint/customer/list.do" extends="master.page">	
+		<put-attribute name="title" value="Complaints" />
+		<put-attribute name="body" value="/views/customer/complaints.jsp" />
+	</definition>
+	
+		<definition name="/complaint/customer/edit.do" extends="master.page">	
+		<put-attribute name="title" value="New Complaint" />
+		<put-attribute name="body" value="/views/customer/createComplaint.jsp" />
+	</definition>
+	
+	<definition name="/complaint/attachment/customer/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Create attachment" />
+		<put-attribute name="body" value="/views/customer/createAttachmentComplaint.jsp" />
+	</definition>
+	
+	
+		<definition name="/complaint/report/note/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Add Note" />
+		<put-attribute name="body" value="/views/customer/addNote.jsp" />
+	</definition>
+	
+		<definition name="/complaint/report/list.do" extends="master.page">	
+		<put-attribute name="title" value="Complaint's Report" />
+		<put-attribute name="body" value="/views/customer/complaintsReport.jsp" />
+	</definition>
+	
+		<definition name="/complaint/attachment/list.do" extends="master.page">	
+		<put-attribute name="title" value="Complaint's Attachments" />
+		<put-attribute name="body" value="/views/customer/complaintsAttachment.jsp" />
+	</definition>
+	
+	<definition name="/complaint/report/note/comment/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Add a Comment" />
+		<put-attribute name="body" value="/views/customer/createCommentNote.jsp" />
+	</definition>
+
+	<definition name="/complaint/report/note/comment/list.do" extends="master.page">	
+		<put-attribute name="title" value="Note's Comment" />
+		<put-attribute name="body" value="/views/customer/noteComments.jsp" />
+	</definition>
+	
+	
+	<definition name="complaint/report/note/list.do" extends="master.page">	
+		<put-attribute name="title" value="Report's Notes" />
+		<put-attribute name="body" value="/views/customer/reportNotes.jsp" />
+	</definition>
+	
+	
+	<definition name="/complaint/report/attachment/list.do" extends="master.page">	
+		<put-attribute name="title" value="Report's Attachments" />
+		<put-attribute name="body" value="/views/customer/reportsAttachments.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>

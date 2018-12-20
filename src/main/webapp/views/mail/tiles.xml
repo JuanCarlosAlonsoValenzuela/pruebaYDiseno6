@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+	
+	<!-- Estos están bien -->
+	<definition name="box/actor/list" extends="master.page">	
+		<put-attribute name="title" value="Boxes" />
+		<put-attribute name="body" value="/views/mail/boxes.jsp" />
+	</definition>
+	
+	<definition name="message/actor/list" extends="master.page">	
+		<put-attribute name="title" value="Messages" />
+		<put-attribute name="body" value="/views/mail/messages.jsp" />
+	</definition>
+	
+	<definition name="message/actor/create" extends="master.page">	
+		<put-attribute name="title" value="Write Message" />
+		<put-attribute name="body" value="/views/mail/newMessage.jsp" />
+	</definition>
+	
+	<!-- Estos probablemente no -->
+	<definition name="/mail/messages" extends="master.page">	
+		<put-attribute name="title" value="Messages" />
+		<put-attribute name="body" value="/views/mail/messages.jsp" />
+	</definition>
+	
+	<definition name="/mail/message" extends="master.page">	
+		<put-attribute name="title" value="Message" />
+		<put-attribute name="body" value="/views/mail/message.jsp" />
+	</definition>
+	
+	<definition name="/mail/newMessage" extends="master.page">	
+		<put-attribute name="title" value="New message" />
+		<put-attribute name="body" value="/views/mail/newMessage.jsp" />
+	</definition>
+	
+	<definition name="/mail/newEditBox" extends="master.page">	
+		<put-attribute name="title" value="Box" />
+		<put-attribute name="body" value="/views/mail/newEditBox.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+</tiles-definitions>

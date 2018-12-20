@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="handy-worker/applications" extends="master.page">	
+		<put-attribute name="title" value="My Applications" />
+		<put-attribute name="body" value="/views/handy-worker/applications.jsp" />
+	</definition>
+	
+	<definition name="handy-worker/comments" extends="master.page">	
+		<put-attribute name="title" value="Comments" />
+		<put-attribute name="body" value="/views/handy-worker/comments.jsp" />
+	</definition>
+	
+	<definition name="handy-worker/fixUpTask" extends="master.page">	
+		<put-attribute name="title" value="Fix Up Tasks" />
+		<put-attribute name="body" value="/views/handy-worker/fixUpTask.jsp" />
+	</definition>
+	
+	<definition name="/comment/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Create a Comment" />
+		<put-attribute name="body" value="/views/handy-worker/addComment.jsp" />
+	</definition>
+	
+	<definition name="/application/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Create Application" />
+		<put-attribute name="body" value="/views/handy-worker/createApplication.jsp" />
+	</definition>
+	
+		<definition name="/application/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Edit endorsement" />
+		<put-attribute name="body" value="/views/handy-worker/editEndorsment.jsp" />
+	</definition>
+	
+	<definition name="/application/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Show endorsements" />
+		<put-attribute name="body" value="/views/handy-worker/listEndorsment.jsp" />
+	</definition>
+	
+	<definition name="/finder/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Finder" />
+		<put-attribute name="body" value="/views/handy-worker/finder.jsp" />
+	</definition>
+	
+	<definition name="/workPlan/handyWorker/list.do" extends="master.page">	
+		<put-attribute name="title" value="WorkPlan" />
+		<put-attribute name="body" value="/views/handy-worker/workPlan.jsp" />
+	</definition>
+	
+	<definition name="/workPlan/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Edit Phase" />
+		<put-attribute name="body" value="/views/handy-worker/editPhase.jsp" />
+	</definition>
+	
+	<definition name="/fixUpTaskCustomerInfo/handyWorker/list.do" extends="master.page">	
+		<put-attribute name="title" value="Customer info" />
+		<put-attribute name="body" value="/views/handy-worker/fixUpTaskCustomerInfo.jsp" />
+	</definition>
+	
+	<definition name="/tutorial/handyWorker/add.do" extends="master.page">	
+		<put-attribute name="title" value="Create tutorial" />
+		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+	</definition>
+	
+	<definition name="/tutorial/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Edit tutorial" />
+		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+	</definition>
+	
+
+	<!-- Complaints and Reports -->
+	
+		<definition name="/complaint/list.do" extends="master.page">	
+		<put-attribute name="title" value="Complaints" />
+		<put-attribute name="body" value="/views/handy-worker/complaints.jsp" />
+	</definition>
+	
+	
+		<definition name="/complaint/report/note/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Add Note" />
+		<put-attribute name="body" value="/views/handy-worker/addNote.jsp" />
+	</definition>
+	
+		<definition name="/complaint/report/list.do" extends="master.page">	
+		<put-attribute name="title" value="Complaint's Report" />
+		<put-attribute name="body" value="/views/handy-worker/complaintsReport.jsp" />
+	</definition>
+	
+		<definition name="/complaint/attachment/list.do" extends="master.page">	
+		<put-attribute name="title" value="Complaint's Attachments" />
+		<put-attribute name="body" value="/views/handy-worker/complaintsAttachment.jsp" />
+	</definition>
+	
+	<definition name="/complaint/report/note/comment/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Add a Comment" />
+		<put-attribute name="body" value="/views/handy-worker/createCommentNote.jsp" />
+	</definition>
+
+	<definition name="/complaint/report/note/comment/list.do" extends="master.page">	
+		<put-attribute name="title" value="Note's Comment" />
+		<put-attribute name="body" value="/views/handy-worker/noteComments.jsp" />
+	</definition>
+	
+	
+	<definition name="complaint/report/note/list.do" extends="master.page">	
+		<put-attribute name="title" value="Report's Notes" />
+		<put-attribute name="body" value="/views/handy-worker/reportNotes.jsp" />
+	</definition>
+	
+	
+	<definition name="/complaint/report/attachment/list.do" extends="master.page">	
+		<put-attribute name="title" value="Report's Attachments" />
+		<put-attribute name="body" value="/views/handy-worker/reportsAttachments.jsp" />
+	</definition>
+	
+	<definition name="/curriculum/handyWorker/list.do" extends="master.page">	
+		<put-attribute name="title" value="Curriculum" />
+		<put-attribute name="body" value="/views/handy-worker/curriculum.jsp" />
+	</definition>
+	
+	<definition name="/endorserRecord/handyWorker/list.do" extends="master.page">	
+		<put-attribute name="title" value="Endorser Records" />
+		<put-attribute name="body" value="/views/handy-worker/endorserRecords.jsp" />
+	</definition>
+	
+	<definition name="/miscellaneousRecord/handyWorker/list.do" extends="master.page">	
+		<put-attribute name="title" value="Miscellaneous Records" />
+		<put-attribute name="body" value="/views/handy-worker/miscellaneousRecords.jsp" />
+	</definition>
+	
+	<definition name="/educationRecord/handyWorker/list.do" extends="master.page">	
+		<put-attribute name="title" value="Education Records" />
+		<put-attribute name="body" value="/views/handy-worker/educationRecords.jsp" />
+	</definition>
+	
+	<definition name="/professionalRecord/handyWorker/list.do" extends="master.page">	
+		<put-attribute name="title" value="Professional Records" />
+		<put-attribute name="body" value="/views/handy-worker/professionalRecords.jsp" />
+	</definition>
+	
+	<definition name="/professionalRecord/handyWorker/list.do" extends="master.page">	
+		<put-attribute name="title" value="Comments Record" />
+		<put-attribute name="body" value="/views/handy-worker/commentsRecord.jsp" />
+	</definition>
+	
+	<definition name="/personalRecord/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Edit Personal Record" />
+		<put-attribute name="body" value="/views/handy-worker/editPersonalRecord.jsp" />
+	</definition>
+	
+	<definition name="/endorserRecord/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Endorser Record" />
+		<put-attribute name="body" value="/views/handy-worker/editEndorserRecord.jsp" />
+	</definition>
+	
+	<definition name="/miscellaneousRecord/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Miscellaneous Record" />
+		<put-attribute name="body" value="/views/handy-worker/editMiscellaneousRecord.jsp" />
+	</definition>
+	
+	<definition name="/professionalRecord/handyWorker/edit.do" extends="master.page">	
+		<put-attribute name="title" value="Professional Record" />
+		<put-attribute name="body" value="/views/handy-worker/editProfessionalRecord.jsp" />
+	</definition>
+	
+</tiles-definitions>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2018 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="administrator/banUnban" extends="master.page">	
+		<put-attribute name="title" value="Administrador: Bloquear/desbloquear" />
+		<put-attribute name="body" value="/views/administrator/banUnban.jsp" />
+	</definition>
+	
+	<definition name="administrator/computedScore" extends="master.page">	
+		<put-attribute name="title" value="Administrador: Puntuación" />
+		<put-attribute name="body" value="/views/administrator/computedScore.jsp" />
+	</definition>
+	
+	<definition name="administrator/createAdmin" extends="master.page">	
+		<put-attribute name="title" value="Administrador: Crear admin" />
+		<put-attribute name="body" value="/views/administrator/createAdmin.jsp" />
+	</definition>
+	
+	<definition name="administrator/createReferee" extends="master.page">	
+		<put-attribute name="title" value="Administrador: Crear referee" />
+		<put-attribute name="body" value="/views/administrator/createReferee.jsp" />
+	</definition>
+	
+	<definition name="administrator/goodAndBadWordsCreate" extends="master.page">	
+		<put-attribute name="title" value="Administrador: Crear buenas o malas palabras" />
+		<put-attribute name="body" value="/views/administrator/goodAndBadWordsCreate.jsp" />
+	</definition>
+	
+	<definition name="administrator/goodAndBadWordsList" extends="master.page">	
+		<put-attribute name="title" value="Administrador: Mostrar buenas o malas palabras" />
+		<put-attribute name="body" value="/views/administrator/goodAndBadWordsList.jsp" />
+	</definition>
+	
+	<definition name="administrator/showStatisticsPart1" extends="master.page">	
+		<put-attribute name="title" value="Administrador: Mostrar estadisticas" />
+		<put-attribute name="body" value="/views/administrator/showStatisticsPart1.jsp" />
+	</definition>
+	
+</tiles-definitions>
