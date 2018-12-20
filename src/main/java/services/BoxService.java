@@ -34,21 +34,18 @@ public class BoxService {
 	public Box create() {
 
 		this.actorService.loggedAsActor();
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
-
+		//UserAccount userAccount;
+		//userAccount = LoginService.getPrincipal();
+		//Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
 		Box box = new Box();
 		List<Message> messages = new ArrayList<Message>();
+
 		box.setName("");
 		box.setIsSystem(false);
 		box.setMessages(messages);
 		box.setFatherBox(null);
 
-		List<Box> newBoxes = actor.getBoxes();
-		newBoxes.add(box);
-		actor.setBoxes(newBoxes);
-
+		//actor.getBoxes().add(box);
 		return box;
 	}
 
@@ -73,6 +70,10 @@ public class BoxService {
 		return box;
 	}
 
+	public Box saveSystem(Box box) {
+		return this.boxRepository.save(box);
+	}
+
 	public Box save(Box box) {
 		Assert.isTrue(!box.getIsSystem());
 		this.actorService.loggedAsActor();
@@ -80,9 +81,13 @@ public class BoxService {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
+
+		Box savedBox = new Box();
+		savedBox = this.boxRepository.save(box);
+		actor.getBoxes().add(savedBox);
 		this.actorService.save(actor);
 
-		return this.boxRepository.save(box);
+		return savedBox;
 	}
 
 	public Box updateBox(Box box) {
@@ -100,18 +105,21 @@ public class BoxService {
 
 		List<Box> sonBoxes = this.boxRepository.getSonsBox(box);
 		if (sonBoxes.size() == 0) {
-			for (Message m : box.getMessages())
+			for (Message m : box.getMessages()) {
 				this.messageService.delete(m);
+			}
 			box.getMessages().removeAll(box.getMessages());
 
 			actor.getBoxes().remove(box);
 			this.boxRepository.delete(box);
 			this.actorService.save(actor);
 
-		} else
-			for (Box sonBox : sonBoxes)
+		} else {
+			for (Box sonBox : sonBoxes) {
 				this.deleteBox(sonBox);
-		// this.actorService.save(actor);
+				// this.actorService.save(actor);
+			}
+		}
 
 	}
 
@@ -133,6 +141,10 @@ public class BoxService {
 
 	public Box getTrashBoxByActor(Actor a) {
 		return this.boxRepository.getTrashBoxByActor(a);
+	}
+
+	public Box getSentBoxByActor(Actor a) {
+		return this.boxRepository.getSentBoxByActor(a);
 	}
 
 	public List<Box> getCurrentBoxByMessage(Message m) {

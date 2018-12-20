@@ -2,12 +2,14 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -67,18 +69,47 @@ public class MessageController extends AbstractController {
 
 	//Save
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Message message, BindingResult binding) { //Es sendMessage, no save
+	public ModelAndView save(@Valid Message message, BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(message);
 		} else {
 			try {
-				this.messageService.save(message);
-				result = new ModelAndView("redirect:login.do");
+				this.messageService.sendMessage(message);
+				result = new ModelAndView("redirect:#");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(message, "message.commit.error");
 			}
+		}
+		return result;
+	}
+
+	//Create
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam int rowId) {
+		ModelAndView result;
+		Message message;
+
+		message = this.messageService.findOne(rowId);
+
+		Assert.notNull(message);
+		result = this.createEditModelAndView(message);
+
+		return result;
+	}
+
+	//Save
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(Message message, BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.messageService.deleteMessageToTrashBox(message);
+			result = new ModelAndView("redirect:create.do");
+		} catch (Throwable oops) {
+			result = this.createEditModelAndView(message, "message.commit.error");
+
 		}
 		return result;
 	}
@@ -101,7 +132,7 @@ public class MessageController extends AbstractController {
 		result = new ModelAndView("message/actor/create");
 		result.addObject("messageTest", message);
 		result.addObject("actors", actors);
-		result.addObject("priority", Priority.values());
+		result.addObject("priority", Arrays.asList(Priority.values()));
 
 		result.addObject("message", messageCode);
 

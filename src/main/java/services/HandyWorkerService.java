@@ -77,7 +77,7 @@ public class HandyWorkerService {
 	@Autowired
 	private CustomerService			customerService;
 	@Autowired
-	private ConfigurationService	configurationService;
+	private BoxService				boxService;
 
 
 	// Simple CRUD methods --------------------------------------------------------------------------------------------
@@ -91,8 +91,12 @@ public class HandyWorkerService {
 		List<Endorsment> endorsments = new ArrayList<Endorsment>();
 		List<Application> applications = new ArrayList<Application>();
 		List<Tutorial> tutorials = new ArrayList<Tutorial>();
+		Curriculum curriculum = new Curriculum();
+		curriculum = this.curriculumService.create();
 
 		Finder finder = new Finder();
+
+		finder = this.finderService.createFinder();
 
 		UserAccount userAccountActor = new UserAccount();
 		userAccountActor.setUsername("");
@@ -141,6 +145,8 @@ public class HandyWorkerService {
 		handyWorker.setApplications(applications);
 		handyWorker.setPhoto("");
 		handyWorker.setFinder(finder);
+		handyWorker.setBoxes(boxes);
+		handyWorker.setCurriculum(curriculum);
 
 		handyWorker.setHasSpam(false);
 
@@ -214,6 +220,7 @@ public class HandyWorkerService {
 		handyWorker.setCurriculum(curriculum);
 		handyWorker.setTutorials(tutorials);
 		handyWorker.setName(name);
+		handyWorker.setBoxes(boxes);
 		handyWorker.setUserAccount(userAccountActor);
 		handyWorker.setAddress(address);
 		handyWorker.setEmail(email);
@@ -259,8 +266,35 @@ public class HandyWorkerService {
 	}
 
 	public HandyWorker save(HandyWorker handyWorker) {
+
 		handyWorker.setMake(handyWorker.getName() + "" + handyWorker.getMiddleName() + "" + handyWorker.getSurname());
-		return this.handyWorkerRepository.save(handyWorker);
+		HandyWorker saved = new HandyWorker();
+
+		List<Box> boxes = new ArrayList<Box>();
+		Box box1 = new Box();
+		Box box2 = new Box();
+		Box box3 = new Box();
+		Box box4 = new Box();
+		box1 = this.boxService.saveSystem(handyWorker.getBoxes().get(0));
+		box2 = this.boxService.saveSystem(handyWorker.getBoxes().get(1));
+		box3 = this.boxService.saveSystem(handyWorker.getBoxes().get(2));
+		box4 = this.boxService.saveSystem(handyWorker.getBoxes().get(3));
+		boxes.add(box1);
+		boxes.add(box2);
+		boxes.add(box3);
+		boxes.add(box4);
+		handyWorker.setBoxes(boxes);
+
+		Finder savedFinder = new Finder();
+		Curriculum savedCurriculum = new Curriculum();
+		savedFinder = this.finderService.save(handyWorker.getFinder());
+		savedCurriculum = this.curriculumService.save(handyWorker.getCurriculum());
+		handyWorker.setFinder(savedFinder);
+		handyWorker.setCurriculum(savedCurriculum);
+
+		saved = this.handyWorkerRepository.save(handyWorker);
+
+		return saved;
 	}
 	public void delete(HandyWorker handyWorker) {
 		this.handyWorkerRepository.delete(handyWorker);

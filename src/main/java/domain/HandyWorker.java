@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -36,8 +35,7 @@ public class HandyWorker extends Endorser {
 		this.applications = applications;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@NotNull
+	@OneToOne(optional = true, cascade = CascadeType.ALL)
 	public Finder getFinder() {
 		return this.finder;
 	}

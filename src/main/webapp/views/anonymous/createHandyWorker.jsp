@@ -26,7 +26,6 @@
 	<form:hidden path ="finder"/>
 	<form:hidden path ="tutorials"/>
 	<form:hidden path ="curriculum"/>
-	
 
 	<!-- Actor Attributes -->
 	<form:label path="name">
