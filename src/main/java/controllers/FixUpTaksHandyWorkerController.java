@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CustomerService;
@@ -31,6 +32,7 @@ public class FixUpTaksHandyWorkerController extends AbstractController {
 		super();
 	}
 
+	//List
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView fixUpTasksList() {
 		ModelAndView result;
@@ -42,6 +44,23 @@ public class FixUpTaksHandyWorkerController extends AbstractController {
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("map", map);
 		result.addObject("requestURI", "fixUpTask/handyWorker/list.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/customerList", method = RequestMethod.GET)
+	public ModelAndView applicationList(@RequestParam int customerId) {
+		ModelAndView result;
+		Collection<FixUpTask> fixUpTasks;
+
+		Customer customer = this.customerService.findOne(customerId);
+		fixUpTasks = customer.getFixUpTasks();
+
+		result = new ModelAndView("handy-worker/fixUpTaskCustomerInfo");
+
+		result.addObject("fixUpTasks", fixUpTasks);
+		result.addObject("customer", customer);
+		result.addObject("requestURI", "fixUpTask/handyWorker/customerList.do");
 
 		return result;
 	}

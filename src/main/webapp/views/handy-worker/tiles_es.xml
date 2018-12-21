@@ -51,7 +51,7 @@
 		<put-attribute name="body" value="/views/handy-worker/listEndorsment.jsp" />
 	</definition>
 	
-	<definition name="/finder/handyWorker/edit.do" extends="master.page">	
+	<definition name="handy-worker/finder" extends="master.page">	
 		<put-attribute name="title" value="Buscador" />
 		<put-attribute name="body" value="/views/handy-worker/finder.jsp" />
 	</definition>
@@ -66,7 +66,7 @@
 		<put-attribute name="body" value="/views/handy-worker/editPhase.jsp" />
 	</definition>
 	
-	<definition name="/fixUpTaskCustomerInfo/handyWorker/list.do" extends="master.page">	
+	<definition name="handy-worker/fixUpTaskCustomerInfo" extends="master.page">	
 		<put-attribute name="title" value="Customer info" />
 		<put-attribute name="body" value="/views/handy-worker/fixUpTaskCustomerInfo.jsp" />
 	</definition>
