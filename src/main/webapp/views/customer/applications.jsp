@@ -1,4 +1,3 @@
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,7 +6,14 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jsp:useBean id="now" class="java.util.Date"/>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.sql.Timestamp"%>
+  
+<%
+java.util.Date utilDate = new java.util.Date();
+java.sql.Timestamp now = new java.sql.Timestamp(utilDate.getTime());
+%>
+<jstl:set var="now" value="<%=now%>"/>
 
 <security:authorize access="hasRole('CUSTOMER')">
 	
@@ -23,7 +29,7 @@
 				<jstl:set var="color" value="red" />
 			</jstl:when>
 			
-			<jstl:when test="${row.fixUpTask.realizationTime > now}">
+			<jstl:when test="${row.fixUpTask.realizationTime < now}">
 				<jstl:set var="color" value="grey" />
 			</jstl:when>
 			
