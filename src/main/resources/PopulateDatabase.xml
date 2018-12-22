@@ -990,8 +990,8 @@
 		<property name="offeredPrice" value="4.5" />
 		<property name="comments">
 			<list>
-				<value>comment1</value>
-				<value>comment2"</value>
+				<value>¡Feliz Navidad!</value>
+				<value>(Aunque habrá que hacer mucho DP)</value>
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks1" />
@@ -1004,8 +1004,8 @@
 		<property name="offeredPrice" value="4.8" />
 		<property name="comments">
 			<list>
-				<value>comment3</value>
-				<value>comment4"</value>
+				<value>¡Feliz Navidad!(2)</value>
+				<value>(Aunque habrá que hacer mucho DP)(2)</value>
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks2" />
@@ -1018,8 +1018,8 @@
 		<property name="offeredPrice" value="123" />
 		<property name="comments">
 			<list>
-				<value>comment5</value>
-				<value>comment6"</value>
+				<value>¡Feliz Navidad!(3)</value>
+				<value>(Aunque habrá que hacer mucho DP)(3)</value>
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks3" />
@@ -1032,8 +1032,8 @@
 		<property name="offeredPrice" value="54" />
 		<property name="comments">
 			<list>
-				<value>comment7</value>
-				<value>comment8"</value>
+				<value>¡Feliz Navidad!(4)</value>
+				<value>(Aunque habrá que hacer mucho DP)(4)</value>
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks3" />
@@ -1046,8 +1046,8 @@
 		<property name="offeredPrice" value="123" />
 		<property name="comments">
 			<list>
-				<value>comment9</value>
-				<value>comment10"</value>
+				<value>¡Feliz Navidad!(5)</value>
+				<value>(Aunque habrá que hacer mucho DP)(5)</value>
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks4" />
@@ -1060,8 +1060,8 @@
 		<property name="offeredPrice" value="26" />
 		<property name="comments">
 			<list>
-				<value>comment11</value>
-				<value>comment12"</value>
+				<value>¡Feliz Navidad!(6)</value>
+				<value>(Aunque habrá que hacer mucho DP)(6)</value>
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks5" />
@@ -1074,8 +1074,8 @@
 		<property name="offeredPrice" value="123" />
 		<property name="comments">
 			<list>
-				<value>comment13</value>
-				<value>comment14"</value>
+				<value>¡Feliz Navidad!(7)</value>
+				<value>(Aunque habrá que hacer mucho DP)(7)</value>
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks6" />
@@ -1088,8 +1088,8 @@
 		<property name="offeredPrice" value="4.8" />
 		<property name="comments">
 			<list>
-				<value>comment3</value>
-				<value>comment4"</value>
+				<value>¡Feliz Navidad!(8)</value>
+				<value>(Aunque habrá que hacer mucho DP)(8)</value>
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks7" />
@@ -1102,8 +1102,8 @@
 		<property name="offeredPrice" value="4.8" />
 		<property name="comments">
 			<list>
-				<value>comment3</value>
-				<value>comment4"</value>
+				<value>¡Feliz Navidad!(9)</value>
+				<value>(Aunque habrá que hacer mucho DP)(9)</value>
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks2" />
@@ -1394,7 +1394,7 @@
 				<ref bean="spamHandyWorker1" />
 			</list>
 		</property>
-		<property name="score" value="0" />
+		<property name="score" value="1" />
 		<property name="endorsments">
 			<list>
 				<ref bean="endorsment1" />
@@ -1423,15 +1423,15 @@
 	
 	
 	<bean id="handyWorker2" class="domain.HandyWorker">
-		<property name="name" value="Pepe2" />
-		<property name="middleName" value="Luis2" />
-		<property name="surname" value="Martinez2" />
+		<property name="name" value="Jose" />
+		<property name="middleName" value="Luis" />
+		<property name="surname" value="Gil" />
 		<property name="photo" value="https://www.url.com/example2" />
 		<property name="email" value="pepe.luis2@gmail.com" />
 		<property name="phoneNumber" value="+34622256914" />
 		<property name="address" value="Sevilla" />
-		<property name="score" value="0" />
-		<property name="make" value="Pepe Luis Martinez" />
+		<property name="score" value="0.8" />
+		<property name="make" value="Jose Luis Gil" />
 		<property name="applications">
 			<list>
 				<ref bean="application2" />
@@ -1452,15 +1452,15 @@
 	</bean>
 		
 	<bean id="handyWorker3" class="domain.HandyWorker">
-		<property name="name" value="Pepe3" />
-		<property name="middleName" value="Luis3" />
-		<property name="surname" value="Martinez3" />
+		<property name="name" value="Carlos" />
+		<property name="middleName" value="Manuel" />
+		<property name="surname" value="Rodriguez" />
 		<property name="photo" value="https://www.url.com/example2" />
 		<property name="email" value="pepe.luis3@gmail.com" />
 		<property name="phoneNumber" value="+34633256914" />
 		<property name="address" value="Sevilla" />
 		<property name="score" value="0" />
-		<property name="make" value="Pepe Luis Martinez" />
+		<property name="make" value="Carlos Manuel Rodriguez" />
 		<property name="applications">
 			<list>
 				<ref bean="application4" />
@@ -1480,15 +1480,15 @@
 	</bean>	
 	
 	<bean id="handyWorker4" class="domain.HandyWorker">
-		<property name="name" value="Pepe4" />
-		<property name="middleName" value="Luis4" />
-		<property name="surname" value="Martinez4" />
+		<property name="name" value="Manuel" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Fernandez" />
 		<property name="photo" value="https://www.url.com/example2" />
 		<property name="email" value="pepe.luis4@gmail.com" />
 		<property name="phoneNumber" value="+34644456914" />
 		<property name="address" value="Sevilla" />
-		<property name="score" value="0" />
-		<property name="make" value="Pepe Luis Martinez" />
+		<property name="score" value="-1" />
+		<property name="make" value="Manuel Fernandez" />
 		<property name="applications">
 			<list>
 				<ref bean="application5" />
