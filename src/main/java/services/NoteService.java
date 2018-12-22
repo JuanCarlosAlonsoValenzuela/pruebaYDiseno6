@@ -24,12 +24,14 @@ public class NoteService {
 	public Note create() {
 
 		List<String> optionalComments = new ArrayList<String>();
+		List<String> usernames = new ArrayList<String>();
 		Note note = new Note();
 		Date thisMoment = new Date();
 		thisMoment.setTime(thisMoment.getTime() - 1);
 		note.setMoment(thisMoment);
 		note.setMandatoryComment("");
 		note.setOptionalComments(optionalComments);
+		note.setUsernames(usernames);
 
 		return note;
 	}

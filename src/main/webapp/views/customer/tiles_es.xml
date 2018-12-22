@@ -83,9 +83,8 @@
 		<put-attribute name="body" value="/views/customer/createAttachmentComplaint.jsp" />
 	</definition>
 	
-	
-		<definition name="/complaint/report/note/edit.do" extends="master.page">	
-		<put-attribute name="title" value="Añadir Nota" />
+	<definition name="note/customer/create" extends="master.page">	
+		<put-attribute name="title" value="Añadir nota" />
 		<put-attribute name="body" value="/views/customer/addNote.jsp" />
 	</definition>
 	
@@ -104,14 +103,14 @@
 		<put-attribute name="body" value="/views/customer/createCommentNote.jsp" />
 	</definition>
 
-	<definition name="/complaint/report/note/comment/list.do" extends="master.page">	
-		<put-attribute name="title" value="Comentarios de la Nota" />
+	<definition name="note/customer/showComments" extends="master.page">	
+		<put-attribute name="title" value="Comentarios de la nota" />
 		<put-attribute name="body" value="/views/customer/noteComments.jsp" />
 	</definition>
 	
 	
 	<definition name="note/customer/show" extends="master.page">	
-		<put-attribute name="title" value="Notas de los informes" />
+		<put-attribute name="title" value="Notas del informe" />
 		<put-attribute name="body" value="/views/customer/reportNotes.jsp" />
 	</definition>
 	

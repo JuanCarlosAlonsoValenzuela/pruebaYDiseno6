@@ -880,8 +880,9 @@
 				<value>attachment14</value>
 			</list>
 		</property>
-			<property name="reports">
+		<property name="reports">
 			<list>
+				<ref bean="report6"/>
 			</list>
 		</property>
 		<property name="referee" ref="referee1"/>
@@ -896,8 +897,9 @@
 				<value>attachment15</value>
 			</list>
 		</property>
-			<property name="reports">
+		<property name="reports">
 			<list>
+				<ref bean="report7"/>
 			</list>
 		</property>
 		<property name="referee" ref="referee2"/>
@@ -912,8 +914,9 @@
 				<value>attachment16</value>
 			</list>
 		</property>
-			<property name="reports">
+		<property name="reports">
 			<list>
+				<ref bean="report8"/>
 			</list>
 		</property>
 	</bean>
@@ -1014,7 +1017,7 @@
 
 	<bean id="application3" class="domain.Application">
 		<property name="moment" value="03/12/2014 11:30" />
-		<property name="status" value="PENDING" />
+		<property name="status" value="ACCEPTED" />
 		<property name="offeredPrice" value="123" />
 		<property name="comments">
 			<list>
@@ -1042,7 +1045,7 @@
 
 	<bean id="application5" class="domain.Application">
 		<property name="moment" value="12/11/1995 11:30" />
-		<property name="status" value="PENDING" />
+		<property name="status" value="ACCEPTED" />
 		<property name="offeredPrice" value="123" />
 		<property name="comments">
 			<list>
@@ -1056,7 +1059,7 @@
 
 	<bean id="application6" class="domain.Application">
 		<property name="moment" value="12/11/2000 14:25" />
-		<property name="status" value="PENDING" />
+		<property name="status" value="ACCEPTED" />
 		<property name="offeredPrice" value="26" />
 		<property name="comments">
 			<list>
@@ -1108,6 +1111,20 @@
 		</property>
 		<property name="fixUpTask" ref="fixUpTasks2" />
 		<property name="handyWorker" ref="handyWorker1" />
+	</bean>	
+	
+	<bean id="application10" class="domain.Application">
+		<property name="moment" value="03/01/2018 12:30" />
+		<property name="status" value="ACCEPTED" />
+		<property name="offeredPrice" value="8.8" />
+		<property name="comments">
+			<list>
+				<value>comment3</value>
+				<value>comment4"</value>
+			</list>
+		</property>
+		<property name="fixUpTask" ref="fixUpTasks6" />
+		<property name="handyWorker" ref="handyWorker3" />
 	</bean>
 	
 	<!-- END OF APPLICATION -->
@@ -1124,7 +1141,6 @@
 		</property>
 		<property name="notes">
 			<list>
-				<ref bean="note1" />
 			</list>
 		</property>
 		<property name="finalMode" value="false"/>
@@ -1141,7 +1157,6 @@
 		</property>
 		<property name="notes">
 			<list>
-				<ref bean="note2" />
 			</list>
 		</property>
 		<property name="finalMode" value="false"/>
@@ -1159,6 +1174,7 @@
 		</property>
 		<property name="notes">
 			<list>
+				<ref bean="note2" />
 				<ref bean="note3" />
 			</list>
 		</property>
@@ -1176,11 +1192,13 @@
 		</property>
 		<property name="notes">
 			<list>
+				<ref bean="note1" />
 				<ref bean="note4" />
 			</list>
 		</property>
 		<property name="finalMode" value="true"/>
 	</bean>
+	
 	<bean id="report5" class="domain.Report">	
 		<property name="moment" value="03/04/2018 11:30" />	
 		<property name="description" value="description1" />	
@@ -1190,6 +1208,62 @@
 				<value>attachment2</value>	
 			</list>	
 		</property>	
+		<property name="notes">
+			<list>
+				<ref bean="note5" />
+			</list>
+		</property>
+		<property name="finalMode" value="true"/>	
+	</bean>
+	
+	<bean id="report6" class="domain.Report">	
+		<property name="moment" value="03/07/2018 10:30" />	
+		<property name="description" value="description6" />	
+		<property name="attachments">	
+			<list>	
+				<value>attachment1</value>	
+				<value>attachment2</value>	
+			</list>	
+		</property>	
+		<property name="notes">
+			<list>
+				<ref bean="note6" />
+			</list>
+		</property>
+		<property name="finalMode" value="true"/>	
+	</bean>
+	
+	<bean id="report7" class="domain.Report">	
+		<property name="moment" value="08/04/2018 21:30" />	
+		<property name="description" value="description7" />	
+		<property name="attachments">	
+			<list>	
+				<value>attachment1</value>	
+				<value>attachment2</value>	
+			</list>	
+		</property>	
+		<property name="notes">
+			<list>
+				<ref bean="note7" />
+			</list>
+		</property>
+		<property name="finalMode" value="true"/>	
+	</bean>
+	
+	<bean id="report8" class="domain.Report">	
+		<property name="moment" value="03/04/2017 12:30" />	
+		<property name="description" value="description8" />	
+		<property name="attachments">	
+			<list>	
+				<value>attachment1</value>	
+				<value>attachment2</value>	
+			</list>	
+		</property>	
+		<property name="notes">
+			<list>
+				<ref bean="note8" />
+			</list>
+		</property>
 		<property name="finalMode" value="true"/>	
 	</bean>
 	<!-- END OF REPORT -->
@@ -1201,7 +1275,12 @@
 		<property name="optionalComments">
 			<list>
 				<value>optionalComment1</value>
-				<value>optionalComment2</value>
+			</list>
+		</property>
+		<property name="usernames">
+			<list>
+				<value>PacoCustomer</value>
+				<value>PepeHW</value>
 			</list>
 		</property>
 	</bean>
@@ -1211,8 +1290,11 @@
 		<property name="mandatoryComment" value="mandatoryComment2" />
 		<property name="optionalComments">
 			<list>
-				<value>optionalComment1</value>
-				<value>optionalComment2</value>
+			</list>
+		</property>
+		<property name="usernames">
+			<list>
+				<value>refeero2314RF</value>
 			</list>
 		</property>
 	</bean>
@@ -1223,7 +1305,12 @@
 		<property name="optionalComments">
 			<list>
 				<value>optionalComment1</value>
-				<value>optionalComment2</value>
+			</list>
+		</property>
+		<property name="usernames">
+			<list>
+				<value>refeero2314RF</value>
+				<value>PepeHW</value>
 			</list>
 		</property>
 	</bean>
@@ -1231,11 +1318,76 @@
 
 	<bean id="note4" class="domain.Note">
 		<property name="moment" value="03/07/2018 11:30" />
-		<property name="mandatoryComment" value="mandatoryComment3" />
+		<property name="mandatoryComment" value="mandatoryComment4" />
 		<property name="optionalComments">
 			<list>
+				<value>optionalComment1</value>
 				<value>optionalComment2</value>
-				<value>optionalComment4</value>
+			</list>
+		</property>
+		<property name="usernames">
+			<list>
+				<value>refe12eroRF</value>
+				<value>PepeHW</value>
+				<value>PacoCustomer</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="note5" class="domain.Note">
+		<property name="moment" value="03/07/2018 11:30" />
+		<property name="mandatoryComment" value="mandatoryComment5" />
+		<property name="optionalComments">
+			<list>
+			</list>
+		</property>
+		<property name="usernames">
+			<list>
+				<value>PepeHW</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="note6" class="domain.Note">
+		<property name="moment" value="09/09/2018 11:34" />
+		<property name="mandatoryComment" value="mandatoryComment6" />
+		<property name="optionalComments">
+			<list>
+			</list>
+		</property>
+		<property name="usernames">
+			<list>
+				<value>JuanCustomer</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="note7" class="domain.Note">
+		<property name="moment" value="09/09/2018 17:03" />
+		<property name="mandatoryComment" value="mandatoryComment7" />
+		<property name="optionalComments">
+			<list>
+			</list>
+		</property>
+		<property name="usernames">
+			<list>
+				<value>Pepe3HW</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="note8" class="domain.Note">
+		<property name="moment" value="09/09/2018 14:00" />
+		<property name="mandatoryComment" value="mandatoryComment8" />
+		<property name="optionalComments">
+			<list>
+				<value>optionalComment11</value>
+			</list>
+		</property>
+		<property name="usernames">
+			<list>
+				<value>JoseCustomer</value>
+				<value>refeeroRF</value>
 			</list>
 		</property>
 	</bean>
@@ -1280,6 +1432,8 @@
 		<property name="reports">
 			<list>
 				<ref bean="report2" />
+				<ref bean="report6"/>
+				<ref bean="report8"/>
 			</list>
 		</property>
 		<property name="boxes">
@@ -1330,6 +1484,7 @@
 		<property name="reports">
 			<list>
 				<ref bean="report4" />
+				<ref bean="report7"/>
 			</list>
 		</property>
 		<property name="boxes">
