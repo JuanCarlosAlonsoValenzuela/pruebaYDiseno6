@@ -574,34 +574,42 @@ public class CustomerService {
 	}
 
 	// NOTES
-	public Note createNote(Report report) {
+	public void createNote(Report report, Note note) {
 		Customer loggedCustomer = this.securityAndCustomer();
-
-		Note note = this.noteService.create();
 
 		Collection<Report> reports = this.customerRepository.findReportsById(loggedCustomer.getId());
 
-		Report reportFound = null;
-		for (Report r : reports) {
-			if (report.getId() == r.getId()) {
-				reportFound = r;
-				break;
-			}
-		}
-
-		Assert.notNull(reportFound);
+		Assert.isTrue(reports.contains(report));
 
 		List<Note> notes = report.getNotes();
+		List<String> usernames = note.getUsernames();
+
+		usernames.add(loggedCustomer.getUserAccount().getUsername());
+		note.setUsernames(usernames);
 		notes.add(note);
 
 		report.setNotes(notes);
-
-		Note noteSaved = this.noteService.save(note);
 		this.reportService.save(report);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
-		return noteSaved;
+	}
+
+	public List<Note> showNotes(Report report) {
+		Customer loggedCustomer = this.securityAndCustomer();
+
+		Collection<Report> reports = this.customerRepository.findReportsById(loggedCustomer.getId());
+
+		Assert.isTrue(reports.contains(report));
+		return report.getNotes();
+	}
+
+	public List<String> showNotesComments(Note note, Customer customer) {
+
+		Collection<Note> notes = this.customerRepository.findNotesById(customer.getId());
+
+		Assert.isTrue(notes.contains(note));
+		return note.getOptionalComments();
 	}
 
 	public Note createNote(Report report, String mandatoryComment, List<String> optionalComments) {

@@ -43,7 +43,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		Collection<FixUpTask> fixUpTasks;
 
 		fixUpTasks = this.customerService.showFixUpTasks();
-		System.out.println(fixUpTasks);
+
 		result = new ModelAndView("customer/fixUpTask");
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("requestURI", "fixUpTask/customer/list.do");
