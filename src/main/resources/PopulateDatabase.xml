@@ -885,7 +885,7 @@
 				<ref bean="report6"/>
 			</list>
 		</property>
-		<property name="referee" ref="referee1"/>
+		<property name="referee" ref="referee2"/>
 	</bean>
 
 	<bean id="complaint10" class="domain.Complaint">
@@ -902,7 +902,7 @@
 				<ref bean="report7"/>
 			</list>
 		</property>
-		<property name="referee" ref="referee2"/>
+		<property name="referee" ref="referee4"/>
 	</bean>
 
 	<bean id="complaint11" class="domain.Complaint">
@@ -919,6 +919,7 @@
 				<ref bean="report8"/>
 			</list>
 		</property>
+		<property name="referee" ref="referee2"/>
 	</bean>
 	<!-- END OF COMPLAINT -->
 

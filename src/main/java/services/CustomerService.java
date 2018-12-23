@@ -647,26 +647,21 @@ public class CustomerService {
 
 		Collection<Note> notes = this.customerRepository.findNotesById(loggedCustomer.getId());
 
-		Note noteFound = null;
-		for (Note n : notes) {
-			if (note.getId() == n.getId()) {
-				noteFound = n;
-				break;
-			}
-		}
+		Assert.isTrue(notes.contains(note));
+		Assert.isTrue(!note.getUsernames().contains(loggedCustomer.getUserAccount().getUsername()));
 
-		Assert.notNull(noteFound);
-
-		List<String> comments = noteFound.getOptionalComments();
+		List<String> usernames = note.getUsernames();
+		List<String> comments = note.getOptionalComments();
+		usernames.add(loggedCustomer.getUserAccount().getUsername());
 		comments.add(comment);
-
-		Note noteSaved = this.noteService.save(noteFound);
+		note.setOptionalComments(comments);
+		note.setUsernames(usernames);
+		Note savedNote = this.noteService.save(note);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
-		return noteSaved;
+		return savedNote;
 	}
-
 	// ENDORSMENTS
 	public Collection<Endorsment> showEndorsments() {
 		Customer loggedCustomer = this.securityAndCustomer();

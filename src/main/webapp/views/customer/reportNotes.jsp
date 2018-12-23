@@ -20,8 +20,9 @@
 		
 	<display:column titleKey="note.comments">
 				<jstl:set var="optionalCommentsSize" value="${row.optionalComments.size()}" />
-				<spring:url var="commentsUrl" value="note/customer/showComments.do?noteId={notId}">
+				<spring:url var="commentsUrl" value="note/customer/showComments.do?noteId={notId}&reportId={reportId}">
 							<spring:param name="notId" value="${row.id}"/>
+							<spring:param name="reportId" value="${reportId}"/>
 				</spring:url>
 				<a href="${commentsUrl}">
 							<spring:message var ="viewComments1" code="note.viewComments" />

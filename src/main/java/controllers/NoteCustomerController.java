@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,13 +67,14 @@ public class NoteCustomerController extends AbstractController {
 
 	}
 	@RequestMapping(value = "/showComments", method = RequestMethod.GET)
-	public ModelAndView listComments(@RequestParam int noteId) {
+	public ModelAndView listComments(@RequestParam int noteId, @RequestParam int reportId) {
 
 		ModelAndView result;
 
 		Customer loggedCustomer = this.customerService.securityAndCustomer();
 
 		Note note = this.noteService.findOne(noteId);
+		Assert.notNull(note);
 		List<String> usernames = note.getUsernames();
 
 		Boolean canComment = !usernames.contains(loggedCustomer.getUserAccount().getUsername());
@@ -83,8 +85,10 @@ public class NoteCustomerController extends AbstractController {
 		result = new ModelAndView("note/customer/showComments");
 
 		result.addObject("optionalComments", optionalComments);
-		result.addObject("requestURI", "note/customer/showComments.do");
+		//result.addObject("requestURI", "note/customer/showComments.do");
 		result.addObject("canComment", canComment);
+		result.addObject("reportId", reportId);
+		result.addObject("noteId", noteId);
 
 		return result;
 
@@ -97,6 +101,20 @@ public class NoteCustomerController extends AbstractController {
 		note = this.noteService.create();
 		result = this.createEditModelAndView(note);
 		result.addObject("reportId", reportId);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/addComment", method = RequestMethod.GET)
+	public ModelAndView addComment(@RequestParam int reportId, @RequestParam int noteId) {
+		ModelAndView result;
+		Note note;
+
+		note = this.noteService.findOne(noteId);
+		Assert.notNull(note);
+		result = this.createEditModelAndView(note);
+		result.addObject("reportId", reportId);
+		result.addObject("noteId", noteId);
 
 		return result;
 	}
@@ -117,8 +135,25 @@ public class NoteCustomerController extends AbstractController {
 
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(note, "note.commit.error");
-
+				result.addObject("reportId", reportId);
 			}
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/addComment", method = RequestMethod.POST, params = "Comment")
+	public ModelAndView saveCreate(@RequestParam int noteId, @RequestParam int reportId, @RequestParam String comment) {
+		ModelAndView result;
+		Note note = this.noteService.findOne(noteId);
+
+		try {
+			this.customerService.addComent(note, comment);
+			result = new ModelAndView("redirect:showComments.do?noteId=" + noteId + "&reportId=" + reportId);
+
+		} catch (Throwable oops) {
+			result = this.createEditModelAndView(note, "note.commit.error");
+			result.addObject("reportId", reportId);
+			result.addObject("noteId", noteId);
 		}
 		return result;
 	}
