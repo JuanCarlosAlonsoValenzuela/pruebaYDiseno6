@@ -90,7 +90,7 @@
 	</definition>
 	
 	<definition name="note/customer/create" extends="master.page">	
-		<put-attribute name="title" value="Add Note" />
+		<put-attribute name="title" value="Edit Note" />
 		<put-attribute name="body" value="/views/customer/addNote.jsp" />
 	</definition>
 	
@@ -102,11 +102,6 @@
 		<definition name="attachment/customer/list" extends="master.page">	
 		<put-attribute name="title" value="Complaint's Attachments" />
 		<put-attribute name="body" value="/views/customer/attachments.jsp" />
-	</definition>
-	
-	<definition name="/complaint/report/note/comment/edit.do" extends="master.page">	
-		<put-attribute name="title" value="Add a Comment" />
-		<put-attribute name="body" value="/views/customer/createCommentNote.jsp" />
 	</definition>
 
 	<definition name="note/customer/showComments" extends="master.page">	
