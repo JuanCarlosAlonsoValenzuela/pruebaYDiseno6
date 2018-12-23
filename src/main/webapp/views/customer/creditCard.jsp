@@ -54,7 +54,7 @@
 			<spring:message code="creditCard.expirationMonth" />		
 		</form:label>
 		
-		<form:input path="expirationMonth" />
+		<form:input path="expirationMonth" placeholder="12" />
 		
 		<form:errors cssClass="error" path="expirationMonth" />
 		<br />
@@ -64,7 +64,7 @@
 			<spring:message code="creditCard.expirationYear" />			
 		</form:label>
 		
-		<form:input path="expirationYear" />
+		<form:input path="expirationYear" placeholder="23"/>
 		
 		<form:errors cssClass="error" path="expirationYear" />
 		<br />
@@ -73,7 +73,7 @@
 	<form:label path="cvvCode">
 			<spring:message code="creditCard.cvvCode" />			
 		</form:label>
-		<form:input path="cvvCode" />
+		<form:input path="cvvCode" placeholder="123"/>
 		<form:errors cssClass="error" path="cvvCode" />
 		<br />
 		

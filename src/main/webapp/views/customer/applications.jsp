@@ -16,6 +16,15 @@ java.sql.Timestamp now = new java.sql.Timestamp(utilDate.getTime());
 <jstl:set var="now" value="<%=now%>"/>
 
 <security:authorize access="hasRole('CUSTOMER')">
+
+	<jstl:set var="anyAccepted" value="false"/>
+	<jstl:forEach items="${applications}" var="app">
+		<jstl:if test="${anyAccepted==false}">
+			<jstl:if test="${app.status.toString()=='ACCEPTED'}">
+				<jstl:set var="anyAccepted" value="true"/>
+			</jstl:if>
+		</jstl:if>
+	</jstl:forEach>
 	
 	<display:table pagesize="5" name="applications" id="row" class="displaytag" 
 					requestURI="/application/customer/list.do">
@@ -40,8 +49,8 @@ java.sql.Timestamp now = new java.sql.Timestamp(utilDate.getTime());
 		
 
 		<display:column titleKey="application.changeStatus">
-			<!-- Solo deja cambiar el status si no está aceptado -->	
-			<jstl:if test="${row.status.toString()!='ACCEPTED'}">
+			<!-- Solo deja cambiar el status si no está aceptado ni pendiente ni hay ninguna application aceptada -->	
+			<jstl:if test="${row.status.toString()=='PENDING' && anyAccepted==false}">
 					<spring:url var="statusUrl" value="/application/customer/edit.do?applicationId={appId}">
 							<spring:param name="appId" value="${row.id}"/>
 					</spring:url>

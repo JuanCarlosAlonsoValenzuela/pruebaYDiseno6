@@ -248,6 +248,19 @@
 			</list>
 		</property>
 		<property name="isNotLocked" value="True" />
+	</bean> 
+	
+	<bean id="userAccount19" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="81dc9bdb52d04dc20036dbd8313ed055" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+		<property name="isNotLocked" value="True" />
 	</bean>
 
 	<!-- Other domain beans come here -->
@@ -1018,7 +1031,7 @@
 
 	<bean id="application3" class="domain.Application">
 		<property name="moment" value="03/12/2014 11:30" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="PENDING" />
 		<property name="offeredPrice" value="123" />
 		<property name="comments">
 			<list>
@@ -1524,6 +1537,26 @@
 			</list>
 		</property>
 		<property name="userAccount" ref="userAccount18" />
+		<property name="hasSpam" value = "false"/>
+	</bean>
+	
+	<bean id="admin2" class="domain.Admin">
+		<property name="name" value="System" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Notifications" />
+		<property name="photo" value="https://www.url.com/system" />
+		<property name="email" value="notifications@acmehandyworker.com" />
+		<property name="phoneNumber" value="+34676958523" />
+		<property name="address" value="Central Offices" />
+		<property name="boxes">
+			<list>
+				<ref bean="box1System" />
+				<ref bean="box2System" />
+				<ref bean="box3System" />
+				<ref bean="box4System" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount19" />
 		<property name="hasSpam" value = "false"/>
 	</bean>
 	<!-- ADMIN -->
@@ -2120,6 +2153,25 @@
 			<list>
 			</list>
 		</property>
+	</bean>
+	
+	<bean class="domain.Box" id="box1System">
+		<property value="Sent messages" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+	<bean class="domain.Box" id="box2System">
+		<property value="Received messages" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+
+	<bean class="domain.Box" id="box3System">
+		<property value="Trash" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+	
+	<bean class="domain.Box" id="box4System">
+		<property value="Spam" name="name" />
+		<property value="true" name="isSystem" />
 	</bean>
 	
 	<bean class="domain.Box" id="sentCustomer1">
