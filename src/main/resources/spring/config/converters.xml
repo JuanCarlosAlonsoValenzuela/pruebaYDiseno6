@@ -82,6 +82,9 @@
 		
 		<bean class="converters.NoteToStringConverter" />
 		<bean class="converters.StringToNoteConverter" />
+		
+		<bean class="converters.SectionToStringConverter" />
+		<bean class="converters.StringToSectionConverter" />
 		<!-- 
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 

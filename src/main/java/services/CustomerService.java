@@ -612,6 +612,7 @@ public class CustomerService {
 		return note.getOptionalComments();
 	}
 
+	//TODO Sobra
 	public Note createNote(Report report, String mandatoryComment, List<String> optionalComments) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
@@ -649,6 +650,8 @@ public class CustomerService {
 
 		Assert.isTrue(notes.contains(note));
 		Assert.isTrue(!note.getUsernames().contains(loggedCustomer.getUserAccount().getUsername()));
+		Assert.isTrue(comment != "");
+		Assert.notNull(comment);
 
 		List<String> usernames = note.getUsernames();
 		List<String> comments = note.getOptionalComments();
