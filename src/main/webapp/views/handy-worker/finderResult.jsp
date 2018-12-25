@@ -13,20 +13,17 @@
 	<spring:url var="finderUrl" value="/finder/handyWorker/edit.do" />
 	
 	<a href="${finderUrl}">
-			<button type="button" ><spring:message code="fixUpTask.filter" /></button>			
+	<button type="button" ><spring:message code="fixUpTask.filter" /></button>	
 	</a>
 	
 	<form:form action="fixUpTask/handyWorker/edit.do">
-
-			
 						<!-- Buttons -->
 			<input type="submit" name="save" value="<spring:message code="fixUpTask.cleanFilter"/>" />	
 			
-	
 	</form:form>
 
 	<display:table pagesize="5" name="fixUpTasks" id="row" class="displaytag" 
-					requestURI="/fixUpTask/handyWorker/list.do">
+					requestURI="/finder/handyWorker/list.do">
 		
 		<display:column>
 			<jstl:forEach
