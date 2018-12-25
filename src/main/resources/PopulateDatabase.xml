@@ -248,6 +248,19 @@
 			</list>
 		</property>
 		<property name="isNotLocked" value="True" />
+	</bean> 
+	
+	<bean id="userAccount19" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="81dc9bdb52d04dc20036dbd8313ed055" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+		<property name="isNotLocked" value="True" />
 	</bean>
 
 	<!-- Other domain beans come here -->
@@ -885,7 +898,7 @@
 				<ref bean="report6"/>
 			</list>
 		</property>
-		<property name="referee" ref="referee1"/>
+		<property name="referee" ref="referee2"/>
 	</bean>
 
 	<bean id="complaint10" class="domain.Complaint">
@@ -902,7 +915,7 @@
 				<ref bean="report7"/>
 			</list>
 		</property>
-		<property name="referee" ref="referee2"/>
+		<property name="referee" ref="referee4"/>
 	</bean>
 
 	<bean id="complaint11" class="domain.Complaint">
@@ -919,6 +932,7 @@
 				<ref bean="report8"/>
 			</list>
 		</property>
+		<property name="referee" ref="referee2"/>
 	</bean>
 	<!-- END OF COMPLAINT -->
 
@@ -1017,7 +1031,7 @@
 
 	<bean id="application3" class="domain.Application">
 		<property name="moment" value="03/12/2014 11:30" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="PENDING" />
 		<property name="offeredPrice" value="123" />
 		<property name="comments">
 			<list>
@@ -1525,6 +1539,26 @@
 		<property name="userAccount" ref="userAccount18" />
 		<property name="hasSpam" value = "false"/>
 	</bean>
+	
+	<bean id="admin2" class="domain.Admin">
+		<property name="name" value="System" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Notifications" />
+		<property name="photo" value="https://www.url.com/system" />
+		<property name="email" value="notifications@acmehandyworker.com" />
+		<property name="phoneNumber" value="+34676958523" />
+		<property name="address" value="Central Offices" />
+		<property name="boxes">
+			<list>
+				<ref bean="box1System" />
+				<ref bean="box2System" />
+				<ref bean="box3System" />
+				<ref bean="box4System" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount19" />
+		<property name="hasSpam" value = "false"/>
+	</bean>
 	<!-- ADMIN -->
 
 	<!-- HANDY WORKER -->
@@ -1604,6 +1638,11 @@
 		<property name="userAccount" ref="userAccount9" />
 		<property name="hasSpam" value = "false"/>
 		<property name="finder" ref ="finder2" />
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial2" />
+			</list>
+		</property>
 	</bean>
 		
 	<bean id="handyWorker3" class="domain.HandyWorker">
@@ -1632,6 +1671,11 @@
 		<property name="userAccount" ref="userAccount10" />
 		<property name="hasSpam" value = "false"/>
 		<property name="finder" ref ="finder3" />
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial3" />
+			</list>
+		</property>
 	</bean>	
 	
 	<bean id="handyWorker4" class="domain.HandyWorker">
@@ -1663,6 +1707,11 @@
 		<property name="userAccount" ref="userAccount11" />
 		<property name="hasSpam" value = "false"/>
 		<property name="finder" ref ="finder4" />
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial4" />
+			</list>
+		</property>
 	</bean>	
 		
 	<!-- END OF HANDY WORKER -->
@@ -1932,6 +1981,7 @@
 		<property name="sponsorships">
 			<list>
 				<ref bean="sponsorship1" />
+				<ref bean="sponsorship4" />
 			</list>
 		</property>
 		<property name="userAccount" ref="userAccount16" />
@@ -1957,6 +2007,9 @@
 		<property name="sponsorships">
 			<list>
 				<ref bean="sponsorship2" />
+				<ref bean="sponsorship3" />
+				<ref bean="sponsorship5" />
+				<ref bean="sponsorship6" />
 			</list>
 		</property>
 		<property name="userAccount" ref="userAccount17" />
@@ -1967,14 +2020,36 @@
 
 	<!-- SPONSORSHIP -->
 	<bean id="sponsorship1" class="domain.Sponsorship">
-		<property name="bannerUrl" value="https://www.example.com/image1.jpg" />
-		<property name="link" value="https://www.example.com/link1" />
+		<property name="bannerUrl" value="http://www.brandemia.org/wp-content/uploads/2013/04/version_pizzero_nuevo-logo.jpg" />
+		<property name="link" value="https://www.telepizza.es/" />
 		
 	</bean>
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
-		<property name="bannerUrl" value="https://www.example.com/image2.jpg" />
-		<property name="link" value="https://www.example.com/link2" />
+		<property name="bannerUrl" value="https://www.desatranques.com/images/fotos/17_g.jpg" />
+		<property name="link" value="https://www.desatranques.com/" />
+		
+	</bean>
+	<bean id="sponsorship3" class="domain.Sponsorship">
+		<property name="bannerUrl" value="http://appcircus.com/blog/wp-content/uploads/2012/03/Logo-ETSII-300x226.png" />
+		<property name="link" value="https://www.informatica.us.es/" />
+		
+	</bean>
+
+	<bean id="sponsorship4" class="domain.Sponsorship">
+		<property name="bannerUrl" value="https://compraenzalamea.files.wordpress.com/2015/08/carpinteria-paco-360_l-270x270-ok-ok-ok.jpg" />
+		<property name="link" value="https://www.carpinteriapacolopez.com/" />
+		
+	</bean>
+	<bean id="sponsorship5" class="domain.Sponsorship">
+		<property name="bannerUrl" value="https://ih1.redbubble.net/image.231254349.2149/pp,550x550.u1.jpg" />
+		<property name="link" value="http://www.scp-wiki.net/" />
+		
+	</bean>
+
+	<bean id="sponsorship6" class="domain.Sponsorship">
+		<property name="bannerUrl" value="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Electronic-Arts-Logo.svg/1200px-Electronic-Arts-Logo.svg.png" />
+		<property name="link" value="https://www.ea.com/" />
 		
 	</bean>
 	<!-- END OF SPONSORSHIP -->
@@ -1984,7 +2059,7 @@
 	<bean id="tutorial1" class="domain.Tutorial">
 		<property name="title" value="Titulo1" />
 		<property name="lastUpdate" value="12/12/2017 23:59" />
-		<property name="sumary" value="Its a tutorial1" />
+		<property name="summary" value="Its a tutorial1" />
 		<property name="pictures">
 			<list>
 				<value>www.example.com/picture1</value>
@@ -2000,14 +2075,19 @@
 		<property name="sponsorships">
 			<list>
 			<ref bean="sponsorship1" />
+			<ref bean="sponsorship2" />
+			<ref bean="sponsorship3" />
+			<ref bean="sponsorship4" />
+			<ref bean="sponsorship5" />
+			<ref bean="sponsorship6" />
 			</list>
 		</property>
 	</bean>
 
 	<bean id="tutorial2" class="domain.Tutorial">
 		<property name="title" value="Titulo2" />
-		<property name="lastUpdate" value="12/12/2017" />
-		<property name="sumary" value="Its a tutorial2" />
+		<property name="lastUpdate" value="04/08/2017 12:42" />
+		<property name="summary" value="Its a tutorial2" />
 		<property name="pictures">
 			<list>
 				<value>www.example.com/picture2</value>
@@ -2022,7 +2102,63 @@
 		</property>
 		<property name="sponsorships">
 			<list>
+			<ref bean="sponsorship1" />
 			<ref bean="sponsorship2" />
+			<ref bean="sponsorship3" />
+			<ref bean="sponsorship4" />
+			<ref bean="sponsorship5" />
+			<ref bean="sponsorship6" />
+			</list>
+		</property>
+	</bean>
+		<bean id="tutorial3" class="domain.Tutorial">
+		<property name="title" value="Titulo3" />
+		<property name="lastUpdate" value="12/12/2017 23:59" />
+		<property name="summary" value="Its a tutorial3" />
+		<property name="pictures">
+			<list>
+				<value>www.example.com/picture1</value>
+				<value>www.example.com/picture1</value>
+			</list>
+		</property>
+		<property name="sections">
+			<list>
+			</list>
+		</property>
+		<property name="sponsorships">
+			<list>
+			<ref bean="sponsorship1" />
+			<ref bean="sponsorship2" />
+			<ref bean="sponsorship3" />
+			<ref bean="sponsorship4" />
+			<ref bean="sponsorship5" />
+			<ref bean="sponsorship6" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="tutorial4" class="domain.Tutorial">
+		<property name="title" value="Titulo4" />
+		<property name="lastUpdate" value="12/12/2018 12:42" />
+		<property name="summary" value="Its a tutorial4" />
+		<property name="pictures">
+			<list>
+				<value>www.example.com/picture2</value>
+				<value>www.example.com/picture2</value>
+			</list>
+		</property>
+		<property name="sections">
+			<list>
+			</list>
+		</property>
+		<property name="sponsorships">
+			<list>
+			<ref bean="sponsorship1" />
+			<ref bean="sponsorship2" />
+			<ref bean="sponsorship3" />
+			<ref bean="sponsorship4" />
+			<ref bean="sponsorship5" />
+			<ref bean="sponsorship6" />
 			</list>
 		</property>
 	</bean>
@@ -2119,6 +2255,25 @@
 			<list>
 			</list>
 		</property>
+	</bean>
+	
+	<bean class="domain.Box" id="box1System">
+		<property value="Sent messages" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+	<bean class="domain.Box" id="box2System">
+		<property value="Received messages" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+
+	<bean class="domain.Box" id="box3System">
+		<property value="Trash" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+	
+	<bean class="domain.Box" id="box4System">
+		<property value="Spam" name="name" />
+		<property value="true" name="isSystem" />
 	</bean>
 	
 	<bean class="domain.Box" id="sentCustomer1">

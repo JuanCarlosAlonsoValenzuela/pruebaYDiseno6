@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import repositories.TutorialRepository;
+import domain.HandyWorker;
 import domain.Section;
 import domain.Sponsorship;
 import domain.Tutorial;
@@ -33,7 +35,7 @@ public class TutorialService {
 
 		tutorial.setLastUpdate(null);
 		tutorial.setTitle("");
-		tutorial.setSumary("");
+		tutorial.setSummary("");
 		tutorial.setSections(sections);
 		tutorial.setSponsorships(sponsorships);
 
@@ -49,7 +51,7 @@ public class TutorialService {
 
 		tutorial.setLastUpdate(lastUpdate);
 		tutorial.setTitle(title);
-		tutorial.setSumary(sumary);
+		tutorial.setSummary(sumary);
 		tutorial.setSections(sections);
 		tutorial.setSponsorships(sponsorships);
 
@@ -75,4 +77,22 @@ public class TutorialService {
 	public void deleteAll(List<Tutorial> tutorials) {
 		this.tutorialRepository.deleteInBatch(tutorials);
 	}
+
+	public List<HandyWorker> getAuthors(List<Tutorial> tutorials) {
+		List<HandyWorker> result = new ArrayList<HandyWorker>();
+		for (Tutorial t : tutorials) {
+			result.add(this.tutorialRepository.getTutorialAuthor(t.getId()));
+		}
+		return result;
+	}
+
+	public List<Sponsorship> getRandomSponsorShip(List<Tutorial> tutorials) {
+		List<Sponsorship> result = new ArrayList<Sponsorship>();
+		Random random = new Random();
+		for (Tutorial t : tutorials) {
+			result.add(t.getSponsorships().get(random.nextInt(t.getSponsorships().size())));
+		}
+		return result;
+	}
+
 }

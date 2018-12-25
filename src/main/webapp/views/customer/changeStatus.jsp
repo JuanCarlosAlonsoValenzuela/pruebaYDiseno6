@@ -17,16 +17,20 @@
 		<form:input path="moment" readonly="true"/>
 		<br/>
 		
-		<form:hidden path="offeredPrice" />
-		<form:hidden path="comments" />
-		<form:hidden path="fixUpTask" />
-		<form:hidden path="handyWorker" /> 
+		<form:label path="offeredPrice">
+			<spring:message code="application.offeredPrice" />		
+		</form:label>
+		<form:input path="offeredPrice" readonly="true"/>
+		<br/>
 		
-		 
+		<form:hidden path="comments" />
+		
+		<form:hidden path="fixUpTask" />
+		<form:hidden path="handyWorker" />
+		
 		 <form:label path="status">
 			<spring:message code="customer.application.status" />		
 		</form:label>
-		
 		<form:select path="status">
 			<spring:message var="accepted" code="customer.application.accepted"/>
 			<form:option label="${accepted}" value="ACCEPTED" />		

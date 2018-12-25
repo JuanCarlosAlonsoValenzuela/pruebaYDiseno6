@@ -86,6 +86,43 @@ public class MessageService {
 			this.actorService.save(actorRecieved);
 		}
 	}
+
+	public void sendMessageAnotherSender(Message message) {
+		Actor sender = message.getSender();
+
+		Actor actorRecieved = message.getReceiver();
+
+		Box boxRecieved = new Box();
+		Box boxSpam = new Box();
+		Box boxSent = new Box();
+
+		Message messageSaved = this.messageRepository.save(message);
+		Message messageCopy = this.createNotification(messageSaved.getSubject(), messageSaved.getBody(), messageSaved.getPriority(), messageSaved.getReceiver());
+		Message messageCopySaved = this.messageRepository.save(messageCopy);
+		boxSent = this.boxService.getSentBoxByActor(messageSaved.getSender());
+		boxRecieved = this.boxService.getRecievedBoxByActor(actorRecieved);
+		boxSpam = this.boxService.getSpamBoxByActor(actorRecieved);
+
+		// Guardar la box con ese mensaje;
+
+		if (this.configurationService.isActorSuspicious(sender)) {
+			List<Message> list = boxSpam.getMessages();
+			list.add(messageSaved);
+			boxSpam.setMessages(list);
+			this.boxService.saveSystem(boxSpam);
+			this.actorService.save(message.getReceiver());
+
+		} else {
+			boxRecieved.getMessages().add(messageCopySaved);
+			boxSent.getMessages().add(messageSaved);
+			//boxRecieved.setMessages(list);
+			this.boxService.saveSystem(boxSent);
+			this.boxService.saveSystem(boxRecieved);
+			this.actorService.save(messageSaved.getSender());
+			this.actorService.save(actorRecieved);
+		}
+	}
+
 	public Message save(Message message) {
 		return this.messageRepository.save(message);
 
@@ -143,6 +180,29 @@ public class MessageService {
 
 		return message;
 	}
+
+	public Message createNotification(String Subject, String body, Priority priority, Actor recipient) {
+		this.actorService.loggedAsActor();
+
+		Date thisMoment = new Date();
+		thisMoment.setTime(thisMoment.getTime() - 1);
+		List<String> tags = new ArrayList<String>();
+
+		Message message = new Message();
+
+		Actor sender = this.actorService.getActorByUsername("system");
+
+		message.setMoment(thisMoment);
+		message.setSubject(Subject);
+		message.setBody(body);
+		message.setPriority(priority);
+		message.setReceiver(recipient);
+		message.setTags(tags);
+		message.setSender(sender);
+
+		return message;
+	}
+
 	public void updateMessage(Message message, Box box) { // Posible problema
 		// con copia
 

@@ -22,11 +22,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import security.UserAccount;
+import services.ActorService;
 import services.ApplicationService;
 import services.CustomerService;
 import services.FixUpTaskService;
+import services.MessageService;
+import domain.Actor;
 import domain.Application;
 import domain.CreditCard;
+import domain.Message;
+import domain.Priority;
 import domain.Status;
 
 @Controller
@@ -39,6 +46,10 @@ public class ApplicationCustomerController extends AbstractController {
 	private ApplicationService	applicationService;
 	@Autowired
 	private CustomerService		customerService;
+	@Autowired
+	private MessageService		messageService;
+	@Autowired
+	private ActorService		actorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -127,6 +138,10 @@ public class ApplicationCustomerController extends AbstractController {
 					result.addObject("creditCard", creditCard);
 				} else {
 					Application applicationSave = this.applicationService.save(application);
+
+					//Messages
+					this.sendMessagesToActorsInvolved(applicationSave);
+
 					result = new ModelAndView("redirect:list.do");
 					result.addObject("fixUpTaskId", applicationSave.getFixUpTask().getId());
 					result.addObject("applicationId", applicationSave.getId());
@@ -141,11 +156,45 @@ public class ApplicationCustomerController extends AbstractController {
 		return result;
 	}
 
+	private void sendMessagesToActorsInvolved(Application application) {
+		//Messages
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		String userName = userAccount.getUsername();
+		Actor customer = this.actorService.getActorByUsername(userAccount.getUsername());
+
+		String statusES = "";
+		String statusEN = "";
+		if (application.getStatus().equals(Status.ACCEPTED)) {
+			statusES = "ACEPTADA";
+			statusEN = "ACCEPTED";
+		} else {
+			statusES = "RECHAZADA";
+			statusEN = "REJECTED";
+		}
+
+		String subject = "Application updated: " + statusEN + " / Solicitud actualizada: " + statusES;
+
+		//		String bodyC = "The application offered by handy worker: " + application.getHandyWorker().getMake() + ", with the next offered price: " + application.getOfferedPrice() + ", has been updated to: " + statusEN + " // "
+		//			+ "La solicitud presentada por el handy worker: " + application.getHandyWorker().getMake() + ", con el siguiente precio ofertado: " + application.getOfferedPrice() + ", ha sido actualizada a: " + statusES;
+		//		String bodyHW = "The application that you sent regarding the fix up task of the customer: " + customer.getName() + ", with the next offered price: " + application.getOfferedPrice() + ", has been updated to: " + statusEN + " // "
+		//			+ "La solicitud que enviaste en relación al trabajo del cliente: " + customer.getName() + ", con el siguiente precio ofertado: " + application.getOfferedPrice() + ", ha sido actualizada a: " + statusES;
+
+		String body = "Application with offered price: " + application.getOfferedPrice() + " has been updated" + " / " + "Solicitud con precio ofertado: " + application.getOfferedPrice() + " ha sido actualizada";
+
+		Message messageC = this.messageService.createNotification(subject, body, Priority.NEUTRAL, customer);
+		Message messageHW = this.messageService.createNotification(subject, body, Priority.NEUTRAL, application.getHandyWorker());
+
+		this.messageService.sendMessageAnotherSender(messageC);
+		this.messageService.sendMessageAnotherSender(messageHW);
+	}
+
 	@RequestMapping(value = "/changeStatusWithCreditCard", method = RequestMethod.POST, params = "create")
 	public ModelAndView changeApplicationStatusWithCreditCard(@Valid int applicationId, @Valid CreditCard creditCard, BindingResult binding) {
 		ModelAndView result = null;
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors() || Long.toString(creditCard.getNumber()).length() != 16 || Integer.toString(creditCard.getExpirationMonth()).length() != 2 || Integer.toString(creditCard.getExpirationYear()).length() != 2
+			|| Integer.toString(creditCard.getCvvCode()).length() != 3 || !(Integer.toString(creditCard.getExpirationMonth()).startsWith("0") || Integer.toString(creditCard.getExpirationMonth()).startsWith("1"))) {
 			result = new ModelAndView("customer/creditCard");
 			result.addObject("applicationId", applicationId);
 			result.addObject("creditCard", creditCard);
@@ -155,6 +204,10 @@ public class ApplicationCustomerController extends AbstractController {
 				Application application = this.applicationService.findOne(applicationId);
 				application.setStatus(Status.ACCEPTED);
 				Application applicationSave = this.customerService.editApplication(application, creditCard);
+
+				//Messages
+				this.sendMessagesToActorsInvolved(application);
+
 				result = new ModelAndView("redirect:list.do");
 				result.addObject("fixUpTaskId", applicationSave.getFixUpTask().getId());
 				result.addObject("applicationId", applicationSave.getId());

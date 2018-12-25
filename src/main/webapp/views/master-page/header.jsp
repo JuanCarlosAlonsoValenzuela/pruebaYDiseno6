@@ -103,6 +103,10 @@
 				</ul>
 			</li>
 		</security:authorize>
+		
+		<security:authorize access="permitAll">
+			<li><a class="fNiv" href="tutorial/list.do"><spring:message code="master.page.tutorial" /></a></li>			
+		</security:authorize>
 	</ul>
 </div>
 

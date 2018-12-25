@@ -19,9 +19,11 @@
 	
 	
 			
-	<spring:url var="createCommentUrl" value="report/note/comment/edit.do?noteId={notId}">
-			<spring:param name="notId" value="${note.id}"/>
+	<spring:url var="createCommentUrl" value="note/customer/addComment.do?noteId={noteId}&reportId={reportId}">
+			<spring:param name="noteId" value="${noteId}"/>
+			<spring:param name="reportId" value="${reportId}"/>
 	</spring:url>
+		
 	
 	<jstl:choose>
 		<jstl:when  test="${canComment}">

@@ -78,6 +78,8 @@ public class HandyWorkerService {
 	private CustomerService			customerService;
 	@Autowired
 	private BoxService				boxService;
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Simple CRUD methods --------------------------------------------------------------------------------------------

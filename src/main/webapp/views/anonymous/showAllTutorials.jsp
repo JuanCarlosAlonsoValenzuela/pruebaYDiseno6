@@ -10,37 +10,22 @@
 <p><spring:message code="anonymous.showAlltutorials" /></p>
 
 <display:table
-	pagesize="10" name="tutorials" id="row"
+	pagesize="5" name="tutorials" id="row"
 	requestURI="tutorial/showAllTutorials.do">
 	
 	<display:column property="title" titleKey="tutorial.title">
 	</display:column>
 	<display:column property="summary" titleKey="tutorial.summary">
 	</display:column>
-	<display:column titleKey="tutorial.lastUpdate">
-		<jstl:out value="${row.lastUpdate}" />
-	</display:column>		
-	<display:column titleKey="tutorial.author">
-			<strong>
-			<a href="${row.authorProfileLink}">
-				<jstl:out value="${row.author}" />
-			</a>
-		</strong>
+	<display:column property="lastUpdate" titleKey="tutorial.lastUpdate" format="{0,date,dd/MM/yyyy HH:mm}">
+	</display:column>	
+	<display:column titleKey="tutorial.author" value="${authors.get(tutorials.indexOf(row)).make}">
 	</display:column>
-	<display:column titleKey="tutorial.sponsor">
-		<ol>
-		<jstl:forEach var="sponsor" items="tutorial.sponsors">
-				<spring:url var="sponsorUrl" value="${sponsor.link}">
-				</spring:url>
-				<a href="${sponsorUrl}">
-							<spring:message var ="sponsorBanner" code="sponsor.bannerUrl" />
-							<jstl:out value="${sponsorBanner}" />		
-				</a>
-			</jstl:forEach>
-		</ol>
+	<display:column titleKey="tutorial.sponsorship">
+		<a href="${sponsorships.get(tutorials.indexOf(row)).link}">
+			<img src="${sponsorships.get(tutorials.indexOf(row)).bannerUrl}" alt="${sponsorships.get(tutorials.indexOf(row)).link}" style="width:50px;height:50px;border:0;">
+		</a>
+		
 	</display:column>
 								
 </display:table>
-
-#TODO
-<a href="mainPage"><spring:message code="anonymous.mainPage" /></a>
