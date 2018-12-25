@@ -14,6 +14,7 @@
 			<!-- Hidden Attributes -->
 			<form:hidden path="id" />
 			<form:hidden path="version" />
+			<form:hidden path="lastEdit"/>
 			
 			<!-- Keyword -->
 			<form:label path="keyWord"> 
@@ -68,11 +69,15 @@
 	
 			</br>
 			<!-- Buttons -->
-			<input type="submit" name="create" value="<spring:message code="finder.create.button"/>" />		<!-- Añadir -->
-		</br>
-			<input type="submit" name="cancel" value="<spring:message code="finder.cancel.button"/>" />		<!-- Añadir -->
+			<input type="submit" name="save" value="<spring:message code="finder.create.button"/>" />	
+		
 	
 	
 	</form:form>
+	
+	<spring:url var="fixUpTaskUrl" value="/fixUpTask/handyWorker/list.do" />
 
+	<a href="${fixUpTaskUrl}">
+	<input type="submit" name="cancel" value="<spring:message code="finder.cancel.button"/>" />	
+	</a>
 </security:authorize>
