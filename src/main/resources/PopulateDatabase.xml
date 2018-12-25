@@ -953,6 +953,7 @@
 				<ref bean="fixUpTasks2" />
 			</list>
 		</property>
+	<property name="lastEdit" value="02/01/2018 11:45" />
 	</bean>
 	<bean id="finder2" class="domain.Finder">
 		<property name="keyWord" value="keyWord1" />
@@ -968,6 +969,7 @@
 				<ref bean="fixUpTasks4" />
 			</list>
 		</property>
+	<property name="lastEdit" value="06/01/2018 11:45" />
 	</bean>
 	<bean id="finder3" class="domain.Finder">
 		<property name="keyWord" value="keyWord1" />
@@ -983,6 +985,7 @@
 				<ref bean="fixUpTasks6" />
 			</list>
 		</property>
+	<property name="lastEdit" value="06/04/2018 11:45" />
 	</bean>
 	<bean id="finder4" class="domain.Finder">
 		<property name="keyWord" value="keyWord1" />
@@ -997,6 +1000,7 @@
 				<ref bean="fixUpTasks7" />
 			</list>
 		</property>
+	<property name="lastEdit" value="06/06/2018 11:45" />
 	</bean>
 	<!-- END OF FINDER -->
 
