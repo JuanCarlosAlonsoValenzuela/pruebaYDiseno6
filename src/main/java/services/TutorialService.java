@@ -78,6 +78,16 @@ public class TutorialService {
 		this.tutorialRepository.deleteInBatch(tutorials);
 	}
 
+	public HandyWorker getAuthor(Tutorial tutorial) {
+		return this.tutorialRepository.getTutorialAuthor(tutorial.getId());
+	}
+
+	public Sponsorship getRandomSponsorShip(Tutorial tutorial) {
+		List<Sponsorship> sponsorships = tutorial.getSponsorships();
+		Random random = new Random();
+		return sponsorships.get(random.nextInt(sponsorships.size()));
+	}
+
 	public List<HandyWorker> getAuthors(List<Tutorial> tutorials) {
 		List<HandyWorker> result = new ArrayList<HandyWorker>();
 		for (Tutorial t : tutorials) {
@@ -86,7 +96,7 @@ public class TutorialService {
 		return result;
 	}
 
-	public List<Sponsorship> getRandomSponsorShip(List<Tutorial> tutorials) {
+	public List<Sponsorship> getRandomSponsorShips(List<Tutorial> tutorials) {
 		List<Sponsorship> result = new ArrayList<Sponsorship>();
 		Random random = new Random();
 		for (Tutorial t : tutorials) {

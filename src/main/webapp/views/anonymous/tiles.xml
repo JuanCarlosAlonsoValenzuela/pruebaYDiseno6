@@ -16,14 +16,19 @@
        
 <tiles-definitions>
 	
-	<definition name="tutorial/showTutorial.do" extends="master.page">	
-		<put-attribute name="title" value="Tutorial" />
-		<put-attribute name="body" value="/views/anonymous/showTutorial.jsp" />
-	</definition>
-	
 	<definition name="tutorial/list" extends="master.page">	
 		<put-attribute name="title" value="All tutorials" />
 		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
+	</definition>
+	
+	<definition name="section/anonymous/list" extends="master.page">	
+		<put-attribute name="title" value="Tutorial's sections" />
+		<put-attribute name="body" value="/views/anonymous/showSections.jsp" />
+	</definition>
+	
+	<definition name="section/actor/list" extends="master.page">	
+		<put-attribute name="title" value="Tutorial's sections" />
+		<put-attribute name="body" value="/views/anonymous/showSections.jsp" />
 	</definition>
 	
 	<definition name="handy-worker/showProfile.do" extends="master.page">	

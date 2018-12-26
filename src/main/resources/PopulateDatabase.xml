@@ -2066,8 +2066,8 @@
 		<property name="summary" value="Its a tutorial1" />
 		<property name="pictures">
 			<list>
-				<value>www.example.com/picture1</value>
-				<value>www.example.com/picture1</value>
+				<value>https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg</value>
+				<value>https://www.gstatic.com/webp/gallery3/1.sm.png</value>
 			</list>
 		</property>
 		<property name="sections">
@@ -2094,8 +2094,8 @@
 		<property name="summary" value="Its a tutorial2" />
 		<property name="pictures">
 			<list>
-				<value>www.example.com/picture2</value>
-				<value>www.example.com/picture2</value>
+				<value>https://www.nationalgeographic.com/content/dam/photography/photos/000/013/1399.ngsversion.1538507346716.adapt.1900.1.jpg</value>
+				<value>https://images-na.ssl-images-amazon.com/images/I/81HDAAJfYqL._SX466_.jpg</value>
 			</list>
 		</property>
 		<property name="sections">
@@ -2121,8 +2121,7 @@
 		<property name="summary" value="Its a tutorial3" />
 		<property name="pictures">
 			<list>
-				<value>www.example.com/picture1</value>
-				<value>www.example.com/picture1</value>
+				<value>https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2018/thegodsofsma.jpg</value>
 			</list>
 		</property>
 		<property name="sections">
@@ -2147,8 +2146,6 @@
 		<property name="summary" value="Its a tutorial4" />
 		<property name="pictures">
 			<list>
-				<value>www.example.com/picture2</value>
-				<value>www.example.com/picture2</value>
 			</list>
 		</property>
 		<property name="sections">
@@ -2172,11 +2169,11 @@
 	<!-- SECTION -->
 	<bean id="section1" class="domain.Section">
 		<property name="sectionTitle" value="ExampleTitle1" />
-		<property name="text" value="ExampleTest1" />
+		<property name="text" value="ExampleText1" />
 		<property name="sectionPictures">
 			<list>
-				<value>www.example.com/sectionPicture1</value>
-				<value>www.example.com/sectionPicture1</value>
+				<value>https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg</value>
+				<value>https://www.gstatic.com/webp/gallery3/1.sm.png</value>
 			</list>
 		</property>
 		<property name="number" value="0001" />
@@ -2184,11 +2181,10 @@
 
 	<bean id="section2" class="domain.Section">
 		<property name="sectionTitle" value="ExampleTitle2" />
-		<property name="text" value="ExampleTest2" />
+		<property name="text" value="ExampleText2" />
 		<property name="sectionPictures">
 			<list>
-				<value>www.example.com/sectionPicture2</value>
-				<value>www.example.com/sectionPicture2</value>
+				<value>https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Vernier_caliper.svg/588px-Vernier_caliper.svg.png</value>
 			</list>
 		</property>
 		<property name="number" value="0002" />
@@ -2196,26 +2192,27 @@
 
 	<bean id="section3" class="domain.Section">
 		<property name="sectionTitle" value="ExampleTitle3" />
-		<property name="text" value="ExampleTest3" />
+		<property name="text" value="ExampleText3" />
 		<property name="sectionPictures">
 			<list>
 				<value>www.example.com/sectionPicture3</value>
 				<value>www.example.com/sectionPicture3</value>
 			</list>
 		</property>
-		<property name="number" value="0003" />
+		<property name="number" value="0001" />
 	</bean>
 
 	<bean id="section4" class="domain.Section">
 		<property name="sectionTitle" value="ExampleTitle4" />
-		<property name="text" value="ExampleTest4" />
+		<property name="text" value="ExampleText4" />
 		<property name="sectionPictures">
 			<list>
-				<value>www.example.com/sectionPicture4</value>
-				<value>www.example.com/sectionPicture4</value>
+				<value>http://www.portobellostreet.es/imagenes_muebles/Muebles-Mueble-de-entrada-Flamingo-6-cajones.jpg</value>
+				<value>http://s04.s3c.es/imag/_v0/640x450/e/4/9/nevera-inteligente.jpg</value>
+				<value>https://blog.puntoseguro.com/wp-content/uploads/2016/06/gotera.jpg</value>
 			</list>
 		</property>
-		<property name="number" value="0004" />
+		<property name="number" value="0002" />
 	</bean>
 	<!-- END OF SECTION -->
 

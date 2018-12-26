@@ -37,7 +37,7 @@ public class TutorialController extends AbstractController {
 
 		tutorials = this.tutorialService.findAll();
 		authors = this.tutorialService.getAuthors(tutorials);
-		sponsorships = this.tutorialService.getRandomSponsorShip(tutorials);
+		sponsorships = this.tutorialService.getRandomSponsorShips(tutorials);
 
 		result = new ModelAndView("tutorial/list");
 
