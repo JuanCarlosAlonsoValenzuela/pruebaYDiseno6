@@ -432,6 +432,7 @@ public class HandyWorkerService {
 
 		return applicationSave;
 	}
+
 	// Other business methods -------------------------------------------------------------------------------------------
 
 	//11.1 ------------------------------------------------------------------------------------------------------------------
@@ -460,6 +461,25 @@ public class HandyWorkerService {
 				res.put(f, c);
 			}
 		}
+		return res;
+
+	}
+	public Map<FixUpTask, Customer> getFixUpTaksAndCustomer(Collection<FixUpTask> fixUpTasks) {
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
+		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
+		Map<FixUpTask, Customer> res = new HashMap<FixUpTask, Customer>();
+		Collection<Customer> customers = this.customerService.findAll();
+
+		for (Customer c : customers) {
+			for (FixUpTask f : c.getFixUpTasks()) {
+				if (fixUpTasks.contains(f)) {
+					res.put(f, c);
+				}
+			}
+		}
+
 		return res;
 
 	}
