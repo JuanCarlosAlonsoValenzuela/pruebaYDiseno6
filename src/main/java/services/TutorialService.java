@@ -31,17 +31,20 @@ public class TutorialService {
 	public Tutorial create() {
 		Tutorial tutorial = new Tutorial();
 		List<Section> sections = new ArrayList<Section>();
-		List<Sponsorship> sponsorships = new ArrayList<Sponsorship>();
+		List<Sponsorship> sponsorships = this.sponsorshipService.findAll();
+		List<String> pictures = new ArrayList<String>();
+		Date date = new Date();
+		date.setTime(date.getTime() - 1);
 
-		tutorial.setLastUpdate(null);
+		tutorial.setLastUpdate(date);
 		tutorial.setTitle("");
 		tutorial.setSummary("");
 		tutorial.setSections(sections);
 		tutorial.setSponsorships(sponsorships);
+		tutorial.setPictures(pictures);
 
 		return tutorial;
 	}
-
 	public Tutorial create(String title, Date lastUpdate, String sumary) {
 		Tutorial tutorial = new Tutorial();
 		List<Section> sections = new ArrayList<Section>();

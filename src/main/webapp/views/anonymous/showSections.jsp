@@ -11,7 +11,7 @@
 
 <display:table
 	pagesize="10" name="sections" id="row"
-	class="displaytag" requestURI="tutorial/showSections.do">
+	class="displaytag" requestURI="${requestURI}">
 	
 	<jstl:if test="${canEdit}">
 		<display:column >

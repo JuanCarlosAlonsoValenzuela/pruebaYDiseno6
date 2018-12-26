@@ -50,7 +50,7 @@ public class SectionController extends AbstractController {
 		result.addObject("sponsorship", sponsorship);
 		result.addObject("tutorial", tutorial);
 		result.addObject("sections", sections);
-		result.addObject("requestURI", "section/list.do");
+		result.addObject("requestURI", "section/anonymous/list.do");
 
 		return result;
 
@@ -77,7 +77,7 @@ public class SectionController extends AbstractController {
 		result.addObject("sponsorship", sponsorship);
 		result.addObject("tutorial", tutorial);
 		result.addObject("sections", sections);
-		result.addObject("requestURI", "section/list.do");
+		result.addObject("requestURI", "section/actor/list.do");
 
 		return result;
 

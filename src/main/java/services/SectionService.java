@@ -19,19 +19,16 @@ public class SectionService {
 	@Autowired
 	private SectionRepository	sectionRepository;
 
-	@Autowired
-	private HandyWorkerService	handyWorkerService;
-
 
 	public Section create() {
 		Section section = new Section();
 		List<String> pictures = new ArrayList<String>();
 
-		section.setSectionTitle("");
-		section.setText("");
+		section.setSectionTitle("Example title");
+		section.setText("Example Text");
 		section.setSectionPictures(pictures);
 
-		section.setNumber(0);
+		section.setNumber(1);
 
 		return section;
 	}
