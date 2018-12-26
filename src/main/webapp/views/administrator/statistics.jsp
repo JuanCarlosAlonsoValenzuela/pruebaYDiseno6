@@ -139,6 +139,28 @@ tr:nth-child(even) {
 </table>
 <br />
 
+<spring:message code="statistics.notesPerReferee" />			
+<br />
+<table style="width: 100%">
+	<tr>
+		<td><b><spring:message code="statistics.average" /></b></td> 
+		<td><jstl:out value="${statistics.get('notesPerReferee')[0]}" /> </td>
+	</tr>
+	<tr>
+		<td><b><spring:message code="statistics.minimum"/></b></td> 
+		<td><jstl:out value="${statistics.get('notesPerReferee')[1]}" /> </td>
+	</tr>
+	<tr>
+		<td><b><spring:message code="statistics.maximum"/></b></td>
+		<td><jstl:out value="${statistics.get('notesPerReferee')[2]}" /> </td>
+	</tr>
+	<tr>
+		<td><b><spring:message code="statistics.standardDeviation"/></b></td> 
+		<td><jstl:out value="${statistics.get('notesPerReferee')[3]}" /> </td>
+	</tr>
+</table>
+<br />
+
 <spring:message code="statistics.ratios"/>				
 
 <table style="width:100%">
@@ -157,6 +179,10 @@ tr:nth-child(even) {
   <tr>
     <td><b><spring:message code="statistics.ratioPendingElapsedApplications" /></b></td>
     <td><jstl:out  value="${statisticsRatios.get('ratioPendingElapsedApplications')}"/></td>
+  </tr>
+  <tr>
+    <td><b><spring:message code="statistics.fixUpTaskWithComplain" /></b></td>
+    <td><jstl:out  value="${statisticsRatios.get('fixUpTaskWithComplain')}"/></td>
   </tr>
 </table>
 	
