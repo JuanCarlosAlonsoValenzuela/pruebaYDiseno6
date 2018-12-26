@@ -465,7 +465,7 @@ public class AdminService {
 		calculations2 = this.adminRepository.handyWorkers10PercentMoreApplications();
 
 		result = new HashMap<String, List<HandyWorker>>();
-		result.put("customers10PercentMoreApplications", calculations2);
+		result.put("handyWorkers10PercentMoreApplications", calculations2);
 		return result;
 	}
 
@@ -497,7 +497,7 @@ public class AdminService {
 		result = new HashMap<String, List<Customer>>();
 
 		// Mirar que pasa si hay solo 2 elementos en la lista
-		result.put("customers10PercentMoreApplications", calculations2.subList(0, 3));
+		result.put("topThreeCustomers", calculations2.subList(0, 3));
 		return result;
 	}
 
@@ -515,7 +515,7 @@ public class AdminService {
 		result = new HashMap<String, List<HandyWorker>>();
 
 		// Mirar que pasa si hay solo 2 elementos en la lista
-		result.put("HandyWorkerTermsofComplainsOrdered", calculations2.subList(0, 3));
+		result.put("topThreeHandyWorkers", calculations2.subList(0, 3));
 		return result;
 	}
 
