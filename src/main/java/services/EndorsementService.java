@@ -11,20 +11,20 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import repositories.EndorsmentRepository;
+import repositories.EndorsementRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Endorser;
-import domain.Endorsment;
+import domain.Endorsement;
 
 @Service
 @Transactional
-public class EndorsmentService {
+public class EndorsementService {
 
 	// Managed repository ------------------------------------------
 
 	@Autowired
-	private EndorsmentRepository	endorsmentRepository;
+	private EndorsementRepository	endorsmentRepository;
 	@Autowired
 	private ActorService			actorService;
 
@@ -33,7 +33,7 @@ public class EndorsmentService {
 
 	// Simple CRUD methods ------------------------------------------
 
-	public Endorsment createEndorsment() {
+	public Endorsement createEndorsment() {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 
@@ -41,7 +41,7 @@ public class EndorsmentService {
 
 		Endorser sender = (Endorser) this.actorService.getActorByUsername(userAccount.getUsername());
 
-		Endorsment endorsment = new Endorsment();
+		Endorsement endorsment = new Endorsement();
 
 		Date thisMoment = new Date();
 		thisMoment.setTime(thisMoment.getTime() - 1);
@@ -55,13 +55,13 @@ public class EndorsmentService {
 
 	}
 
-	public Endorsment createEndorsment(List<String> comments, Endorser writtenTo) {
+	public Endorsement createEndorsment(List<String> comments, Endorser writtenTo) {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 
 		Endorser sender = (Endorser) this.actorService.getActorByUsername(userAccount.getUsername());
 
-		Endorsment endorsment = new Endorsment();
+		Endorsement endorsment = new Endorsement();
 
 		Date thisMoment = new Date();
 		thisMoment.setTime(thisMoment.getTime() - 1);
@@ -75,23 +75,23 @@ public class EndorsmentService {
 
 	}
 
-	public Collection<Endorsment> findAll() {
+	public Collection<Endorsement> findAll() {
 		return this.endorsmentRepository.findAll();
 	}
 
-	public Endorsment findOne(int id) {
+	public Endorsement findOne(int id) {
 		return this.endorsmentRepository.findOne(id);
 	}
 
-	public Endorsment save(Endorsment endorsment) {
+	public Endorsement save(Endorsement endorsment) {
 		return this.endorsmentRepository.save(endorsment);
 	}
 
-	public void delete(Endorsment endorsment) {
+	public void delete(Endorsement endorsment) {
 		this.endorsmentRepository.delete(endorsment);
 	}
 
-	public void deleteAll(List<Endorsment> endorsments) {
+	public void deleteAll(List<Endorsement> endorsments) {
 		this.endorsmentRepository.deleteInBatch(endorsments);
 	}
 

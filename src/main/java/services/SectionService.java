@@ -24,8 +24,8 @@ public class SectionService {
 		Section section = new Section();
 		List<String> pictures = new ArrayList<String>();
 
-		section.setSectionTitle("Example title");
-		section.setText("Example Text");
+		section.setSectionTitle("");
+		section.setText("");
 		section.setSectionPictures(pictures);
 
 		section.setNumber(1);

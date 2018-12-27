@@ -1589,9 +1589,9 @@
 			</list>
 		</property>
 		<property name="score" value="1" />
-		<property name="endorsments">
+		<property name="endorsements">
 			<list>
-				<ref bean="endorsment1" />
+				<ref bean="endorsement1" />
 			</list>
 		</property>
 		<property name="make" value="Pepe Luis Martinez" />
@@ -1722,7 +1722,7 @@
 	<!-- END OF HANDY WORKER -->
 
 	<!-- ENDORSMENT -->
-	<bean id="endorsment1" class="domain.Endorsment">
+	<bean id="endorsement1" class="domain.Endorsement">
 		<property name="moment" value="09/11/2018 12:30" />
 		<property name="comments">
 			<list>
@@ -1736,7 +1736,7 @@
 		<property name="writtenTo" ref="handyWorker1" />
 	</bean>
 
-	<bean id="endorsment2" class="domain.Endorsment">
+	<bean id="endorsement2" class="domain.Endorsement">
 		<property name="moment" value="09/08/2018 12:30" />
 		<property name="comments">
 			<list>
@@ -1815,9 +1815,9 @@
 			</list>
 		</property>
 		<property name="score" value="0" />
-		<property name="endorsments">
+		<property name="endorsements">
 			<list>
-				<ref bean="endorsment1" />
+				<ref bean="endorsement1" />
 			</list>
 		</property>
 		<property name="fixUpTasks">

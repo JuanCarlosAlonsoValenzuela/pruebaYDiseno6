@@ -133,6 +133,7 @@ public class TutorialController extends AbstractController {
 		List<HandyWorker> authors = new ArrayList<HandyWorker>();
 		Boolean noAuthor = false;
 		Boolean canEdit = false;
+		String username = LoginService.getPrincipal().getUsername();
 
 		canEdit = LoginService.getPrincipal().getUsername().equals(handyWorker.getUserAccount().getUsername());
 
@@ -142,6 +143,7 @@ public class TutorialController extends AbstractController {
 
 		result = new ModelAndView("tutorial/handyWorker/listHandyTutorials");
 
+		result.addObject("username", username);
 		result.addObject("canEdit", canEdit);
 		result.addObject("noAuthor", noAuthor);
 		result.addObject("sponsorships", sponsorships);

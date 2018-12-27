@@ -5,14 +5,14 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Endorsment;
+import domain.Endorsement;
 
 @Component
 @Transactional
-public class EndorsmentToStringConverter implements Converter<Endorsment, String> {
+public class EndorsmentToStringConverter implements Converter<Endorsement, String> {
 
 	@Override
-	public String convert(Endorsment endorsment) {
+	public String convert(Endorsement endorsment) {
 		String result;
 
 		if (endorsment == null) {

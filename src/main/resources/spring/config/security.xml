@@ -44,9 +44,9 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		<security:intercept-url pattern="/handyWorker/anonymous/showProfile.do" access="permitAll" />
 		<security:intercept-url pattern="/tutorial/anonymous/listHandyTutorials.do" access="permitAll" />
+		<security:intercept-url pattern="/section/anonymous/list.do" access="permitAll" />
 		
 		<security:intercept-url pattern="/tutorial/anonymous/list.do" access="isAnonymous()" />
-		<security:intercept-url pattern="/section/anonymous/list.do" access="isAnonymous()" />
 	
 		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMIN')" /> 
@@ -76,7 +76,6 @@
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 		
-		<security:intercept-url pattern="/section/actor/list.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/box/actor/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/message/actor/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/tutorial/actor/list.do" access="isAuthenticated()" />
@@ -84,10 +83,12 @@
 		<security:intercept-url pattern="/fixUpTask/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/application/customer/**" access="hasRole('CUSTOMER')" />
 		
+		<security:intercept-url pattern="/section/handyWorker/**" access="hasRole('HANDYWORKER')" /> 
 		<security:intercept-url pattern="/tutorial/handyWorker/listHandyTutorials.do" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/handyWorker/handyWorker/showProfile.do" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/fixUpTask/handyWorker/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/application/handyWorker/**" access="hasRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/endorsement/handyWorker/**" access="hasRole('HANDYWORKER')" />
 		
 		<security:intercept-url pattern="/complaint/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/report/customer/**" access="hasRole('CUSTOMER')" />
