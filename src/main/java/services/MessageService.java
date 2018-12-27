@@ -46,7 +46,7 @@ public class MessageService {
 	}
 
 	// Metodo para enviar un mensaje a un ACTOR (O varios, que tambien puede ser)
-	public void sendMessage(Message message) {
+	public Message sendMessage(Message message) {
 
 		this.actorService.loggedAsActor();
 		UserAccount userAccount;
@@ -85,9 +85,10 @@ public class MessageService {
 			this.actorService.save(messageSaved.getSender());
 			this.actorService.save(actorRecieved);
 		}
+		return messageSaved;
 	}
 
-	public void sendMessageAnotherSender(Message message) {
+	public Message sendMessageAnotherSender(Message message) {
 		Actor sender = message.getSender();
 
 		Actor actorRecieved = message.getReceiver();
@@ -171,9 +172,9 @@ public class MessageService {
 		message.setMoment(thisMoment);
 		message.setSubject(Subject);
 		message.setBody(body);
-		message.setPriority(priority);
+		message.setPriority(Priority.LOW);
 		message.setReceiver(recipient);
-		message.setTags(tags);
+		message.setTags("");
 		message.setSender(sender);
 
 		return message;
@@ -195,7 +196,7 @@ public class MessageService {
 		message.setBody(body);
 		message.setPriority(priority);
 		message.setReceiver(recipient);
-		message.setTags(tags);
+		message.setTags("");
 		message.setSender(sender);
 
 		return message;

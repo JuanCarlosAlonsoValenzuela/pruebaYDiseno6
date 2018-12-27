@@ -209,13 +209,12 @@ public class MessageController extends AbstractController {
 
 		List<Box> actorBoxes = new ArrayList<Box>();
 		actorBoxes = this.actorService.getlistOfBoxes(actor);
-		Priority priority = new Priority();
 
 		result = new ModelAndView("message/actor/move");
 		result.addObject("messageTest", message);
 		result.addObject("actors", actors);
 		result.addObject("actorBoxes", actorBoxes);
-		result.addObject("priority", Arrays.asList(priority));
+		result.addObject("priority", Arrays.asList(Priority.values()));
 
 		result.addObject("message", messageCode);
 
@@ -243,13 +242,12 @@ public class MessageController extends AbstractController {
 
 		List<Box> actorBoxes = new ArrayList<Box>();
 		actorBoxes = this.actorService.getlistOfBoxes(actor);
-		Priority priority = new Priority();
 
 		result = new ModelAndView("message/actor/create");
 		result.addObject("messageTest", message);
 		result.addObject("actors", actors);
 		result.addObject("actorBoxes", actorBoxes);
-		result.addObject("priority", Arrays.asList(priority));
+		result.addObject("priority", Arrays.asList(Priority.values()));
 		result.addObject("message", messageCode);
 
 		return result;
