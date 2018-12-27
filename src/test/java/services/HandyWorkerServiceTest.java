@@ -23,9 +23,9 @@ import domain.Complaint;
 import domain.Curriculum;
 import domain.Customer;
 import domain.EducationRecord;
+import domain.Endorsement;
 import domain.Endorser;
 import domain.EndorserRecord;
-import domain.Endorsment;
 import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
@@ -65,7 +65,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Autowired
 	private TutorialService			tutoralService;
 	@Autowired
-	private EndorsmentService		endorsmentService;
+	private EndorsementService		endorsmentService;
 	@Autowired
 	private EndorserService			endorserService;
 	@Autowired
@@ -542,11 +542,11 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		super.authenticate("PepeHW");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
-		Endorsment endorsment = h.getEndorsments().get(0);
+		Endorsement endorsment = h.getEndorsements().get(0);
 
 		this.handyWorkerService.deleteEndorsment(endorsment);
 
-		Assert.isTrue(!(h.getEndorsments().contains(endorsment)));
+		Assert.isTrue(!(h.getEndorsements().contains(endorsment)));
 		super.unauthenticate();
 
 	}
@@ -558,7 +558,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		super.authenticate("PepeHW");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
-		Endorsment endorsment = h.getEndorsments().get(0);
+		Endorsement endorsment = h.getEndorsements().get(0);
 		List<String> oldComments = (List<String>) endorsment.getComments();
 		List<String> newComments = new ArrayList<>();
 		newComments.add("Ejemplo");
@@ -566,7 +566,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 		this.handyWorkerService.updateEndorsment(endorsment);
 
-		Endorsment endorsmentN = this.endorsmentService.findOne(endorsment.getId());
+		Endorsement endorsmentN = this.endorsmentService.findOne(endorsment.getId());
 		Assert.isTrue(endorsmentN.getComments().contains("Ejemplo") && !(newComments.containsAll(oldComments)));
 
 		super.unauthenticate();
@@ -590,13 +590,13 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 		Endorser endorser = this.customerService.findOne(l.get(0));
 
-		Integer numEndorsmentsBefore = endorser.getEndorsments().size();
-		Endorsment endorsment = this.endorsmentService.createEndorsment(comments, endorser);
+		Integer numEndorsmentsBefore = endorser.getEndorsements().size();
+		Endorsement endorsment = this.endorsmentService.createEndorsment(comments, endorser);
 		Assert.notNull(endorsment);
 		this.handyWorkerService.createEndorsment(endorsment);
 
 		Endorser endorser2 = this.customerService.findOne(l.get(0));
-		Integer numEndorsmentsAfter = endorser2.getEndorsments().size();
+		Integer numEndorsmentsAfter = endorser2.getEndorsements().size();
 		Assert.isTrue(numEndorsmentsBefore + 1 == numEndorsmentsAfter);
 	}
 
@@ -608,9 +608,10 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
-		List<Endorsment> endorsments = h.getEndorsments();
+		List<Endorsement> endorsments = h.getEndorsements();
 
-		List<Endorsment> result = this.handyWorkerService.showEndorsments();
+		List<Endorsement> result = this.handyWorkerService.showEndorsments();
+		Assert.isTrue(endorsments.size() != 0);
 
 		Assert.isTrue(endorsments.size() == (result.size()));
 

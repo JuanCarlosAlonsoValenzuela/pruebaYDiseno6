@@ -38,11 +38,11 @@
 	<spring:message code="tutorial.pictures" />:
 	<br />
 	<input type="hidden" name="newPictures" value=""/>
-	<textarea rows="12" cols="50" name="newPictures" id="newPictures" placeholder="<spring:message code="tutorial.placePictures"/>" ></textarea>
+	<textarea rows="12" cols="50" name="newPictures" id="newPictures" placeholder="<spring:message code="tutorial.placePictures"/>" ><jstl:forEach items="${tutorial.pictures}" var="picture"><jstl:out value="${picture},"></jstl:out></jstl:forEach></textarea>
 	<br />
 	
 	<jstl:choose><jstl:when test="${tutorial.id == 0}">
-		<input type="submit" name="save" value="<spring:message code="tutorial.create"/>"/>
+		<input type="submit" name="save" value="<spring:message code="tutorial.save"/>"/>
 	</jstl:when><jstl:otherwise>
 		<input type="submit" name="edit" value="<spring:message code="tutorial.edit"/>"/>
 		<input type="submit" name="delete" value="<spring:message code="tutorial.delete"/>" onclick="return confirm('<spring:message code="tutorial.delete.confirm" />')"/>

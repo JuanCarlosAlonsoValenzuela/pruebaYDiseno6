@@ -56,7 +56,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="application/handyWorker/list.do"><spring:message code="master.page.handyworker.applications" /></a></li>
-					<li><a href="handyworker/listendorsment.do"><spring:message code="master.page.handyworker.listendorsment" /></a></li>	
+					<li><a href="endorsement/handyWorker/list.do"><spring:message code="master.page.handyworker.listendorsment" /></a></li>	
 					<li><a href="fixUpTask/handyWorker/list.do"><spring:message code="master.page.handyworker.fixUpTask" /></a></li>								
 				</ul>
 			</li>

@@ -21,7 +21,7 @@ import domain.Category;
 import domain.Complaint;
 import domain.CreditCard;
 import domain.Customer;
-import domain.Endorsment;
+import domain.Endorsement;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Note;
@@ -57,7 +57,7 @@ public class CustomerServiceTest extends AbstractTest {
 	private NoteService			noteService;
 
 	@Autowired
-	private EndorsmentService	endorsmentService;
+	private EndorsementService	endorsmentService;
 
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
@@ -298,9 +298,9 @@ public class CustomerServiceTest extends AbstractTest {
 	public void testGetEndorsment() {
 		super.authenticate("PacoCustomer");
 		Customer customer = this.customerService.securityAndCustomer();
-		List<Endorsment> le = (List<Endorsment>) this.endorsmentService.findAll();
-		Endorsment e = le.get(0);
-		Assert.isTrue(customer.getEndorsments().contains(e));
+		List<Endorsement> le = (List<Endorsement>) this.endorsmentService.findAll();
+		Endorsement e = le.get(0);
+		Assert.isTrue(customer.getEndorsements().contains(e));
 		super.authenticate(null);
 	}
 
@@ -313,7 +313,7 @@ public class CustomerServiceTest extends AbstractTest {
 		HandyWorker hk = new HandyWorker();
 		hk = this.handyWorkerService.findOne(handyWorkers.get(0).getId());
 
-		Endorsment endo = new Endorsment();
+		Endorsement endo = new Endorsement();
 
 		// int numberEndorsments = this.endorsmentService.findAll().size();
 		endo = this.customerService.createEndorsment(new ArrayList<String>(), hk);
@@ -327,19 +327,19 @@ public class CustomerServiceTest extends AbstractTest {
 	public void testUpdateEndorsment() {
 		super.authenticate("PacoCustomer");
 		Customer customer = this.customerService.securityAndCustomer();
-		List<Endorsment> le = (List<Endorsment>) this.endorsmentService.findAll();
-		Endorsment res = le.get(0);
+		List<Endorsement> le = (List<Endorsement>) this.endorsmentService.findAll();
+		Endorsement res = le.get(0);
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, 2018);
 		cal.set(Calendar.MONTH, Calendar.NOVEMBER);
 		cal.set(Calendar.DAY_OF_MONTH, 12);
 		Date startDate = cal.getTime();
 		res.setMoment(startDate);
-		Endorsment saved = this.customerService.updateEndorsment(res);
+		Endorsement saved = this.customerService.updateEndorsment(res);
 
 		Customer customer2 = this.customerService.securityAndCustomer();
 
-		Assert.isTrue(customer2.getEndorsments().contains(saved));
+		Assert.isTrue(customer2.getEndorsements().contains(saved));
 		super.authenticate(null);
 	}
 
@@ -347,10 +347,10 @@ public class CustomerServiceTest extends AbstractTest {
 	public void testDeleteEndorsment() {
 		super.authenticate("PacoCustomer");
 		Customer customer = this.customerService.securityAndCustomer();
-		List<Endorsment> le = (List<Endorsment>) this.endorsmentService.findAll();
-		Endorsment res = le.get(0);
+		List<Endorsement> le = (List<Endorsement>) this.endorsmentService.findAll();
+		Endorsement res = le.get(0);
 		this.customerService.deleteEndorsment(res);
-		Assert.isTrue(customer.getEndorsments().contains(res));
+		Assert.isTrue(customer.getEndorsements().contains(res));
 		super.authenticate(null);
 	}
 

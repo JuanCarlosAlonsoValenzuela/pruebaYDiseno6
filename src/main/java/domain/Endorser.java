@@ -17,17 +17,17 @@ import javax.validation.constraints.NotNull;
 public class Endorser extends Actor {
 
 	private Double				score;
-	private List<Endorsment>	endorsments;
+	private List<Endorsement>	endorsements;
 
 
 	@Valid
 	@ManyToMany
-	public List<Endorsment> getEndorsments() {
-		return this.endorsments;
+	public List<Endorsement> getEndorsements() {
+		return this.endorsements;
 	}
 
-	public void setEndorsments(final List<Endorsment> endorsments) {
-		this.endorsments = endorsments;
+	public void setEndorsements(final List<Endorsement> endorsments) {
+		this.endorsements = endorsments;
 	}
 
 	@NotNull
