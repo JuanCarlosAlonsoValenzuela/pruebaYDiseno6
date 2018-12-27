@@ -21,7 +21,7 @@
 	<form:hidden path ="userAccount.isNotLocked"/>
 	<form:hidden path ="score"/>
 	<form:hidden path ="fixUpTasks"/>
-	<form:hidden path ="endorsments"/>
+	<form:hidden path ="endorsements"/>
 	
 	
 	<!-- Actor Attributes -->

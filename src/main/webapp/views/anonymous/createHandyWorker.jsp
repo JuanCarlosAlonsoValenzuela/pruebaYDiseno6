@@ -20,7 +20,7 @@
 	<form:hidden path ="userAccount.authorities"/>
 	<form:hidden path ="userAccount.isNotLocked"/>
 	<form:hidden path ="score"/>
-	<form:hidden path ="endorsments"/>
+	<form:hidden path ="endorsements"/>
 	<form:hidden path ="make"/>
 	<form:hidden path ="applications"/>
 	<form:hidden path ="finder"/>

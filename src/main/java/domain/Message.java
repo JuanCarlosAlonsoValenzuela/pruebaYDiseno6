@@ -5,8 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -62,7 +63,7 @@ public class Message extends DomainEntity {
 	}
 
 	@Valid
-	@ElementCollection
+	@Enumerated(EnumType.STRING)
 	public Priority getPriority() {
 		return this.priority;
 	}
@@ -71,7 +72,6 @@ public class Message extends DomainEntity {
 		this.priority = priority;
 	}
 
-	@NotBlank
 	public String getTags() {
 		return this.tags;
 	}
