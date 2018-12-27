@@ -11,7 +11,7 @@
 <security:authorize access="hasRole('CUSTOMER')">		
  	
 	<display:table pagesize="5" name="reports" id="row" class="displaytag"
-			requestURI="report/customer/list.do"> 
+			requestURI="${requestURI}"> 
 			
 	<display:column property="moment" titleKey="report.moment"/>
 	

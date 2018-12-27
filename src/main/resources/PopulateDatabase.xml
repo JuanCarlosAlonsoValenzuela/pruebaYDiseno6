@@ -1577,6 +1577,7 @@
 		<property name="socialProfiles">
 			<list>
 				<ref bean="socialProfile3" />
+				<ref bean="socialProfile4" />
 			</list>
 		</property>
 		<property name="boxes">
@@ -3451,14 +3452,14 @@
 	</bean>
 
 	<bean class="domain.SocialProfile" id="socialProfile3">
-		<property value="Referee1" name="nick" />
-		<property value="Walabonso" name="name" />
+		<property value="PepeTwitter" name="nick" />
+		<property value="Twitter" name="name" />
 		<property value="https://www.example.com/link3" name="profileLink" />
 	</bean>
 
 	<bean class="domain.SocialProfile" id="socialProfile4">
-		<property value="HandyWorker1" name="nick" />
-		<property value="Eustaquio" name="name" />
+		<property value="PepeFacebook" name="nick" />
+		<property value="Facebook" name="name" />
 		<property value="https://www.example.com/link4" name="profileLink" />
 	</bean>
 	<!-- END OF SOCIALPROFILE -->

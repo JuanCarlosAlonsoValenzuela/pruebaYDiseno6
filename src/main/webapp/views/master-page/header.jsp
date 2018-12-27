@@ -60,6 +60,7 @@
 					<li><a href="fixUpTask/handyWorker/list.do"><spring:message code="master.page.handyworker.fixUpTask" /></a></li>								
 				</ul>
 			</li>
+			<li><a href="handyWorker/handyWorker/showProfile.do"><spring:message code="master.page.profile" /></a></li>
 		</security:authorize>
 		
 			<security:authorize access="hasRole('REFEREE')">
@@ -81,13 +82,14 @@
 					<li><a href="anonymous/createSponsor.do"><spring:message code="master.page.sponsor" /></a></li>
 					<li><a href="anonymous/createHandyWorker.do"><spring:message code="master.page.handyWorker" /></a></li>
 				</ul>
-			</li>	
+			</li>
+			<li><a class="fNiv" href="tutorial/anonymous/list.do"><spring:message code="master.page.tutorial" /></a></li>		
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
 			<li>
 				<a class="fNiv"> 
-					<spring:message code="master.page.profile" /> 
+					<spring:message code="master.page.mail" /> 
 			        (<security:authentication property="principal.username" />)
 				</a>
 				<ul>
@@ -97,11 +99,9 @@
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
+			<li><a class="fNiv" href="tutorial/actor/list.do"><spring:message code="master.page.tutorial" /></a></li>	
 		</security:authorize>
 		
-		<security:authorize access="permitAll">
-			<li><a class="fNiv" href="tutorial/list.do"><spring:message code="master.page.tutorial" /></a></li>			
-		</security:authorize>
 	</ul>
 </div>
 

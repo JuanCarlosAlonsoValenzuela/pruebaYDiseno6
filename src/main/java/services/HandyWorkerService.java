@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -811,11 +812,9 @@ public class HandyWorkerService {
 
 	public void deleteTutorial(Tutorial tutorial) {
 		UserAccount userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
 		HandyWorker logguedHandyWorker = new HandyWorker();
 		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
-
+		Assert.notNull(logguedHandyWorker);
 		Assert.isTrue(logguedHandyWorker.getTutorials().contains(tutorial));
 
 		List<Tutorial> tutorials = logguedHandyWorker.getTutorials();
@@ -823,32 +822,48 @@ public class HandyWorkerService {
 
 		logguedHandyWorker.setTutorials(tutorials);
 
-		this.tutorialService.delete(tutorial);
 		this.handyWorkerRepository.save(logguedHandyWorker);
+		this.tutorialService.delete(tutorial);
+
 	}
 
 	public void updateTutorial(Tutorial tutorial) {
 		UserAccount userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
 		HandyWorker logguedHandyWorker = new HandyWorker();
 		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
-
+		Assert.notNull(logguedHandyWorker);
 		Assert.isTrue(logguedHandyWorker.getTutorials().contains(tutorial));
 
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
-
+		tutorial.setPictures(this.listUrls(tutorial));
+		Date date = new Date();
+		date.setTime(date.getTime() - 1);
+		tutorial.setLastUpdate(date);
 		this.tutorialService.save(tutorial);
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
 	}
 
+	public List<String> listUrls(Tutorial tutorial) {
+		List<String> pic = new ArrayList<String>();
+
+		if (tutorial.getPictures().size() == 1 && tutorial.getPictures().get(0).contains(",")) {
+			String picture = tutorial.getPictures().get(0).trim();
+			List<String> pictures = Arrays.asList(picture.split(","));
+
+			for (String s : pictures) {
+				if (!s.isEmpty() && !pic.contains(s.trim())) {
+					pic.add(s.trim());
+				}
+			}
+		}
+		return pic;
+	}
 	public void createTutorial(Tutorial newTutorial) {
-		UserAccount userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
 
 		Assert.isTrue(!logguedHandyWorker.getTutorials().contains(newTutorial));
+
+		newTutorial.setPictures(this.listUrls(newTutorial));
 
 		Tutorial tutorial = this.tutorialService.save(newTutorial);
 		List<Tutorial> tutorials = logguedHandyWorker.getTutorials();

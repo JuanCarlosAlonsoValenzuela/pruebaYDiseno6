@@ -11,36 +11,46 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-<form:form action="tutorial/handyWorker/add.do" modelAttribute="tutorial" >
+<form:form action="tutorial/handyWorker/edit.do" modelAttribute="tutorial" >
 	<form:hidden path="id"/>
 	<form:hidden path="version" />
+	<form:hidden path="lastUpdate"/>
+	<form:hidden path="pictures" />	
+	<form:hidden path="sections"/>
+	<form:hidden path="sponsorships" />
 	
-	<form:label path="title">
-			<spring:message code="tutorial.title" />:		
+		
+	<form:label path="title" >
+			<spring:message code="tutorial.title"  />:		
 	</form:label>
 	<form:input path="title" />
 	<form:errors cssClass="error" path="title" />
 	<br />
-	
+	<br />
 	<form:label path="summary">
 			<spring:message code="tutorial.summary" />:		
 	</form:label>
-	<form:textarea path="summary" />
+	<br />
+	<form:textarea rows="12" cols="50" path="summary"  />
 	<form:errors cssClass="error" path="summary" />
 	<br />
-	
-	<form:label path="pictures">
-			<spring:message code="tutorial.pictures" />:		
-	</form:label>
-	<form:input path="pictures" />
-	<form:errors cssClass="error" path="pictures" />
+	<br />
+	<spring:message code="tutorial.pictures" />:
+	<br />
+	<input type="hidden" name="newPictures" value=""/>
+	<textarea rows="12" cols="50" name="newPictures" id="newPictures" placeholder="<spring:message code="tutorial.placePictures"/>" ></textarea>
 	<br />
 	
-	<input type="submit" name="create" value="<spring:message code="tutorial.create"/>"
-	onClick="javascript: relativeRedir('tutorial/handy-worker/edit.do');" />	
-	
-	<input type="submit" name="cancel" value="<spring:message code="tutorial.cancel" />"
-		onClick="javascript: relativeRedir('handy-worker/showProfile.do');" />
+	<jstl:choose><jstl:when test="${tutorial.id == 0}">
+		<input type="submit" name="save" value="<spring:message code="tutorial.create"/>"/>
+	</jstl:when><jstl:otherwise>
+		<input type="submit" name="edit" value="<spring:message code="tutorial.edit"/>"/>
+		<input type="submit" name="delete" value="<spring:message code="tutorial.delete"/>" onclick="return confirm('<spring:message code="tutorial.delete.confirm" />')"/>
+	</jstl:otherwise>
+	 </jstl:choose>
+	 
+	<input type="button" name="cancel" value="<spring:message code="tutorial.cancel" />"
+		onClick="javascript:relativeRedir('tutorial/handyWorker/listHandyTutorials.do');" />
 </form:form>
 
 </security:authorize>

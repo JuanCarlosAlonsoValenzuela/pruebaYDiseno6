@@ -19,9 +19,9 @@
 	
 	
 			
-	<spring:url var="createCommentUrl" value="note/customer/addComment.do?noteId={noteId}&reportId={reportId}">
+	<spring:url var="createCommentUrl" value="note/customer/addComment.do?noteId={noteId}">
 			<spring:param name="noteId" value="${noteId}"/>
-			<spring:param name="reportId" value="${reportId}"/>
+			
 	</spring:url>
 		
 	
@@ -35,5 +35,5 @@
 			<spring:message code="comments.cannotCreate" />
 		</jstl:otherwise>
 	</jstl:choose>
-	</br>
+	<br/>
 </security:authorize>
