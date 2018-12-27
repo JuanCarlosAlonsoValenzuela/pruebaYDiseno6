@@ -152,6 +152,21 @@ public class BoxService {
 
 	}
 
+	public List<Integer> getActorBoxesId() {
+
+		this.actorService.loggedAsActor();
+		List<Integer> idBoxes = new ArrayList<Integer>();
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
+		for (int i = 0; i < actor.getBoxes().size(); i++) {
+			idBoxes.add(actor.getBoxes().get(i).getId());
+		}
+
+		return idBoxes;
+	}
+
 	public List<Box> getActorBoxes() {
 		this.actorService.loggedAsActor();
 		UserAccount userAccount;

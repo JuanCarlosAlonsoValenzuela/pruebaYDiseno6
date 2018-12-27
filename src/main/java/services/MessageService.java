@@ -121,8 +121,8 @@ public class MessageService {
 			this.actorService.save(messageSaved.getSender());
 			this.actorService.save(actorRecieved);
 		}
+		return messageSaved;
 	}
-
 	public Message save(Message message) {
 		return this.messageRepository.save(message);
 
@@ -138,7 +138,6 @@ public class MessageService {
 
 		Date thisMoment = new Date();
 		thisMoment.setTime(thisMoment.getTime() - 1000);
-		List<String> tags = new ArrayList<String>();
 
 		Message message = new Message();
 		Actor sender = this.actorService.getActorByUsername(userAccount.getUsername());
@@ -146,9 +145,9 @@ public class MessageService {
 		message.setMoment(thisMoment);
 		message.setSubject("");
 		message.setBody("");
-		message.setPriority(Priority.NEUTRAL);
+		message.setPriority(Priority.LOW);
 		message.setReceiver(receiver);
-		message.setTags(tags);
+		message.setTags("");
 		message.setSender(sender);
 
 		return message;
@@ -164,7 +163,6 @@ public class MessageService {
 
 		Date thisMoment = new Date();
 		thisMoment.setTime(thisMoment.getTime() - 1);
-		List<String> tags = new ArrayList<String>();
 
 		Message message = new Message();
 
@@ -214,8 +212,9 @@ public class MessageService {
 		for (Box b : actor.getBoxes()) {
 			if (b.getMessages().contains(message)) {
 				List<Message> list = b.getMessages();
-				list.remove(message);
-				b.setMessages(list);
+				b.getMessages().remove(message);
+				//list.remove(message);
+				//b.setMessages(list);
 			}
 			if (b.getName().equals(box.getName())) {
 				List<Message> list = b.getMessages();
@@ -224,6 +223,7 @@ public class MessageService {
 			}
 		}
 	}
+
 	public void deleteMessageToTrashBox(Message message) {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
@@ -258,6 +258,23 @@ public class MessageService {
 			}
 		}
 	}
+
+	public void copyMessage(Message message, Box box) {
+
+		this.actorService.loggedAsActor();
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
+
+		for (Box b : actor.getBoxes()) {
+			if (b.getName().equals(box.getName())) {
+				List<Message> list = b.getMessages();
+				list.add(message);
+				b.setMessages(list);
+			}
+		}
+	}
+
 	public List<Message> findAll() {
 		return this.messageRepository.findAll();
 	}

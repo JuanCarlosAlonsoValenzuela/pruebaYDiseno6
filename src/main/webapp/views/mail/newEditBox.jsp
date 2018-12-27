@@ -18,28 +18,38 @@
 
 <security:authorize access="isAuthenticated()">
 
-<spring:url var="showActor" value="/actor/authenticated/edit.do"/>
 
-<h4><spring:message code="actor.logged" /><a href="${showActor}"><jstl:out value=" ${username}"/></a></h4>
 
-<spring:url var="boxSave" value="/box/authenticated/save.do"/>
-<form:form modelAttribute="box" action="${boxSave}">
-	<form:label path="name">
-		<spring:message code="mail.box.name"/>:
-	</form:label>
-	<form:input path="name" value="${box.name}" required/>
-	<form:errors cssClass="error" path="name"/>
-	
+<form:form modelAttribute="box" action="box/actor/edit.do">
+
+
+
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="isSystem"/>
-	<form:hidden path="fatherBox"/>
 	<form:hidden path="messages"/>
 	
-	<input type="submit" name = "save" value="<spring:message code="mail.save"/>" onclick="return confirm('<spring:message code="mail.save" />')"/>
-</form:form>
+	<form:label path="name">
+		<spring:message code="mail.box.name"/>:
+	</form:label>
+	<form:input path="name" value="${box.name}"/>
+	<form:errors cssClass="error" path="name"/>
+	
+	<form:label path="fatherBox">
+			<spring:message code="mail.box.fatherBox"/>:
+	</form:label>
+	<form:select path="fatherBox">
+			<form:options items="${boxes}" itemLabel="name" itemValue="id"/>								 		
+		</form:select>
+		<form:errors cssClass="error" path="fatherBox"/>
+	<br />
 
-<spring:url var="mail" value="/box/authenticated/list.do"/>
+	<input  type="submit" name = "save" value="<spring:message code="mail.save"/>" onclick="return confirm('<spring:message code="mail.save" />')"/> 
+	
+	<input type="submit" name = "delete" value="<spring:message code="mail.delete"/>" onclick="return confirm('<spring:message code="mail.delete" />')"/>
+	</form:form>
+
+<spring:url var="mail" value="/box/actor/list.do"/>
 
 <p><a href="${mail}"><spring:message code="mail.cancel"/></a></p>
 

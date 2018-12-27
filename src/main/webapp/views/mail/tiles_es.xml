@@ -22,6 +22,18 @@
 		<put-attribute name="body" value="/views/mail/boxes.jsp" />
 	</definition>
 	
+	<definition name="box/actor/create" extends="master.page">	
+		<put-attribute name="title" value="Boxes" />
+		<put-attribute name="body" value="/views/mail/newEditBox.jsp" />
+	</definition>
+	
+	<definition name="box/actor/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar cajas" />
+		<put-attribute name="body" value="/views/mail/newEditBox.jsp" />
+	</definition>
+	
+	
+	
 	<definition name="message/actor/list" extends="master.page">	
 		<put-attribute name="title" value="Messages" />
 		<put-attribute name="body" value="/views/mail/messages.jsp" />
@@ -31,6 +43,23 @@
 		<put-attribute name="title" value="Escribir Mensaje" />
 		<put-attribute name="body" value="/views/mail/newMessage.jsp" />
 	</definition>
+	
+	<definition name="message/actor/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit Message" />
+		<put-attribute name="body" value="/views/mail/newMessage.jsp" />
+	</definition>
+	
+	<definition name="message/actor/createmove" extends="master.page">	
+		<put-attribute name="title" value="Actualizar caja del mensaje" />
+		<put-attribute name="body" value="/views/mail/message.jsp" />
+	</definition>
+	
+	<definition name="message/actor/move" extends="master.page">	
+		<put-attribute name="title" value="Actualizar caja del mensaje" />
+		<put-attribute name="body" value="/views/mail/message.jsp" />
+	</definition>
+	
+
 	
 	<!-- Estos probablemente no -->
 	<definition name="/mail/messages" extends="master.page">	

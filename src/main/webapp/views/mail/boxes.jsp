@@ -27,33 +27,18 @@
 		<jstl:out value="${row.messages.size()}" />
 	</display:column>	
 	
-	<jstl:choose>
-		<jstl:when test="${row.isSystem}">
-		</jstl:when>
-		
-		<jstl:otherwise>
 		
 		<display:column>
-			<spring:url var="deleteBox" value="/box/actor/delete.do?boxId={boxId}">
-				<spring:param name="boxId" value="${row.id}"/>
-			</spring:url>
+			<jstl:if test="${!row.isSystem}">
+				<spring:url var="editBox" value="/box/actor/edit.do?boxId={boxId}">
+					<spring:param name="boxId" value="${row.id}"/>
+				</spring:url>
 		
-			<a href="${deleteBox}" onclick="return confirm('<spring:message code="mail.delete" />')">
-					<spring:message code="mail.box.delete"/>
-			</a>
-			
-		</display:column>
-	
-		<display:column>
-			<spring:url var="editBox" value="/box/actor/edit.do?boxId={boxId}">
-				<spring:param name="boxId" value="${row.id}"/>
-			</spring:url>
-		
-			<a href="${editBox}"><spring:message code="mail.box.edit"/></a>
+				<a href="${editBox}"><spring:message code="mail.box.edit"/></a>
+			</jstl:if>	
 		</display:column>	
 		
-		</jstl:otherwise>
-	</jstl:choose>
+
 															
 </display:table>
 

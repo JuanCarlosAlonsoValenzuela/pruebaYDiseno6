@@ -12,7 +12,7 @@
 
 
 <display:table
-	pagesize="10" name="messages" id="row"
+	pagesize="4" name="messages" id="row"
 	requestURI="message/actor/list.do" >
 	
 	<!-- Date -->
@@ -22,7 +22,7 @@
 	
 	<display:column	titleKey="mail.message.subject">
 	
-		<spring:url var="showMessage" value="/message/authenticated/show.do?messageId={rowId}">
+		<spring:url var="showMessage" value="/message/actor/edit.do?rowId={rowId}&boxId=${boxId}">
 			<spring:param name="rowId" value="${row.id}"/>
 		</spring:url>
 	
@@ -31,36 +31,60 @@
 		</a>
 	</display:column>
 	
-	<display:column	titleKey="mail.message.tags">	
-		<jstl:if test="${row.tags.size() > 0}" >
-				<jstl:set var="tagsSize" value="${row.tags.size()}" />
-				<spring:url var="commentsUrl" value="/tag/actor/list.do?messageId={messageId}">
-							<spring:param name="messageId" value="${row.id}"/>
-				</spring:url>
-				<a href="${tagsUrl}">
-							<spring:message var ="viewTags" code="mail.message.viewTags" />	
-							<jstl:out value="${viewTags}(${tagsSize})" />		
-				</a>
-		</jstl:if>
-	</display:column>
+	<display:column	property ="tags"
+				titleKey="mail.message.tags"/>
 							
 	<display:column	titleKey="mail.message.sender">
-		<jstl:out value="${row.sender.name}" />
+		<jstl:out value="${row.sender.userAccount.username}" />
 	</display:column>	
 	
 	<display:column	titleKey="mail.message.receiver">
-		<jstl:out value="${row.receiver.name}" />
+		<jstl:out value="${row.receiver.userAccount.username}" />
 	</display:column>
 	
 	<display:column property="priority" titleKey="mail.message.priority" />	
 	
-	<display:column>
-		<spring:url var="deleteMessage" value="/message/authenticated/delete.do?messageId={rowId}">
-			<spring:param name="rowId" value="${row.id}"/>
-		</spring:url>
+	<display:column titleKey="mail.message.move">
 	
-		<a href="${deleteMessage}" onclick="return confirm('<spring:message code="mail.delete" />')"><spring:message code="mail.message.delete"/></a>
+<jstl:forEach items="${boxes}" var="box">
+ 
+ 	<spring:url var="moveMessage" value="/message/actor/move.do?messageId=${row.id}&boxId=${box.id}">
+			<spring:param name="messageId" value="${row.id}"/>
+	</spring:url>
+	
+ 
+ 		<a href="${moveMessage}">
+			<jstl:out value="${box.name} " />
+			<br />
+		</a>
+		
+	</jstl:forEach>
+ 
+
 	</display:column>	
+	
+	<display:column titleKey="mail.message.copy">
+	
+<jstl:forEach items="${boxes}" var="box">
+ 
+ 	<spring:url var="copyMessage" value="/message/actor/copy.do?messageId=${row.id}&boxId=${box.id}">
+			<spring:param name="messageId" value="${row.id}"/>
+	</spring:url>
+	
+ 
+ 		<a href="${copyMessage}">
+			<jstl:out value="${box.name} " />
+			<br />
+		</a>
+		
+	</jstl:forEach>
+ 
+
+	</display:column>	
+	
+	
+	
+
 															
 </display:table>
 
