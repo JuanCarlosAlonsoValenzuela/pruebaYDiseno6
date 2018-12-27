@@ -1,4 +1,3 @@
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,9 +6,25 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jsp:useBean id="now" class="java.util.Date"/>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.sql.Timestamp"%>
+  
+<%
+java.util.Date utilDate = new java.util.Date();
+java.sql.Timestamp now = new java.sql.Timestamp(utilDate.getTime());
+%>
+<jstl:set var="now" value="<%=now%>"/>
 
 <security:authorize access="hasRole('CUSTOMER')">
+
+	<jstl:set var="anyAccepted" value="false"/>
+	<jstl:forEach items="${applications}" var="app">
+		<jstl:if test="${anyAccepted==false}">
+			<jstl:if test="${app.status.toString()=='ACCEPTED'}">
+				<jstl:set var="anyAccepted" value="true"/>
+			</jstl:if>
+		</jstl:if>
+	</jstl:forEach>
 	
 	<display:table pagesize="5" name="applications" id="row" class="displaytag" 
 					requestURI="/application/customer/list.do">
@@ -23,7 +38,7 @@
 				<jstl:set var="color" value="red" />
 			</jstl:when>
 			
-			<jstl:when test="${row.fixUpTask.realizationTime > now}">
+			<jstl:when test="${row.fixUpTask.realizationTime < now}">
 				<jstl:set var="color" value="grey" />
 			</jstl:when>
 			
@@ -34,8 +49,8 @@
 		
 
 		<display:column titleKey="application.changeStatus">
-			<!-- Solo deja cambiar el status si no está aceptado -->	
-			<jstl:if test="${row.status.toString()!='ACCEPTED'}">
+			<!-- Solo deja cambiar el status si no está aceptado ni pendiente ni hay ninguna application aceptada -->	
+			<jstl:if test="${row.status.toString()=='PENDING' && anyAccepted==false}">
 					<spring:url var="statusUrl" value="/application/customer/edit.do?applicationId={appId}">
 							<spring:param name="appId" value="${row.id}"/>
 					</spring:url>

@@ -574,36 +574,45 @@ public class CustomerService {
 	}
 
 	// NOTES
-	public Note createNote(Report report) {
+	public void createNote(Report report, Note note) {
 		Customer loggedCustomer = this.securityAndCustomer();
-
-		Note note = this.noteService.create();
 
 		Collection<Report> reports = this.customerRepository.findReportsById(loggedCustomer.getId());
 
-		Report reportFound = null;
-		for (Report r : reports) {
-			if (report.getId() == r.getId()) {
-				reportFound = r;
-				break;
-			}
-		}
-
-		Assert.notNull(reportFound);
+		Assert.isTrue(reports.contains(report));
 
 		List<Note> notes = report.getNotes();
+		List<String> usernames = note.getUsernames();
+
+		usernames.add(loggedCustomer.getUserAccount().getUsername());
+		note.setUsernames(usernames);
 		notes.add(note);
 
 		report.setNotes(notes);
-
-		Note noteSaved = this.noteService.save(note);
 		this.reportService.save(report);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
-		return noteSaved;
 	}
 
+	public List<Note> showNotes(Report report) {
+		Customer loggedCustomer = this.securityAndCustomer();
+
+		Collection<Report> reports = this.customerRepository.findReportsById(loggedCustomer.getId());
+
+		Assert.isTrue(reports.contains(report));
+		return report.getNotes();
+	}
+
+	public List<String> showNotesComments(Note note, Customer customer) {
+
+		Collection<Note> notes = this.customerRepository.findNotesById(customer.getId());
+
+		Assert.isTrue(notes.contains(note));
+		return note.getOptionalComments();
+	}
+
+	//TODO Sobra
 	public Note createNote(Report report, String mandatoryComment, List<String> optionalComments) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
@@ -639,26 +648,23 @@ public class CustomerService {
 
 		Collection<Note> notes = this.customerRepository.findNotesById(loggedCustomer.getId());
 
-		Note noteFound = null;
-		for (Note n : notes) {
-			if (note.getId() == n.getId()) {
-				noteFound = n;
-				break;
-			}
-		}
+		Assert.isTrue(notes.contains(note));
+		Assert.isTrue(!note.getUsernames().contains(loggedCustomer.getUserAccount().getUsername()));
+		Assert.isTrue(comment != "");
+		Assert.notNull(comment);
 
-		Assert.notNull(noteFound);
-
-		List<String> comments = noteFound.getOptionalComments();
+		List<String> usernames = note.getUsernames();
+		List<String> comments = note.getOptionalComments();
+		usernames.add(loggedCustomer.getUserAccount().getUsername());
 		comments.add(comment);
-
-		Note noteSaved = this.noteService.save(noteFound);
+		note.setOptionalComments(comments);
+		note.setUsernames(usernames);
+		Note savedNote = this.noteService.save(note);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
-		return noteSaved;
+		return savedNote;
 	}
-
 	// ENDORSMENTS
 	public Collection<Endorsment> showEndorsments() {
 		Customer loggedCustomer = this.securityAndCustomer();

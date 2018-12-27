@@ -15,19 +15,45 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
       
 <tiles-definitions>
-	<definition name="tutorial/showTutorial.do" extends="master.page">	
-		<put-attribute name="title" value="Tutorial" />
-		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+	
+	<definition name="tutorial/anonymous/list" extends="master.page">	
+		<put-attribute name="title" value="Tutoriales" />
+		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
 	</definition>
 	
-	<definition name="tutorial/showAllTutorials.do" extends="master.page">	
-		<put-attribute name="title" value="Todos los tutoriales" />
-		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+	<definition name="tutorial/actor/list" extends="master.page">	
+		<put-attribute name="title" value="Tutoriales" />
+		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
 	</definition>
 	
-	<definition name="handy-worker/showProfile.do" extends="master.page">	
+	<definition name="tutorial/anonymous/listHandyTutorials" extends="master.page">	
+		<put-attribute name="title" value="Tutoriales de" />
+		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
+	</definition>
+	
+	<definition name="tutorial/handyWorker/listHandyTutorials" extends="master.page">	
+		<put-attribute name="title" value="Mis tutoriales" />
+		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
+	</definition>
+	
+	<definition name="section/anonymous/list" extends="master.page">	
+		<put-attribute name="title" value="Secciones del tutorial" />
+		<put-attribute name="body" value="/views/anonymous/showSections.jsp" />
+	</definition>
+	
+	<definition name="section/actor/list" extends="master.page">	
+		<put-attribute name="title" value="Secciones del tutorial" />
+		<put-attribute name="body" value="/views/anonymous/showSections.jsp" />
+	</definition>
+	
+	<definition name="handyWorker/anonymous/showProfile.do" extends="master.page">	
 		<put-attribute name="title" value="Perfil" />
-		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+		<put-attribute name="body" value="/views/customer/showHandyProfile.jsp" />
+	</definition>
+	
+	<definition name="handyWorker/actor/showProfile.do" extends="master.page">	
+		<put-attribute name="title" value="Perfil" />
+		<put-attribute name="body" value="/views/customer/showHandyProfile.jsp" />
 	</definition>
 	
 	<definition name="anonymous/createCustomer" extends="master.page">

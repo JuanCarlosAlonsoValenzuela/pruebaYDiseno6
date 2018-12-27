@@ -11,12 +11,11 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -24,7 +23,7 @@ public class Tutorial extends DomainEntity {
 
 	private String				title;
 	private Date				lastUpdate;
-	private String				sumary;
+	private String				summary;
 	private List<String>		pictures;
 
 	private List<Section>		sections;
@@ -53,7 +52,7 @@ public class Tutorial extends DomainEntity {
 
 	@NotNull
 	@Past
-	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
@@ -63,12 +62,12 @@ public class Tutorial extends DomainEntity {
 	}
 
 	@NotBlank
-	public String getSumary() {
-		return this.sumary;
+	public String getSummary() {
+		return this.summary;
 	}
 
-	public void setSumary(final String sumary) {
-		this.sumary = sumary;
+	public void setSummary(final String sumary) {
+		this.summary = sumary;
 	}
 
 	@ElementCollection

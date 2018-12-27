@@ -7,84 +7,73 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="anonymous.showHandyProfile" /></p>
+<p><strong><spring:message code="anonymous.showHandyProfile" />: <jstl:out value="${handyWorker.make}"/></strong></p>
 
 <br/>
 
 <table>
 	<tr>
-		<td><spring:message code="handy-worker.fullName" /></td> 
-		<td><jstl:out value="${handy-worker.name} ${handy-worker.name} ${handy-worker.lastName}" /> </td>
+		<td><spring:message code="handyWorker.fullName" /></td> 
+		<td><jstl:out value="${handyWorker.name} ${handyWorker.middleName} ${handyWorker.surname}" /> </td>
 	</tr>
 	<tr>
-		<td><spring:message code="handy-worker.email"/></td> 
-		<td><jstl:out value="${handy-worker.email}" /> </td>
+		<td><spring:message code="handyWorker.email"/></td> 
+		<td><jstl:out value="${handyWorker.email}" /> </td>
 	</tr>
 	<tr>
-		<td><spring:message code="handy-worker.phoneNumber"/></td> 
-		<td><jstl:out value="${handy-worker.phoneNumber}" /> </td>
+		<td><spring:message code="handyWorker.phoneNumber"/></td> 
+		<td><jstl:out value="${handyWorker.phoneNumber}" /> </td>
+	</tr>
+	<tr>
+		<td><spring:message code="handyWorker.address"/></td> 
+		<td><jstl:out value="${handyWorker.address}" /></td>
+	</tr>
+	<tr>
+		<td><spring:message code="handyWorker.score"/></td> 
+		<td><jstl:out value="${handyWorker.score}" /></td>
+	</tr>
+	<tr>
+		<td><spring:message code="handyWorker.photo"/></td> 
+		<td><img src="${handyWorker.photo}" alt="${handyWorker.photo}" style="width:100px;height:100px;border:0;"/> </td>
 	</tr>
 
 </table>
 <br/>
-
-<p><spring:message code="anonymous.showHandyProfileTutorials" /></p>
+<strong><spring:message code="anonymous.showHandyProfileSocialProfiles" />:</strong>
 
 <display:table
-	pagesize="10" name="tutorials" id="row"
-	class="displaytag" requestURI="handy-worker/showProfile.do">
+	pagesize="5" name="${handyWorker.socialProfiles}" id="row"
+	requestURI="${requestURI}">
 	
-	
-	<security:authorize access="hasRole('HANDYWORKER')">
-	<jstl:if test="visitor.tutorials.contains(tutorial)">
-	<a href="tutorial/handy-worker/edit.do">
-		<spring:message code="handy-worker.editTutorial" />	
-	</a>
-	<br/>
-	</jstl:if>
-	</security:authorize>
-	
-	
-	<display:column property="title" titleKey="tutorial.title">
+	<display:column property="nick" titleKey="socialProfile.nick">
 	</display:column>
-	<display:column property="summary" titleKey="tutorial.summary">
+	<display:column property="name" titleKey="socialProfile.name">
 	</display:column>
-	<display:column titleKey="tutorial.lastUpdate">
-		<jstl:out value="${row.lastUpdate}" />
-	</display:column>		
-	<display:column titleKey="tutorial.author">
-			<strong>
-			<a href="${row.authorProfileLink}">
-				<jstl:out value="${row.author}" />
-			</a>
-		</strong>
+	<display:column titleKey="socialProfile.profileLink">
+		<a href="${row.profileLink}" ><spring:message code="handyWorker.linkProfile" /></a>
 	</display:column>
-	<display:column titleKey="tutorial.sponsor">
-		<ol>
-		<jstl:forEach var="sponsor" items="tutorial.sponsors">
-				<spring:url var="sponsorUrl" value="${sponsor.link}">
-				</spring:url>
-				<a href="${sponsorUrl}">
-							<spring:message var ="sponsorBanner" code="sponsor.bannerUrl" />
-							<jstl:out value="${sponsorBanner}" />		
-				</a>
-			</jstl:forEach>
-		</ol>
-	</display:column>
-								
 </display:table>
-<br/>
-
-<security:authorize access="hasRole('HANDYWORKER')">
-<jstl:if test="visitor.id == handy-worker.id">
-<a href="tutorial/handy-worker/add.do">
-	<spring:message code="handy-worker.createTutorial" />	
-</a>
-<br/>
-</jstl:if>
-</security:authorize>
 
 <br/>
-<a href="tutorial/showAllTutorials.do">
-	<spring:message code="anonymous.allTutorials" />	
-</a>
+<br/>
+
+
+<jstl:choose>
+	<jstl:when test="${canEdit}">
+		<spring:url var="showTutorialUrl" value="tutorial/handyWorker/listHandyTutorials.do">	
+		</spring:url>
+		<a href="${showTutorialUrl}">
+			<strong><spring:message code="handyWorker.myTutorials" />: <jstl:out value="${handyWorker.make}"/></strong>			
+		</a>
+	</jstl:when>
+	<jstl:otherwise>
+		<spring:url var="showTutorialUrl" value="tutorial/anonymous/listHandyTutorials.do">
+			<spring:param name="handyId" value="${handyWorker.id}"/>	
+		</spring:url>
+		<a href="${showTutorialUrl}">
+			<strong><spring:message code="anonymous.showHandyProfileTutorials" />: <jstl:out value="${handyWorker.make}"/></strong>			
+		</a>
+	</jstl:otherwise>
+</jstl:choose>
+
+

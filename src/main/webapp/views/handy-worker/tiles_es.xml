@@ -51,9 +51,14 @@
 		<put-attribute name="body" value="/views/handy-worker/listEndorsment.jsp" />
 	</definition>
 	
-	<definition name="/finder/handyWorker/edit.do" extends="master.page">	
+	<definition name="handy-worker/finder" extends="master.page">	
 		<put-attribute name="title" value="Buscador" />
 		<put-attribute name="body" value="/views/handy-worker/finder.jsp" />
+	</definition>
+	
+		<definition name="handy-worker/finderResult" extends="master.page">	
+		<put-attribute name="title" value="Resultados de la busqueda" />
+		<put-attribute name="body" value="/views/handy-worker/finderResult.jsp" />
 	</definition>
 	
 	<definition name="/workPlan/handyWorker/list.do" extends="master.page">	
@@ -66,19 +71,14 @@
 		<put-attribute name="body" value="/views/handy-worker/editPhase.jsp" />
 	</definition>
 	
-	<definition name="/fixUpTaskCustomerInfo/handyWorker/list.do" extends="master.page">	
+	<definition name="handy-worker/fixUpTaskCustomerInfo" extends="master.page">	
 		<put-attribute name="title" value="Customer info" />
 		<put-attribute name="body" value="/views/handy-worker/fixUpTaskCustomerInfo.jsp" />
 	</definition>
 
-	<definition name="/tutorial/handyWorker/add.do" extends="master.page">	
-		<put-attribute name="title" value="Crear tutorial" />
-		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
-	</definition>
-	
-	<definition name="/tutorial/handyWorker/edit.do" extends="master.page">	
+	<definition name="tutorial/handyWorker/edit" extends="master.page">	
 		<put-attribute name="title" value="Editar tutorial" />
-		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+		<put-attribute name="body" value="/views/handy-worker/addTutorial.jsp" />
 	</definition>
 
 	<!-- Complaints and Reports -->

@@ -9,10 +9,11 @@
 
 <p><spring:message code="report.notes.list" /></p>
 
+<security:authorize access="hasRole('CUSTOMER')">
 
  	
 	<display:table pagesize="5" name="notes" id="row" class="displaytag"
-			requestURI="report/note/show.do"> 
+			requestURI="${requestURI}"> 
 			
 	<display:column property="moment" titleKey="note.moment"/>
 	
@@ -20,7 +21,7 @@
 		
 	<display:column titleKey="note.comments">
 				<jstl:set var="optionalCommentsSize" value="${row.optionalComments.size()}" />
-				<spring:url var="commentsUrl" value="report/note/comment/list.do?noteId{notId}">
+				<spring:url var="commentsUrl" value="note/customer/showComments.do?noteId={notId}">
 							<spring:param name="notId" value="${row.id}"/>
 				</spring:url>
 				<a href="${commentsUrl}">
@@ -31,11 +32,11 @@
 		
 	</display:table>
 	
-	<spring:url var="createNoteUrl" value="report/note/edit.do?reportId={repId}">
-					<spring:param name="repId" value="${repId}"/>
-		</spring:url>
-		
+	<spring:url var="createNoteUrl" value="note/customer/create.do?reportId={reportId}">
+					<spring:param name="reportId" value="${reportId}"/>
+	</spring:url>
 	
-		<a href="${createNoteUrl}">
-				<spring:message code="note.create" />			
-		</a>
+	<a href="${createNoteUrl}">
+		<spring:message code="note.create" />			
+	</a>
+</security:authorize>

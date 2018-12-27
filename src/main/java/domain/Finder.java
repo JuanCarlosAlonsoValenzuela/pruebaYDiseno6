@@ -13,6 +13,9 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -25,6 +28,7 @@ public class Finder extends DomainEntity {
 	private Double			maxPrice;
 	private Date			startDate;
 	private Date			endDate;
+	private Date			lastEdit;
 
 	private List<FixUpTask>	fixUpTasks;
 
@@ -68,6 +72,7 @@ public class Finder extends DomainEntity {
 	@Valid
 	@Min(0)
 	@Digits(fraction = 2, integer = 9)
+	@NotNull
 	public Double getMinPrice() {
 		return this.minPrice;
 	}
@@ -77,7 +82,9 @@ public class Finder extends DomainEntity {
 	}
 
 	@Valid
+	@Min(0)
 	@Digits(fraction = 2, integer = 9)
+	@NotNull
 	public Double getMaxPrice() {
 		return this.maxPrice;
 	}
@@ -88,6 +95,7 @@ public class Finder extends DomainEntity {
 
 	@Valid
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -97,12 +105,24 @@ public class Finder extends DomainEntity {
 	}
 	@Temporal(TemporalType.TIMESTAMP)
 	@Valid
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getEndDate() {
 		return this.endDate;
 	}
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Valid
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getLastEdit() {
+		return this.lastEdit;
+	}
+
+	public void setLastEdit(Date lastEdit) {
+		this.lastEdit = lastEdit;
 	}
 
 }

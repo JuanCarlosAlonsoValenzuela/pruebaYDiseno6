@@ -8,10 +8,10 @@
 
 <p><spring:message code="customer.complaints" /></p>
 
+<security:authorize access="hasRole('CUSTOMER')">
+
 	<display:table pagesize="5" name="complaints" id="row"
-	class="displaytag" requestURI="complaint/customer/list.do">
-		
-	
+	class="displaytag" requestURI="${requestURI}">
 		
 		<display:column property="moment" titleKey="complaint.moment"
 					sortable="true" format="{0,date,dd/MM/yyyy HH:mm}"  />	
@@ -40,10 +40,10 @@
 		</display:table>
 		
 		
-				<spring:url var="createComplaintUrl" value="/complaint/customer/edit.do?fixUpTaskId={fixId}">
-					<spring:param name="fixId" value="${fixUpTaskId}"/>
-				</spring:url>
-		
+		<spring:url var="createComplaintUrl" value="/complaint/customer/edit.do?fixUpTaskId={fixId}">
+			<spring:param name="fixId" value="${fixUpTaskId}"/>
+		</spring:url>
+</security:authorize>	
 	
 
 		
