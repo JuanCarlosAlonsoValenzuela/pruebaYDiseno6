@@ -9,6 +9,7 @@
 
 <p><spring:message code="anonymous.showAlltutorials" /></p>
 
+
 <display:table
 	pagesize="5" name="tutorials" id="row"
 	requestURI="${requestURI}">
@@ -24,7 +25,7 @@
 		</display:column>
 	</jstl:if>
 	
-	<display:column property="title" titleKey="tutorial.title">
+	<display:column property="title" titleKey="tutorial.title" sortable="true">
 	</display:column>
 	
 	<display:column property="summary" titleKey="tutorial.summary">
@@ -32,17 +33,7 @@
 	
 	<security:authorize access="isAnonymous()">
 		<display:column titleKey="tutorial.sections">
-			<spring:url var="sectionsUrl" value="/section/anonymous/list.do?tutorialId={tutorialId}">
-				<spring:param name="tutorialId" value="${row.id}"/>
-			</spring:url>
-			<a href="${sectionsUrl}">
-				<spring:message code="tutorial.sections" />		
-			</a>
-		</display:column>
-	</security:authorize>
-	<security:authorize access="isAuthenticated()">
-		<display:column titleKey="tutorial.sections">
-			<spring:url var="sectionsUrl" value="/section/actor/list.do?tutorialId={tutorialId}">
+			<spring:url var="sectionsUrl" value="/section/anonymous/list.do">
 				<spring:param name="tutorialId" value="${row.id}"/>
 			</spring:url>
 			<a href="${sectionsUrl}">
@@ -51,10 +42,35 @@
 		</display:column>
 	</security:authorize>
 	
+	<security:authorize access="isAuthenticated()">
+		<jstl:choose>
+			<jstl:when test="${tutorials.size() != 0 && username.equals(authors.get(tutorials.indexOf(row)).getUserAccount().getUsername())}">
+				<display:column titleKey="tutorial.sections">
+					<spring:url var="sectionsUrl" value="/section/handyWorker/list.do">
+						<spring:param name="tutorialId" value="${row.id}"/>
+					</spring:url>
+					<a href="${sectionsUrl}">
+						<spring:message code="tutorial.sections" />		
+					</a>
+				</display:column>
+			</jstl:when>
+			<jstl:otherwise>
+				<display:column titleKey="tutorial.sections">
+					<spring:url var="sectionsUrl" value="/section/anonymous/list.do">
+						<spring:param name="tutorialId" value="${row.id}"/>
+					</spring:url>
+					<a href="${sectionsUrl}">
+						<spring:message code="tutorial.sections" />		
+					</a>
+				</display:column>
+			</jstl:otherwise>
+		</jstl:choose>
+	</security:authorize>
+	
 	<jstl:if test="${noAuthor}">	
 		<security:authorize access="isAnonymous()">		
-			<display:column titleKey="tutorial.author">
-				<spring:url var="perfilUrl" value="/handyWorker/anonymous/showProfile.do?handyId={handyId}">
+			<display:column titleKey="tutorial.author" sortable="true">
+				<spring:url var="perfilUrl" value="/handyWorker/anonymous/showProfile.do">
 					<spring:param name="handyId" value="${authors.get(tutorials.indexOf(row)).id}"/>
 				</spring:url>
 				<a href="${perfilUrl}">
@@ -65,8 +81,8 @@
 		</security:authorize>
 		<security:authorize access="isAuthenticated()">
 			<jstl:choose>
-				<jstl:when test="${username.equals(authors.get(tutorials.indexOf(row)).getUserAccount().getUsername())}">
-					<display:column titleKey="tutorial.author">
+				<jstl:when test="${tutorials.size() != 0 && username.equals(authors.get(tutorials.indexOf(row)).getUserAccount().getUsername())}">
+					<display:column titleKey="tutorial.author" sortable="true">
 						<spring:url var="perfilUrl" value="/handyWorker/handyWorker/showProfile.do"/>
 						<a href="${perfilUrl}">
 							<jstl:set var ="make" value="${authors.get(tutorials.indexOf(row)).make}" />
@@ -75,8 +91,8 @@
 					</display:column>
 				</jstl:when>
 				<jstl:otherwise>
-					<display:column titleKey="tutorial.author">
-						<spring:url var="perfilUrl" value="/handyWorker/anonymous/showProfile.do?handyId={handyId}">
+					<display:column titleKey="tutorial.author" sortable="true">
+						<spring:url var="perfilUrl" value="/handyWorker/anonymous/showProfile.do">
 							<spring:param name="handyId" value="${authors.get(tutorials.indexOf(row)).id}"/>
 						</spring:url>
 						<a href="${perfilUrl}">
@@ -90,7 +106,7 @@
 	</jstl:if>
 	
 	
-	<display:column property="lastUpdate" titleKey="tutorial.lastUpdate" format="{0,date,dd/MM/yyyy HH:mm}">
+	<display:column property="lastUpdate" titleKey="tutorial.lastUpdate" format="{0,date,dd/MM/yyyy HH:mm}" sortable="true">
 	</display:column>	
 	
 	<display:column titleKey="tutorial.pictures">
@@ -107,6 +123,7 @@
 	</display:column>
 								
 </display:table>
+
 <jstl:if test="${canEdit}">
 	<spring:url var="createTutorialUrl" value="tutorial/handyWorker/create.do">	
 	</spring:url>

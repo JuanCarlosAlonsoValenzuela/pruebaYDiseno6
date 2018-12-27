@@ -22,7 +22,7 @@ import domain.Category;
 import domain.Complaint;
 import domain.CreditCard;
 import domain.Customer;
-import domain.Endorsment;
+import domain.Endorsement;
 import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
@@ -54,7 +54,7 @@ public class CustomerService {
 	@Autowired
 	private ReportService			reportService;
 	@Autowired
-	private EndorsmentService		endorsmentService;
+	private EndorsementService		endorsmentService;
 	@Autowired
 	private ConfigurationService	configurationService;
 	@Autowired
@@ -72,7 +72,7 @@ public class CustomerService {
 		List<SocialProfile> socialProfiles = new ArrayList<SocialProfile>();
 		List<Box> boxes = new ArrayList<Box>();
 		List<FixUpTask> fixUpTasks = new ArrayList<FixUpTask>();
-		List<Endorsment> endorsements = new ArrayList<Endorsment>();
+		List<Endorsement> endorsements = new ArrayList<Endorsement>();
 
 		// SE AÑADE EL USERNAME Y EL PASSWORD
 		UserAccount userAccountActor = new UserAccount();
@@ -122,7 +122,7 @@ public class CustomerService {
 
 		s.setFixUpTasks(fixUpTasks);
 		s.setScore(0.);
-		s.setEndorsments(endorsements);
+		s.setEndorsements(endorsements);
 		// SPAM SIEMPRE A FALSE EN LA INICIALIZACION
 		s.setHasSpam(false);
 
@@ -666,19 +666,19 @@ public class CustomerService {
 		return savedNote;
 	}
 	// ENDORSMENTS
-	public Collection<Endorsment> showEndorsments() {
+	public Collection<Endorsement> showEndorsments() {
 		Customer loggedCustomer = this.securityAndCustomer();
 
 		return this.customerRepository.AllEndorsmentsById(loggedCustomer.getId());
 	}
 
-	public Endorsment getEndorsment(int endorsmentId) {
+	public Endorsement getEndorsment(int endorsmentId) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
-		Collection<Endorsment> endorsments = this.customerRepository.AllEndorsmentsById(loggedCustomer.getId());
+		Collection<Endorsement> endorsments = this.customerRepository.AllEndorsmentsById(loggedCustomer.getId());
 
-		Endorsment endorsmentFound = null;
-		for (Endorsment e : endorsments) {
+		Endorsement endorsmentFound = null;
+		for (Endorsement e : endorsments) {
 			if (e.getId() == endorsmentId) {
 				endorsmentFound = e;
 				break;
@@ -698,7 +698,7 @@ public class CustomerService {
 		Assert.isTrue(authorities.get(0).toString().equals("CUSTOMER"));
 	}
 
-	public Endorsment createEndorsment(List<String> comments, HandyWorker writtenTo) {
+	public Endorsement createEndorsment(List<String> comments, HandyWorker writtenTo) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
 		Assert.isTrue(writtenTo.getClass().equals(HandyWorker.class));
@@ -715,22 +715,22 @@ public class CustomerService {
 
 		Assert.notNull(handyWorkerFound);
 
-		Endorsment endorsment = this.endorsmentService.createEndorsment(comments, writtenTo);
+		Endorsement endorsment = this.endorsmentService.createEndorsment(comments, writtenTo);
 
-		Endorsment endorsmentSave = this.endorsmentService.save(endorsment);
+		Endorsement endorsmentSave = this.endorsmentService.save(endorsment);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
 		return endorsmentSave;
 	}
 
-	public Endorsment updateEndorsment(Endorsment endorsment) {
+	public Endorsement updateEndorsment(Endorsement endorsment) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
-		Collection<Endorsment> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
+		Collection<Endorsement> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
 
-		Endorsment endorsmentFound = null;
-		for (Endorsment e : endorsments) {
+		Endorsement endorsmentFound = null;
+		for (Endorsement e : endorsments) {
 			if (e.getId() == endorsment.getId()) {
 				endorsmentFound = e;
 				break;
@@ -739,20 +739,20 @@ public class CustomerService {
 
 		Assert.notNull(endorsmentFound);
 
-		Endorsment endorsmentSave = this.endorsmentService.save(endorsment);
+		Endorsement endorsmentSave = this.endorsmentService.save(endorsment);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
 		return endorsmentSave;
 	}
 
-	public void deleteEndorsment(Endorsment endorsment) {
+	public void deleteEndorsment(Endorsement endorsment) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
-		Collection<Endorsment> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
+		Collection<Endorsement> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
 
-		Endorsment endorsmentFound = null;
-		for (Endorsment e : endorsments) {
+		Endorsement endorsmentFound = null;
+		for (Endorsement e : endorsments) {
 			if (e.getId() == endorsment.getId()) {
 				endorsmentFound = e;
 				break;

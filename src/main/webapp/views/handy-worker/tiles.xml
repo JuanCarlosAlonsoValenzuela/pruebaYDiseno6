@@ -41,12 +41,12 @@
 		<put-attribute name="body" value="/views/handy-worker/createApplication.jsp" />
 	</definition>
 	
-		<definition name="/application/handyWorker/edit.do" extends="master.page">	
+	<definition name="/application/handyWorker/edit.do" extends="master.page">	
 		<put-attribute name="title" value="Edit endorsement" />
 		<put-attribute name="body" value="/views/handy-worker/editEndorsment.jsp" />
 	</definition>
 	
-	<definition name="/application/handyWorker/edit.do" extends="master.page">	
+	<definition name="endorsement/handyWorker/list" extends="master.page">	
 		<put-attribute name="title" value="Show endorsements" />
 		<put-attribute name="body" value="/views/handy-worker/listEndorsment.jsp" />
 	</definition>
@@ -79,6 +79,11 @@
 	<definition name="tutorial/handyWorker/edit" extends="master.page">	
 		<put-attribute name="title" value="Edit tutorial" />
 		<put-attribute name="body" value="/views/handy-worker/addTutorial.jsp" />
+	</definition>
+	
+	<definition name="section/handyWorker/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit section" />
+		<put-attribute name="body" value="/views/handy-worker/editSection.jsp" />
 	</definition>
 
 	<!-- Complaints and Reports -->

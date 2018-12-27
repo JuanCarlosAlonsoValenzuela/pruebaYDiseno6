@@ -19,7 +19,7 @@ import domain.Customer;
 import domain.EducationRecord;
 import domain.Endorser;
 import domain.EndorserRecord;
-import domain.Endorsment;
+import domain.Endorsement;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Message;
@@ -265,7 +265,7 @@ public class ConfigurationService {
 		if (!result) {
 			if (a instanceof Endorser) {
 				Endorser h = (Endorser) a;
-				for (Endorsment t : h.getEndorsments()) {
+				for (Endorsement t : h.getEndorsements()) {
 					for (String s : t.getComments()) {
 						if (this.isStringSpam(s, spamWords)) {
 							result = true;
@@ -390,9 +390,9 @@ public class ConfigurationService {
 		List<String> goodWordsList = Arrays.asList(goodWords.split(",[ ]*"));
 		List<String> badWordsList = Arrays.asList(badWoords.split(",[ ]*"));
 
-		List<Endorsment> endorsments = e.getEndorsments();
+		List<Endorsement> endorsments = e.getEndorsements();
 
-		for (Endorsment endo : endorsments) {
+		for (Endorsement endo : endorsments) {
 			if (endo.getWrittenTo().equals(e)) {
 				for (String g : endo.getComments()) {
 					List<String> commentSplit = Arrays.asList(g.split("\\W"));

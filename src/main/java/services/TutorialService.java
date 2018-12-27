@@ -62,6 +62,9 @@ public class TutorialService {
 	}
 
 	public Tutorial save(Tutorial tutorial) {
+		Date date = new Date();
+		date.setTime(date.getTime() - 1);
+		tutorial.setLastUpdate(date);
 		return this.tutorialRepository.save(tutorial);
 	}
 
