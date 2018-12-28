@@ -22,13 +22,13 @@ import domain.Sponsor;
 public class AnonymousController extends AbstractController {
 
 	@Autowired
-	CustomerService		customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	HandyWorkerService	handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
 
 	@Autowired
-	SponsorService		sponsorService;
+	private SponsorService		sponsorService;
 
 
 	public AnonymousController() {

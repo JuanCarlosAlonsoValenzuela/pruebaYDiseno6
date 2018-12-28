@@ -8,7 +8,7 @@
 	
 <p><spring:message code="sponsor.editSponsor" /></p>
 	
-<security:authorize access="isAuthenticated()">
+<security:authorize access="hasRole('SPONSOR')">
 	<form:form modelAttribute="sponsor" action="personalData/sponsor/edit.do">
     <!--Hidden Attributes -->
 	<form:hidden path ="id"/>

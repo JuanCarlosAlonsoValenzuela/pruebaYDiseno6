@@ -18,9 +18,9 @@ import domain.Endorsement;
 public class EndorsementHandyWorkerController extends AbstractController {
 
 	@Autowired
-	EndorsementService	endorsementService;
+	private EndorsementService	endorsementService;
 	@Autowired
-	HandyWorkerService	handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
 
 
 	public EndorsementHandyWorkerController() {

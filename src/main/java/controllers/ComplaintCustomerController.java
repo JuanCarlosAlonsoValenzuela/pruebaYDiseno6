@@ -18,10 +18,10 @@ import domain.Complaint;
 public class ComplaintCustomerController extends AbstractController {
 
 	@Autowired
-	ComplaintService	complaintService;
+	private ComplaintService	complaintService;
 
 	@Autowired
-	CustomerService		customerService;
+	private CustomerService		customerService;
 
 
 	public ComplaintCustomerController() {
