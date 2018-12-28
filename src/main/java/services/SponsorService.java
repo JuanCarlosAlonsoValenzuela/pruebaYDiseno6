@@ -26,6 +26,8 @@ public class SponsorService {
 
 	@Autowired
 	private SponsorRepository	sponsorRepository;
+	@Autowired
+	private BoxService			boxService;
 
 
 	public void loggedAsSponsor() {
@@ -52,36 +54,6 @@ public class SponsorService {
 		UserAccount userAccountActor = new UserAccount();
 		userAccountActor.setUsername("");
 		userAccountActor.setPassword("");
-
-		// SE CREAN LAS CAJAS POR DEFECTO
-		Box spamBox = new Box();
-		List<Message> messages1 = new ArrayList<>();
-		spamBox.setIsSystem(true);
-		spamBox.setMessages(messages1);
-		spamBox.setName("Spam");
-
-		Box trashBox = new Box();
-		List<Message> messages2 = new ArrayList<>();
-		trashBox.setIsSystem(true);
-		trashBox.setMessages(messages2);
-		trashBox.setName("Trash");
-
-		Box sentBox = new Box();
-		List<Message> messages3 = new ArrayList<>();
-		sentBox.setIsSystem(true);
-		sentBox.setMessages(messages3);
-		sentBox.setName("Sent messages");
-
-		Box receivedBox = new Box();
-		List<Message> messages4 = new ArrayList<>();
-		receivedBox.setIsSystem(true);
-		receivedBox.setMessages(messages4);
-		receivedBox.setName("Received messages");
-
-		boxes.add(receivedBox);
-		boxes.add(sentBox);
-		boxes.add(spamBox);
-		boxes.add(trashBox);
 
 		// SE AÑADEN TODOS LOS ATRIBUTOS
 		s.setName("");
@@ -184,7 +156,37 @@ public class SponsorService {
 		return s;
 	}
 
-	public Sponsor save(Sponsor s) {
+	public Sponsor save(Sponsor sponsor) {	//Tenemos un listBox vacía
+
+		List<Box> boxes = new ArrayList<>();
+
+		//Boxes
+		Box box1 = this.boxService.createSystem();
+		box1.setName("Spam");
+		Box saved1 = this.boxService.saveSystem(box1);
+		boxes.add(saved1);
+
+		Box box2 = this.boxService.createSystem();
+		box2.setName("Trash");
+		Box saved2 = this.boxService.saveSystem(box2);
+		boxes.add(saved2);
+
+		Box box3 = this.boxService.createSystem();
+		box3.setName("Sent messages");
+		Box saved3 = this.boxService.saveSystem(box3);
+		boxes.add(saved3);
+
+		Box box4 = this.boxService.createSystem();
+		box4.setName("Received messages");
+		Box saved4 = this.boxService.saveSystem(box4);
+		boxes.add(saved4);
+
+		sponsor.setBoxes(boxes);
+
+		return this.sponsorRepository.save(sponsor);
+	}
+
+	public Sponsor updateSponsor(Sponsor s) {
 		return this.sponsorRepository.save(s);
 	}
 

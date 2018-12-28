@@ -6,33 +6,29 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="anonymous.createCustomer" /></p>
+<p><spring:message code="customer.editCustomer" /></p>
 
-<security:authorize access="isAnonymous()">
-
-<form:form modelAttribute="customer" action="anonymous/createCustomer.do">
+<security:authorize access="hasRole('CUSTOMER')">
+	<form:form modelAttribute="customer" action="personalData/customer/edit.do">
     <!--Hidden Attributes -->
 	<form:hidden path ="id"/>
 	<form:hidden path ="version"/>
 	<form:hidden path ="hasSpam"/>
 	<form:hidden path ="boxes"/>
 	<form:hidden path ="socialProfiles"/>
-	<form:hidden path ="userAccount.authorities"/>
-	<form:hidden path ="userAccount.isNotLocked"/>
 	<form:hidden path ="score"/>
 	<form:hidden path ="fixUpTasks"/>
 	<form:hidden path ="endorsements"/>
+	<form:hidden path="userAccount" />
 	
-	
-	<!-- Actor Attributes -->
 	<form:label path="name">
 		<spring:message code="customer.name" />
 	</form:label>
 	<form:input path="name" />
 	<form:errors cssClass="error" path="name"/>
-	<br />
+	<br />	
 	
-	
+	<!-- Middle Name -->
 	<form:label path="middleName">
 		<spring:message code="customer.middleName" />
 	</form:label>
@@ -40,7 +36,7 @@
 	<form:errors cssClass="error" path="middleName"/>
 	<br />
 
-	
+	<!-- Surname -->
 	<form:label path="surname">
 		<spring:message code="customer.surname" />
 	</form:label>
@@ -48,7 +44,7 @@
 	<form:errors cssClass="error" path="surname"/>
 	<br />
 	
-	
+	<!-- Photo -->
 	<form:label path="photo">
 		<spring:message code="customer.photo" />
 	</form:label>
@@ -56,14 +52,15 @@
 	<form:errors cssClass="error" path="photo"/>
 	<br />
 	
-	
+	<!-- Email -->
 	<form:label path="email">
 		<spring:message code="customer.email" />
 	</form:label>
 	<form:input path="email" />
 	<form:errors cssClass="error" path="email"/>
 	<br />
-
+	
+	<!-- Phone Number -->
 	<form:label path="phoneNumber">
 		<spring:message code="customer.phoneNumber" />
 	</form:label>
@@ -71,7 +68,7 @@
 	<form:errors cssClass="error" path="phoneNumber"/>
 	<br />
 
-	
+	<!-- Address -->
 	<form:label path="address">
 		<spring:message code="customer.address" />
 	</form:label>
@@ -80,32 +77,12 @@
 	<br />
 	
 	
-	<form:label path="userAccount.username">
-		<spring:message code="customer.username" />
-	</form:label>
-	<form:input path="userAccount.username" />
-	<form:errors cssClass="error" path="userAccount.username"/>
-	<br />
-	
-	
-	<form:label path="userAccount.password">
-		<spring:message code="customer.password" />
-	</form:label>
-	<form:password path="userAccount.password" />
-	<form:errors cssClass="error" path="userAccount.password"/>
-	<br />
-	
-	
-	
-	
-	
-		
 	<input type="submit" name="save" value="<spring:message code="customer.save" />" /> 
 	
 	<a href="#" style="text-decoration: none;">
     	<input type="button" value="<spring:message code="customer.cancel" />" />
 	</a>
-	
+		
+
 	</form:form>
-	
 </security:authorize>

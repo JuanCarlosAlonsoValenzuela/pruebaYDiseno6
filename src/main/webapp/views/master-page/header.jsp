@@ -44,7 +44,8 @@
 					<li class="arrow"></li>
 					<li><a href="fixUpTask/customer/list.do"><spring:message code="master.page.customer.fixUpTask" /></a></li>
 					<li><a href="customer/listendorsment.do"><spring:message code="master.page.customer.listendorsment" /></a></li>									
-					<li><a href="complaint/customer/list.do"><spring:message code="master.page.customer.listcomplaint" /></a></li>										
+					<li><a href="complaint/customer/list.do"><spring:message code="master.page.customer.listcomplaint" /></a></li>	
+					<li><a href="personalData/customer/edit.do"><spring:message code="master.page.customer.editPersonalData" /></a></li>														
 				</ul>
 			</li>
 					
@@ -63,12 +64,21 @@
 			<li><a href="handyWorker/handyWorker/showProfile.do"><spring:message code="master.page.profile" /></a></li>
 		</security:authorize>
 		
-			<security:authorize access="hasRole('REFEREE')">
+		<security:authorize access="hasRole('REFEREE')">
 			<li><a class="fNiv"><spring:message	code="master.page.referee" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="referee/complaints.do"><spring:message code="master.page.referee.complaints" /></a></li>
 					<li><a href="referee/complaintsreport.do"><spring:message code="master.page.referee.complaintsreport" /></a></li>									
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('SPONSOR')">
+			<li><a class="fNiv"><spring:message	code="master.page.sponsor" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="personalData/sponsor/edit.do"><spring:message code="master.page.sponsor.editPersonalData" /></a></li>										
 				</ul>
 			</li>
 		</security:authorize>
