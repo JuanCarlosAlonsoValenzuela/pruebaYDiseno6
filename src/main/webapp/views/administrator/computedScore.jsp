@@ -20,25 +20,25 @@
 
 <security:authorize access="hasRole('ADMIN')">
 
-<display:table name="scores" id="computedScores" requestURI="${computedScore/administrator/list.do}"
+<display:table name="endorsers" id="endorser" requestURI="score/administrator/list.do"
 	pagesize="5" class="displaytag">
-	  <display:column property="endorser" titleKey="administrator.scoreEndorser" sortable="true">
-      		<jstl:out value="${computedScores.key}" />
+	
+	  <display:column titleKey="administrator.scoreEndorser" sortable="true">
+	  
+      		<jstl:out value="${endorser.userAccount.username}" />
+    
       </display:column>
       
-       <display:column property="score" titleKey="administrator.scoreValue" sortable="true">
-      		<jstl:out value="${computedScores.value}" />
+       <display:column titleKey="administrator.scoreValue" sortable="true">
+      
+      		<jstl:out value="${endorser.score}" />
+    
       </display:column>
 </display:table>
 
-<div>
-	<a href="index.do">
-		<spring:message code="andministrator.backToMainMenu" />
-	</a>
-</div>
 
 <div>
-	<a href="computedScore/administrator/list.do">
+	<a href="score/administrator/list.do">
 		<spring:message code="endorsment.recalculate" />
 	</a>
 </div>

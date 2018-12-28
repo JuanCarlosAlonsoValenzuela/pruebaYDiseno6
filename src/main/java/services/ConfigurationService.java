@@ -3,7 +3,9 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -25,6 +27,9 @@ public class ConfigurationService {
 
 	@Autowired
 	private ConfigurationRepository	configurationRepository;
+
+	@Autowired
+	private EndorserService			endorserService;
 
 
 	public Configuration getConfiguration() {
@@ -379,22 +384,21 @@ public class ConfigurationService {
 		List<String> badWordsList = Arrays.asList(badWoords.split(",[ ]*"));
 
 		List<Endorsement> endorsments = e.getEndorsements();
-
-		for (Endorsement endo : endorsments) {
-			if (endo.getWrittenTo().equals(e)) {
-				for (String g : endo.getComments()) {
-					List<String> commentSplit = Arrays.asList(g.split("\\W"));
-					for (String word : commentSplit) {
-						if (goodWordsList.contains(word)) {
-							countGood = countGood + 1.0;
+		if (!endorsments.isEmpty()) {
+			for (Endorsement endo : endorsments) {
+				if (endo.getWrittenTo().equals(e)) {
+					for (String g : endo.getComments()) {
+						List<String> commentSplit = Arrays.asList(g.split("\\W"));
+						for (String word : commentSplit) {
+							if (goodWordsList.contains(word)) {
+								countGood = countGood + 1.0;
+							}
+							if (badWordsList.contains(word)) {
+								countBad = countBad - 1.0;
+							}
+							total = countGood - countBad;
 						}
-						if (badWordsList.contains(word)) {
-							countBad = countBad - 1.0;
-						}
-						total = countGood - countBad;
-
 					}
-
 				}
 			}
 		}
@@ -405,8 +409,43 @@ public class ConfigurationService {
 		for (Double d : parcialresult) {
 			cont = cont + d;
 		}
-		res = cont / parcialresult.size();
+		if (parcialresult.size() == 0) {
+			res = 0.0;
+			//e.setScore(res);
 
-		return res;
+			//this.endorserService.save(e);
+
+		} else {
+			res = cont / parcialresult.size();
+			//e.setScore(res);
+
+			//this.endorserService.save(e);
+		}
+
+		return total;
 	}
+	public Map<Endorser, Double> computeAllScores(List<Endorser> endorsers) {
+		Map<Endorser, Double> result = new HashMap<Endorser, Double>();
+
+		for (Endorser e : endorsers) {
+			if (!e.getEndorsements().isEmpty()) {
+				result.put(e, this.computeScore(e));
+			}
+		}
+		return result;
+	}
+
+	public List<Double> computeAllScoresDouble(List<Endorser> endorsers) {
+		List<Double> result = new ArrayList<Double>();
+
+		for (Endorser e : endorsers) {
+			if (!e.getEndorsements().isEmpty()) {
+				Double res = 0.0;
+				res = this.computeScore(e);
+				result.add(res);
+			}
+		}
+		return result;
+	}
+
 }

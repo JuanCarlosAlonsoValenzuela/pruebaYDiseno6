@@ -21,7 +21,7 @@
 		<put-attribute name="body" value="/views/administrator/banUnban.jsp" />
 	</definition>
 	
-	<definition name="administrator/computedScore" extends="master.page">	
+	<definition name="score/administrator/list" extends="master.page">	
 		<put-attribute name="title" value="Administrador: Puntuación" />
 		<put-attribute name="body" value="/views/administrator/computedScore.jsp" />
 	</definition>
