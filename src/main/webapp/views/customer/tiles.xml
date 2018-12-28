@@ -84,7 +84,7 @@
 		<put-attribute name="body" value="/views/customer/complaints.jsp" />
 	</definition>
 	
-		<definition name="/complaint/customer/edit.do" extends="master.page">	
+		<definition name="complaint/customer/create" extends="master.page">	
 		<put-attribute name="title" value="New Complaint" />
 		<put-attribute name="body" value="/views/customer/createComplaint.jsp" />
 	</definition>

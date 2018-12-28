@@ -69,9 +69,11 @@ public class ComplaintService {
 		}
 		date1 = df_in.format(date);
 		res = res + date1 + "-" + gen;
-		for (Complaint c : lc)
-			if (c.getTicker() == res)
+		for (Complaint c : lc) {
+			if (c.getTicker() == res) {
 				return this.generateTicker();
+			}
+		}
 		return res;
 	}
 	//-----------------------------------------------------------------------

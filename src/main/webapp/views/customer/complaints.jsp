@@ -11,7 +11,7 @@
 <security:authorize access="hasRole('CUSTOMER')">
 
 	<display:table pagesize="5" name="complaints" id="row"
-	class="displaytag" requestURI="${requestURI}">
+	class="displaytag" requestURI="complaint/customer/list.do">
 		
 		<display:column property="moment" titleKey="complaint.moment"
 					sortable="true" format="{0,date,dd/MM/yyyy HH:mm}"  />	
@@ -20,7 +20,7 @@
 			
 		<display:column titleKey="customer.attachments">
 				<jstl:set var="attachmentsSize" value="${row.attachments.size()}" />
-				<spring:url var="attachmetsUrl" value="/attachment/list.do?complaintId={compId}">
+				<spring:url var="attachmentsUrl" value="/attachment/customer/list.do?complaintId={compId}">
 							<spring:param name="compId" value="${row.id}"/>
 				</spring:url>
 				<a href="${attachmentsUrl}">
@@ -39,14 +39,5 @@
 		</display:column>
 		</display:table>
 		
-		
-		<spring:url var="createComplaintUrl" value="/complaint/customer/edit.do?fixUpTaskId={fixId}">
-			<spring:param name="fixId" value="${fixUpTaskId}"/>
-		</spring:url>
-</security:authorize>	
-	
-
-		
-
-		 
-			
+		<a href="complaint/customer/create.do"><spring:message code="complaint.create" /></a>
+				

@@ -42,6 +42,13 @@ public class AttachmentCustomerController extends AbstractController {
 
 		attachments = c.getAttachments();
 
+		//TODO
+		for (String a : attachments) {
+			if (!a.startsWith("http://")) {
+				throw new IllegalArgumentException();
+			}
+		}
+
 		result = new ModelAndView("attachment/customer/list");
 
 		result.addObject("attachments", attachments);
