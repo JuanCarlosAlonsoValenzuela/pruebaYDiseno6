@@ -29,9 +29,13 @@
 					<li><a href="administrator/computedscore.do"><spring:message code="master.page.administrator.computedscore" /></a></li>					
 					<li><a href="administrator/createAdmin.do"><spring:message code="master.page.administrator.createAdmin" /></a></li>					
 					<li><a href="administrator/createReferee.do"><spring:message code="master.page.administrator.createReferee" /></a></li>			
+					<li><a href="score/administrator/list.do"><spring:message code="master.page.administrator.computedscore" /></a></li>					
+					<li><a href="administrator/createadmin.do"><spring:message code="master.page.administrator.createadmin" /></a></li>					
+					<li><a href="administrator/createreferee.do"><spring:message code="master.page.administrator.createreferee" /></a></li>			
 					<li><a href="administrator/goodandbadwordslist.do"><spring:message code="master.page.administrator.goodAndBadWordsList" /></a></li>	
 					<li><a href="statistics/administrator/show.do"><spring:message code="master.page.administrator.showstaitsticspart1" /></a></li>	
-					<li><a href="administrator/listcategory.do"><spring:message code="master.page.administrator.listcategory" /></a></li>						
+					<li><a href="administrator/listcategory.do"><spring:message code="master.page.administrator.listcategory" /></a></li>	
+			
 					<li><a href="warranty/administrator/list.do"><spring:message code="master.page.administrator.listwarranty" /></a></li>														
 				</ul>
 			</li>
