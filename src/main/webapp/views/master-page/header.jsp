@@ -26,7 +26,6 @@
 					<li class="arrow"></li>
 					<li><a href="administrator/banunban.do"><spring:message code="master.page.administrator.banUnban" /></a></li>
 					<li><a href="administrator/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>	
-					<li><a href="administrator/computedscore.do"><spring:message code="master.page.administrator.computedscore" /></a></li>					
 					<li><a href="administrator/createAdmin.do"><spring:message code="master.page.administrator.createAdmin" /></a></li>					
 					<li><a href="administrator/createReferee.do"><spring:message code="master.page.administrator.createReferee" /></a></li>			
 					<li><a href="score/administrator/list.do"><spring:message code="master.page.administrator.computedscore" /></a></li>					
