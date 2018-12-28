@@ -20,9 +20,9 @@ import domain.Report;
 public class ReportCustomerController extends AbstractController {
 
 	@Autowired
-	CustomerService		customerService;
+	private CustomerService		customerService;
 	@Autowired
-	ComplaintService	complaintService;
+	private ComplaintService	complaintService;
 
 
 	public ReportCustomerController() {

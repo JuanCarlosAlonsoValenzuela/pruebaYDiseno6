@@ -31,13 +31,13 @@ import domain.Priority;
 public class MessageController extends AbstractController {
 
 	@Autowired
-	MessageService	messageService;
+	private MessageService	messageService;
 
 	@Autowired
-	BoxService		boxService;
+	private BoxService		boxService;
 
 	@Autowired
-	ActorService	actorService;
+	private ActorService	actorService;
 
 
 	//List

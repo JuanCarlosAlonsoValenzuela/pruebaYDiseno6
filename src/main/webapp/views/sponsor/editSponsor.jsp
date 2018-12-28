@@ -1,12 +1,3 @@
-<%--
- *
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- --%>
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
@@ -14,92 +5,82 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
-<p><spring:message code="administrator.createAdmin" /></p>
-
-<security:authorize access="hasRole('ADMIN')">
-
-<form:form modelAttribute="admin" action="administrator/createAdmin.do">
-	<!-- Hidden Attributes -->		
+	
+<p><spring:message code="sponsor.editSponsor" /></p>
+	
+<security:authorize access="hasRole('SPONSOR')">
+	<form:form modelAttribute="sponsor" action="personalData/sponsor/edit.do">
+    <!--Hidden Attributes -->
 	<form:hidden path ="id"/>
 	<form:hidden path ="version"/>
 	<form:hidden path ="hasSpam"/>
 	<form:hidden path ="boxes"/>
 	<form:hidden path ="socialProfiles"/>
-	<form:hidden path ="userAccount.authorities"/>
-	<form:hidden path ="userAccount.isNotLocked"/>
+	<form:hidden path="userAccount" />
+	<form:hidden path="sponsorships" />
 	
-	<!-- Actor Attributes -->
 	<form:label path="name">
-		<spring:message code="administrator.name" />
+		<spring:message code="sponsor.name" />
 	</form:label>
 	<form:input path="name" />
 	<form:errors cssClass="error" path="name"/>
-	<br />
+	<br />	
 	
+	<!-- Middle Name -->
 	<form:label path="middleName">
-		<spring:message code="administrator.middleName" />
+		<spring:message code="sponsor.middleName" />
 	</form:label>
 	<form:input path="middleName" />
 	<form:errors cssClass="error" path="middleName"/>
 	<br />
-	
+
+	<!-- Surname -->
 	<form:label path="surname">
-		<spring:message code="administrator.surname" />
+		<spring:message code="sponsor.surname" />
 	</form:label>
 	<form:input path="surname" />
 	<form:errors cssClass="error" path="surname"/>
 	<br />
 	
+	<!-- Photo -->
 	<form:label path="photo">
-		<spring:message code="administrator.photo" />
+		<spring:message code="sponsor.photo" />
 	</form:label>
 	<form:input path="photo"/>
 	<form:errors cssClass="error" path="photo"/>
 	<br />
 	
+	<!-- Email -->
 	<form:label path="email">
-		<spring:message code="administrator.email" />
+		<spring:message code="sponsor.email" />
 	</form:label>
 	<form:input path="email" />
 	<form:errors cssClass="error" path="email"/>
 	<br />
 	
+	<!-- Phone Number -->
 	<form:label path="phoneNumber">
-		<spring:message code="administrator.phoneNumber" />
+		<spring:message code="sponsor.phoneNumber" />
 	</form:label>
 	<form:input path="phoneNumber"/>
 	<form:errors cssClass="error" path="phoneNumber"/>
 	<br />
-	
+
+	<!-- Address -->
 	<form:label path="address">
-		<spring:message code="administrator.address" />
+		<spring:message code="sponsor.address" />
 	</form:label>
 	<form:input path="address"/>
 	<form:errors cssClass="error" path="address"/>
 	<br />
 	
-	<form:label path="userAccount.username">
-		<spring:message code="userAccount.username" />
-	</form:label>
-	<form:input path="userAccount.username" />
-	<form:errors cssClass="error" path="userAccount.username"/>
-	<br />
 	
-	<form:label path="userAccount.password">
-		<spring:message code="userAccount.password" />
-	</form:label>
-	<form:password path="userAccount.password" />
-	<form:errors cssClass="error" path="userAccount.password"/>
-	<br />
+	<input type="submit" name="save" value="<spring:message code="sponsor.save" />" /> 
 	
-		
-	<input type="submit" name="save" value="<spring:message code="administrator.save" />" /> 
-		
 	<a href="#" style="text-decoration: none;">
-    	<input type="button" value="<spring:message code="administrator.cancel" />" />
+    	<input type="button" value="<spring:message code="sponsor.cancel" />" />
 	</a>
+		
 
 	</form:form>
-	
 </security:authorize>

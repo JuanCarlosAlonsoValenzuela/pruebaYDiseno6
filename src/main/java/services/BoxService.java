@@ -49,6 +49,18 @@ public class BoxService {
 		return box;
 	}
 
+	public Box createSystem() {		//Crear cajas del sistema
+		Box box = new Box();
+		List<Message> messages = new ArrayList<Message>();
+
+		box.setName("");
+		box.setIsSystem(true);
+		box.setMessages(messages);
+		box.setFatherBox(null);
+
+		return box;
+	}
+
 	public Box create(String name, Box fatherBox) {
 
 		this.actorService.loggedAsActor();

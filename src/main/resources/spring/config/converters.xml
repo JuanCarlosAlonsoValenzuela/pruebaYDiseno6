@@ -85,6 +85,9 @@
 		
 		<bean class="converters.SectionToStringConverter" />
 		<bean class="converters.StringToSectionConverter" />
+		
+		<bean class="converters.RefereeToStringConverter" />
+		<bean class="converters.StringToRefereeConverter" />
 		<!-- 
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 

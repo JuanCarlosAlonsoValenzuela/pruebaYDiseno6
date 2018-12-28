@@ -29,11 +29,11 @@ import domain.Tutorial;
 public class SectionController extends AbstractController {
 
 	@Autowired
-	SectionService		sectionService;
+	private SectionService		sectionService;
 	@Autowired
-	TutorialService		tutorialService;
+	private TutorialService		tutorialService;
 	@Autowired
-	HandyWorkerService	handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
 
 
 	public SectionController() {

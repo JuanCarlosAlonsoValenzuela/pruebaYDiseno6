@@ -18,7 +18,7 @@ import domain.Complaint;
 public class AttachmentCustomerController extends AbstractController {
 
 	@Autowired
-	ComplaintService	ComplaintService;
+	private ComplaintService	ComplaintService;
 
 
 	// Constructor --------------------------------------------------------------

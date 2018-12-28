@@ -27,9 +27,9 @@ import domain.Tutorial;
 public class TutorialController extends AbstractController {
 
 	@Autowired
-	TutorialService		tutorialService;
+	private TutorialService		tutorialService;
 	@Autowired
-	HandyWorkerService	handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
 
 
 	public TutorialController() {

@@ -29,16 +29,16 @@ import domain.Report;
 public class NoteCustomerController extends AbstractController {
 
 	@Autowired
-	ReportService		reportService;
+	private ReportService		reportService;
 
 	@Autowired
-	NoteService			noteService;
+	private NoteService			noteService;
 
 	@Autowired
-	CustomerService		customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	CustomerRepository	customerRepository;
+	private CustomerRepository	customerRepository;
 
 
 	public NoteCustomerController() {

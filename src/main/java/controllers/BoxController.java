@@ -23,7 +23,7 @@ import domain.Box;
 public class BoxController extends AbstractController {
 
 	@Autowired
-	BoxService	boxService;
+	private BoxService	boxService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

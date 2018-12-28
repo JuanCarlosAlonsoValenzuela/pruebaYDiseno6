@@ -44,6 +44,8 @@ public class RefereeService {
 	private ActorService			actorService;
 	@Autowired
 	private ConfigurationService	configurationService;
+	@Autowired
+	private BoxService				boxService;
 
 
 	//Aux
@@ -62,7 +64,7 @@ public class RefereeService {
 
 	public Referee create() {
 
-		// SE DECLARA EL SPONSOR
+		// SE DECLARA EL REFEREE
 		Referee s = new Referee();
 
 		// SE CREAN LAS LISTAS VACIAS
@@ -74,36 +76,6 @@ public class RefereeService {
 		UserAccount userAccountActor = new UserAccount();
 		userAccountActor.setUsername("");
 		userAccountActor.setPassword("");
-
-		// SE CREAN LAS CAJAS POR DEFECTO
-		Box spamBox = new Box();
-		List<Message> messages1 = new ArrayList<>();
-		spamBox.setIsSystem(true);
-		spamBox.setMessages(messages1);
-		spamBox.setName("Spam");
-
-		Box trashBox = new Box();
-		List<Message> messages2 = new ArrayList<>();
-		trashBox.setIsSystem(true);
-		trashBox.setMessages(messages2);
-		trashBox.setName("Trash");
-
-		Box sentBox = new Box();
-		List<Message> messages3 = new ArrayList<>();
-		sentBox.setIsSystem(true);
-		sentBox.setMessages(messages3);
-		sentBox.setName("Sent messages");
-
-		Box receivedBox = new Box();
-		List<Message> messages4 = new ArrayList<>();
-		receivedBox.setIsSystem(true);
-		receivedBox.setMessages(messages4);
-		receivedBox.setName("Received messages");
-
-		boxes.add(receivedBox);
-		boxes.add(sentBox);
-		boxes.add(spamBox);
-		boxes.add(trashBox);
 
 		// SE AÑADEN TODOS LOS ATRIBUTOS
 		s.setName("");
@@ -123,7 +95,7 @@ public class RefereeService {
 		List<Authority> authorities = new ArrayList<Authority>();
 
 		Authority authority = new Authority();
-		authority.setAuthority(Authority.SPONSOR);
+		authority.setAuthority(Authority.REFEREE);
 		authorities.add(authority);
 
 		s.getUserAccount().setAuthorities(authorities);
@@ -206,7 +178,37 @@ public class RefereeService {
 		return s;
 	}
 
-	public Referee save(Referee referee) {
+	public Referee save(Referee referee) {	//Tenemos un listBox vacía
+
+		List<Box> boxes = new ArrayList<>();
+
+		//Boxes
+		Box box1 = this.boxService.createSystem();
+		box1.setName("Spam");
+		Box saved1 = this.boxService.saveSystem(box1);
+		boxes.add(saved1);
+
+		Box box2 = this.boxService.createSystem();
+		box2.setName("Trash");
+		Box saved2 = this.boxService.saveSystem(box2);
+		boxes.add(saved2);
+
+		Box box3 = this.boxService.createSystem();
+		box3.setName("Sent messages");
+		Box saved3 = this.boxService.saveSystem(box3);
+		boxes.add(saved3);
+
+		Box box4 = this.boxService.createSystem();
+		box4.setName("Received messages");
+		Box saved4 = this.boxService.saveSystem(box4);
+		boxes.add(saved4);
+
+		referee.setBoxes(boxes);
+
+		return this.refereeRepository.save(referee);
+	}
+
+	public Referee updateReferee(Referee referee) {
 		return this.refereeRepository.save(referee);
 	}
 
@@ -245,9 +247,11 @@ public class RefereeService {
 		Referee loggedReferee = this.securityAndReferee();
 		List<Complaint> unassignedComplaints = (List<Complaint>) this.refereeRepository.complaintsUnassigned();
 		Complaint comp = new Complaint();
-		for (Complaint c : unassignedComplaints)
-			if (c == complaint)
+		for (Complaint c : unassignedComplaints) {
+			if (c == complaint) {
 				c = comp;
+			}
+		}
 		Assert.notNull(comp);
 		complaint.setReferee(loggedReferee);
 		Complaint complaintSaved = this.complaintService.save(complaint);
@@ -259,11 +263,12 @@ public class RefereeService {
 		Referee loggedReferee = this.securityAndReferee();
 		List<Complaint> res = new ArrayList<>();
 		List<Complaint> complaints = this.complaintService.findAll();
-		for (Complaint c : complaints)
+		for (Complaint c : complaints) {
 			if (c.getReferee() == loggedReferee) {
 				Assert.notNull(c);
 				res.add(c);
 			}
+		}
 		return res;
 	}
 
@@ -271,9 +276,11 @@ public class RefereeService {
 		Referee loggedReferee = this.securityAndReferee();
 		List<Report> lr = loggedReferee.getReports();
 		Report rep = null;
-		for (Report r : lr)
-			if (r.getId() == report.getId() && r.getFinalMode() && report.getFinalMode())
+		for (Report r : lr) {
+			if (r.getId() == report.getId() && r.getFinalMode() && report.getFinalMode()) {
 				rep = r;
+			}
+		}
 		Assert.notNull(rep);
 		Note note = this.noteService.create(mandatoryComment, optionalComments);
 		Assert.notNull(note);
@@ -294,9 +301,11 @@ public class RefereeService {
 		Referee loggedReferee = this.securityAndReferee();
 		List<Note> notes = (List<Note>) this.refereeRepository.notesReferee(loggedReferee.getId());
 		Note no = null;
-		for (Note n : notes)
-			if (n.getId() == note.getId())
+		for (Note n : notes) {
+			if (n.getId() == note.getId()) {
 				no = n;
+			}
+		}
 		Assert.notNull(no);
 		Note noteFound = this.noteService.findOne(no.getId());
 		List<String> comments = noteFound.getOptionalComments();
@@ -311,11 +320,12 @@ public class RefereeService {
 		Referee loggedReferee = this.securityAndReferee();
 		List<Complaint> lc = this.complaintService.findAll();
 		Complaint com = null;
-		for (Complaint c : lc)
+		for (Complaint c : lc) {
 			if (c.getId() == complaint.getId() && c.getReferee().equals(loggedReferee) && complaint.getReferee().equals(loggedReferee)) {
 				com = c;
 				break;
 			}
+		}
 		Assert.notNull(com);
 
 		Report rep = this.reportService.create(description, attachments, notes);
@@ -355,13 +365,14 @@ public class RefereeService {
 		loggedReferee.setReports(reportsOfReferee);
 		this.save(loggedReferee);
 
-		for (Complaint c : this.complaintService.findAll())
+		for (Complaint c : this.complaintService.findAll()) {
 			if (c.getReports().contains(this.reportService.findOne(report.getId()))) {
 				List<Report> reportsOfComplaint = c.getReports();
 				reportsOfComplaint.remove(this.reportService.findOne(report.getId()));
 				c.setReports(reportsOfComplaint);
 				this.complaintService.save(c);
 			}
+		}
 
 		this.reportService.delete(report);
 		this.configurationService.isActorSuspicious(loggedReferee);

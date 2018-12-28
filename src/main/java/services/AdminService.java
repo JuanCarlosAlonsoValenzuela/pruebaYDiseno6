@@ -49,6 +49,9 @@ public class AdminService {
 	@Autowired
 	private UserAccountService	userAccountService;
 
+	@Autowired
+	private BoxService			boxService;
+
 
 	// 1. Create user accounts for new administrators.
 	public void loggedAsAdmin() {
@@ -59,46 +62,19 @@ public class AdminService {
 	}
 
 	public Admin createAdmin() {
-
+		//SE DECLARA EL ADMIN
 		Admin admin = new Admin();
 
+		//SE CREAN LAS LISTAS VACÍAS
 		List<SocialProfile> socialProfiles = new ArrayList<SocialProfile>();
 		List<Box> boxes = new ArrayList<Box>();
 
+		//SE AÑADE EL USERNAME Y EL PASSWORD
 		UserAccount userAccountAdmin = new UserAccount();
-
 		userAccountAdmin.setUsername("");
 		userAccountAdmin.setPassword("");
 
-		Box spamBox = new Box();
-		List<Message> messages1 = new ArrayList<>();
-		spamBox.setIsSystem(true);
-		spamBox.setMessages(messages1);
-		spamBox.setName("Spam");
-
-		Box trashBox = new Box();
-		List<Message> messages2 = new ArrayList<>();
-		trashBox.setIsSystem(true);
-		trashBox.setMessages(messages2);
-		trashBox.setName("Trash");
-
-		Box sentBox = new Box();
-		List<Message> messages3 = new ArrayList<>();
-		sentBox.setIsSystem(true);
-		sentBox.setMessages(messages3);
-		sentBox.setName("Sent messages");
-
-		Box receivedBox = new Box();
-		List<Message> messages4 = new ArrayList<>();
-		receivedBox.setIsSystem(true);
-		receivedBox.setMessages(messages4);
-		receivedBox.setName("Received messages");
-
-		boxes.add(receivedBox);
-		boxes.add(sentBox);
-		boxes.add(spamBox);
-		boxes.add(trashBox);
-
+		//SE AÑADEN LOS ATRIBUTOS
 		admin.setName("");
 		admin.setMiddleName("");
 		admin.setSurname("");
@@ -108,6 +84,7 @@ public class AdminService {
 		admin.setAddress("");
 		admin.setSocialProfiles(socialProfiles);
 		admin.setBoxes(boxes);
+		//SPAM A FALSE
 		admin.setHasSpam(false);
 
 		List<Authority> authorities = new ArrayList<Authority>();
@@ -186,13 +163,37 @@ public class AdminService {
 		return admin;
 	}
 
-	public Admin save(Admin admin) {
-		this.loggedAsAdmin();
+	public Admin save(Admin admin) {	//Tenemos un listBox vacía
 
-		// Comprobacion en todos los SAVE de los ACTORES
-		// Assert.isTrue(admin.getId() == 0 ||
-		// userAccount.equals(admin.getUserAccount()));
-		this.userAccountService.save(admin.getUserAccount());
+		List<Box> boxes = new ArrayList<>();
+
+		//Boxes
+		Box box1 = this.boxService.createSystem();
+		box1.setName("Spam");
+		Box saved1 = this.boxService.saveSystem(box1);
+		boxes.add(saved1);
+
+		Box box2 = this.boxService.createSystem();
+		box2.setName("Trash");
+		Box saved2 = this.boxService.saveSystem(box2);
+		boxes.add(saved2);
+
+		Box box3 = this.boxService.createSystem();
+		box3.setName("Sent messages");
+		Box saved3 = this.boxService.saveSystem(box3);
+		boxes.add(saved3);
+
+		Box box4 = this.boxService.createSystem();
+		box4.setName("Received messages");
+		Box saved4 = this.boxService.saveSystem(box4);
+		boxes.add(saved4);
+
+		admin.setBoxes(boxes);
+
+		return this.adminRepository.save(admin);
+	}
+
+	public Admin updateAdmin(Admin admin) {
 		return this.adminRepository.save(admin);
 	}
 

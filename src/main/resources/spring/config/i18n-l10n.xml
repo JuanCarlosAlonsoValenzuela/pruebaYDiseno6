@@ -32,6 +32,7 @@
 		<value>/views/anonymous/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/handy-worker/messages</value>
+		<value>/views/sponsor/messages</value>
 	</util:list>
 
 </beans>
