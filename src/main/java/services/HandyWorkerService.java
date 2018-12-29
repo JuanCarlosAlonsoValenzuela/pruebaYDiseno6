@@ -508,7 +508,7 @@ public class HandyWorkerService {
 	}
 	//11.2 ------------------------------------------------------------------------------------------------------------------
 
-	public void filterFixUpTasksByFinder() {
+		public void filterFixUpTasksByFinder() {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
@@ -518,39 +518,46 @@ public class HandyWorkerService {
 		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
 
 		Finder finder = logguedHandyWorker.getFinder();
-		Assert.isTrue(logguedHandyWorker.getFinder().getId() == finder.getId());
-
 		List<FixUpTask> result = new ArrayList<FixUpTask>();
 		result = this.fixUpTaskService.findAll();
 		Collection<FixUpTask> filter = new ArrayList<FixUpTask>();
 
-		if (finder.getKeyWord().equals(null)) {
+		//KeyWord
+		if (!finder.getKeyWord().equals(null) && !finder.getKeyWord().equals("")) {
 			filter = this.handyWorkerRepository.getFixUpTaskByKeyWord(finder.getKeyWord());
 			result.retainAll(filter);
 		}
-		if (finder.getCategory().equals(null)) {
+		//Category
+		if (!finder.getCategory().equals(null) && !finder.getCategory().equals("")) {
 			filter = this.handyWorkerRepository.getFixUpTaskByCategory(finder.getCategory());
 			result.retainAll(filter);
 		}
-		if (finder.getWarranty().equals(null)) {
+		//Warranty
+		if (!finder.getWarranty().equals(null) && !finder.getWarranty().equals("")) {
 			filter = this.handyWorkerRepository.getFixUpTasksByWarranty(finder.getWarranty());
 			result.retainAll(filter);
 		}
-		if (finder.getMinPrice().equals(null) || finder.getMaxPrice().equals(null)) {
+
+		//Prices
+		if (!(finder.getMaxPrice().equals(0.0) && finder.getMinPrice().equals(0.0))) {
 			Assert.isTrue(finder.getMinPrice() <= finder.getMaxPrice());
 			filter = this.handyWorkerRepository.getFixUpTasksByPrice(finder.getId());
 			result.retainAll(filter);
 		}
-		if (finder.getStartDate().equals(null) || finder.getEndDate().equals(null)) {
+
+		//Dates
+		if (finder.getStartDate() != null && finder.getEndDate() != null) {
 			Assert.isTrue(finder.getStartDate().before(finder.getEndDate()));
 			filter = this.handyWorkerRepository.getFixUpTasksByDate(finder.getId());
 			result.retainAll(filter);
 		}
+
 		Finder finderResult = new Finder();
 		finderResult = finder;
 		finderResult.setFixUpTasks(result);
-		this.finderService.save(finderResult);
-
+		Finder finderRes = this.finderService.save(finderResult);
+		logguedHandyWorker.setFinder(finderRes);
+		this.save(logguedHandyWorker);
 	}
 	//11.3 ------------------------------------------------------------------------------------------------------------------
 

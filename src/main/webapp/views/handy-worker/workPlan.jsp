@@ -15,8 +15,9 @@
 					
 				<display:column>
 						
-						<spring:url var="editUrl" value="/workPlan/handyWorker/edit.do?phaseId={phaseId}">
+						<spring:url var="editUrl" value="/phase/handyWorker/edit.do">
 								<spring:param name="phaseId" value="${row.id}"/>
+								<spring:param name="applicationId" value="${applicationId}"/>
 						</spring:url>
 								
 						<a href="${editUrl}">
@@ -32,8 +33,9 @@
 				
 	</display:table>
 	
-	<spring:url var="createUrl" value="/workPlan/handyWorker/edit.do">
-								<spring:param name="phaseId" />
+	<spring:url var="createUrl" value="/phase/handyWorker/edit.do">
+			<spring:param name="applicationId" value="${applicationId}"/>
+			<spring:param name="phaseId" value="0"/>
 	</spring:url>
 								
 	<a href="${createUrl}">

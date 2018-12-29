@@ -61,12 +61,12 @@
 		<put-attribute name="body" value="/views/handy-worker/finderResult.jsp" />
 	</definition>
 	
-	<definition name="/workPlan/handyWorker/list.do" extends="master.page">	
+		<definition name="handy-worker/workPlan" extends="master.page">	
 		<put-attribute name="title" value="Plan de Trabajo" />
 		<put-attribute name="body" value="/views/handy-worker/workPlan.jsp" />
 	</definition>
 	
-	<definition name="/workPlan/handyWorker/edit.do" extends="master.page">	
+	<definition name="handy-worker/workPlanEdit" extends="master.page">	
 		<put-attribute name="title" value="Editar fase" />
 		<put-attribute name="body" value="/views/handy-worker/editPhase.jsp" />
 	</definition>
