@@ -185,5 +185,57 @@ tr:nth-child(even) {
     <td><jstl:out  value="${statisticsRatios.get('fixUpTaskWithComplain')}"/></td>
   </tr>
 </table>
-	
+
+<spring:message code="administrator.statisticPercentCust" />
+
+<table style="width:100%">
+  <tr> 
+	<td><b><spring:message code="administrator.customerName" /></b></td>
+  </tr>
+  <jstl:forEach items="${tenPercentCustomers}" var="customer">
+  <tr>
+  	<td><jstl:out value="${customer}"/></td>
+  </tr>
+  </jstl:forEach>
+</table> 
+
+<spring:message code="administrator.statisticPercetHw" />
+
+<table style="width:100%">
+  <tr> 
+	<td><b><spring:message code="administrator.handyWorkerName" /></b></td>
+  </tr>
+  <jstl:forEach items="${tenPercentHandyWorkers}" var="handyWorker">
+  <tr>
+  	<td><jstl:out value="${handyWorker}"/></td>
+  </tr>
+  </jstl:forEach>
+</table> 
+
+<spring:message code="aministrator.statisticTop3Custo" />
+
+<table style="width:100%">
+  <tr> 
+	<td><b><spring:message code="administrator.customerName" /></b></td>
+  </tr>
+  <jstl:forEach items="${topThreeCustomers}" var="customer">
+  <tr>
+  	<td><jstl:out value="${customer}"/></td>
+  </tr>
+  </jstl:forEach>
+</table> 
+
+<spring:message code="aministrator.statisticTop3Hw"/>
+
+<table style="width:100%">
+  <tr> 
+	<td><b><spring:message code="administrator.handyWorkerName" /></b></td>
+  </tr>
+  <jstl:forEach items="${topThreeHandyWorkers}" var="handyWorker">
+  <tr>
+  	<td><jstl:out value="${handyWorker}"/></td>
+  </tr>
+  </jstl:forEach>
+</table> 
+
 </security:authorize>

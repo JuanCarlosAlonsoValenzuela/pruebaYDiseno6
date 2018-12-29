@@ -10,31 +10,45 @@
 <p><spring:message code="anonymous.showSections" /> <jstl:out value="${tutorial.title}"/> <spring:message code="anonymous.by" /> <jstl:out value="${author.make}"/></p>
 
 <display:table
-	pagesize="10" name="sections" id="row"
-	class="displaytag" requestURI="tutorial/showSections.do">
+	pagesize="5" name="sections" id="row"
+	class="displaytag" requestURI="${requestURI}">
 	
 	<jstl:if test="${canEdit}">
-		<display:column >
-		<spring:message code="section.edit" />
+		<display:column>
+			<spring:url var="editSectionUrl" value="section/handyWorker/edit.do">
+				<spring:param name="tutorialId" value="${tutorial.id}"/>
+				<spring:param name="sectionId" value="${row.id}"/>
+			</spring:url>
+			<a href="${editSectionUrl}">
+				<spring:message code="section.edit" />			
+			</a>
 		</display:column>
 	</jstl:if>
 	
-	<display:column property="number" titleKey="section.number">
+	<display:column property="number" titleKey="section.number" sortable="true">
 	</display:column>
-	<display:column property="sectionTitle" titleKey="section.sectionTitle">
+	<display:column property="sectionTitle" titleKey="section.sectionTitle" sortable="true">
 	</display:column>
 	<display:column property="text" titleKey="section.text">
 	</display:column>
-		<display:column titleKey="tutorial.pictures">
+	<display:column titleKey="tutorial.pictures">
 		<jstl:forEach  items="${row.sectionPictures}" var="picture">
 			<a href="${picture}">Picture ${row.sectionPictures.indexOf(picture)+1}</a>
 			<br />  
 		</jstl:forEach>
-	</display:column>
-	
-								
+	</display:column>							
 </display:table>
+<jstl:if test="${canEdit}">
+	<spring:url var="editSectionUrl" value="section/handyWorker/create.do">
+		<spring:param name="tutorialId" value="${tutorial.id}"/>	
+	</spring:url>
+	<a href="${editSectionUrl}">
+		<spring:message code="section.create" />			
+	</a>
+</jstl:if>
 
+<br /> 
+<br /> 
 <jstl:if test="${!sections.isEmpty()}">
 <spring:message code="tutorial.sponsorship" /><jstl:out value=":"/>
 	<a href="${sponsorship.link}">

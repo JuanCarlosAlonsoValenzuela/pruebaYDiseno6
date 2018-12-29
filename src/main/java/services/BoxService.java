@@ -49,6 +49,18 @@ public class BoxService {
 		return box;
 	}
 
+	public Box createSystem() {		//Crear cajas del sistema
+		Box box = new Box();
+		List<Message> messages = new ArrayList<Message>();
+
+		box.setName("");
+		box.setIsSystem(true);
+		box.setMessages(messages);
+		box.setFatherBox(null);
+
+		return box;
+	}
+
 	public Box create(String name, Box fatherBox) {
 
 		this.actorService.loggedAsActor();
@@ -150,6 +162,21 @@ public class BoxService {
 	public List<Box> getCurrentBoxByMessage(Message m) {
 		return this.boxRepository.getCurrentBoxByMessage(m);
 
+	}
+
+	public List<Integer> getActorBoxesId() {
+
+		this.actorService.loggedAsActor();
+		List<Integer> idBoxes = new ArrayList<Integer>();
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
+		for (int i = 0; i < actor.getBoxes().size(); i++) {
+			idBoxes.add(actor.getBoxes().get(i).getId());
+		}
+
+		return idBoxes;
 	}
 
 	public List<Box> getActorBoxes() {

@@ -22,11 +22,13 @@
 				<form:hidden path="optionalComments" />
 					
 				<!--  Mandatory Comment -->
+				<form:label path="mandatoryComment">
+					<spring:message code="note.mandatoryComment" />:		
+				</form:label>
 				<form:textarea rows="15" cols="100" path="mandatoryComment" />
 				<form:errors cssClass="error" path="mandatoryComment"/>
-				</br>				
+				<br/>				
 				<input type="hidden" name="reportId" value="${reportId}"/>
-				<input type="hidden" name="noteId" value="${noteId}"/>	
 				<input type="submit" name="save" value="<spring:message code="note.save.button" />" onclick="return confirm('<spring:message code="note.create.confirm" />')"/>
 				<input type="button" name="cancel" value="<spring:message code="note.cancel.button" />" onclick="javascript:relativeRedir('note/customer/show.do?reportId=${reportId}');" />
 			</form:form>
@@ -35,11 +37,10 @@
 			<p><spring:message code="note.addComment" /></p>	
 			<form name="comment" id="comment" action="note/customer/addComment.do" method="post">
 				<textarea rows="15" cols="100" name="comment" id="comment" placeholder="<spring:message code="comment.writeComment"/>" ></textarea>
-				<input type="hidden" name="reportId" value="${reportId}"/>
 				<input type="hidden" name="noteId" value="${noteId}"/>
 				<br/>
 				<input type="submit" name="Comment" value="<spring:message code="note.saveComment.button" />" onclick="return confirm('<spring:message code="note.addComment.confirm" />')"/>			
-				<input type="button" name="cancel" value="<spring:message code="note.cancel.button" />" onclick="javascript:relativeRedir('note/customer/showComments.do?noteId=${noteId}&reportId=${reportId}');" />
+				<input type="button" name="cancel" value="<spring:message code="note.cancel.button" />" onclick="javascript:relativeRedir('note/customer/showComments.do?noteId=${noteId}');" />
 			</form>
 
 			<jstl:if test="${comment=='' || comment!=null}">

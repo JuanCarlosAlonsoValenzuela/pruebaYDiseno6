@@ -3,7 +3,9 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -12,26 +14,12 @@ import org.springframework.stereotype.Service;
 
 import repositories.ConfigurationRepository;
 import domain.Actor;
-import domain.Application;
 import domain.Box;
 import domain.Configuration;
-import domain.Customer;
-import domain.EducationRecord;
+import domain.Endorsement;
 import domain.Endorser;
-import domain.EndorserRecord;
-import domain.Endorsment;
-import domain.FixUpTask;
-import domain.HandyWorker;
 import domain.Message;
-import domain.MiscellaneousRecord;
-import domain.Note;
-import domain.Phase;
-import domain.ProfessionalRecord;
-import domain.Referee;
-import domain.Report;
-import domain.Section;
 import domain.SocialProfile;
-import domain.Tutorial;
 
 @Service
 @Transactional
@@ -39,6 +27,9 @@ public class ConfigurationService {
 
 	@Autowired
 	private ConfigurationRepository	configurationRepository;
+
+	@Autowired
+	private EndorserService			endorserService;
 
 
 	public Configuration getConfiguration() {
@@ -115,166 +106,168 @@ public class ConfigurationService {
 				}
 			}
 		}
-		if (!result) {
-			if (a instanceof HandyWorker) {
-				HandyWorker h = (HandyWorker) a;
-				// COMPROBANDO TUTORIALES DEL HANDY WORKER
-				for (Tutorial t : h.getTutorials()) {
-					if (this.isStringSpam(t.getTitle(), spamWords) || this.isStringSpam(t.getSummary(), spamWords)) {
-						result = true;
-						break;
-					} else {
-						for (Section s : t.getSections()) {
-							if (this.isStringSpam(s.getSectionTitle(), spamWords) || this.isStringSpam(s.getText(), spamWords)) {
-								result = true;
-								break;
-							}
-						}
-					}
-				}
-
-				// COMPROBANDO LOS COMENTARIOS DE LAS APLICATIONS
-				for (Application ap : h.getApplications()) {
-					for (String s : ap.getComments()) {
-						if (this.isStringSpam(s, spamWords)) {
-							result = true;
-							break;
-						}
-					}
-				}
-				// COMPROBANDO EL CURRICULUM DEL HANDY WORKER
-				for (EndorserRecord b : h.getCurriculum().getEndorserRecords()) {
-					if (this.isStringSpam(b.getEmail(), spamWords) || this.isStringSpam(b.getFullName(), spamWords) || this.isStringSpam(b.getLinkLinkedInProfile(), spamWords) || this.isStringSpam(b.getPhoneNumber(), spamWords)) {
-						result = true;
-						break;
-					} else {
-						for (String str : b.getComments()) {
-							if (this.isStringSpam(str, spamWords)) {
-								result = true;
-								break;
-							}
-						}
-					}
-				}
-				if (!result) {
-					for (MiscellaneousRecord m : h.getCurriculum().getMiscellaneousRecords()) {
-						if (this.isStringSpam(m.getTitle(), spamWords)) {
-							result = true;
-							break;
-						} else {
-							for (String str : m.getComments()) {
-								if (this.isStringSpam(str, spamWords)) {
-									result = true;
-									break;
-								}
-							}
-						}
-					}
-				}
-				if (!result) {
-					for (EducationRecord m : h.getCurriculum().getEducationRecords()) {
-						if (this.isStringSpam(m.getTitle(), spamWords) || this.isStringSpam(m.getInstitution(), spamWords)) {
-							result = true;
-							break;
-						} else {
-							for (String str : m.getComments()) {
-								if (this.isStringSpam(str, spamWords)) {
-									result = true;
-									break;
-								}
-							}
-						}
-					}
-				}
-				if (!result) {
-					for (ProfessionalRecord m : h.getCurriculum().getProfessionalRecords()) {
-						if (this.isStringSpam(m.getNameCompany(), spamWords) || this.isStringSpam(m.getRole(), spamWords)) {
-							result = true;
-							break;
-						} else {
-							for (String str : m.getComments()) {
-								if (this.isStringSpam(str, spamWords)) {
-									result = true;
-									break;
-								}
-							}
-						}
-					}
-				}
-				if (!result) {
-					if (this.isStringSpam(h.getCurriculum().getPersonalRecord().getFullName(), spamWords) || this.isStringSpam(h.getCurriculum().getPersonalRecord().getEmail(), spamWords)
-						|| this.isStringSpam(h.getCurriculum().getPersonalRecord().getPhoto(), spamWords) || this.isStringSpam(h.getCurriculum().getPersonalRecord().getPhoneNumber(), spamWords)) {
-					}
-				}
-
-			}
-		}
-		// COMRPOBACION COMPLETA REFEREE
-		if (!result) {
-			if (a instanceof Referee) {
-				Referee h = (Referee) a;
-				for (Report b : h.getReports()) {
-					if (this.isStringSpam(b.getDescription(), spamWords)) {
-						result = true;
-						break;
-					} else if (!result) {
-						for (String str : b.getAttachments()) {
-							if (this.isStringSpam(str, spamWords)) {
-								result = true;
-								break;
-
-							} else if (!result) {
-								for (Note n : b.getNotes()) {
-									if (this.isStringSpam(n.getMandatoryComment(), spamWords)) {
-										result = true;
-										break;
-									} else {
-										for (String string : n.getOptionalComments()) {
-											if (this.isStringSpam(string, spamWords)) {
-												result = true;
-												break;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		if (!result) {
-			if (a instanceof Customer) {
-				Customer h = (Customer) a;
-
-				for (FixUpTask t : h.getFixUpTasks()) {
-					if (this.isStringSpam(t.getAddress(), spamWords) || this.isStringSpam(t.getDescription(), spamWords)) {
-						result = true;
-						break;
-					} else {
-						for (Phase s : t.getPhases()) {
-							if (this.isStringSpam(s.getTitle(), spamWords) || this.isStringSpam(s.getDescription(), spamWords)) {
-								result = true;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-		if (!result) {
-			if (a instanceof Endorser) {
-				Endorser h = (Endorser) a;
-				for (Endorsment t : h.getEndorsments()) {
-					for (String s : t.getComments()) {
-						if (this.isStringSpam(s, spamWords)) {
-							result = true;
-							break;
-						}
-					}
-				}
-			}
-		}
+		/*
+		 * if (!result) {
+		 * if (a instanceof HandyWorker) {
+		 * HandyWorker h = (HandyWorker) a;
+		 * // COMPROBANDO TUTORIALES DEL HANDY WORKER
+		 * for (Tutorial t : h.getTutorials()) {
+		 * if (this.isStringSpam(t.getTitle(), spamWords) || this.isStringSpam(t.getSummary(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * } else {
+		 * for (Section s : t.getSections()) {
+		 * if (this.isStringSpam(s.getSectionTitle(), spamWords) || this.isStringSpam(s.getText(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * }
+		 * }
+		 * }
+		 * }
+		 * 
+		 * // COMPROBANDO LOS COMENTARIOS DE LAS APLICATIONS
+		 * for (Application ap : h.getApplications()) {
+		 * for (String s : ap.getComments()) {
+		 * if (this.isStringSpam(s, spamWords)) {
+		 * result = true;
+		 * break;
+		 * }
+		 * }
+		 * }
+		 * // COMPROBANDO EL CURRICULUM DEL HANDY WORKER
+		 * for (EndorserRecord b : h.getCurriculum().getEndorserRecords()) {
+		 * if (this.isStringSpam(b.getEmail(), spamWords) || this.isStringSpam(b.getFullName(), spamWords) || this.isStringSpam(b.getLinkLinkedInProfile(), spamWords) || this.isStringSpam(b.getPhoneNumber(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * } else {
+		 * for (String str : b.getComments()) {
+		 * if (this.isStringSpam(str, spamWords)) {
+		 * result = true;
+		 * break;
+		 * }
+		 * }
+		 * }
+		 * }
+		 * if (!result) {
+		 * for (MiscellaneousRecord m : h.getCurriculum().getMiscellaneousRecords()) {
+		 * if (this.isStringSpam(m.getTitle(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * } else {
+		 * for (String str : m.getComments()) {
+		 * if (this.isStringSpam(str, spamWords)) {
+		 * result = true;
+		 * break;
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * if (!result) {
+		 * for (EducationRecord m : h.getCurriculum().getEducationRecords()) {
+		 * if (this.isStringSpam(m.getTitle(), spamWords) || this.isStringSpam(m.getInstitution(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * } else {
+		 * for (String str : m.getComments()) {
+		 * if (this.isStringSpam(str, spamWords)) {
+		 * result = true;
+		 * break;
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * if (!result) {
+		 * for (ProfessionalRecord m : h.getCurriculum().getProfessionalRecords()) {
+		 * if (this.isStringSpam(m.getNameCompany(), spamWords) || this.isStringSpam(m.getRole(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * } else {
+		 * for (String str : m.getComments()) {
+		 * if (this.isStringSpam(str, spamWords)) {
+		 * result = true;
+		 * break;
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * if (!result) {
+		 * if (this.isStringSpam(h.getCurriculum().getPersonalRecord().getFullName(), spamWords) || this.isStringSpam(h.getCurriculum().getPersonalRecord().getEmail(), spamWords)
+		 * || this.isStringSpam(h.getCurriculum().getPersonalRecord().getPhoto(), spamWords) || this.isStringSpam(h.getCurriculum().getPersonalRecord().getPhoneNumber(), spamWords)) {
+		 * }
+		 * }
+		 * 
+		 * }
+		 * }
+		 * // COMRPOBACION COMPLETA REFEREE
+		 * if (!result) {
+		 * if (a instanceof Referee) {
+		 * Referee h = (Referee) a;
+		 * for (Report b : h.getReports()) {
+		 * if (this.isStringSpam(b.getDescription(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * } else if (!result) {
+		 * for (String str : b.getAttachments()) {
+		 * if (this.isStringSpam(str, spamWords)) {
+		 * result = true;
+		 * break;
+		 * 
+		 * } else if (!result) {
+		 * for (Note n : b.getNotes()) {
+		 * if (this.isStringSpam(n.getMandatoryComment(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * } else {
+		 * for (String string : n.getOptionalComments()) {
+		 * if (this.isStringSpam(string, spamWords)) {
+		 * result = true;
+		 * break;
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * if (!result) {
+		 * if (a instanceof Customer) {
+		 * Customer h = (Customer) a;
+		 * 
+		 * for (FixUpTask t : h.getFixUpTasks()) {
+		 * if (this.isStringSpam(t.getAddress(), spamWords) || this.isStringSpam(t.getDescription(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * } else {
+		 * for (Phase s : t.getPhases()) {
+		 * if (this.isStringSpam(s.getTitle(), spamWords) || this.isStringSpam(s.getDescription(), spamWords)) {
+		 * result = true;
+		 * break;
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 * if (!result) {
+		 * if (a instanceof Endorser) {
+		 * Endorser h = (Endorser) a;
+		 * for (Endorsement t : h.getEndorsements()) {
+		 * for (String s : t.getComments()) {
+		 * if (this.isStringSpam(s, spamWords)) {
+		 * result = true;
+		 * break;
+		 * }
+		 * }
+		 * }
+		 * }
+		 * }
+		 */
 		return result;
 	}
 
@@ -390,23 +383,22 @@ public class ConfigurationService {
 		List<String> goodWordsList = Arrays.asList(goodWords.split(",[ ]*"));
 		List<String> badWordsList = Arrays.asList(badWoords.split(",[ ]*"));
 
-		List<Endorsment> endorsments = e.getEndorsments();
-
-		for (Endorsment endo : endorsments) {
-			if (endo.getWrittenTo().equals(e)) {
-				for (String g : endo.getComments()) {
-					List<String> commentSplit = Arrays.asList(g.split("\\W"));
-					for (String word : commentSplit) {
-						if (goodWordsList.contains(word)) {
-							countGood = countGood + 1.0;
+		List<Endorsement> endorsments = e.getEndorsements();
+		if (!endorsments.isEmpty()) {
+			for (Endorsement endo : endorsments) {
+				if (endo.getWrittenTo().equals(e)) {
+					for (String g : endo.getComments()) {
+						List<String> commentSplit = Arrays.asList(g.split("\\W"));
+						for (String word : commentSplit) {
+							if (goodWordsList.contains(word)) {
+								countGood = countGood + 1.0;
+							}
+							if (badWordsList.contains(word)) {
+								countBad = countBad - 1.0;
+							}
+							total = countGood - countBad;
 						}
-						if (badWordsList.contains(word)) {
-							countBad = countBad - 1.0;
-						}
-						total = countGood - countBad;
-
 					}
-
 				}
 			}
 		}
@@ -417,8 +409,43 @@ public class ConfigurationService {
 		for (Double d : parcialresult) {
 			cont = cont + d;
 		}
-		res = cont / parcialresult.size();
+		if (parcialresult.size() == 0) {
+			res = 0.0;
+			//e.setScore(res);
 
-		return res;
+			//this.endorserService.save(e);
+
+		} else {
+			res = cont / parcialresult.size();
+			//e.setScore(res);
+
+			//this.endorserService.save(e);
+		}
+
+		return total;
 	}
+	public Map<Endorser, Double> computeAllScores(List<Endorser> endorsers) {
+		Map<Endorser, Double> result = new HashMap<Endorser, Double>();
+
+		for (Endorser e : endorsers) {
+			if (!e.getEndorsements().isEmpty()) {
+				result.put(e, this.computeScore(e));
+			}
+		}
+		return result;
+	}
+
+	public List<Double> computeAllScoresDouble(List<Endorser> endorsers) {
+		List<Double> result = new ArrayList<Double>();
+
+		for (Endorser e : endorsers) {
+			if (!e.getEndorsements().isEmpty()) {
+				Double res = 0.0;
+				res = this.computeScore(e);
+				result.add(res);
+			}
+		}
+		return result;
+	}
+
 }

@@ -17,7 +17,7 @@ import domain.Warranty;
 public class WarrantyController extends AbstractController {
 
 	@Autowired
-	WarrantyService	warrantyService;
+	private WarrantyService	warrantyService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

@@ -22,13 +22,13 @@ import domain.Sponsor;
 public class AnonymousController extends AbstractController {
 
 	@Autowired
-	CustomerService		customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	HandyWorkerService	handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
 
 	@Autowired
-	SponsorService		sponsorService;
+	private SponsorService		sponsorService;
 
 
 	public AnonymousController() {
@@ -111,7 +111,7 @@ public class AnonymousController extends AbstractController {
 		} else {
 			try {
 				this.customerService.save(customer);
-				result = new ModelAndView("redirect:login.do");
+				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(customer, "customer.commit.error");
 			}

@@ -17,7 +17,7 @@ import javax.validation.constraints.Past;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Endorsment extends DomainEntity {
+public class Endorsement extends DomainEntity {
 
 	private Date				moment;
 	private Collection<String>	comments;

@@ -19,9 +19,6 @@ public class SectionService {
 	@Autowired
 	private SectionRepository	sectionRepository;
 
-	@Autowired
-	private HandyWorkerService	handyWorkerService;
-
 
 	public Section create() {
 		Section section = new Section();
@@ -31,7 +28,7 @@ public class SectionService {
 		section.setText("");
 		section.setSectionPictures(pictures);
 
-		section.setNumber(0);
+		section.setNumber(1);
 
 		return section;
 	}

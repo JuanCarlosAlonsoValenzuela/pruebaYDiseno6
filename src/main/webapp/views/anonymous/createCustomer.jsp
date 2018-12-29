@@ -21,7 +21,7 @@
 	<form:hidden path ="userAccount.isNotLocked"/>
 	<form:hidden path ="score"/>
 	<form:hidden path ="fixUpTasks"/>
-	<form:hidden path ="endorsments"/>
+	<form:hidden path ="endorsements"/>
 	
 	
 	<!-- Actor Attributes -->
@@ -102,8 +102,9 @@
 		
 	<input type="submit" name="save" value="<spring:message code="customer.save" />" /> 
 	
-	<input type="submit" name="cancel" value="<spring:message code="customer.cancel" />"
-		onClick="javascript: relativeRedir('login.do');" />
+	<a href="#" style="text-decoration: none;">
+    	<input type="button" value="<spring:message code="customer.cancel" />" />
+	</a>
 	
 	</form:form>
 	

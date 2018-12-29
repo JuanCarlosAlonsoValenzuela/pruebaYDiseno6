@@ -1,7 +1,7 @@
 
 package services;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -37,7 +37,7 @@ public class EndorserService {
 
 	}
 
-	public Collection<Endorser> findAll() {
+	public List<Endorser> findAll() {
 		return this.endorserRepository.findAll();
 	}
 

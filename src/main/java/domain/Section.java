@@ -49,7 +49,7 @@ public class Section extends DomainEntity {
 		this.sectionPictures = sectionPictures;
 	}
 
-	@Min(0)
+	@Min(1)
 	@NotNull
 	public int getNumber() {
 		return this.number;

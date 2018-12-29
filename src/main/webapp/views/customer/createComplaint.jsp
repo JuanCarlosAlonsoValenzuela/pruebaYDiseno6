@@ -10,7 +10,7 @@
 
 <security:authorize access="hasRole('CUSTOMER')">
 
-<form:form action="/complaint/customer/edit.do" modelAttribute="complaint">
+<form:form action="complaint/customer/create.do" modelAttribute="complaint">
 
 		<!-- Hidden Attributes -->
 		<form:hidden path="id"/>
@@ -24,16 +24,24 @@
 		</form:label>
 		<form:textarea path="description"/>
 		<form:errors cssClass="error" path="description" />
+		<br />
+		<br />
 		
 			
 		<!-- Attachments -->
-		<form:label path="attachments">	<!-- Tiles Revisar -->
+		<%-- <form:label path="attachments">	<!-- Tiles Revisar -->
 			<spring:message code="complaint.attachments" />	
 		</form:label>
 		<form:textarea path="attachments"/>
-		<form:errors cssClass="error" path="attachmets" />
+		<form:errors cssClass="error" path="attachments" /> --%>
 		
-		<input type="submit" name="create" value="<spring:message code="fixUpTask.create.button"/>" />	
+		<spring:message code="complaint.attachments" />:
+		<br />
+		<input type="hidden" name="newAttachments" value=""/>
+		<textarea rows="12" cols="50" name="newAttachments" id="newAttachments" placeholder="http://www.aaa.com, http://www.bbb.com" ></textarea>
+		<br />
+		
+		<input type="submit" name="save" value="<spring:message code="fixUpTask.create.button"/>" />	
 			
 		
 		<input type="submit" name="cancel" value="<spring:message code="fixUpTask.cancel.button"/>" />

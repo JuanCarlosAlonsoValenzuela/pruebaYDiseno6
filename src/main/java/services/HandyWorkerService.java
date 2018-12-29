@@ -1,7 +1,9 @@
 
 package services;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,7 +28,7 @@ import domain.Customer;
 import domain.EducationRecord;
 import domain.Endorser;
 import domain.EndorserRecord;
-import domain.Endorsment;
+import domain.Endorsement;
 import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
@@ -37,6 +39,7 @@ import domain.PersonalRecord;
 import domain.Phase;
 import domain.ProfessionalRecord;
 import domain.Report;
+import domain.Section;
 import domain.SocialProfile;
 import domain.Status;
 import domain.Tutorial;
@@ -55,7 +58,7 @@ public class HandyWorkerService {
 	@Autowired
 	private TutorialService			tutorialService;
 	@Autowired
-	private EndorsmentService		endorsmentService;
+	private EndorsementService		endorsmentService;
 	@Autowired
 	private CurriculumService		curriculumService;
 	@Autowired
@@ -80,6 +83,8 @@ public class HandyWorkerService {
 	private BoxService				boxService;
 	@Autowired
 	private ConfigurationService	configurationService;
+	@Autowired
+	private SectionService			sectionService;
 
 
 	// Simple CRUD methods --------------------------------------------------------------------------------------------
@@ -90,7 +95,7 @@ public class HandyWorkerService {
 
 		List<SocialProfile> socialProfiles = new ArrayList<SocialProfile>();
 		List<Box> boxes = new ArrayList<Box>();
-		List<Endorsment> endorsments = new ArrayList<Endorsment>();
+		List<Endorsement> endorsments = new ArrayList<Endorsement>();
 		List<Application> applications = new ArrayList<Application>();
 		List<Tutorial> tutorials = new ArrayList<Tutorial>();
 		Curriculum curriculum = new Curriculum();
@@ -142,7 +147,7 @@ public class HandyWorkerService {
 		handyWorker.setPhoneNumber("");
 		handyWorker.setSocialProfiles(socialProfiles);
 		handyWorker.setScore(0.0);
-		handyWorker.setEndorsments(endorsments);
+		handyWorker.setEndorsements(endorsments);
 		handyWorker.setMake("");
 		handyWorker.setApplications(applications);
 		handyWorker.setPhoto("");
@@ -174,7 +179,7 @@ public class HandyWorkerService {
 
 		List<SocialProfile> socialProfiles = new ArrayList<SocialProfile>();
 		List<Box> boxes = new ArrayList<Box>();
-		List<Endorsment> endorsments = new ArrayList<Endorsment>();
+		List<Endorsement> endorsments = new ArrayList<Endorsement>();
 		List<FixUpTask> f = new ArrayList<FixUpTask>();
 		List<Application> applications = new ArrayList<Application>();
 
@@ -230,7 +235,7 @@ public class HandyWorkerService {
 		handyWorker.setPhoneNumber(phoneNumber);
 		handyWorker.setSocialProfiles(socialProfiles);
 		handyWorker.setScore(score);
-		handyWorker.setEndorsments(endorsments);
+		handyWorker.setEndorsements(endorsments);
 		handyWorker.setMake(name + "" + middleName + "" + surname);
 		handyWorker.setApplications(applications);
 		handyWorker.setPhoto(photo);
@@ -811,11 +816,9 @@ public class HandyWorkerService {
 
 	public void deleteTutorial(Tutorial tutorial) {
 		UserAccount userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
 		HandyWorker logguedHandyWorker = new HandyWorker();
 		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
-
+		Assert.notNull(logguedHandyWorker);
 		Assert.isTrue(logguedHandyWorker.getTutorials().contains(tutorial));
 
 		List<Tutorial> tutorials = logguedHandyWorker.getTutorials();
@@ -823,32 +826,61 @@ public class HandyWorkerService {
 
 		logguedHandyWorker.setTutorials(tutorials);
 
-		this.tutorialService.delete(tutorial);
 		this.handyWorkerRepository.save(logguedHandyWorker);
+		this.tutorialService.delete(tutorial);
+
+	}
+
+	public void deleteSection(Section section, Tutorial tutorial) {
+		UserAccount userAccount = LoginService.getPrincipal();
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+		Assert.notNull(logguedHandyWorker);
+		Assert.isTrue(logguedHandyWorker.getTutorials().contains(tutorial));
+		Assert.isTrue(tutorial.getSections().contains(section));
+
+		List<Section> sections = tutorial.getSections();
+		sections.remove(section);
+
+		tutorial.setSections(sections);
+
+		this.tutorialService.save(tutorial);
+		this.sectionService.delete(section);
+
 	}
 
 	public void updateTutorial(Tutorial tutorial) {
 		UserAccount userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
 		HandyWorker logguedHandyWorker = new HandyWorker();
 		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
-
+		Assert.notNull(logguedHandyWorker);
 		Assert.isTrue(logguedHandyWorker.getTutorials().contains(tutorial));
 
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
-
+		tutorial.setPictures(this.listUrlsTutorial(tutorial));
 		this.tutorialService.save(tutorial);
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
+	}
+
+	public void updateSection(Section section, Tutorial tutorial) {
+		UserAccount userAccount = LoginService.getPrincipal();
+		HandyWorker logguedHandyWorker = new HandyWorker();
+		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+		Assert.notNull(logguedHandyWorker);
+		Assert.isTrue(logguedHandyWorker.getTutorials().contains(tutorial));
+		Assert.isTrue(tutorial.getSections().contains(section));
+
+		section.setSectionPictures(this.listUrlsSection(section));
+		this.tutorialService.save(tutorial);
+		this.sectionService.save(section);
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
 	}
 
 	public void createTutorial(Tutorial newTutorial) {
-		UserAccount userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
 
 		Assert.isTrue(!logguedHandyWorker.getTutorials().contains(newTutorial));
+
+		newTutorial.setPictures(this.listUrlsTutorial(newTutorial));
 
 		Tutorial tutorial = this.tutorialService.save(newTutorial);
 		List<Tutorial> tutorials = logguedHandyWorker.getTutorials();
@@ -861,31 +893,91 @@ public class HandyWorkerService {
 
 	}
 
+	public void createSection(Section newSection, Tutorial tutorial) {
+
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
+
+		Assert.isTrue(logguedHandyWorker.getTutorials().contains(tutorial));
+		Assert.isTrue(!tutorial.getSections().contains(newSection));
+		Assert.isTrue(newSection.getId() == 0);
+
+		newSection.setSectionPictures(this.listUrlsSection(newSection));
+
+		List<Section> sections = tutorial.getSections();
+		sections.add(newSection);
+		tutorial.setSections(sections);
+		this.tutorialService.save(tutorial);
+
+		this.configurationService.isActorSuspicious(logguedHandyWorker);
+
+	}
+
+	public List<String> listUrlsTutorial(Tutorial tutorial) {
+		List<String> pic = new ArrayList<String>();
+
+		if (tutorial.getPictures().size() == 1 && tutorial.getPictures().get(0).contains(",")) {
+			String picture = tutorial.getPictures().get(0).trim();
+			List<String> pictures = Arrays.asList(picture.split(","));
+
+			for (String s : pictures) {
+				if (!s.isEmpty() && !pic.contains(s.trim()) && this.isUrl(s)) {
+					pic.add(s.trim());
+				}
+			}
+		}
+		return pic;
+	}
+
+	public List<String> listUrlsSection(Section section) {
+		List<String> pic = new ArrayList<String>();
+
+		if (section.getSectionPictures().size() == 1 && section.getSectionPictures().get(0).contains(",")) {
+			String picture = section.getSectionPictures().get(0).trim();
+			List<String> pictures = Arrays.asList(picture.split(","));
+
+			for (String s : pictures) {
+				if (!s.isEmpty() && !pic.contains(s.trim()) && this.isUrl(s)) {
+					pic.add(s.trim());
+				}
+			}
+		}
+		return pic;
+	}
+
+	public Boolean isUrl(String url) {
+		try {
+			new URL(url).toURI();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 	//49.2
-	public void deleteEndorsment(Endorsment endorsment) {
+	public void deleteEndorsment(Endorsement endorsment) {
 		UserAccount userAccount = LoginService.getPrincipal();
 		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
 		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
 		HandyWorker logguedHandyWorker = new HandyWorker();
 		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
 
-		Assert.isTrue(logguedHandyWorker.getEndorsments().contains(endorsment));
-		List<Endorsment> endorsments = logguedHandyWorker.getEndorsments();
+		Assert.isTrue(logguedHandyWorker.getEndorsements().contains(endorsment));
+		List<Endorsement> endorsments = logguedHandyWorker.getEndorsements();
 		endorsments.remove(endorsment);
-		logguedHandyWorker.setEndorsments(endorsments);
+		logguedHandyWorker.setEndorsements(endorsments);
 
 		this.endorsmentService.delete(endorsment);
 		this.handyWorkerRepository.save(logguedHandyWorker);
 	}
 
-	public void updateEndorsment(Endorsment endorsment) {
+	public void updateEndorsment(Endorsement endorsment) {
 		UserAccount userAccount = LoginService.getPrincipal();
 		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
 		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
 		HandyWorker logguedHandyWorker = new HandyWorker();
 		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
 
-		Assert.isTrue(logguedHandyWorker.getEndorsments().contains(endorsment));
+		Assert.isTrue(logguedHandyWorker.getEndorsements().contains(endorsment));
 
 		this.configurationService.isActorSuspicious(logguedHandyWorker);
 
@@ -893,7 +985,7 @@ public class HandyWorkerService {
 	}
 
 	//TODO COMPROBAR
-	public void createEndorsment(Endorsment endorsment) {
+	public void createEndorsment(Endorsement endorsment) {
 		UserAccount userAccount = LoginService.getPrincipal();
 		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
 		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
@@ -912,27 +1004,27 @@ public class HandyWorkerService {
 		Customer customer = this.customerService.getCustomerByUserName(endorsment.getWrittenTo().getUserAccount().getUsername());
 		Assert.isTrue(ids.contains(customer.getId()));
 
-		Endorsment newEndorsment = this.endorsmentService.save(endorsment);
-		List<Endorsment> end = endorsment.getWrittenTo().getEndorsments();
+		Endorsement newEndorsment = this.endorsmentService.save(endorsment);
+		List<Endorsement> end = endorsment.getWrittenTo().getEndorsements();
 		end.add(newEndorsment);
 
 		Endorser endorser1 = this.endorserSevice.findOne(endorsment.getWrittenTo().getId());
-		endorser1.setEndorsments(end);
+		endorser1.setEndorsements(end);
 
 		this.configurationService.isActorSuspicious(logguedHandyWorker);
 
 		this.endorserSevice.save(endorser1);
 
-		end = endorsment.getWrittenBy().getEndorsments();
+		end = endorsment.getWrittenBy().getEndorsements();
 		end.add(endorsment);
 		Endorser endorser2 = this.endorserSevice.findOne(endorsment.getWrittenBy().getId());
-		endorser2.setEndorsments(end);
+		endorser2.setEndorsements(end);
 		this.endorserSevice.save(endorser2);
 		this.endorsmentService.save(newEndorsment);
 
 	}
 
-	public List<Endorsment> showEndorsments() {
+	public List<Endorsement> showEndorsments() {
 		UserAccount userAccount = LoginService.getPrincipal();
 		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
 		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
@@ -940,7 +1032,7 @@ public class HandyWorkerService {
 		HandyWorker logguedHandyWorker = new HandyWorker();
 		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
 
-		List<Endorsment> endorsments = logguedHandyWorker.getEndorsments();
+		List<Endorsement> endorsments = logguedHandyWorker.getEndorsements();
 		return endorsments;
 	}
 

@@ -29,16 +29,16 @@ import domain.Report;
 public class NoteCustomerController extends AbstractController {
 
 	@Autowired
-	ReportService		reportService;
+	private ReportService		reportService;
 
 	@Autowired
-	NoteService			noteService;
+	private NoteService			noteService;
 
 	@Autowired
-	CustomerService		customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	CustomerRepository	customerRepository;
+	private CustomerRepository	customerRepository;
 
 
 	public NoteCustomerController() {
@@ -67,7 +67,7 @@ public class NoteCustomerController extends AbstractController {
 
 	}
 	@RequestMapping(value = "/showComments", method = RequestMethod.GET)
-	public ModelAndView listComments(@RequestParam int noteId, @RequestParam int reportId) {
+	public ModelAndView listComments(@RequestParam int noteId) {
 
 		ModelAndView result;
 
@@ -85,9 +85,7 @@ public class NoteCustomerController extends AbstractController {
 		result = new ModelAndView("note/customer/showComments");
 
 		result.addObject("optionalComments", optionalComments);
-		//result.addObject("requestURI", "note/customer/showComments.do");
 		result.addObject("canComment", canComment);
-		result.addObject("reportId", reportId);
 		result.addObject("noteId", noteId);
 
 		return result;
@@ -106,14 +104,14 @@ public class NoteCustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/addComment", method = RequestMethod.GET)
-	public ModelAndView addComment(@RequestParam int reportId, @RequestParam int noteId) {
+	public ModelAndView addComment(@RequestParam int noteId) {
 		ModelAndView result;
 		Note note;
 
 		note = this.noteService.findOne(noteId);
 		Assert.notNull(note);
 		result = this.createEditModelAndView(note);
-		result.addObject("reportId", reportId);
+
 		result.addObject("noteId", noteId);
 
 		return result;
@@ -142,17 +140,16 @@ public class NoteCustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/addComment", method = RequestMethod.POST, params = "Comment")
-	public ModelAndView saveCreate(@RequestParam int noteId, @RequestParam int reportId, @RequestParam String comment) {
+	public ModelAndView saveComment(@RequestParam int noteId, @RequestParam String comment) {
 		ModelAndView result;
 		Note note = this.noteService.findOne(noteId);
 
 		try {
 			this.customerService.addComent(note, comment);
-			result = new ModelAndView("redirect:showComments.do?noteId=" + noteId + "&reportId=" + reportId);
+			result = new ModelAndView("redirect:showComments.do?noteId=" + noteId);
 
 		} catch (Throwable oops) {
 			result = this.createEditModelAndView(note, "note.commit.error");
-			result.addObject("reportId", reportId);
 			result.addObject("noteId", noteId);
 		}
 		return result;

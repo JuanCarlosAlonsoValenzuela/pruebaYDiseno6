@@ -23,6 +23,7 @@
 		<value>/views/anonymous/tiles.xml</value>
 		<value>/views/customer/tiles.xml</value>
 		<value>/views/handy-worker/tiles.xml</value>
+		<value>/views/sponsor/tiles.xml</value>
 	</util:list>
 
 </beans>

@@ -21,18 +21,18 @@
 		<put-attribute name="body" value="/views/administrator/banUnban.jsp" />
 	</definition>
 	
-	<definition name="administrator/computedScore" extends="master.page">	
+	<definition name="score/administrator/list" extends="master.page">	
 		<put-attribute name="title" value="Administrator: Computed Score" />
 		<put-attribute name="body" value="/views/administrator/computedScore.jsp" />
 	</definition>
 	
 	<definition name="administrator/createAdmin" extends="master.page">	
-		<put-attribute name="title" value="Administrator: Create admin" />
+		<put-attribute name="title" value="Create a new Admin" />
 		<put-attribute name="body" value="/views/administrator/createAdmin.jsp" />
 	</definition>
 	
 	<definition name="administrator/createReferee" extends="master.page">	
-		<put-attribute name="title" value="Administrator: Create referee" />
+		<put-attribute name="title" value="Create a new Referee" />
 		<put-attribute name="body" value="/views/administrator/createReferee.jsp" />
 	</definition>
 	
@@ -54,6 +54,11 @@
 	<definition name="administrator/statistics" extends="master.page">	
 		<put-attribute name="title" value="Administrator: Show statistics" />
 		<put-attribute name="body" value="/views/administrator/statistics.jsp" />
+	</definition>
+	
+	<definition name="personalData/administrator/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit Personal Data" /> 
+		<put-attribute name="body" value="/views/administrator/editAdmin.jsp" />
 	</definition>
 	
 </tiles-definitions>

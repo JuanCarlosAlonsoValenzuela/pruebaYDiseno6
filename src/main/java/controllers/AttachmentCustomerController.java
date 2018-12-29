@@ -18,7 +18,7 @@ import domain.Complaint;
 public class AttachmentCustomerController extends AbstractController {
 
 	@Autowired
-	ComplaintService	ComplaintService;
+	private ComplaintService	ComplaintService;
 
 
 	// Constructor --------------------------------------------------------------
@@ -41,6 +41,13 @@ public class AttachmentCustomerController extends AbstractController {
 		c = this.ComplaintService.findOne(complaintId);
 
 		attachments = c.getAttachments();
+
+		//TODO
+		for (String a : attachments) {
+			if (!a.startsWith("http://")) {
+				throw new IllegalArgumentException();
+			}
+		}
 
 		result = new ModelAndView("attachment/customer/list");
 

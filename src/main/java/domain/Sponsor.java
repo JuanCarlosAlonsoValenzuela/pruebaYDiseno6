@@ -13,17 +13,17 @@ import javax.validation.Valid;
 @Access(AccessType.PROPERTY)
 public class Sponsor extends Actor {
 
-	private List<Sponsorship>	Sponsorships;
+	private List<Sponsorship>	sponsorships;
 
 
 	@Valid
 	@OneToMany
 	public List<Sponsorship> getSponsorships() {
-		return this.Sponsorships;
+		return this.sponsorships;
 	}
 
 	public void setSponsorships(final List<Sponsorship> sponsorships) {
-		this.Sponsorships = sponsorships;
+		this.sponsorships = sponsorships;
 	}
 
 }

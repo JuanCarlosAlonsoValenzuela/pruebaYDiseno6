@@ -1577,6 +1577,7 @@
 		<property name="socialProfiles">
 			<list>
 				<ref bean="socialProfile3" />
+				<ref bean="socialProfile4" />
 			</list>
 		</property>
 		<property name="boxes">
@@ -1588,9 +1589,9 @@
 			</list>
 		</property>
 		<property name="score" value="1" />
-		<property name="endorsments">
+		<property name="endorsements">
 			<list>
-				<ref bean="endorsment1" />
+				<ref bean="endorsement1" />
 			</list>
 		</property>
 		<property name="make" value="Pepe Luis Martinez" />
@@ -1721,7 +1722,7 @@
 	<!-- END OF HANDY WORKER -->
 
 	<!-- ENDORSMENT -->
-	<bean id="endorsment1" class="domain.Endorsment">
+	<bean id="endorsement1" class="domain.Endorsement">
 		<property name="moment" value="09/11/2018 12:30" />
 		<property name="comments">
 			<list>
@@ -1735,7 +1736,7 @@
 		<property name="writtenTo" ref="handyWorker1" />
 	</bean>
 
-	<bean id="endorsment2" class="domain.Endorsment">
+	<bean id="endorsement2" class="domain.Endorsement">
 		<property name="moment" value="09/08/2018 12:30" />
 		<property name="comments">
 			<list>
@@ -1814,9 +1815,9 @@
 			</list>
 		</property>
 		<property name="score" value="0" />
-		<property name="endorsments">
+		<property name="endorsements">
 			<list>
-				<ref bean="endorsment1" />
+				<ref bean="endorsement1" />
 			</list>
 		</property>
 		<property name="fixUpTasks">
@@ -2876,12 +2877,8 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
+			
 		<property name="sender">
 			<ref bean="customer1" />
 		</property>
@@ -2896,12 +2893,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="customer2" />
 		</property>
@@ -2918,12 +2910,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="customer3" />
 		</property>
@@ -2941,12 +2928,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="customer4" />
 		</property>
@@ -2965,12 +2947,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="admin1" />
 		</property>
@@ -2988,12 +2965,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="referee1" />
 		</property>
@@ -3011,12 +2983,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="referee2" />
 		</property>
@@ -3034,12 +3001,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="referee3" />
 		</property>
@@ -3057,12 +3019,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="referee4" />
 		</property>
@@ -3080,12 +3037,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker1" />
 		</property>
@@ -3103,12 +3055,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker2" />
 		</property>
@@ -3126,12 +3073,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker3" />
 		</property>
@@ -3149,12 +3091,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker4" />
 		</property>
@@ -3173,12 +3110,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="sponsor1" />
 		</property>
@@ -3196,12 +3128,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="sponsor2" />
 		</property>
@@ -3219,12 +3146,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="sponsor1" />
 		</property>
@@ -3241,12 +3163,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker4" />
 		</property>
@@ -3263,12 +3180,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="sponsor1" />
 		</property>
@@ -3285,12 +3197,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker4" />
 		</property>
@@ -3308,12 +3215,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="sponsor1" />
 		</property>
@@ -3330,12 +3232,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker4" />
 		</property>
@@ -3352,12 +3249,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="sponsor1" />
 		</property>
@@ -3374,12 +3266,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker4" />
 		</property>
@@ -3396,12 +3283,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker4" />
 		</property>
@@ -3418,12 +3300,7 @@
 			name="subject" />
 		<property value="HandyWorkers rock." name="body" />
 		<property value="LOW" name="priority" />
-		<property name="tags">
-			<list>
-				<value>Tag de ejemplo 1</value>
-				<value>Tag de ejemplo 2</value>
-			</list>
-		</property>
+		<property value="tag" name="tags"/>
 		<property name="sender">
 			<ref bean="handyWorker4" />
 		</property>
@@ -3451,14 +3328,14 @@
 	</bean>
 
 	<bean class="domain.SocialProfile" id="socialProfile3">
-		<property value="Referee1" name="nick" />
-		<property value="Walabonso" name="name" />
+		<property value="PepeTwitter" name="nick" />
+		<property value="Twitter" name="name" />
 		<property value="https://www.example.com/link3" name="profileLink" />
 	</bean>
 
 	<bean class="domain.SocialProfile" id="socialProfile4">
-		<property value="HandyWorker1" name="nick" />
-		<property value="Eustaquio" name="name" />
+		<property value="PepeFacebook" name="nick" />
+		<property value="Facebook" name="name" />
 		<property value="https://www.example.com/link4" name="profileLink" />
 	</bean>
 	<!-- END OF SOCIALPROFILE -->

@@ -2,12 +2,12 @@
 package domain;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -20,14 +20,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Message extends DomainEntity {
 
-	private Date			moment;
-	private String			subject;
-	private String			body;
-	private Priority		priority;
-	private List<String>	tags;
+	private Date		moment;
+	private String		subject;
+	private String		body;
+	private Priority	priority;
+	private String		tags;
 
-	private Actor			sender;
-	private Actor			receiver;
+	private Actor		sender;
+	private Actor		receiver;
 
 
 	public Message() {		//For Json purposes
@@ -62,22 +62,21 @@ public class Message extends DomainEntity {
 		this.body = body;
 	}
 
-	@NotNull
+	@Valid
+	@Enumerated(EnumType.STRING)
 	public Priority getPriority() {
 		return this.priority;
 	}
 
-	public void setPriority(final Priority priority) {
+	public void setPriority(Priority priority) {
 		this.priority = priority;
 	}
 
-	@Valid
-	@ElementCollection(targetClass = String.class)
-	public List<String> getTags() {
+	public String getTags() {
 		return this.tags;
 	}
 
-	public void setTags(final List<String> tags) {
+	public void setTags(final String tags) {
 		this.tags = tags;
 	}
 

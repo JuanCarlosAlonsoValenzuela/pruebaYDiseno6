@@ -10,9 +10,10 @@
 <p><spring:message code="report.notes.list" /></p>
 
 <security:authorize access="hasRole('CUSTOMER')">
+
  	
 	<display:table pagesize="5" name="notes" id="row" class="displaytag"
-			requestURI="note/customer/show.do"> 
+			requestURI="${requestURI}"> 
 			
 	<display:column property="moment" titleKey="note.moment"/>
 	
@@ -20,9 +21,8 @@
 		
 	<display:column titleKey="note.comments">
 				<jstl:set var="optionalCommentsSize" value="${row.optionalComments.size()}" />
-				<spring:url var="commentsUrl" value="note/customer/showComments.do?noteId={notId}&reportId={reportId}">
+				<spring:url var="commentsUrl" value="note/customer/showComments.do?noteId={notId}">
 							<spring:param name="notId" value="${row.id}"/>
-							<spring:param name="reportId" value="${reportId}"/>
 				</spring:url>
 				<a href="${commentsUrl}">
 							<spring:message var ="viewComments1" code="note.viewComments" />

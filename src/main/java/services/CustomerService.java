@@ -22,11 +22,10 @@ import domain.Category;
 import domain.Complaint;
 import domain.CreditCard;
 import domain.Customer;
-import domain.Endorsment;
+import domain.Endorsement;
 import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
-import domain.Message;
 import domain.Note;
 import domain.Phase;
 import domain.Report;
@@ -54,60 +53,34 @@ public class CustomerService {
 	@Autowired
 	private ReportService			reportService;
 	@Autowired
-	private EndorsmentService		endorsmentService;
+	private EndorsementService		endorsmentService;
 	@Autowired
 	private ConfigurationService	configurationService;
 	@Autowired
 	private FinderService			finderService;
 	@Autowired
 	private HandyWorkerService		handyWorkerService;
+	@Autowired
+	private BoxService				boxService;
 
 
 	public Customer create() {
 
-		// SE DECLARA EL SPONSOR
+		// SE DECLARA EL CUSTOMER
 		Customer s = new Customer();
 
 		// SE CREAN LAS LISTAS VACIAS
 		List<SocialProfile> socialProfiles = new ArrayList<SocialProfile>();
 		List<Box> boxes = new ArrayList<Box>();
 		List<FixUpTask> fixUpTasks = new ArrayList<FixUpTask>();
-		List<Endorsment> endorsements = new ArrayList<Endorsment>();
+		List<Endorsement> endorsements = new ArrayList<Endorsement>();
 
 		// SE AÑADE EL USERNAME Y EL PASSWORD
 		UserAccount userAccountActor = new UserAccount();
 		userAccountActor.setUsername("");
 		userAccountActor.setPassword("");
 
-		// SE CREAN LAS CAJAS POR DEFECTO
-		Box spamBox = new Box();
-		List<Message> messages1 = new ArrayList<>();
-		spamBox.setIsSystem(true);
-		spamBox.setMessages(messages1);
-		spamBox.setName("Spam");
-
-		Box trashBox = new Box();
-		List<Message> messages2 = new ArrayList<>();
-		trashBox.setIsSystem(true);
-		trashBox.setMessages(messages2);
-		trashBox.setName("Trash");
-
-		Box sentBox = new Box();
-		List<Message> messages3 = new ArrayList<>();
-		sentBox.setIsSystem(true);
-		sentBox.setMessages(messages3);
-		sentBox.setName("Sent messages");
-
-		Box receivedBox = new Box();
-		List<Message> messages4 = new ArrayList<>();
-		receivedBox.setIsSystem(true);
-		receivedBox.setMessages(messages4);
-		receivedBox.setName("Received messages");
-
-		boxes.add(receivedBox);
-		boxes.add(sentBox);
-		boxes.add(spamBox);
-		boxes.add(trashBox);
+		// SE CREAN LAS CAJAS POR DEFECTO (NO)
 
 		// SE AÑADEN TODOS LOS ATRIBUTOS
 		s.setName("");
@@ -122,7 +95,7 @@ public class CustomerService {
 
 		s.setFixUpTasks(fixUpTasks);
 		s.setScore(0.);
-		s.setEndorsments(endorsements);
+		s.setEndorsements(endorsements);
 		// SPAM SIEMPRE A FALSE EN LA INICIALIZACION
 		s.setHasSpam(false);
 
@@ -140,80 +113,116 @@ public class CustomerService {
 		return s;
 	}
 
-	// Simple CRUD methods
-	public Customer create(String name, String middleName, String surname, String photo, String email, String phoneNumber, String address, String userName, String password) {
+	public Customer save(Customer customer) {	//Tenemos un listBox vac�a
 
-		// SE DECLARA EL SPONSOR
-		Customer s = new Customer();
+		List<Box> boxes = new ArrayList<>();
 
-		// SE CREAN LAS LISTAS VACIAS
-		List<SocialProfile> socialProfiles = new ArrayList<SocialProfile>();
-		List<Box> boxes = new ArrayList<Box>();
-		List<FixUpTask> fixUpTasks = new ArrayList<FixUpTask>();
+		//Boxes
+		Box box1 = this.boxService.createSystem();
+		box1.setName("Spam");
+		Box saved1 = this.boxService.saveSystem(box1);
+		boxes.add(saved1);
 
-		// SE AÑADE EL USERNAME Y EL PASSWORD
-		UserAccount userAccountActor = new UserAccount();
-		userAccountActor.setUsername(userName);
-		userAccountActor.setPassword(password);
+		Box box2 = this.boxService.createSystem();
+		box2.setName("Trash");
+		Box saved2 = this.boxService.saveSystem(box2);
+		boxes.add(saved2);
 
-		// SE CREAN LAS CAJAS POR DEFECTO
-		Box spamBox = new Box();
-		List<Message> messages1 = new ArrayList<>();
-		spamBox.setIsSystem(true);
-		spamBox.setMessages(messages1);
-		spamBox.setName("Spam");
+		Box box3 = this.boxService.createSystem();
+		box3.setName("Sent messages");
+		Box saved3 = this.boxService.saveSystem(box3);
+		boxes.add(saved3);
 
-		Box trashBox = new Box();
-		List<Message> messages2 = new ArrayList<>();
-		trashBox.setIsSystem(true);
-		trashBox.setMessages(messages2);
-		trashBox.setName("Trash");
+		Box box4 = this.boxService.createSystem();
+		box4.setName("Received messages");
+		Box saved4 = this.boxService.saveSystem(box4);
+		boxes.add(saved4);
 
-		Box sentBox = new Box();
-		List<Message> messages3 = new ArrayList<>();
-		sentBox.setIsSystem(true);
-		sentBox.setMessages(messages3);
-		sentBox.setName("Sent messages");
+		customer.setBoxes(boxes);
 
-		Box receivedBox = new Box();
-		List<Message> messages4 = new ArrayList<>();
-		receivedBox.setIsSystem(true);
-		receivedBox.setMessages(messages4);
-		receivedBox.setName("Received messages");
-
-		boxes.add(receivedBox);
-		boxes.add(sentBox);
-		boxes.add(spamBox);
-		boxes.add(trashBox);
-
-		// SE AÑADEN TODOS LOS ATRIBUTOS
-		s.setName(name);
-		s.setMiddleName(middleName);
-		s.setSurname(surname);
-		s.setPhoto(photo);
-		s.setEmail(email);
-		s.setPhoneNumber(phoneNumber);
-		s.setAddress(address);
-		s.setSocialProfiles(socialProfiles);
-		s.setBoxes(boxes);
-		s.setUserAccount(userAccountActor);
-		s.setFixUpTasks(fixUpTasks);
-		s.setScore(0.);
-		// SPAM SIEMPRE A FALSE EN LA INICIALIZACION
-		s.setHasSpam(false);
-
-		List<Authority> authorities = new ArrayList<Authority>();
-
-		Authority authority = new Authority();
-		authority.setAuthority(Authority.CUSTOMER);
-		authorities.add(authority);
-
-		s.getUserAccount().setAuthorities(authorities);
-		// NOTLOCKED A TRUE EN LA INICIALIZACION, O SE CREARA UNA CUENTA BANEADA
-		s.getUserAccount().setIsNotLocked(true);
-
-		return s;
+		return this.customerRepository.save(customer);
 	}
+
+	public Customer updateCustomer(Customer customer) {
+		return this.customerRepository.save(customer);
+	}
+
+	/*
+	 * // Simple CRUD methods
+	 * public Customer create(String name, String middleName, String surname, String photo, String email, String phoneNumber, String address, String userName, String password) {
+	 * 
+	 * // SE DECLARA EL SPONSOR
+	 * Customer s = new Customer();
+	 * 
+	 * // SE CREAN LAS LISTAS VACIAS
+	 * List<SocialProfile> socialProfiles = new ArrayList<SocialProfile>();
+	 * List<Box> boxes = new ArrayList<Box>();
+	 * List<FixUpTask> fixUpTasks = new ArrayList<FixUpTask>();
+	 * 
+	 * // SE AÑADE EL USERNAME Y EL PASSWORD
+	 * UserAccount userAccountActor = new UserAccount();
+	 * userAccountActor.setUsername(userName);
+	 * userAccountActor.setPassword(password);
+	 * 
+	 * // SE CREAN LAS CAJAS POR DEFECTO
+	 * Box spamBox = new Box();
+	 * List<Message> messages1 = new ArrayList<>();
+	 * spamBox.setIsSystem(true);
+	 * spamBox.setMessages(messages1);
+	 * spamBox.setName("Spam");
+	 * 
+	 * Box trashBox = new Box();
+	 * List<Message> messages2 = new ArrayList<>();
+	 * trashBox.setIsSystem(true);
+	 * trashBox.setMessages(messages2);
+	 * trashBox.setName("Trash");
+	 * 
+	 * Box sentBox = new Box();
+	 * List<Message> messages3 = new ArrayList<>();
+	 * sentBox.setIsSystem(true);
+	 * sentBox.setMessages(messages3);
+	 * sentBox.setName("Sent messages");
+	 * 
+	 * Box receivedBox = new Box();
+	 * List<Message> messages4 = new ArrayList<>();
+	 * receivedBox.setIsSystem(true);
+	 * receivedBox.setMessages(messages4);
+	 * receivedBox.setName("Received messages");
+	 * 
+	 * boxes.add(receivedBox);
+	 * boxes.add(sentBox);
+	 * boxes.add(spamBox);
+	 * boxes.add(trashBox);
+	 * 
+	 * // SE AÑADEN TODOS LOS ATRIBUTOS
+	 * s.setName(name);
+	 * s.setMiddleName(middleName);
+	 * s.setSurname(surname);
+	 * s.setPhoto(photo);
+	 * s.setEmail(email);
+	 * s.setPhoneNumber(phoneNumber);
+	 * s.setAddress(address);
+	 * s.setSocialProfiles(socialProfiles);
+	 * s.setBoxes(boxes);
+	 * s.setUserAccount(userAccountActor);
+	 * s.setFixUpTasks(fixUpTasks);
+	 * s.setScore(0.);
+	 * // SPAM SIEMPRE A FALSE EN LA INICIALIZACION
+	 * s.setHasSpam(false);
+	 * 
+	 * List<Authority> authorities = new ArrayList<Authority>();
+	 * 
+	 * Authority authority = new Authority();
+	 * authority.setAuthority(Authority.CUSTOMER);
+	 * authorities.add(authority);
+	 * 
+	 * s.getUserAccount().setAuthorities(authorities);
+	 * // NOTLOCKED A TRUE EN LA INICIALIZACION, O SE CREARA UNA CUENTA BANEADA
+	 * s.getUserAccount().setIsNotLocked(true);
+	 * 
+	 * return s;
+	 * }
+	 */
 
 	public Collection<Customer> findAll() {
 		return this.customerRepository.findAll();
@@ -221,10 +230,6 @@ public class CustomerService {
 
 	public Customer findOne(int customerId) {
 		return this.customerRepository.findOne(customerId);
-	}
-
-	public Customer save(Customer customer) {
-		return this.customerRepository.save(customer);
 	}
 
 	public void delete(Customer customer) {
@@ -666,19 +671,19 @@ public class CustomerService {
 		return savedNote;
 	}
 	// ENDORSMENTS
-	public Collection<Endorsment> showEndorsments() {
+	public Collection<Endorsement> showEndorsments() {
 		Customer loggedCustomer = this.securityAndCustomer();
 
 		return this.customerRepository.AllEndorsmentsById(loggedCustomer.getId());
 	}
 
-	public Endorsment getEndorsment(int endorsmentId) {
+	public Endorsement getEndorsment(int endorsmentId) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
-		Collection<Endorsment> endorsments = this.customerRepository.AllEndorsmentsById(loggedCustomer.getId());
+		Collection<Endorsement> endorsments = this.customerRepository.AllEndorsmentsById(loggedCustomer.getId());
 
-		Endorsment endorsmentFound = null;
-		for (Endorsment e : endorsments) {
+		Endorsement endorsmentFound = null;
+		for (Endorsement e : endorsments) {
 			if (e.getId() == endorsmentId) {
 				endorsmentFound = e;
 				break;
@@ -698,7 +703,7 @@ public class CustomerService {
 		Assert.isTrue(authorities.get(0).toString().equals("CUSTOMER"));
 	}
 
-	public Endorsment createEndorsment(List<String> comments, HandyWorker writtenTo) {
+	public Endorsement createEndorsment(List<String> comments, HandyWorker writtenTo) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
 		Assert.isTrue(writtenTo.getClass().equals(HandyWorker.class));
@@ -715,22 +720,22 @@ public class CustomerService {
 
 		Assert.notNull(handyWorkerFound);
 
-		Endorsment endorsment = this.endorsmentService.createEndorsment(comments, writtenTo);
+		Endorsement endorsment = this.endorsmentService.createEndorsment(comments, writtenTo);
 
-		Endorsment endorsmentSave = this.endorsmentService.save(endorsment);
+		Endorsement endorsmentSave = this.endorsmentService.save(endorsment);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
 		return endorsmentSave;
 	}
 
-	public Endorsment updateEndorsment(Endorsment endorsment) {
+	public Endorsement updateEndorsment(Endorsement endorsment) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
-		Collection<Endorsment> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
+		Collection<Endorsement> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
 
-		Endorsment endorsmentFound = null;
-		for (Endorsment e : endorsments) {
+		Endorsement endorsmentFound = null;
+		for (Endorsement e : endorsments) {
 			if (e.getId() == endorsment.getId()) {
 				endorsmentFound = e;
 				break;
@@ -739,20 +744,20 @@ public class CustomerService {
 
 		Assert.notNull(endorsmentFound);
 
-		Endorsment endorsmentSave = this.endorsmentService.save(endorsment);
+		Endorsement endorsmentSave = this.endorsmentService.save(endorsment);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
 		return endorsmentSave;
 	}
 
-	public void deleteEndorsment(Endorsment endorsment) {
+	public void deleteEndorsment(Endorsement endorsment) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
-		Collection<Endorsment> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
+		Collection<Endorsement> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
 
-		Endorsment endorsmentFound = null;
-		for (Endorsment e : endorsments) {
+		Endorsement endorsmentFound = null;
+		for (Endorsement e : endorsments) {
 			if (e.getId() == endorsment.getId()) {
 				endorsmentFound = e;
 				break;

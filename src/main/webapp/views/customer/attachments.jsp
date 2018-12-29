@@ -8,22 +8,21 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <style>
-td, th {
-  border: 1px solid #FFFFFF;
-  text-align: left;
-  padding: 8px;
+td,th {
+	border: 1px solid #FFFFFF;
+	text-align: left;
+	padding: 8px;
 }
 
 table {
-background-color: #dddddd;
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 50%;
+	background-color: #ffeeaa;
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 50%;
 }
 
-
 tr:nth-child(even) {
-  background-color:	#FFFFFF;
+	background-color: #FFFFFF;
 }
 </style>
 

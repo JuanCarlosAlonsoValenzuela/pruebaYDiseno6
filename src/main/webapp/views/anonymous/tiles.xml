@@ -16,8 +16,23 @@
        
 <tiles-definitions>
 	
-	<definition name="tutorial/list" extends="master.page">	
+	<definition name="tutorial/anonymous/list" extends="master.page">	
 		<put-attribute name="title" value="All tutorials" />
+		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
+	</definition>
+	
+	<definition name="tutorial/actor/list" extends="master.page">	
+		<put-attribute name="title" value="All tutorials" />
+		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
+	</definition>
+	
+	<definition name="tutorial/anonymous/listHandyTutorials" extends="master.page">	
+		<put-attribute name="title" value="Tutorials of" />
+		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
+	</definition>
+	
+	<definition name="tutorial/handyWorker/listHandyTutorials" extends="master.page">	
+		<put-attribute name="title" value="My tutorials" />
 		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
 	</definition>
 	
@@ -26,14 +41,19 @@
 		<put-attribute name="body" value="/views/anonymous/showSections.jsp" />
 	</definition>
 	
-	<definition name="section/actor/list" extends="master.page">	
+	<definition name="section/handyWorker/list" extends="master.page">	
 		<put-attribute name="title" value="Tutorial's sections" />
 		<put-attribute name="body" value="/views/anonymous/showSections.jsp" />
 	</definition>
 	
-	<definition name="handy-worker/showProfile.do" extends="master.page">	
+	<definition name="handyWorker/anonymous/showProfile" extends="master.page">	
 		<put-attribute name="title" value="Profile" />
-		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+		<put-attribute name="body" value="/views/anonymous/showHandyProfile.jsp" />
+	</definition>
+	
+	<definition name="handyWorker/actor/showProfile" extends="master.page">	
+		<put-attribute name="title" value="Profile" />
+		<put-attribute name="body" value="/views/anonymous/showHandyProfile.jsp" />
 	</definition>
 	
 	<definition name="anonymous/createCustomer" extends="master.page">	
