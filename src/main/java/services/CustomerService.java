@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,6 +18,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Application;
 import domain.Box;
+import domain.Category;
 import domain.Complaint;
 import domain.CreditCard;
 import domain.Customer;
@@ -25,9 +27,11 @@ import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Note;
+import domain.Phase;
 import domain.Report;
 import domain.SocialProfile;
 import domain.Status;
+import domain.Warranty;
 
 @Service
 @Transactional
@@ -109,7 +113,7 @@ public class CustomerService {
 		return s;
 	}
 
-	public Customer save(Customer customer) {	//Tenemos un listBox vacía
+	public Customer saveCreate(Customer customer) {	//Tenemos un listBox vacía
 
 		List<Box> boxes = new ArrayList<>();
 
@@ -139,7 +143,7 @@ public class CustomerService {
 		return this.customerRepository.save(customer);
 	}
 
-	public Customer updateCustomer(Customer customer) {
+	public Customer save(Customer customer) {
 		return this.customerRepository.save(customer);
 	}
 

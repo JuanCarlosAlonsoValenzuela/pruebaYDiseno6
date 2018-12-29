@@ -110,7 +110,7 @@ public class AnonymousController extends AbstractController {
 			result = this.createEditModelAndView(customer);
 		} else {
 			try {
-				this.customerService.save(customer);
+				this.customerService.saveCreate(customer);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(customer, "customer.commit.error");
@@ -162,7 +162,7 @@ public class AnonymousController extends AbstractController {
 			result = this.createEditModelAndView(sponsor);
 		} else {
 			try {
-				this.sponsorService.save(sponsor);
+				this.sponsorService.saveCreate(sponsor);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(sponsor, "sponsor.commit.error");

@@ -99,7 +99,7 @@
 	
 	
 	
-		
+	<!-- BOTONES -->	
 	<input type="submit" name="save" value="<spring:message code="customer.save" />" /> 
 	
 	<a href="#" style="text-decoration: none;">

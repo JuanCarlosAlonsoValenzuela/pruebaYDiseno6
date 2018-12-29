@@ -163,7 +163,7 @@ public class AdminService {
 		return admin;
 	}
 
-	public Admin save(Admin admin) {	//Tenemos un listBox vacía
+	public Admin saveCreate(Admin admin) {	//Tenemos un listBox vacía
 
 		List<Box> boxes = new ArrayList<>();
 
@@ -193,7 +193,7 @@ public class AdminService {
 		return this.adminRepository.save(admin);
 	}
 
-	public Admin updateAdmin(Admin admin) {
+	public Admin save(Admin admin) {
 		return this.adminRepository.save(admin);
 	}
 

@@ -6,24 +6,24 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="warranty.addLaw" /></p>			
+<p><spring:message code="warranty.addTerm" /></p>			
 
 <security:authorize access="hasRole('ADMIN')">
 
-<form name="law" id="law" action="warranty/administrator/laws/create.do" method="post" >
+<form name="term" id="term" action="warranty/administrator/terms/create.do" method="post" >
 
-	<label for="law"><spring:message code="law.text" />: </label>
-	<input type="text" name="law" id="law" placeholder="<spring:message code="law.writelaw"/>" value="${law}"/>
+	<label for="term"><spring:message code="term.text" />: </label>
+	<input type="text" name="term" id="term" placeholder="<spring:message code="term.writeterm"/>" value="${term}"/>
 	<input type="hidden" name="warrantyId" id="warrantyId" value="<jstl:out value="${warrantyId}"/>"/>
 	
-	<input type="submit" name="create" value="<spring:message code="law.create"/>" />	
+	<input type="submit" name="create" value="<spring:message code="term.create"/>" />	
 </form>
 
-	<spring:url var="applicationUrl" value="/warranty/administrator/laws/list.do?warrantyId={warrantyId}">
+	<spring:url var="applicationUrl" value="/warranty/administrator/terms/list.do?warrantyId={warrantyId}">
 	<spring:param name="warrantyId" value="${warrantyId}"/>
 	</spring:url>
 	<a href="${applicationUrl}">
-		<spring:message code="law.cancel" />			
+		<spring:message code="term.cancel" />			
 	</a>
 
 

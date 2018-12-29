@@ -29,7 +29,7 @@ public class WarrantyService {
 
 		Warranty warranty = new Warranty();
 		warranty.setTitle("");
-		warranty.setIsDraftMode(false);
+		warranty.setIsDraftMode(true);
 		warranty.setTerms(terms);
 		warranty.setLaws(laws);
 
@@ -40,7 +40,7 @@ public class WarrantyService {
 
 		Warranty warranty = new Warranty();
 		warranty.setTitle(title);
-		warranty.setIsDraftMode(false);
+		warranty.setIsDraftMode(true);
 		warranty.setTerms(terms);
 		warranty.setLaws(laws);
 

@@ -21,27 +21,33 @@
 		<put-attribute name="body" value="/views/warranty/list.jsp" />
 	</definition>
 	
-	<definition name="warranty/edit.do" extends="master.page">	
+	
+	<definition name="warranty/administrator/create" extends="master.page">	
+		<put-attribute name="title" value="Create warranty" />
+		<put-attribute name="body" value="/views/warranty/createWarranty.jsp" />
+	</definition>
+	
+	<definition name="warranty/administrator/edit" extends="master.page">	
 		<put-attribute name="title" value="Edit warranty" />
 		<put-attribute name="body" value="/views/warranty/edit.jsp" />
 	</definition>
 	
-	<definition name="warranty/terms.do" extends="master.page">	
+	<definition name="warranty/administrator/terms/list" extends="master.page">	
 		<put-attribute name="title" value="Terms" />
 		<put-attribute name="body" value="/views/warranty/terms.jsp" />
 	</definition>
 	
-	<definition name="warranty/term/create.do" extends="master.page">	
-		<put-attribute name="title" value="Create term" />
-		<put-attribute name="body" value="/views/warranty/create.jsp" />
-	</definition>
-	
-	<definition name="warranty/laws.do" extends="master.page">	
+	<definition name="warranty/administrator/laws/list" extends="master.page">	
 		<put-attribute name="title" value="Laws" />
 		<put-attribute name="body" value="/views/warranty/laws.jsp" />
 	</definition>
 	
-	<definition name="warranty/law/create.do" extends="master.page">	
+	<definition name="warranty/administrator/terms/create" extends="master.page">	
+		<put-attribute name="title" value="Create term" />
+		<put-attribute name="body" value="/views/warranty/createTerm.jsp" />
+	</definition>
+	
+	<definition name="warranty/administrator/laws/create" extends="master.page">	
 		<put-attribute name="title" value="Create law" />
 		<put-attribute name="body" value="/views/warranty/createLaw.jsp" />
 	</definition>
