@@ -30,8 +30,8 @@
 		<bean class="converters.BoxToStringConverter" />
 		<bean class="converters.StringToBoxConverter" />
 		
-		<bean class="converters.EndorsmentToStringConverter" />
-		<bean class="converters.StringToEndorsmentConverter" />
+		<bean class="converters.EndorsementToStringConverter" />
+		<bean class="converters.StringToEndorsementConverter" />
 		
 		<bean class="converters.FixUpTaskToStringConverter" />
 		<bean class="converters.StringToFixUpTaskConverter" />
@@ -91,6 +91,8 @@
 		
 		<bean class="converters.PhaseToStringConverter" />
 		<bean class="converters.StringToPhaseConverter" />
+		<bean class="converters.EndorserToStringConverter" />
+		<bean class="converters.StringToEndorserConverter" />
 		<!-- 
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 

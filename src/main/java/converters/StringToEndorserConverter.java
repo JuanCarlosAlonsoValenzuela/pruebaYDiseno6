@@ -7,21 +7,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.EndorsementRepository;
-import domain.Endorsement;
+import repositories.EndorserRepository;
+import domain.Endorser;
 
 @Component
 @Transactional
-public class StringToEndorsmentConverter implements Converter<String, Endorsement> {
+public class StringToEndorserConverter implements Converter<String, Endorser> {
 
 	@Autowired
-	EndorsementRepository	endorsmentRepository;
+	EndorserRepository	endorserRepository;
 
 
 	@Override
-	public Endorsement convert(String text) {
+	public Endorser convert(String text) {
 
-		Endorsement result = new Endorsement();
+		Endorser result = new Endorser();
 		int id;
 
 		try {
@@ -29,7 +29,7 @@ public class StringToEndorsmentConverter implements Converter<String, Endorsemen
 				result = null;
 			} else {
 				id = Integer.valueOf(text);
-				result = this.endorsmentRepository.findOne(id);
+				result = this.endorserRepository.findOne(id);
 			}
 
 		} catch (Throwable oops) {

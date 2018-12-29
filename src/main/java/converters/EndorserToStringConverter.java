@@ -5,20 +5,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Endorsement;
+import domain.Endorser;
 
 @Component
 @Transactional
-public class EndorsmentToStringConverter implements Converter<Endorsement, String> {
+public class EndorserToStringConverter implements Converter<Endorser, String> {
 
 	@Override
-	public String convert(Endorsement endorsment) {
+	public String convert(Endorser endorser) {
 		String result;
 
-		if (endorsment == null) {
+		if (endorser == null) {
 			result = null;
 		} else {
-			result = String.valueOf(endorsment.getId());
+			result = String.valueOf(endorser.getId());
 		}
 		return result;
 	}
