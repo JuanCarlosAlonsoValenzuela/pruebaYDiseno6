@@ -53,7 +53,6 @@
 		<display:column titleKey="fixUpTask.applications">									
 				<jstl:set var="applicationsSize" value="${row.applications.size()}" />
 				
-				<jstl:if test="${applicationsSize > 0}">
 						<spring:url var="applicationsUrl" value="/application/customer/list.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}"/>	
 						</spring:url>
@@ -61,11 +60,6 @@
 							<spring:message var="seeApplications" code="fixUpTask.seeApplications"/> 		
 							<jstl:out value="${seeApplications}(${applicationsSize})" />
 						</a>
-				</jstl:if>
-				
-				<jstl:if test="${applicationsSize == 0}">
-						<spring:message code="applications.noDisplay" />		
-				</jstl:if>
 				
 		</display:column>
 		
@@ -98,7 +92,7 @@
 		
 	</display:table>
 	
-	<spring:url var="createFixUpTask" value="/fixUpTask/customer/edit.do"/>
+	<spring:url var="createFixUpTask" value="/fixUpTask/customer/create.do"/>
 	<a href="${createFixUpTask}">
 			<spring:message code="fixUpTask.create"/>					
 	</a>

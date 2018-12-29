@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -18,7 +17,6 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Application;
 import domain.Box;
-import domain.Category;
 import domain.Complaint;
 import domain.CreditCard;
 import domain.Customer;
@@ -27,11 +25,9 @@ import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Note;
-import domain.Phase;
 import domain.Report;
 import domain.SocialProfile;
 import domain.Status;
-import domain.Warranty;
 
 @Service
 @Transactional
@@ -330,19 +326,17 @@ public class CustomerService {
 
 	}
 
-	public FixUpTask createFixUpTask(String description, String address, Double maxPrice, Date realizationTime, Warranty warranty, Collection<Phase> phases, Category category, Collection<Complaint> complaints, Collection<Application> applications) {
+	public FixUpTask createFixUpTask(FixUpTask fixUpTask) {
 		Customer loggedCustomer = this.securityAndCustomer();
-
-		FixUpTask fixUpTask = this.fixUpTaskService.create(description, address, maxPrice, realizationTime, warranty, phases, category, complaints, applications);
 
 		FixUpTask fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
 
 		List<FixUpTask> listf = new ArrayList<>();
 		listf.addAll(loggedCustomer.getFixUpTasks());
-		listf.add(fixUpTask);
+		listf.add(fixUpTaskSaved);
 		loggedCustomer.setFixUpTasks(listf);
 
-		this.save(loggedCustomer);
+		this.customerRepository.save(loggedCustomer);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
@@ -366,6 +360,42 @@ public class CustomerService {
 		Assert.isTrue(!fixUpTaskFound.equals(null));
 
 		FixUpTask fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
+
+		this.configurationService.isActorSuspicious(loggedCustomer);
+
+		return fixUpTaskSaved;
+
+	}
+
+	public FixUpTask saveFixUpTask(FixUpTask fixUpTask) {
+		Customer loggedCustomer = this.securityAndCustomer();
+
+		FixUpTask fixUpTaskSaved;
+
+		if (fixUpTask.getId() == 0) {
+			fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
+
+			List<FixUpTask> listf = new ArrayList<>();
+			listf.addAll(loggedCustomer.getFixUpTasks());
+			listf.add(fixUpTaskSaved);
+			loggedCustomer.setFixUpTasks(listf);
+
+			this.customerRepository.save(loggedCustomer);
+		} else {
+			Collection<FixUpTask> fixUpTasks = this.customerRepository.findFixUpTasksById(loggedCustomer.getId());
+
+			FixUpTask fixUpTaskFound = null;
+			for (FixUpTask f : fixUpTasks) {
+				if (fixUpTask.getId() == f.getId()) {
+					fixUpTaskFound = f;
+					break;
+				}
+			}
+
+			Assert.isTrue(!fixUpTaskFound.equals(null));
+
+			fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
+		}
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
