@@ -302,6 +302,8 @@
 		<property name="minFinderResults" value="10" />
 		<property name="minTimeFinder" value="1" />
 		<property name="maxTimeFinder" value="24" />
+		<property name="finderResult" value="10"/>
+		<property name="timeFinder" value="1"/>
 	</bean>
 	
 	
