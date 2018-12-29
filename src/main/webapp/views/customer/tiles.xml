@@ -51,7 +51,7 @@
 		<put-attribute name="body" value="/views/customer/fixUpTask.jsp" />
 	</definition>
 	
-	<definition name="/fixUpTask/customer/edit.do" extends="master.page">	
+	<definition name="customer/createFixUpTask" extends="master.page">	
 		<put-attribute name="title" value="Create a Fix Up Task" />
 		<put-attribute name="body" value="/views/customer/createFixUpTask.jsp" />
 	</definition>

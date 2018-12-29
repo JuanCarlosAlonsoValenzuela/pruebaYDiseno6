@@ -3,6 +3,7 @@ package services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -35,9 +36,9 @@ public class FixUpTaskService {
 		Date thisMoment = new Date();
 		thisMoment.setTime(thisMoment.getTime() - 1);
 
-		Collection<Phase> phases = null;
-		Collection<Complaint> complaints = null;
-		Collection<Application> applications = null;
+		Collection<Phase> phases = new ArrayList<>();
+		Collection<Complaint> complaints = new ArrayList<>();
+		Collection<Application> applications = new ArrayList<>();
 
 		fixUpTask.setTicker(this.generateTicker());
 		fixUpTask.setMomentPublished(thisMoment);
@@ -106,9 +107,11 @@ public class FixUpTaskService {
 		}
 		date1 = df_in.format(date);
 		res = res + date1 + "-" + gen;
-		for (FixUpTask c : lc)
-			if (c.getTicker() == res)
+		for (FixUpTask c : lc) {
+			if (c.getTicker() == res) {
 				return this.generateTicker();
+			}
+		}
 		return res;
 	}
 }

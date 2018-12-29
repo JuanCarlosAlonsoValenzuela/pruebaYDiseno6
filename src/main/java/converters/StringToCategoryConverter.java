@@ -7,28 +7,28 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.PhaseRepository;
-import domain.Phase;
+import repositories.CategoryRepository;
+import domain.Category;
 
 @Component
 @Transactional
-public class StringToPhaseConverter implements Converter<String, Phase> {
+public class StringToCategoryConverter implements Converter<String, Category> {
 
 	@Autowired
-	PhaseRepository	phaseRepository;
+	CategoryRepository	categoryRepository;
 
 
 	@Override
-	public Phase convert(String text) {
+	public Category convert(String text) {
 		int id;
-		Phase result;
+		Category result;
 
 		try {
 			if (StringUtils.isEmpty(text)) {
 				result = null;
 			} else {
 				id = Integer.valueOf(text);
-				result = this.phaseRepository.findOne(id);
+				result = this.categoryRepository.findOne(id);
 			}
 
 		} catch (Throwable oops) {
