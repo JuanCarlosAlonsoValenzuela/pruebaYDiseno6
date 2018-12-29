@@ -15,8 +15,13 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
       
 <tiles-definitions>
-
-		<definition name="/complaint/list.do" extends="master.page">	
+	
+	<definition name="/personalData/referee/editReferee.do" extends="master.page">	
+		<put-attribute name="title" value="Edit Personal Data" />
+		<put-attribute name="body" value="/views/referee/editReferee.jsp" />
+	</definition>
+	
+	<definition name="/complaint/list.do" extends="master.page">	
 		<put-attribute name="title" value="Quejas" />
 		<put-attribute name="body" value="/views/refere/complaints.jsp" />
 	</definition>

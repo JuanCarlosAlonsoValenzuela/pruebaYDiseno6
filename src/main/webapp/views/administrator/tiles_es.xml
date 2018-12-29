@@ -22,6 +22,7 @@
 	</definition>
 	
 	<definition name="score/administrator/list" extends="master.page">	
+	<definition name="administrator/computedScore" extends="master.page">	
 		<put-attribute name="title" value="Administrador: Puntuación" />
 		<put-attribute name="body" value="/views/administrator/computedScore.jsp" />
 	</definition>
@@ -54,6 +55,11 @@
 	<definition name="administrator/statistics" extends="master.page">	
 		<put-attribute name="title" value="Administrador: Mostrar estadisticas" />
 		<put-attribute name="body" value="/views/administrator/statistics.jsp" />
+	</definition>
+	
+	<definition name="personalData/administrator/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar datos personales" />
+		<put-attribute name="body" value="/views/administrator/editAdmin.jsp" />
 	</definition>
 	
 </tiles-definitions>

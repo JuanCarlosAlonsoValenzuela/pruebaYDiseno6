@@ -35,12 +35,14 @@
 					<li><a href="statistics/administrator/show.do"><spring:message code="master.page.administrator.showstaitsticspart1" /></a></li>	
 					<li><a href="administrator/listcategory.do"><spring:message code="master.page.administrator.listcategory" /></a></li>	
 			
+					<li><a href="administrator/listcategory.do"><spring:message code="master.page.administrator.listcategory" /></a></li>						
 					<li><a href="warranty/administrator/list.do"><spring:message code="master.page.administrator.listwarranty" /></a></li>														
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
 					<li><a href="administrator/administrator/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="personalData/administrator/edit.do"><spring:message code="master.page.customer.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
 			</li>
@@ -58,8 +60,8 @@
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
 					<li><a href="customer/customer/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
-					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 					<li><a href="personalData/customer/edit.do"><spring:message code="master.page.customer.editPersonalData" /></a></li>
+					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
 			</li>
 		</security:authorize>
@@ -92,6 +94,7 @@
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
 					<li><a href="referee/referee/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="personalData/referee/editReferee.do"><spring:message code="master.page.referee.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
 			</li>
