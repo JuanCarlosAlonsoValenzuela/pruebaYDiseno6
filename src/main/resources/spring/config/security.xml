@@ -90,6 +90,7 @@
 		<security:intercept-url pattern="/endorsement/handyWorker/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/finder/handyWorker/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/tutorial/handyWorker/**" access="hasRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/phase/handyWorker/**" access="hasRole('HANDYWORKER')" />
 		
 		<!-- SPONSOR -->
 		<security:intercept-url pattern="/personalData/sponsor/**" access="hasRole('SPONSOR')" /> 

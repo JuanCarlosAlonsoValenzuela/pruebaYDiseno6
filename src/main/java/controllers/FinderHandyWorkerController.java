@@ -1,8 +1,11 @@
 
 package controllers;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -17,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import security.UserAccount;
-import services.CustomerService;
+import services.ConfigurationService;
 import services.FinderService;
 import services.HandyWorkerService;
 import domain.Customer;
@@ -30,11 +33,11 @@ import domain.HandyWorker;
 public class FinderHandyWorkerController extends AbstractController {
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
 	@Autowired
-	private FinderService		finderService;
+	private FinderService			finderService;
 	@Autowired
-	private CustomerService		customerService;
+	private ConfigurationService	configuarionService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -53,10 +56,53 @@ public class FinderHandyWorkerController extends AbstractController {
 		HandyWorker logguedHandyWorker = new HandyWorker();
 		logguedHandyWorker = this.handyWorkerService.getHandyWorkerByUsername(userAccount.getUsername());
 
-		this.handyWorkerService.filterFixUpTasksByFinder();
+		//Finder
+		Finder finder = logguedHandyWorker.getFinder();
 
-		Collection<FixUpTask> fixUpTasks = logguedHandyWorker.getFinder().getFixUpTasks();
-		Map<FixUpTask, Customer> map = this.handyWorkerService.getFixUpTaksAndCustomer(fixUpTasks);
+		//Current Date
+		Date currentDate = new Date();
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(currentDate);
+		Integer currentDay = calendar.get(Calendar.DATE);
+		Integer currentMonth = calendar.get(Calendar.MONTH);
+		Integer currentYear = calendar.get(Calendar.YEAR);
+		Integer currentHour = calendar.get(Calendar.HOUR);
+
+		//LastEdit Finder
+		Date lasEdit = logguedHandyWorker.getFinder().getLastEdit();
+		calendar.setTime(lasEdit);
+		Integer lastEditDay = calendar.get(Calendar.DATE);
+		Integer lastEditMonth = calendar.get(Calendar.MONTH);
+		Integer lastEditYear = calendar.get(Calendar.YEAR);
+		Integer lastEditHour = calendar.get(Calendar.HOUR);
+
+		Integer time = this.configuarionService.getConfiguration().getTimeFinder();
+
+		Map<FixUpTask, Customer> map;
+		Collection<FixUpTask> fixUpTasks;
+
+		if (currentDay.equals(lastEditDay) && currentMonth.equals(lastEditMonth) && currentYear.equals(lastEditYear) && lastEditHour < (currentHour + time)) {
+			Integer numFinderResult = this.configuarionService.getConfiguration().getFinderResult();
+			List<FixUpTask> fixUpTasksResult = finder.getFixUpTasks();
+			fixUpTasks = new HashSet<FixUpTask>();
+
+			if (fixUpTasksResult.size() > numFinderResult) {
+				for (int i = 0; i < numFinderResult; i++) {
+					fixUpTasks.add(fixUpTasksResult.get(i));
+				}
+				map = this.handyWorkerService.getFixUpTaksAndCustomer(fixUpTasks);
+			} else {
+				map = this.handyWorkerService.getFixUpTaksAndCustomer(fixUpTasksResult);
+
+			}
+			fixUpTasks = map.keySet();
+		} else {
+
+			fixUpTasks = new HashSet<FixUpTask>();
+			map = this.handyWorkerService.getFixUpTaksAndCustomer(fixUpTasks);
+			fixUpTasks = map.keySet();
+		}
 
 		result = new ModelAndView("handy-worker/finderResult");
 
@@ -66,7 +112,6 @@ public class FinderHandyWorkerController extends AbstractController {
 
 		return result;
 	}
-
 	//Create
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
@@ -96,6 +141,7 @@ public class FinderHandyWorkerController extends AbstractController {
 				Date date = new Date();
 				finder.setLastEdit(date);
 				this.finderService.save(finder);
+				this.handyWorkerService.filterFixUpTasksByFinder();
 
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
@@ -121,6 +167,34 @@ public class FinderHandyWorkerController extends AbstractController {
 
 		result.addObject("finder", finder);
 		result.addObject("message", messageCode);
+
+		return result;
+
+	}
+
+	//Clean Filter
+	@RequestMapping(value = "/clean", method = RequestMethod.POST, params = "save")
+	public ModelAndView save() {
+		ModelAndView result;
+
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		HandyWorker logguedHandyWorker = new HandyWorker();
+		logguedHandyWorker = this.handyWorkerService.getHandyWorkerByUsername(userAccount.getUsername());
+
+		Finder finder = logguedHandyWorker.getFinder();
+
+		finder.setCategory("");
+		finder.setEndDate(null);
+		finder.setKeyWord("");
+		finder.setMaxPrice(0.0);
+		finder.setMinPrice(0.0);
+		finder.setStartDate(null);
+		finder.setWarranty("");
+		this.finderService.save(finder);
+		this.handyWorkerService.filterFixUpTasksByFinder();
+
+		result = new ModelAndView("redirect:list.do");
 
 		return result;
 

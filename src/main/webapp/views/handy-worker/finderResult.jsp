@@ -16,10 +16,11 @@
 	<button type="button" ><spring:message code="fixUpTask.filter" /></button>	
 	</a>
 	
-	<form:form action="fixUpTask/handyWorker/edit.do">
+	<form:form action="finder/handyWorker/clean.do">
 						<!-- Buttons -->
 			<input type="submit" name="save" value="<spring:message code="fixUpTask.cleanFilter"/>" />	
 			
+	
 	</form:form>
 
 	<display:table pagesize="5" name="fixUpTasks" id="row" class="displaytag" 

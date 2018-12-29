@@ -10,24 +10,31 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-		<form:form modelAttribute="phase" action="workPlan/handyworker/edit.do">
+<spring:url var="actionUrl" value="/phase/handyWorker/edit.do">
+								<spring:param name="phaseId" value="${param.phaseId}"/>
+								<spring:param name="applicationId" value="${applicationId}"/>
+						</spring:url>
+					
+	
+		<form:form modelAttribute="phase" action="phase/handyWorker/edit.do">
 				<!-- Hidden Attributes -->
 				<form:hidden path="id"/>
 				<form:hidden path="version"/>
+				<input type="hidden" name="applicationId" id="applicationId" value="<jstl:out value="${param.applicationId}"/>"/>
 				
 				<!-- Title -->
 				<form:label path="title">
-						<spring:message code="phase.title" />	
+					<spring:message code="phase.title" />	
 				</form:label>
-				<form:textarea path="title"/>
+				<form:input path="title"/>
 				<form:errors cssClass="error" path="title"/>
 				<br />
 				
 				<!-- Description -->
 				<form:label path="description">
-						<spring:message code="phase.description" />	
+				<spring:message code="phase.description" />	
 				</form:label>
-				<form:textarea path="description"/>
+				<form:input path="description"/>
 				<form:errors cssClass="error" path="description"/>
 				<br />
 				
@@ -37,24 +44,33 @@
 				</form:label>
 				<form:input path="startMoment" placeholder="dd/MM/yyyy HH:mm" />
 				<form:errors cssClass="error" path="startMoment" />
-				
+				<br />
 				<!-- End Moment -->
 				<form:label path="endMoment">
 						<spring:message code="phase.endMoment" />		
 				</form:label>
 				<form:input path="endMoment" placeholder="dd/MM/yyyy HH:mm" />
 				<form:errors cssClass="error" path="endMoment" />
-				
+				<br />
 				
 				<!-- Buttons (modify) -->
 				<input type="submit" name="save" value="<spring:message code="phase.save" />" />
+				<br />
 
 				<input type="submit" <jstl:if test="${phase.id == 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
 		 					name="delete" value="<spring:message code="phase.delete" />" 
 							onClick="return confirm('<spring:message code="phase.verificationDelete" />')">
 	
-				<input type="submit" name="cancel" value="<spring:message code="phase.cancel" />" onClick="javascript: relativeRedir('/phase/handyWorker/list.do');" />	
+			
 				
 		</form:form>
+		
+		
+		<spring:url var="backUrl" value="/phase/handyWorker/list.do?applicationId={appId}">
+				<spring:param name="appId" value="${param.applicationId}"/>
+		</spring:url>
+		<a href="${backUrl}">
+		<input type="submit" name="cancel" value="<spring:message code="phase.cancel" />" />
+		</a>	
 		
 </security:authorize>

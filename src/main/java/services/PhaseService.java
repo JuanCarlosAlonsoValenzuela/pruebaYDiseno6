@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import repositories.PhaseRepository;
+import domain.Application;
+import domain.FixUpTask;
 import domain.Phase;
 
 @Service
@@ -17,7 +20,12 @@ import domain.Phase;
 public class PhaseService {
 
 	@Autowired
-	private PhaseRepository	phaseRepository;
+	private PhaseRepository		phaseRepository;
+
+	@Autowired
+	private ApplicationService	applicationService;
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
 
 
 	public Phase create() {
@@ -54,4 +62,13 @@ public class PhaseService {
 		this.phaseRepository.delete(phase);
 	}
 
+	public void saveAndUpdateFixUpTask(Phase phase, int applicationId) {
+		Phase newPhase = this.phaseRepository.save(phase);
+		Application application = this.applicationService.findOne(applicationId);
+		FixUpTask fixUpTask = application.getFixUpTask();
+		Collection<Phase> phases = fixUpTask.getPhases();
+		phases.add(newPhase);
+		fixUpTask.setPhases(phases);
+		this.fixUpTaskService.save(fixUpTask);
+	}
 }
