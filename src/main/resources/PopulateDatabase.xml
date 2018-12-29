@@ -1594,6 +1594,7 @@
 		<property name="endorsements">
 			<list>
 				<ref bean="endorsement1" />
+				<ref bean="endorsement2" />
 			</list>
 		</property>
 		<property name="make" value="Pepe Luis Martinez" />
@@ -1820,6 +1821,7 @@
 		<property name="endorsements">
 			<list>
 				<ref bean="endorsement1" />
+				<ref bean="endorsement2" />
 			</list>
 		</property>
 		<property name="fixUpTasks">

@@ -47,8 +47,8 @@ public interface HandyWorkerRepository extends JpaRepository<HandyWorker, Intege
 	@Query("select a.finder from HandyWorker a where a.id = ?1")
 	public Finder getFinderFromAHandyWorker(int id);
 
-	@Query("select c.id from Customer c join c.fixUpTasks f join f.applications a join a.handyWorker b where b.id = ?1")
-	public List<Integer> getCustomersFromHandyWorker(int id);
+	@Query("select distinct c from Customer c join c.fixUpTasks f join f.applications a join a.handyWorker b where b.id = ?1 and a.status = 'ACCEPTED'")
+	public List<Customer> getCustomersFromHandyWorker(int id);
 
 	@Query("select distinct c.complaints from FixUpTask c join c.applications a join a.handyWorker h where h.id = ?1")
 	public List<Complaint> getComplaintsFromHandyWorker(int id);
