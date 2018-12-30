@@ -303,6 +303,11 @@ public class HandyWorkerService {
 
 		return saved;
 	}
+
+	public HandyWorker save2(HandyWorker handyWorker) {
+		return this.handyWorkerRepository.save(handyWorker);
+	}
+
 	public void delete(HandyWorker handyWorker) {
 		this.handyWorkerRepository.delete(handyWorker);
 	}

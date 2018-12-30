@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -18,7 +17,6 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Application;
 import domain.Box;
-import domain.Category;
 import domain.Complaint;
 import domain.CreditCard;
 import domain.Customer;
@@ -27,11 +25,9 @@ import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Note;
-import domain.Phase;
 import domain.Report;
 import domain.SocialProfile;
 import domain.Status;
-import domain.Warranty;
 
 @Service
 @Transactional
@@ -427,29 +423,26 @@ public class CustomerService {
 		loggedCustomer.setFixUpTasks(fixUpTasks2);
 		this.customerRepository.save(loggedCustomer);
 
-		List<Application> applications = (List<Application>) this.applicationService.findAll();
-		List<Application> applicationsNew = new ArrayList<>();
-		for (Application a : applications) {
-			if (a.getFixUpTask().equals(this.fixUpTaskService.findOne(fixUpTaskFounded.getId()))) {
-				applicationsNew.add(a);
-			}
-		}
+		List<Application> applicationsNew = (List<Application>) this.applicationService.getApplicationsFix(fixUpTaskFounded);
+
+		//BIEN HASTA AQUÍ
 
 		List<HandyWorker> workers = (List<HandyWorker>) this.handyWorkerService.findAll();
+
 		for (HandyWorker h : workers) {
+
 			List<Application> applicationsHw = h.getApplications();
 			for (Application ap : applicationsNew) {
-				if (applicationsHw.contains(this.applicationService.findOne(ap.getId()))) {
-					List<Application> applicationsHw2 = h.getApplications();
-					applicationsHw2.remove(this.applicationService.findOne(ap.getId()));
-					h.setApplications(applicationsHw2);
-					this.handyWorkerService.save(h);
+				if (applicationsHw.contains(ap)) {
+					applicationsHw.remove(ap);
 				}
 			}
+			h.setApplications(applicationsHw);
+			this.handyWorkerService.save2(h);
 		}
 
 		for (Application app : applicationsNew) {
-			this.applicationService.delete2(this.applicationService.findOne(app.getId()));
+			this.applicationService.delete2(app);
 		}
 
 		List<Finder> finders = (List<Finder>) this.finderService.findAll();
@@ -805,13 +798,13 @@ public class CustomerService {
 
 	// REPORTS
 	public Report showReport(Report report) {
-		Customer loggedCustomer = this.securityAndCustomer();
+		this.securityAndCustomer();
 		Assert.isTrue(report.getFinalMode());
 		return this.reportService.findOne(report.getId());
 	}
 
 	public List<Report> listReports(Complaint complaint) {
-		Customer loggedCustomer = this.securityAndCustomer();
+		this.securityAndCustomer();
 		Assert.isTrue(this.showComplaints().contains(complaint));
 		List<Report> lr = complaint.getReports();
 		List<Report> lr2 = new ArrayList<>();

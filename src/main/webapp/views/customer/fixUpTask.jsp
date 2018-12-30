@@ -34,11 +34,11 @@
 		
 		<display:column titleKey="fixUpTask.warranties">								
 				
-				<spring:url var="warrantiesUrl" value="/warranty/customer/list.do?fixUpTaskId={fixId}">
-						<spring:param name="fixId" value="${row.id}" />
+				<spring:url var="warrantyUrl" value="/warranty/customer/show.do?warrantyId={warrId}">
+						<spring:param name="warrId" value="${row.warranty.id}" />
 				</spring:url>
 				
-				<a href="${warrantiesUrl}">
+				<a href="${warrantyUrl}">
 						<jstl:out value="${row.warranty.title}" />
 				</a>
 				
@@ -68,7 +68,7 @@
 				<jstl:set var="phasesSize" value="${row.phases.size()}" />
 				
 
-						<spring:url var="phasesUrl" value="/phases/customer/list.do?fixUpTaskId={fixId}">
+						<spring:url var="phasesUrl" value="/phase/customer/list.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}"/>	
 						</spring:url>
 						<a href="${phasesUrl}">

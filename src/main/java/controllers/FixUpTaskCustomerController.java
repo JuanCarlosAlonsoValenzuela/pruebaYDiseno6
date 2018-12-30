@@ -72,7 +72,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 
-		result = this.createEditModelAndView(fixUpTask);
+		result = this.createEditModelAndView(fixUpTask, "customer/editFixUpTask");
 
 		return result;
 	}
@@ -83,12 +83,12 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		FixUpTask fixUpTask = this.fixUpTaskService.create();
 
-		result = this.createEditModelAndView(fixUpTask);
+		result = this.createEditModelAndView(fixUpTask, "customer/createFixUpTask");
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(FixUpTask fixUpTask) {
+	protected ModelAndView createEditModelAndView(FixUpTask fixUpTask, String tile) {
 		ModelAndView result;
 		Collection<Category> categories;
 		Collection<Warranty> warranties;
@@ -96,7 +96,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		categories = this.categoryService.findAll();
 		warranties = this.warrantyService.findAll();
 
-		result = new ModelAndView("customer/createFixUpTask");
+		result = new ModelAndView(tile);
 		result.addObject("fixUpTask", fixUpTask);
 		result.addObject("categories", categories);
 		result.addObject("warranties", warranties);
@@ -104,7 +104,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(FixUpTask fixUpTask, String message) {
+	protected ModelAndView createEditModelAndView(FixUpTask fixUpTask, String tile, String message) {
 		ModelAndView result;
 		Collection<Category> categories;
 		Collection<Warranty> warranties;
@@ -112,7 +112,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		categories = this.categoryService.findAll();
 		warranties = this.warrantyService.findAll();
 
-		result = new ModelAndView("customer/createFixUpTask");
+		result = new ModelAndView(tile);
 		result.addObject("fixUpTask", fixUpTask);
 		result.addObject("categories", categories);
 		result.addObject("warranties", warranties);
@@ -122,20 +122,42 @@ public class FixUpTaskCustomerController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/saveFixUpTask", method = RequestMethod.POST, params = "create")
-	public ModelAndView saveComment(@Valid FixUpTask fixUpTask, BindingResult binding) {
+	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveFixUpTask(@Valid FixUpTask fixUpTask, BindingResult binding) {
 		ModelAndView result;
 
+		String tile = "";
+		if (fixUpTask.getId() == 0) {
+			tile = "customer/createFixUpTask";
+		} else {
+			tile = "customer/editFixUpTask";
+		}
+
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(fixUpTask);
+			result = this.createEditModelAndView(fixUpTask, tile);
 		} else {
 			try {
 				this.customerService.saveFixUpTask(fixUpTask);
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
-				System.out.println("CATCH");
-				result = this.createEditModelAndView(fixUpTask, "operation.error");
+				result = this.createEditModelAndView(fixUpTask, tile, "operation.error");
 			}
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "delete")
+	public ModelAndView deleteFixUpTask(FixUpTask fixUpTask, BindingResult binding) {
+		ModelAndView result;
+
+		String tile = "customer/editFixUpTask";
+
+		try {
+			this.customerService.deleteFixUpTask(fixUpTask);
+			result = new ModelAndView("redirect:list.do");
+		} catch (Throwable oops) {
+			result = this.createEditModelAndView(fixUpTask, tile, "operation.error");
 		}
 
 		return result;
