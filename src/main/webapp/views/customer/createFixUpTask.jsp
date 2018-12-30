@@ -4,13 +4,11 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
-<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
-<p><spring:message code="fixUpTask.customer.create" /></p>			
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%>		
 
 <security:authorize access="hasRole('CUSTOMER')">
 
-<form:form action="fixUpTask/customer/saveFixUpTask.do" modelAttribute="fixUpTask">
+<form:form action="fixUpTask/customer/save.do" modelAttribute="fixUpTask">
 		<!-- Hidden Attributes -->
 		<form:hidden path="id"/>
 		<form:hidden path="version" />
@@ -85,12 +83,27 @@
 		</form:select>
 		<form:errors cssClass="error" path="warranty" />
 		<br/><br/>
-	
-		<input type="submit" name="create" value="<spring:message code="fixUpTask.create.button"/>" />
-		<br/>
-
+		
+		<jstl:if test="${fixUpTask.id==0}">
+			<jstl:set var="submitButton" value="fixUpTask.create.button"/>
+		</jstl:if>
+		<jstl:if test="${fixUpTask.id!=0}">
+			<jstl:set var="submitButton" value="fixUpTask.update.button"/>
+		</jstl:if>
+		
+		<input type="submit" name="save" value="<spring:message code="${submitButton}"/>" />
+		
+		<jstl:if test="${fixUpTask.id!=0}">
+			<%-- 
+			<spring:url var="deleteUrl" value="/fixUpTask/customer/delete.do?fixUpTaskId={fixId}">
+				<spring:param name="fixId" value="${fixUpTask.id}"/>	
+			</spring:url>
+			<a href="${deleteUrl}"><button type="button" name="delete"><spring:message code="fixUpTask.delete.button"/></button></a>
+			--%>
+			<input type="submit" name="delete" onclick="return confirm('<spring:message code="fixUpTask.delete.confirmation" />')" value="<spring:message code="fixUpTask.delete.button"/>"/>
+		</jstl:if>
+		
+		<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do?');"  value="<spring:message code="fixUpTask.cancel.button"/>" />	
 </form:form>
-
-<input type="submit" name="cancel" onclick="history.back()" value="<spring:message code="fixUpTask.cancel.button"/>" />	
 
 </security:authorize>

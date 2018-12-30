@@ -56,9 +56,19 @@
 		<put-attribute name="body" value="/views/customer/createFixUpTask.jsp" />
 	</definition>
 	
-	<definition name="/warranty/customer/edit.do" extends="master.page">	
+	<definition name="customer/editFixUpTask" extends="master.page">	
+		<put-attribute name="title" value="Editar una Tarea" />
+		<put-attribute name="body" value="/views/customer/createFixUpTask.jsp" />
+	</definition>
+	
+	<definition name="customer/warranty" extends="master.page">	
 		<put-attribute name="title" value="Garantía" />
 		<put-attribute name="body" value="/views/customer/warranty.jsp" />
+	</definition>
+	
+	<definition name="customer/phases" extends="master.page">	
+		<put-attribute name="title" value="Fases" />
+		<put-attribute name="body" value="/views/customer/phases.jsp" />
 	</definition>
 	
 	<definition name="/warranty/customer/edit.do" extends="master.page">	

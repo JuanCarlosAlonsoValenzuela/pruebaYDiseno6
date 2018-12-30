@@ -80,6 +80,8 @@
 		<security:intercept-url pattern="/complaint/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/report/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/note/customer/**" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/warranty/customer/**" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/phase/customer/**" access="hasRole('CUSTOMER')" />
 		
 		<!-- HANDY WORKER -->
 		<security:intercept-url pattern="/section/handyWorker/**" access="hasRole('HANDYWORKER')" /> 
