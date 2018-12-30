@@ -210,7 +210,6 @@ public class WarrantyController extends AbstractController {
 
 	//Edit Warranty
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	//Quizá tenga que cambiar la URL
 	public ModelAndView edit(@RequestParam int warrantyId) {
 		ModelAndView result;
 		Warranty warranty;

@@ -9,25 +9,24 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<spring:message code="category.action.5" />
+	<spring:message code="category.listSubcategories" />
 </p>
 
 <security:authorize access="hasRole('ADMIN')">
 
 	<display:table pagesize="5" name="subCategories" id="row"
-		requestURI="category/subcategories/list.do">
-
-		<display:column>
-			<input type="submit"
-				name="delete" value="<spring:message code="category.delete" />"
-				onclick="return confirm('<spring:message code="subCategory.verificationDelete" />')" />
-		</display:column>
-
-		<display:column property="subCategories" titlekey="subCategories.name">
-			<jstl:out value="${subCategories}" />
-		</display:column>
+		requestURI="category/administrator/subCategories/list.do">
+			
+			<display:column titleKey="category.subCategories">
+				<jstl:out value="${row.name}" />
+			</display:column>
+		
 	</display:table>
+
+	<spring:url var="createSubCategoryUrl" value="/category/administrator/subCategories/create.do?categoryId={categoryId}">
+		<spring:param name="categoryId" value="${categoryId}"/>
+	</spring:url>
 	
-<a href="category/subCategory/create.do"><spring:message code="subCategory.create" /></a>
+	<a href="category/administrator/list.do"><spring:message code="category.back" /></a>
 
 </security:authorize>

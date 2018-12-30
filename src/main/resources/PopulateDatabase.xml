@@ -683,6 +683,15 @@
 	<!-- END OF WARRANTY -->
 
 	<!-- CATEGORY -->
+	<bean id="CATEGORY" class="domain.Category">
+		<property name="name" value="CATEGORY" />
+		<property name="subCategories">
+			<list>
+				<ref bean="category4" />
+			</list>
+		</property>
+	</bean>
+	
 	<bean id="category1" class="domain.Category">
 		<property name="name" value="name1" />
 	</bean>

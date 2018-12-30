@@ -131,7 +131,7 @@ public class FixUpTask extends DomainEntity {
 		this.complaints = complaints;
 	}
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Category getCategory() {
 		return this.category;
 	}

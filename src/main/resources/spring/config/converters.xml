@@ -71,6 +71,7 @@
 		
 		<bean class="converters.CreditCardToStringConverter" />
 		<bean class="converters.StringToCreditCardConverter" />
+		
 		<bean class="converters.ComplaintToStringConverter" />
 		<bean class="converters.StringToComplaintConverter" />
 		

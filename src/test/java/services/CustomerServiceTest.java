@@ -169,6 +169,7 @@ public class CustomerServiceTest extends AbstractTest {
 
 		FixUpTask res = this.customerService.getFixUpTask(fixUpTask.getId());
 		res.setDescription("hola");
+
 		FixUpTask saved = this.customerService.updateFixUpTask(res);
 		Assert.isTrue(saved.getDescription().contains("hola"));
 		super.authenticate(null);
