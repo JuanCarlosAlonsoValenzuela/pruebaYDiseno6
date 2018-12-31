@@ -36,12 +36,12 @@
 		<put-attribute name="body" value="/views/administrator/createReferee.jsp" />
 	</definition>
 	
-	<definition name="administrator/goodAndBadWordsCreate" extends="master.page">	
+	<definition name="words/administrator/create" extends="master.page">	
 		<put-attribute name="title" value="Administrator: Create good or bad words" />
 		<put-attribute name="body" value="/views/administrator/goodAndBadWordsCreate.jsp" />
 	</definition>
 	
-	<definition name="administrator/goodAndBadWordsList" extends="master.page">	
+	<definition name="words/administrator/list" extends="master.page">	
 		<put-attribute name="title" value="Administrator: Show good or bad words" />
 		<put-attribute name="body" value="/views/administrator/goodAndBadWordsList.jsp" />
 	</definition>
