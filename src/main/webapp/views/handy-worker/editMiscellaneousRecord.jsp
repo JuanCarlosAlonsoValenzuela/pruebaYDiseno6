@@ -10,11 +10,12 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-	<form:form modelAttribute="miscellaneousRecord" action="miscellaneousRecord/handyworker/edit.do">
+	<form:form modelAttribute="miscellaneousRecord" action="curriculum/handyWorker/editMiscellaneousRecord.do">
 		
 		<!-- Hidden Attributes -->
 		<form:hidden path ="id"/>
 		<form:hidden path ="version"/>
+		<form:hidden path ="comments"/>
 	
 		<!-- Title -->
 		<form:label path="title">
@@ -28,20 +29,27 @@
 		<form:label path="linkAttachment">
 			<spring:message code="miscellaneousRecord.linkAttachment"/>			<!-- Añadir -->
 		</form:label>
-		<form:input path="linkAttachment" />
+		<form:input path="linkAttachment" placeholder="https://www.example.com/..." />
 		<form:errors cssClass="error" path="linkAttachment"/>
+		<br />
+		
+		<spring:message code="comments.create"/>
+		<input type="hidden" name="newComment" value=""/>
+		<textarea rows="12" cols="50" name="newComment" id="newComment" placeholder="<spring:message code="comments.create"/>" ></textarea>
 		<br />
 		
 		
 		<!-- Buttons -->
-		<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" />
-
-		<input type="submit" <jstl:if test="${endorsment.id == 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
-		 			name="delete" value="<spring:message code="handyWorker.delete" />" 
-					onClick="return confirm('<spring:message code="handyWorker.verificationDelete" />')">
-	
-		<input type="submit" name="cancel" value="<spring:message code="handyWorker.cancel" />"
-				onClick="javascript: relativeRedir('handyWorker/endorsementList.do');" />
+		<jstl:choose>
+			<jstl:when test="${miscellaneousRecord.id == 0}">
+				<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" />
+			</jstl:when><jstl:otherwise>
+				<input type="submit" name="edit" value="<spring:message code="curriculum.edit" />" />
+				<input type="submit" name="delete" value="<spring:message code="handyWorker.delete" />" onclick="return confirm('<spring:message code="miscellaneousRecord.delete.confirm" />')" />
+			</jstl:otherwise>
+		</jstl:choose>
+		<input type="button" name="cancel" value="<spring:message code="handyWorker.cancel" />"
+				onClick="javascript: relativeRedir('curriculum/handyWorker/show.do');" />
 	
 	</form:form>
 

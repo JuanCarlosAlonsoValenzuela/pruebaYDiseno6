@@ -10,7 +10,7 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-	<form:form modelAttribute="personalRecord" action="personalRecord/handyworker/edit.do">
+	<form:form modelAttribute="personalRecord" action="curriculum/handyWorker/editPersonalRecord.do">
 		
 		<!-- Hidden Attributes -->
 		<form:hidden path ="id"/>
@@ -59,15 +59,17 @@
 		
 		
 		<!-- Buttons -->
-		<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" />
-
-		<input type="submit" <jstl:if test="${endorsment.id == 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
-		 			name="delete" value="<spring:message code="handyWorker.delete" />" 
-					onClick="return confirm('<spring:message code="handyWorker.verificationDelete" />')">
-	
-		<input type="submit" name="cancel" value="<spring:message code="handyWorker.cancel" />"
-				onClick="javascript: relativeRedir('handyWorker/endorsementList.do');" />
-	
+				<jstl:choose>
+			<jstl:when test="${personalRecord.id == 0}">
+				<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" />
+				<input type="button" name="cancel" value="<spring:message code="handyWorker.cancel" />"
+				onClick="javascript: relativeRedir('handyWorker/handyWorker/showProfile.do');" />
+			</jstl:when><jstl:otherwise>
+				<input type="submit" name="edit" value="<spring:message code="curriculum.edit" />" />
+				<input type="button" name="cancel" value="<spring:message code="handyWorker.cancel" />"
+				onClick="javascript: relativeRedir('curriculum/handyWorker/show.do');" />
+			</jstl:otherwise>
+		</jstl:choose>	
 	</form:form>
 
 </security:authorize>

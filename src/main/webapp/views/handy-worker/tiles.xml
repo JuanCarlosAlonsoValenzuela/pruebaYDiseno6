@@ -136,9 +136,29 @@
 		<put-attribute name="body" value="/views/handy-worker/reportsAttachments.jsp" />
 	</definition>
 	
-	<definition name="/curriculum/handyWorker/list.do" extends="master.page">	
-		<put-attribute name="title" value="Curriculum" />
-		<put-attribute name="body" value="/views/handy-worker/curriculum.jsp" />
+	<definition name="curriculum/handyWorker/editPersonalRecord" extends="master.page">	
+		<put-attribute name="title" value="Add a Personal Record" />
+		<put-attribute name="body" value="/views/handy-worker/editPersonalRecord.jsp" />
+	</definition>
+	
+	<definition name="curriculum/handyWorker/editEducationRecord" extends="master.page">	
+		<put-attribute name="title" value="Add an Education Record" />
+		<put-attribute name="body" value="/views/handy-worker/editEducationRecord.jsp" />
+	</definition>
+	
+	<definition name="curriculum/handyWorker/editProfessionalRecord" extends="master.page">	
+		<put-attribute name="title" value="Add a Professional Record" />
+		<put-attribute name="body" value="/views/handy-worker/editProfessionalRecord.jsp" />
+	</definition>
+	
+	<definition name="curriculum/handyWorker/editEndorserRecord" extends="master.page">	
+		<put-attribute name="title" value="Add an Endorser Record" />
+		<put-attribute name="body" value="/views/handy-worker/editEndorserRecord.jsp" />
+	</definition>
+	
+	<definition name="curriculum/handyWorker/editMiscellaneousRecord" extends="master.page">	
+		<put-attribute name="title" value="Add a miscellaneous Record" />
+		<put-attribute name="body" value="/views/handy-worker/editMiscellaneousRecord.jsp" />
 	</definition>
 	
 	<definition name="/endorserRecord/handyWorker/list.do" extends="master.page">	
