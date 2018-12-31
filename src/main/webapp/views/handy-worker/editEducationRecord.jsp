@@ -10,11 +10,12 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-	<form:form modelAttribute="educationRecord" action="educationRecord/handyworker/edit.do">
+	<form:form modelAttribute="educationRecord" action="curriculum/handyWorker/editEducationRecord.do">
 		
 		<!-- Hidden Attributes -->
 		<form:hidden path ="id"/>
 		<form:hidden path ="version"/>
+		<form:hidden path ="comments"/>
 		
 		<!-- Title -->
 		<form:label path="title">
@@ -28,16 +29,16 @@
 		<form:label path="startDateStudy"> 
 			<spring:message code="educationRecord.startDateStudy" />		
 		</form:label>
-		<form:input path="startDateStudy" placeholder="dd/MM/yyyy HH:mm" />
+		<form:input path="startDateStudy" placeholder="dd/MM/yyyy" />
 		<form:errors cssClass="error" path="startDateStudy" />
-		
+		<br />
 		<!-- End Date -->
 		<form:label path="endDateStudy"> 
 			<spring:message code="educationRecord.endDateStudy" />		
 		</form:label>
-		<form:input path="endDateStudy" placeholder="dd/MM/yyyy HH:mm" />
+		<form:input path="endDateStudy" placeholder="dd/MM/yyyy" />
 		<form:errors cssClass="error" path="endDateStudy" />
-		
+		<br />
 		<!-- Institution -->
 		<form:label path="institution">
 			<spring:message code="educationRecord.institution"/>	
@@ -50,20 +51,27 @@
 		<form:label path="url">
 			<spring:message code="educationRecord.url"/>	
 		</form:label>
-		<form:input path="url" />
+		<form:input path="url" placeholder="https://www.example.com/..." />
 		<form:errors cssClass="error" path="url"/>
 		<br />
-		
+		<spring:message code="comments.create"/>
+		<input type="hidden" name="newComment" value=""/>
+		<textarea rows="12" cols="50" name="newComment" id="newComment" placeholder="<spring:message code="comments.create"/>" ></textarea>
+		<br />
 		
 		<!-- Buttons -->
-		<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" />
-
-		<input type="submit" <jstl:if test="${endorsment.id == 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
-		 			name="delete" value="<spring:message code="handyWorker.delete" />" 
-					onClick="return confirm('<spring:message code="handyWorker.verificationDelete" />')">
+		<jstl:choose>
+			<jstl:when test="${educationRecord.id == 0}">
+				<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" />
+			</jstl:when><jstl:otherwise>
+				<input type="submit" name="edit" value="<spring:message code="curriculum.edit" />" />
+				<input type="submit" name="delete" value="<spring:message code="handyWorker.delete" />" onclick="return confirm('<spring:message code="educationRecord.delete.confirm" />')" />
+			</jstl:otherwise>
+		</jstl:choose>
+		
 	
-		<input type="submit" name="cancel" value="<spring:message code="handyWorker.cancel" />"
-				onClick="javascript: relativeRedir('handyWorker/endorsementList.do');" />
+		<input type="button" name="cancel" value="<spring:message code="handyWorker.cancel" />"
+				onClick="javascript: relativeRedir('curriculum/handyWorker/show.do');" />
 		
 	
 	</form:form>

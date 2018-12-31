@@ -36,8 +36,38 @@
 		<td><spring:message code="handyWorker.photo"/></td> 
 		<td><img src="${handyWorker.photo}" alt="${handyWorker.photo}" style="width:100px;height:100px;border:0;"/> </td>
 	</tr>
-
+	<jstl:choose>
+		<jstl:when test="${hasCurriculum && !canEdit}">
+			<tr>
+				<td><spring:message code="handyWorker.curriculum"/></td>
+				<td><spring:url var="showPersonalRecordUrl" value="curriculum/anonymous/show.do?handyId=${handyWorker.id}"/>	
+					<a href="${showPersonalRecordUrl}">
+						<strong><spring:message code="handyWorker.curriculum" /></strong>
+					</a>			
+				</td>
+			<tr/>
+		</jstl:when><jstl:when test="${hasCurriculum && canEdit}">
+			<tr>
+				<td><spring:message code="handyWorker.curriculum"/></td>
+				<td><spring:url var="showPersonalRecordUrl" value="curriculum/handyWorker/show.do"/>	
+					<a href="${showPersonalRecordUrl}">
+						<strong><spring:message code="handyWorker.curriculum" /></strong>
+					</a>			
+				</td>
+			<tr/>
+		</jstl:when><jstl:when test="${!hasCurriculum && canEdit}">
+			<tr>
+				<td><spring:message code="handyWorker.curriculum"/></td>
+				<td><spring:url var="addCurriculum" value="curriculum/handyWorker/add.do"/>	
+					<a href="${addCurriculum}">
+						<strong><spring:message code="handyWorker.addCurriculum" /></strong>
+					</a>			
+				</td>
+			<tr/>
+		</jstl:when>
+	</jstl:choose>
 </table>
+
 <br/>
 <strong><spring:message code="anonymous.showHandyProfileSocialProfiles" />:</strong>
 

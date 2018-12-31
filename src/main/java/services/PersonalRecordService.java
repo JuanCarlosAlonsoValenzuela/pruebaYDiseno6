@@ -24,11 +24,11 @@ public class PersonalRecordService {
 	public PersonalRecord create() {
 
 		PersonalRecord personalRecord = new PersonalRecord();
-		personalRecord.setFullName("-");
-		personalRecord.setPhoto("https://www.default.com");
-		personalRecord.setEmail("default@gmail.com");
-		personalRecord.setPhoneNumber("-");
-		personalRecord.setUrlLinkedInProfile("https://www.default.com");
+		personalRecord.setFullName("");
+		personalRecord.setPhoto("");
+		personalRecord.setEmail("");
+		personalRecord.setPhoneNumber("");
+		personalRecord.setUrlLinkedInProfile("");
 
 		return personalRecord;
 

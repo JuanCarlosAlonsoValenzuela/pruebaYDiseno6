@@ -21,6 +21,11 @@
 		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
 	</definition>
 	
+	<definition name="tutorial/anonymous/showPictures" extends="master.page">	
+		<put-attribute name="title" value="Imagenes del tutorial" />
+		<put-attribute name="body" value="/views/anonymous/showPictures.jsp" />
+	</definition>
+	
 	<definition name="tutorial/actor/list" extends="master.page">	
 		<put-attribute name="title" value="Tutoriales" />
 		<put-attribute name="body" value="/views/anonymous/showAllTutorials.jsp" />
@@ -41,9 +46,44 @@
 		<put-attribute name="body" value="/views/anonymous/showSections.jsp" />
 	</definition>
 	
+	<definition name="section/anonymous/showPictures" extends="master.page">	
+		<put-attribute name="title" value="Imagenes de la seccion" />
+		<put-attribute name="body" value="/views/anonymous/showPictures.jsp" />
+	</definition>
+	
 	<definition name="section/handyWorker/list" extends="master.page">	
 		<put-attribute name="title" value="Secciones del tutorial" />
 		<put-attribute name="body" value="/views/anonymous/showSections.jsp" />
+	</definition>
+	
+	<definition name="curriculum/anonymous/show" extends="master.page">	
+		<put-attribute name="title" value="Curriculum" />
+		<put-attribute name="body" value="/views/anonymous/showCurriculum.jsp" />
+	</definition>
+	
+	<definition name="curriculum/anonymous/showEducationComments" extends="master.page">	
+		<put-attribute name="title" value="Comentarios del historial de educacion" />
+		<put-attribute name="body" value="/views/anonymous/showCommentsCurriculum.jsp" />
+	</definition>
+	
+	<definition name="curriculum/anonymous/showProfessionalComments" extends="master.page">	
+		<put-attribute name="title" value="Comentarios del historial profesional" />
+		<put-attribute name="body" value="/views/anonymous/showCommentsCurriculum.jsp" />
+	</definition>
+	
+	<definition name="curriculum/anonymous/showEndorserComments" extends="master.page">	
+		<put-attribute name="title" value="Comentarios del historial de avalista" />
+		<put-attribute name="body" value="/views/anonymous/showCommentsCurriculum.jsp" />
+	</definition>
+	
+	<definition name="curriculum/anonymous/showMiscellaneousComments" extends="master.page">	
+		<put-attribute name="title" value="Comentarios del historial diverso" />
+		<put-attribute name="body" value="/views/anonymous/showCommentsCurriculum.jsp" />
+	</definition>
+	
+	<definition name="curriculum/handyWorker/show" extends="master.page">	
+		<put-attribute name="title" value="Curriculum" />
+		<put-attribute name="body" value="/views/anonymous/showCurriculum.jsp" />
 	</definition>
 	
 	<definition name="handyWorker/anonymous/showProfile.do" extends="master.page">	

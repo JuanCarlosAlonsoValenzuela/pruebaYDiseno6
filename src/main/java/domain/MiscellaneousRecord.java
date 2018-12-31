@@ -32,7 +32,7 @@ public class MiscellaneousRecord extends DomainEntity {
 	public void setTitle(final String title) {
 		this.title = title;
 	}
-
+	@NotBlank
 	@URL
 	public String getLinkAttachment() {
 		return this.linkAttachment;
