@@ -45,6 +45,11 @@ public class WarrantyCustomerController extends AbstractController {
 		result = new ModelAndView("customer/warranty");
 		result.addObject("warranty", warranty);
 
+		result.addObject("terms", warranty.getTerms());
+		result.addObject("laws", warranty.getLaws());
+
+		result.addObject("requestURI", "warranty/customer/show.do");
+
 		return result;
 	}
 

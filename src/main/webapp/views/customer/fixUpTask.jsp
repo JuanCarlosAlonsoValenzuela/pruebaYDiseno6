@@ -81,10 +81,10 @@
 		<display:column titleKey="fixUpTask.complaints">									
 				<jstl:set var="complaintsSize" value="${row.complaints.size()}" />
 				
-						<spring:url var="complaintsUrl" value="/complaints/customer/list.do?fixUpTaskId={fixId}">
+						<spring:url var="complaintsUrl" value="/complaint/customer/listPerTask.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}"/>	
 						</spring:url>
-						<a href="${phasesUrl}">
+						<a href="${complaintsUrl}">
 							<spring:message var="seeComplaints" code="fixUpTask.seeComplaints"/> 	
 							<jstl:out value="${seeComplaints}(${complaintsSize})" />
 						</a>
