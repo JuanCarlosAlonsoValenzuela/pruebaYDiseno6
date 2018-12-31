@@ -9,45 +9,49 @@
 <p><spring:message code="administrator.GoodAndBadWords" /></p>
 
 <security:authorize access="hasRole('ADMIN')">
+<form name="word" id="word" action="words/administrator/save.do" method="post" >
 
 
-<form:form modelAttribute="word" action="goodandbadwords/administrator/edit.do">
+  Word <input type="text" name="word" value="${word}"><br>
 
-	<form:hidden path ="id"/>
-	<form:hidden path ="version"/>
-	
-	<form:label path="word">
-		<spring:message code="administrator.word" />
-	</form:label>
-	<form:input path="word" required/>
-	<form:errors cssClass="error" path="word"/>
+<jstl:choose> 
+  <jstl:when test="${word == null}">
+  <input type="radio" name="wordType" value="goodword"> good word<br>
+  <input type="radio" name="wordType" value="badword"> bad word<br>
+ </jstl:when>
+ 
+ <jstl:otherwise>
+  <input type="hidden" id="originalWord" name="originalWord" value="${word}">
+  </jstl:otherwise>
+</jstl:choose>
+
 
 <jstl:choose>
 	
 	<jstl:when test="${word == null}">
 
-	<input type="submit" name="goodWords" value="<spring:message code="administrator.createGood" />" />
-	<input type="submit" name="badWords" value="<spring:message code="administrator.CreateBad" />" />
+	<input type="submit" name="save" value="<spring:message code="administrator.create" />" />
+	<br />
 	
 	</jstl:when>
 	
 	<jstl:otherwise>
 	
-	<input type="submit" name="editgoodWord" value="<spring:message code="administrator.editGood" />" />
-	<input type="submit" name="editbadWord" value="<spring:message code="administrator.editBad" />" />
-	<input type="submit" name="deleteWord" value="<spring:message code="administrator.deleteWord" />" />
+	<input type="submit" name="editWord" value="<spring:message code="administrator.edit" />" />
+	<input type="submit" name="delete" value="<spring:message code="administrator.deleteWord" />" />
 	
 	</jstl:otherwise>
 	
 </jstl:choose>
 
-	<input type="submit" name="cancel" value="<spring:message code="administrator.cancel" />"
-		onClick="javascript: relativeRedir('administrator/profile.do');" />
+	
 
-
-
-</form:form>
-
+</form>
+<br />
+<spring:url var="listWords" value="/words/administrator/list.do"/>
+<a href="${listWords}">
+		<spring:message code="administrator.cancel" />			
+	</a>
 
 
 </security:authorize>
