@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ComplaintService;
 import services.CustomerService;
+import services.FixUpTaskService;
 import domain.Complaint;
 import domain.FixUpTask;
 
@@ -29,6 +30,9 @@ public class ComplaintCustomerController extends AbstractController {
 
 	@Autowired
 	private CustomerService		customerService;
+
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
 
 
 	public ComplaintCustomerController() {
@@ -48,6 +52,25 @@ public class ComplaintCustomerController extends AbstractController {
 
 		result.addObject("complaints", complaints);
 		result.addObject("requestURI", "complaint/customer/list.do");
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/listPerTask", method = RequestMethod.GET)
+	public ModelAndView listPerFixUpTask(@RequestParam int fixUpTaskId) {
+
+		ModelAndView result;
+
+		Collection<Complaint> complaints;
+
+		FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		complaints = fixUpTask.getComplaints();
+
+		result = new ModelAndView("complaint/customer/list");
+
+		result.addObject("complaints", complaints);
+		result.addObject("requestURI", "complaint/customer/listPerTask.do");
 
 		return result;
 
