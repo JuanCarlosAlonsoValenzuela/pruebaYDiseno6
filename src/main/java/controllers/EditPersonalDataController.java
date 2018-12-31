@@ -69,7 +69,7 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(customer);
 		} else {
 			try {
-				this.customerService.updateCustomer(customer);	//Cambiar por update
+				this.customerService.save(customer);	//Cambiar por update 
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(customer, "customer.commit.error");
@@ -124,7 +124,7 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(sponsor);
 		} else {
 			try {
-				this.sponsorService.updateSponsor(sponsor);	//Cambiar por update
+				this.sponsorService.save(sponsor);	//Cambiar por update
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(sponsor, "sponsor.commit.error");
@@ -179,7 +179,7 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(referee);
 		} else {
 			try {
-				this.refereeService.updateReferee(referee);	//Cambiar por update
+				this.refereeService.save(referee);	//Cambiar por update
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(referee, "referee.commit.error");
@@ -225,7 +225,7 @@ public class EditPersonalDataController extends AbstractController {
 		return result;
 	}
 
-	//Save Referee
+	//Save Admin
 	@RequestMapping(value = "/administrator/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveAdministrator(@Valid Admin admin, BindingResult binding) {
 
@@ -235,7 +235,7 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(admin);
 		} else {
 			try {
-				this.adminService.updateAdmin(admin);	//Cambiar por update
+				this.adminService.save(admin);	//Cambiar por update
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(admin, "admin.commit.error");

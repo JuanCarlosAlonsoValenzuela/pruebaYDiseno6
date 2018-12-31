@@ -11,44 +11,39 @@
 <security:authorize access="hasRole('ADMIN')">
 
 
-<display:table name="badWords" id="badWordList" requestURI="${goodandbadwords/administrator/list.do}"
+<display:table name="badWords" id="badWordList" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-	  <display:column property="edit" titleKey="aministrator.edit">
-      		<a href="goodandbadwords/administrator/edit.do?word=${badWordList}">
+	  <display:column >
+      		<a href="words/administrator/save.do?word=${badWordList}">
  	  			<spring:message code="administrator.edit" />
  	  		</a>
       </display:column>
       
-       <display:column property="valueStatistics" titleKey="administrator.badWords" sortable="true">
+       <display:column titleKey="administrator.badWords" sortable="true">
       		<jstl:out value="${badWordList}" />
       </display:column>
 </display:table>
 
 
-<display:table name="godWords" id="goodWordList" requestURI="${goodandbadwords/administrator/list.do}"
+<display:table name="goodWords" id="goodWordList" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-	  <display:column property="edit" titleKey="aministrator.edit">
-      		<a href="goodandbadwords/administrator/edit.do?word=${goodWordList}">
+	  <display:column >
+      		<a href="words/administrator/save.do?word=${goodWordList}">
  	  			<spring:message code="administrator.edit" />
  	  		</a>
       </display:column>
       
-       <display:column property="valueStatistics" titleKey="administrator.goodWords" sortable="true">
+       <display:column titleKey="administrator.goodWords" sortable="true">
       		<jstl:out value="${goodWordList}" />
       </display:column>
 </display:table>
 
 <div>
-	<a href="goodandbadwords/administrator/create.do">
-		<spring:message code="administrator.edit" />
+	<a href="words/administrator/create.do">
+		<spring:message code="administrator.create" />
 	</a>
 </div>
 
-<div>
-	<a href="administrator/profile.do">
-		<spring:message code="administrator.cancel" />
-	</a>
-</div>
 
 
 

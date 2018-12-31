@@ -6,17 +6,10 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="handyworker.endorsmentComments" /></p>
+<security:authorize access="hasRole('CUSTOMER')">		 	
 
-<security:authorize access="hasRole('HANDYWORKER')">
-
-	<jstl:forEach  items="${comments}" var="comment">
-			<strong><jstl:out value="${comment}" /></strong>
-			<br /> 
-			<br /> 
-	</jstl:forEach> 
+	<display:table pagesize="5" name="phases" id="row" class="displaytag" 
+					requestURI="phase/customer/list.do">
+	</display:table>
 	
-	<input type="button" name="cancel" value="<spring:message code="handyWorker.back" />"
-		onClick="javascript:relativeRedir('endorsement/handyWorker/list.do');" />
-
 </security:authorize>

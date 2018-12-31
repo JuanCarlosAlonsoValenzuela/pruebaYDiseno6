@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import repositories.EndorsementRepository;
 import security.LoginService;
 import security.UserAccount;
-import domain.Endorser;
 import domain.Endorsement;
+import domain.Endorser;
 
 @Service
 @Transactional
@@ -33,13 +33,13 @@ public class EndorsementService {
 
 	// Simple CRUD methods ------------------------------------------
 
-	public Endorsement createEndorsment() {
+	public Endorsement create() {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 
 		List<String> comments = new ArrayList<String>();
 
-		Endorser sender = (Endorser) this.actorService.getActorByUsername(userAccount.getUsername());
+		Endorser sender = this.endorsmentRepository.getEndorserByUsername(userAccount.getUsername());
 
 		Endorsement endorsment = new Endorsement();
 

@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -51,6 +52,7 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getMomentPublished() {
 		return this.momentPublished;
@@ -91,6 +93,7 @@ public class FixUpTask extends DomainEntity {
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getRealizationTime() {
 		return this.realizationTime;
 	}
@@ -128,7 +131,7 @@ public class FixUpTask extends DomainEntity {
 		this.complaints = complaints;
 	}
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Category getCategory() {
 		return this.category;
 	}

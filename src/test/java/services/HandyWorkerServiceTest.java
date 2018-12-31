@@ -559,7 +559,7 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 		Endorsement endorsment = h.getEndorsements().get(0);
-		List<String> oldComments = (List<String>) endorsment.getComments();
+		List<String> oldComments = endorsment.getComments();
 		List<String> newComments = new ArrayList<>();
 		newComments.add("Ejemplo");
 		endorsment.setComments(newComments);
@@ -582,22 +582,35 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
-		List<String> comments = new ArrayList<>();
+		List<String> comments = new ArrayList<String>();
 		comments.add("A");
 		comments.add("B");
 
-		List<Integer> l = this.handyWorkerService.getIdCustomersByHandyWorker(h);
+		List<Customer> l = this.handyWorkerService.getCustomersByHandyWorker(h);
 
-		Endorser endorser = this.customerService.findOne(l.get(0));
+		Endorser endorser = l.get(0);
+		Endorser endorserBy = h;
 
 		Integer numEndorsmentsBefore = endorser.getEndorsements().size();
+		Integer numB = endorserBy.getEndorsements().size();
 		Endorsement endorsment = this.endorsmentService.createEndorsment(comments, endorser);
 		Assert.notNull(endorsment);
-		this.handyWorkerService.createEndorsment(endorsment);
+		endorsment.setWrittenTo(l.get(0));
+		endorsment.setWrittenBy(h);
+		endorsment.setComments(comments);
 
-		Endorser endorser2 = this.customerService.findOne(l.get(0));
+		Assert.isTrue(this.endorsmentService.findAll().size() == 2);
+		this.handyWorkerService.createEndorsment(endorsment);
+		Assert.isTrue(this.endorsmentService.findAll().size() == 3);
+
+		Endorser endorser2 = this.customerService.findOne(l.get(0).getId());
 		Integer numEndorsmentsAfter = endorser2.getEndorsements().size();
 		Assert.isTrue(numEndorsmentsBefore + 1 == numEndorsmentsAfter);
+
+		Endorser e2 = this.handyWorkerService.findOne(h.getId());
+		Integer numA = e2.getEndorsements().size();
+		Assert.isTrue(numB + 1 == numA);
+		super.unauthenticate();
 	}
 
 	@Test

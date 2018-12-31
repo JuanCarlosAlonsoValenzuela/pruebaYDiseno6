@@ -512,8 +512,61 @@
 	<!-- END OF FIX-UP TASK -->
 
 	<!-- WARRANTY -->
+	<bean id="draftWarranty1" class="domain.Warranty">
+		<property name="isDraftMode" value="true"/>
+		<property name="title" value="title1Draft" />
+		<property name="terms">
+			<list>
+				<value>term5</value>
+				<value>term6</value>
+			</list>
+		</property>
+		<property name="laws">
+			<list>
+				<value>law5</value>
+				<value>law6</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="draftWarranty2" class="domain.Warranty">
+		<property name="isDraftMode" value="true"/>
+		<property name="title" value="title2Draft" />
+		<property name="terms">
+			<list>
+				<value>term5</value>
+				<value>term6</value>
+			</list>
+		</property>
+		<property name="laws">
+			<list>
+				<value>law5</value>
+				<value>law6</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="draftWarranty3" class="domain.Warranty">
+		<property name="isDraftMode" value="true"/>
+		<property name="title" value="title3Draft" />
+		<property name="terms">
+			<list>
+				<value>term5</value>
+				<value>term6</value>
+			</list>
+		</property>
+		<property name="laws">
+			<list>
+				<value>law5</value>
+				<value>law6</value>
+			</list>
+		</property>
+	</bean>
+	
+	
 	<bean id="warranty1" class="domain.Warranty">
 		<property name="title" value="title1" />
+		<property name="isDraftMode" value="false"/>
 		<property name="terms">
 			<list>
 				<value>term1</value>
@@ -529,6 +582,7 @@
 	</bean>
 
 	<bean id="warranty2" class="domain.Warranty">
+		<property name="isDraftMode" value="false"/>
 		<property name="title" value="title2" />
 		<property name="terms">
 			<list>
@@ -545,6 +599,7 @@
 	</bean>
 
 	<bean id="warranty3" class="domain.Warranty">
+		<property name="isDraftMode" value="false"/>
 		<property name="title" value="title3" />
 		<property name="terms">
 			<list>
@@ -623,9 +678,20 @@
 			</list>
 		</property>
 	</bean>
+	
+	
 	<!-- END OF WARRANTY -->
 
 	<!-- CATEGORY -->
+	<bean id="CATEGORY" class="domain.Category">
+		<property name="name" value="CATEGORY" />
+		<property name="subCategories">
+			<list>
+				<ref bean="category4" />
+			</list>
+		</property>
+	</bean>
+	
 	<bean id="category1" class="domain.Category">
 		<property name="name" value="name1" />
 	</bean>
@@ -1594,6 +1660,7 @@
 		<property name="endorsements">
 			<list>
 				<ref bean="endorsement1" />
+				<ref bean="endorsement2" />
 			</list>
 		</property>
 		<property name="make" value="Pepe Luis Martinez" />
@@ -1820,6 +1887,7 @@
 		<property name="endorsements">
 			<list>
 				<ref bean="endorsement1" />
+				<ref bean="endorsement2" />
 			</list>
 		</property>
 		<property name="fixUpTasks">

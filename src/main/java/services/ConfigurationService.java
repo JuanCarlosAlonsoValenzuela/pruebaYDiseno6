@@ -313,15 +313,68 @@ public class ConfigurationService {
 		return configuration.getBadWords();
 	}
 
+	public String editWord(String word, String originalWord) {
+		String result = "";
+		String goodWords = this.showGoodWords();
+		String badWords = this.showBadWords();
+		Configuration configuration = this.configurationRepository.configuration();
+		List<String> goodWordsList = Arrays.asList(goodWords.split(",[ ]*"));
+		List<String> badWordsList = Arrays.asList(badWords.split(",[ ]*"));
+
+		Integer cont = 0;
+
+		if (goodWordsList.contains(originalWord)) {
+
+			for (String s : goodWordsList) {
+				if (s.equals(originalWord)) {
+					goodWordsList.set(cont, word);
+
+				}
+				cont++;
+			}
+
+			for (int i = 0; i < goodWordsList.size(); i++) {
+				if (i < goodWordsList.size() - 1) {
+					result = result + goodWordsList.get(i) + ",";
+				} else {
+					result = result + goodWordsList.get(i);
+				}
+			}
+			configuration.setGoodWords(result);
+
+		} else {
+			for (String s : badWordsList) {
+				if (s.equals(originalWord)) {
+					badWordsList.set(cont, word);
+
+				}
+				cont++;
+			}
+
+			for (int i = 0; i < badWordsList.size(); i++) {
+				if (i < badWordsList.size() - 1) {
+					result = result + badWordsList.get(i) + ",";
+				} else {
+					result = result + badWordsList.get(i);
+				}
+			}
+			configuration.setBadWords(result);
+		}
+
+		this.configurationRepository.save(configuration);
+
+		return configuration.getGoodWords();
+	}
+
 	public void deleteGoodWord(String word) {
 		String goodWords = this.showGoodWords();
 		Configuration configuration = this.configurationRepository.configuration();
-		List<String> goodWordsList = Arrays.asList(goodWords.split(",[ ]*"));
 
-		for (String g : goodWordsList) {
-			if (g.equals(word)) {
-				goodWordsList.remove(g);
-			}
+		List<String> goodWordsList = new ArrayList<String>();
+		goodWordsList.addAll(Arrays.asList(goodWords.split(",[ ]*")));
+
+		if (goodWordsList.contains(word)) {
+			goodWordsList.remove(word);
 		}
 
 		String result = "";
@@ -339,14 +392,14 @@ public class ConfigurationService {
 	}
 
 	public void deleteBadWord(String word) {
-		String badWords = this.showGoodWords();
+		String badWords = this.showBadWords();
 		Configuration configuration = this.configurationRepository.configuration();
-		List<String> badWordsList = Arrays.asList(badWords.split(",[ ]*"));
 
-		for (String g : badWordsList) {
-			if (g.equals(word)) {
-				badWordsList.remove(g);
-			}
+		List<String> badWordsList = new ArrayList<String>();
+		badWordsList.addAll(Arrays.asList(badWords.split(",[ ]*")));
+
+		if (badWordsList.contains(word)) {
+			badWordsList.remove(word);
 		}
 
 		String result = "";

@@ -34,11 +34,11 @@
 		
 		<display:column titleKey="fixUpTask.warranties">								
 				
-				<spring:url var="warrantiesUrl" value="/warranty/customer/list.do?fixUpTaskId={fixId}">
-						<spring:param name="fixId" value="${row.id}" />
+				<spring:url var="warrantyUrl" value="/warranty/customer/show.do?warrantyId={warrId}">
+						<spring:param name="warrId" value="${row.warranty.id}" />
 				</spring:url>
 				
-				<a href="${warrantiesUrl}">
+				<a href="${warrantyUrl}">
 						<jstl:out value="${row.warranty.title}" />
 				</a>
 				
@@ -53,7 +53,6 @@
 		<display:column titleKey="fixUpTask.applications">									
 				<jstl:set var="applicationsSize" value="${row.applications.size()}" />
 				
-				<jstl:if test="${applicationsSize > 0}">
 						<spring:url var="applicationsUrl" value="/application/customer/list.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}"/>	
 						</spring:url>
@@ -61,11 +60,6 @@
 							<spring:message var="seeApplications" code="fixUpTask.seeApplications"/> 		
 							<jstl:out value="${seeApplications}(${applicationsSize})" />
 						</a>
-				</jstl:if>
-				
-				<jstl:if test="${applicationsSize == 0}">
-						<spring:message code="applications.noDisplay" />		
-				</jstl:if>
 				
 		</display:column>
 		
@@ -74,7 +68,7 @@
 				<jstl:set var="phasesSize" value="${row.phases.size()}" />
 				
 
-						<spring:url var="phasesUrl" value="/phases/customer/list.do?fixUpTaskId={fixId}">
+						<spring:url var="phasesUrl" value="/phase/customer/list.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}"/>	
 						</spring:url>
 						<a href="${phasesUrl}">
@@ -98,7 +92,7 @@
 		
 	</display:table>
 	
-	<spring:url var="createFixUpTask" value="/fixUpTask/customer/edit.do"/>
+	<spring:url var="createFixUpTask" value="/fixUpTask/customer/create.do"/>
 	<a href="${createFixUpTask}">
 			<spring:message code="fixUpTask.create"/>					
 	</a>

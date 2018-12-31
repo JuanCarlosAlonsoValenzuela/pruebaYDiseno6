@@ -4,18 +4,19 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
-<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
-<p><spring:message code="fixUpTask.customer.create" /></p>			
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%>		
 
 <security:authorize access="hasRole('CUSTOMER')">
 
-<form:form action="fixUpTask/customer/edit.do" modelAttribute="fixUpTask">
+<form:form action="fixUpTask/customer/save.do" modelAttribute="fixUpTask">
 		<!-- Hidden Attributes -->
 		<form:hidden path="id"/>
 		<form:hidden path="version" />
 		<form:hidden path="ticker" />
 		<form:hidden path="momentPublished" />
+		<form:hidden path="applications"/>
+		<form:hidden path="phases"/>
+		<form:hidden path="complaints"/>
 		
 		<!-- Description -->
 		<form:label path="description">	<!-- Tiles -->
@@ -23,6 +24,7 @@
 		</form:label>
 		<form:textarea path="description"/>
 		<form:errors cssClass="error" path="description" />
+		<br/>
 		
 		<!-- Address -->
 		<form:label path="address"> <!-- Tiles -->
@@ -30,6 +32,7 @@
 		</form:label>
 		<form:input path="address" />
 		<form:errors cssClass="error" path="description" />
+		<br/>
 		
 		<!-- Max Price -->
 		<form:label path="maxPrice"> <!-- Tiles -->
@@ -37,6 +40,8 @@
 		</form:label>
 		<form:input path="maxPrice" />
 		<form:errors cssClass="error" path="maxPrice" />
+		<br/>
+	
 		
 		<!-- Realization Time -->
 		<form:label path="realizationTime"> <!-- Tiles -->
@@ -44,6 +49,7 @@
 		</form:label>
 		<form:input path="realizationTime" placeholder="dd/MM/yyyy HH:mm" />
 		<form:errors cssClass="error" path="realizationTime" />
+		<br/>
 		
 		<!-- Category -->
 		<form:label path="category"> <!-- Tiles -->
@@ -51,36 +57,53 @@
 		</form:label>
 		
 		<form:select path="category">
-				<jstl:forEach var="category" items="categories">
-						<form:options
-								itemLabel=<jstl:out value="${category.name}" />			
-								itemValue=<jstl:out value="${category.name}" />
+				<jstl:forEach var="category" items="${categories}">
+						<form:option
+								label="${category.name}"		
+								value="${category.id}"
 						/>
 						
 				</jstl:forEach>
 		
 		</form:select>
 		<form:errors cssClass="error" path="category" />
-		
+		<br/>
 		
 		<!-- Warranty -->
 		<form:label path="warranty"> <!-- Tiles -->
 			<spring:message code="fixUpTask.warranty" />		
 		</form:label>
 		<form:select path="warranty">
-				<jstl:forEach var="warranty" items="warranties">
-						<form:options
-								itemLabel=<jstl:out value="${warranty.name}" />			
-								itemValue=<jstl:out value="${warranty.name}" />
+				<jstl:forEach var="warranty" items="${warranties}">
+						<form:option
+								label="${warranty.title}"		
+								value="${warranty.id}"
 						/>
 				</jstl:forEach>
 		</form:select>
 		<form:errors cssClass="error" path="warranty" />
+		<br/><br/>
 		
-		<input type="submit" name="create" value="<spring:message code="fixUpTask.create.button"/>" />	
+		<jstl:if test="${fixUpTask.id==0}">
+			<jstl:set var="submitButton" value="fixUpTask.create.button"/>
+		</jstl:if>
+		<jstl:if test="${fixUpTask.id!=0}">
+			<jstl:set var="submitButton" value="fixUpTask.update.button"/>
+		</jstl:if>
 		
-		<input type="submit" name="cancel" value="<spring:message code="fixUpTask.cancel.button"/>" />
-
+		<input type="submit" name="save" value="<spring:message code="${submitButton}"/>" />
+		
+		<jstl:if test="${fixUpTask.id!=0}">
+			<%-- 
+			<spring:url var="deleteUrl" value="/fixUpTask/customer/delete.do?fixUpTaskId={fixId}">
+				<spring:param name="fixId" value="${fixUpTask.id}"/>	
+			</spring:url>
+			<a href="${deleteUrl}"><button type="button" name="delete"><spring:message code="fixUpTask.delete.button"/></button></a>
+			--%>
+			<input type="submit" name="delete" onclick="return confirm('<spring:message code="fixUpTask.delete.confirmation" />')" value="<spring:message code="fixUpTask.delete.button"/>"/>
+		</jstl:if>
+		
+		<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do?');"  value="<spring:message code="fixUpTask.cancel.button"/>" />	
 </form:form>
 
 </security:authorize>

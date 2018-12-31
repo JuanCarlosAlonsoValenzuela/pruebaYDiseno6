@@ -16,24 +16,24 @@
       
 <tiles-definitions>
 
-	<definition name="category/list" extends="master.page">	
-		<put-attribute name="title" value="Categorías" />
+	<definition name="category/administrator/list" extends="master.page">	
+		<put-attribute name="title" value="Categorias" />
 		<put-attribute name="body" value="/views/category/list.jsp" />
 	</definition>
 	
-	<definition name="category/edit.do" extends="master.page">	
-		<put-attribute name="title" value="Editar categoría" />
+	<definition name="category/administrator/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar Categoria" />
 		<put-attribute name="body" value="/views/category/edit.jsp" />
 	</definition>
 	
-	<definition name="category/subcategories.do" extends="master.page">	
-		<put-attribute name="title" value="Subcategorías" />
-		<put-attribute name="body" value="/views/warranty/subCategories.jsp" />
+	<definition name="category/administrator/editSubCategory" extends="master.page">	
+		<put-attribute name="title" value="Editar SubCategorias" />
+		<put-attribute name="body" value="/views/category/editSubCategory.jsp" />
 	</definition>
 	
-	<definition name="category/subcategory/create.do" extends="master.page">	
-		<put-attribute name="title" value="Crear subcategoría" />
-		<put-attribute name="body" value="/views/warranty/create.jsp" />
+	<definition name="category/administrator/subCategories/list" extends="master.page">	
+		<put-attribute name="title" value="SubCategorias" />
+		<put-attribute name="body" value="/views/category/subCategories.jsp" />
 	</definition>
 	
 </tiles-definitions>

@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -18,7 +17,6 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Application;
 import domain.Box;
-import domain.Category;
 import domain.Complaint;
 import domain.CreditCard;
 import domain.Customer;
@@ -27,11 +25,9 @@ import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Note;
-import domain.Phase;
 import domain.Report;
 import domain.SocialProfile;
 import domain.Status;
-import domain.Warranty;
 
 @Service
 @Transactional
@@ -113,7 +109,7 @@ public class CustomerService {
 		return s;
 	}
 
-	public Customer save(Customer customer) {	//Tenemos un listBox vacía
+	public Customer saveCreate(Customer customer) {	//Tenemos un listBox vacía
 
 		List<Box> boxes = new ArrayList<>();
 
@@ -143,7 +139,7 @@ public class CustomerService {
 		return this.customerRepository.save(customer);
 	}
 
-	public Customer updateCustomer(Customer customer) {
+	public Customer save(Customer customer) {
 		return this.customerRepository.save(customer);
 	}
 
@@ -330,19 +326,17 @@ public class CustomerService {
 
 	}
 
-	public FixUpTask createFixUpTask(String description, String address, Double maxPrice, Date realizationTime, Warranty warranty, Collection<Phase> phases, Category category, Collection<Complaint> complaints, Collection<Application> applications) {
+	public FixUpTask createFixUpTask(FixUpTask fixUpTask) {
 		Customer loggedCustomer = this.securityAndCustomer();
-
-		FixUpTask fixUpTask = this.fixUpTaskService.create(description, address, maxPrice, realizationTime, warranty, phases, category, complaints, applications);
 
 		FixUpTask fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
 
 		List<FixUpTask> listf = new ArrayList<>();
 		listf.addAll(loggedCustomer.getFixUpTasks());
-		listf.add(fixUpTask);
+		listf.add(fixUpTaskSaved);
 		loggedCustomer.setFixUpTasks(listf);
 
-		this.save(loggedCustomer);
+		this.customerRepository.save(loggedCustomer);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
@@ -373,6 +367,42 @@ public class CustomerService {
 
 	}
 
+	public FixUpTask saveFixUpTask(FixUpTask fixUpTask) {
+		Customer loggedCustomer = this.securityAndCustomer();
+
+		FixUpTask fixUpTaskSaved;
+
+		if (fixUpTask.getId() == 0) {
+			fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
+
+			List<FixUpTask> listf = new ArrayList<>();
+			listf.addAll(loggedCustomer.getFixUpTasks());
+			listf.add(fixUpTaskSaved);
+			loggedCustomer.setFixUpTasks(listf);
+
+			this.customerRepository.save(loggedCustomer);
+		} else {
+			Collection<FixUpTask> fixUpTasks = this.customerRepository.findFixUpTasksById(loggedCustomer.getId());
+
+			FixUpTask fixUpTaskFound = null;
+			for (FixUpTask f : fixUpTasks) {
+				if (fixUpTask.getId() == f.getId()) {
+					fixUpTaskFound = f;
+					break;
+				}
+			}
+
+			Assert.isTrue(!fixUpTaskFound.equals(null));
+
+			fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
+		}
+
+		this.configurationService.isActorSuspicious(loggedCustomer);
+
+		return fixUpTaskSaved;
+
+	}
+
 	public void deleteFixUpTask(FixUpTask fixUpTask) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
@@ -393,29 +423,26 @@ public class CustomerService {
 		loggedCustomer.setFixUpTasks(fixUpTasks2);
 		this.customerRepository.save(loggedCustomer);
 
-		List<Application> applications = (List<Application>) this.applicationService.findAll();
-		List<Application> applicationsNew = new ArrayList<>();
-		for (Application a : applications) {
-			if (a.getFixUpTask().equals(this.fixUpTaskService.findOne(fixUpTaskFounded.getId()))) {
-				applicationsNew.add(a);
-			}
-		}
+		List<Application> applicationsNew = (List<Application>) this.applicationService.getApplicationsFix(fixUpTaskFounded);
+
+		//BIEN HASTA AQUÍ
 
 		List<HandyWorker> workers = (List<HandyWorker>) this.handyWorkerService.findAll();
+
 		for (HandyWorker h : workers) {
+
 			List<Application> applicationsHw = h.getApplications();
 			for (Application ap : applicationsNew) {
-				if (applicationsHw.contains(this.applicationService.findOne(ap.getId()))) {
-					List<Application> applicationsHw2 = h.getApplications();
-					applicationsHw2.remove(this.applicationService.findOne(ap.getId()));
-					h.setApplications(applicationsHw2);
-					this.handyWorkerService.save(h);
+				if (applicationsHw.contains(ap)) {
+					applicationsHw.remove(ap);
 				}
 			}
+			h.setApplications(applicationsHw);
+			this.handyWorkerService.save2(h);
 		}
 
 		for (Application app : applicationsNew) {
-			this.applicationService.delete2(this.applicationService.findOne(app.getId()));
+			this.applicationService.delete2(app);
 		}
 
 		List<Finder> finders = (List<Finder>) this.finderService.findAll();
@@ -771,13 +798,13 @@ public class CustomerService {
 
 	// REPORTS
 	public Report showReport(Report report) {
-		Customer loggedCustomer = this.securityAndCustomer();
+		this.securityAndCustomer();
 		Assert.isTrue(report.getFinalMode());
 		return this.reportService.findOne(report.getId());
 	}
 
 	public List<Report> listReports(Complaint complaint) {
-		Customer loggedCustomer = this.securityAndCustomer();
+		this.securityAndCustomer();
 		Assert.isTrue(this.showComplaints().contains(complaint));
 		List<Report> lr = complaint.getReports();
 		List<Report> lr2 = new ArrayList<>();

@@ -7,28 +7,29 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.PhaseRepository;
-import domain.Phase;
+import repositories.EndorsementRepository;
+import domain.Endorsement;
 
 @Component
 @Transactional
-public class StringToPhaseConverter implements Converter<String, Phase> {
+public class StringToEndorsementConverter implements Converter<String, Endorsement> {
 
 	@Autowired
-	PhaseRepository	phaseRepository;
+	EndorsementRepository	endorsmentRepository;
 
 
 	@Override
-	public Phase convert(String text) {
+	public Endorsement convert(String text) {
+
+		Endorsement result = new Endorsement();
 		int id;
-		Phase result;
 
 		try {
 			if (StringUtils.isEmpty(text)) {
 				result = null;
 			} else {
 				id = Integer.valueOf(text);
-				result = this.phaseRepository.findOne(id);
+				result = this.endorsmentRepository.findOne(id);
 			}
 
 		} catch (Throwable oops) {
