@@ -30,8 +30,8 @@
 		<bean class="converters.BoxToStringConverter" />
 		<bean class="converters.StringToBoxConverter" />
 		
-		<bean class="converters.EndorsmentToStringConverter" />
-		<bean class="converters.StringToEndorsmentConverter" />
+		<bean class="converters.EndorsementToStringConverter" />
+		<bean class="converters.StringToEndorsementConverter" />
 		
 		<bean class="converters.FixUpTaskToStringConverter" />
 		<bean class="converters.StringToFixUpTaskConverter" />
@@ -71,6 +71,7 @@
 		
 		<bean class="converters.CreditCardToStringConverter" />
 		<bean class="converters.StringToCreditCardConverter" />
+		
 		<bean class="converters.ComplaintToStringConverter" />
 		<bean class="converters.StringToComplaintConverter" />
 		
@@ -88,6 +89,18 @@
 		
 		<bean class="converters.RefereeToStringConverter" />
 		<bean class="converters.StringToRefereeConverter" />
+		
+		<bean class="converters.EndorserToStringConverter" />
+		<bean class="converters.StringToEndorserConverter" />
+		
+		<bean class="converters.CategoryToStringConverter" />
+		<bean class="converters.StringToCategoryConverter" />
+		
+		<bean class="converters.WarrantyToStringConverter"/>
+		<bean class="converters.StringToWarrantyConverter"/>
+		
+		<bean class="converters.PhaseToStringConverter"/>
+		<bean class="converters.StringToPhaseConverter"/>
 		<!-- 
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 

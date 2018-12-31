@@ -9,22 +9,21 @@
 
 <security:authorize access="hasRole('CUSTOMER')">
 
-	<h3><jstl:out value="${warranty.title }" /></h3>
-	
+	<h2><jstl:out value="${warranty.title}" /></h2>
 
-	<h4><spring:message code="warranty.customer.terms"/></h4> <!--Añadir --><!-- Tiles -->
-	<br />
-		<jstl:forEach var="term" items="terms">
-				<jstl:out value="${term}" />
-				<br />
+	<h3><spring:message code="warranty.customer.terms"/></h3> <!--Añadir --><!-- Tiles -->
+		<ul>
+		<jstl:forEach var="term" items="${warranty.terms}">
+			<li><jstl:out value="${term}" /></li>
 		</jstl:forEach>
-	<br />
+		</ul>
 	
-	<h4><spring:message code="warranty.customer.laws"/></h4> <!--Añadir --><!-- Tiles -->
-	<br />
-		<jstl:forEach var="law" items="laws">
-				<jstl:out value="${law}" />
-				<br />
+	<h3><spring:message code="warranty.customer.laws"/></h3> <!--Añadir --><!-- Tiles -->
+		<ul>
+		<jstl:forEach var="law" items="${warranty.laws}">
+			<li><jstl:out value="${law}" /></li>
 		</jstl:forEach>
-
+		</ul>
+		
+	<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do?');"  value="<spring:message code="warranty.back.button"/>" />	
 </security:authorize>

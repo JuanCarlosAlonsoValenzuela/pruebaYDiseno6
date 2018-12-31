@@ -303,6 +303,11 @@ public class HandyWorkerService {
 
 		return saved;
 	}
+
+	public HandyWorker save2(HandyWorker handyWorker) {
+		return this.handyWorkerRepository.save(handyWorker);
+	}
+
 	public void delete(HandyWorker handyWorker) {
 		this.handyWorkerRepository.delete(handyWorker);
 	}
@@ -508,7 +513,7 @@ public class HandyWorkerService {
 	}
 	//11.2 ------------------------------------------------------------------------------------------------------------------
 
-	public void filterFixUpTasksByFinder() {
+		public void filterFixUpTasksByFinder() {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
@@ -518,39 +523,46 @@ public class HandyWorkerService {
 		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
 
 		Finder finder = logguedHandyWorker.getFinder();
-		Assert.isTrue(logguedHandyWorker.getFinder().getId() == finder.getId());
-
 		List<FixUpTask> result = new ArrayList<FixUpTask>();
 		result = this.fixUpTaskService.findAll();
 		Collection<FixUpTask> filter = new ArrayList<FixUpTask>();
 
-		if (finder.getKeyWord().equals(null)) {
+		//KeyWord
+		if (!finder.getKeyWord().equals(null) && !finder.getKeyWord().equals("")) {
 			filter = this.handyWorkerRepository.getFixUpTaskByKeyWord(finder.getKeyWord());
 			result.retainAll(filter);
 		}
-		if (finder.getCategory().equals(null)) {
+		//Category
+		if (!finder.getCategory().equals(null) && !finder.getCategory().equals("")) {
 			filter = this.handyWorkerRepository.getFixUpTaskByCategory(finder.getCategory());
 			result.retainAll(filter);
 		}
-		if (finder.getWarranty().equals(null)) {
+		//Warranty
+		if (!finder.getWarranty().equals(null) && !finder.getWarranty().equals("")) {
 			filter = this.handyWorkerRepository.getFixUpTasksByWarranty(finder.getWarranty());
 			result.retainAll(filter);
 		}
-		if (finder.getMinPrice().equals(null) || finder.getMaxPrice().equals(null)) {
+
+		//Prices
+		if (!(finder.getMaxPrice().equals(0.0) && finder.getMinPrice().equals(0.0))) {
 			Assert.isTrue(finder.getMinPrice() <= finder.getMaxPrice());
 			filter = this.handyWorkerRepository.getFixUpTasksByPrice(finder.getId());
 			result.retainAll(filter);
 		}
-		if (finder.getStartDate().equals(null) || finder.getEndDate().equals(null)) {
+
+		//Dates
+		if (finder.getStartDate() != null && finder.getEndDate() != null) {
 			Assert.isTrue(finder.getStartDate().before(finder.getEndDate()));
 			filter = this.handyWorkerRepository.getFixUpTasksByDate(finder.getId());
 			result.retainAll(filter);
 		}
+
 		Finder finderResult = new Finder();
 		finderResult = finder;
 		finderResult.setFixUpTasks(result);
-		this.finderService.save(finderResult);
-
+		Finder finderRes = this.finderService.save(finderResult);
+		logguedHandyWorker.setFinder(finderRes);
+		this.save(logguedHandyWorker);
 	}
 	//11.3 ------------------------------------------------------------------------------------------------------------------
 
@@ -954,28 +966,52 @@ public class HandyWorkerService {
 	}
 
 	//49.2
-	public void deleteEndorsment(Endorsement endorsment) {
-		UserAccount userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+	public void deleteEndorsment(Endorsement endorsement) {
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
+		HandyWorker handyWorker = this.findOne(endorsement.getWrittenBy().getId());
+		HandyWorker handyWorker2 = this.findOne(endorsement.getWrittenTo().getId());
+		Assert.isTrue(logguedHandyWorker.equals(handyWorker) || logguedHandyWorker.equals(handyWorker2));
 
-		Assert.isTrue(logguedHandyWorker.getEndorsements().contains(endorsment));
-		List<Endorsement> endorsments = logguedHandyWorker.getEndorsements();
-		endorsments.remove(endorsment);
-		logguedHandyWorker.setEndorsements(endorsments);
+		Customer customer = this.customerService.findOne(endorsement.getWrittenTo().getId());
+		Customer customer2 = this.customerService.findOne(endorsement.getWrittenBy().getId());
 
-		this.endorsmentService.delete(endorsment);
+		List<Customer> customers = this.getCustomersByHandyWorker(logguedHandyWorker);
+		Assert.isTrue(customers.contains(customer) || customers.contains(customer2));
+
+		Assert.isTrue(logguedHandyWorker.getEndorsements().contains(endorsement));
+
+		List<Endorsement> endorsementsH = logguedHandyWorker.getEndorsements();
+		endorsementsH.remove(endorsement);
+		logguedHandyWorker.setEndorsements(endorsementsH);
+
+		List<Endorsement> endorsementsC = new ArrayList<Endorsement>();
+		if (customers.contains(customer)) {
+			endorsementsC = customer.getEndorsements();
+			endorsementsC.remove(endorsement);
+			customer.setEndorsements(endorsementsC);
+			this.customerService.save(customer);
+		} else if (customers.contains(customer2)) {
+			endorsementsC = customer2.getEndorsements();
+			endorsementsC.remove(endorsement);
+			customer2.setEndorsements(endorsementsC);
+			this.customerService.save(customer2);
+		}
 		this.handyWorkerRepository.save(logguedHandyWorker);
+		this.endorsmentService.delete(endorsement);
+
 	}
 
 	public void updateEndorsment(Endorsement endorsment) {
-		UserAccount userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
+		HandyWorker handyWorker = this.findOne(endorsment.getWrittenBy().getId());
+		HandyWorker handyWorker2 = this.findOne(endorsment.getWrittenTo().getId());
+		Assert.isTrue(logguedHandyWorker.equals(handyWorker) || logguedHandyWorker.equals(handyWorker2));
+
+		Customer customer = this.customerService.findOne(endorsment.getWrittenTo().getId());
+		Customer customer2 = this.customerService.findOne(endorsment.getWrittenBy().getId());
+
+		List<Customer> customers = this.getCustomersByHandyWorker(logguedHandyWorker);
+		Assert.isTrue(customers.contains(customer) || customers.contains(customer2));
 
 		Assert.isTrue(logguedHandyWorker.getEndorsements().contains(endorsment));
 
@@ -984,44 +1020,31 @@ public class HandyWorkerService {
 		this.endorsmentService.save(endorsment);
 	}
 
-	//TODO COMPROBAR
 	public void createEndorsment(Endorsement endorsment) {
-		UserAccount userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
+		HandyWorker handyWorker = this.findOne(endorsment.getWrittenBy().getId());
+		Assert.isTrue(logguedHandyWorker.equals(handyWorker));
 
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
-
-		Assert.isTrue(endorsment.getWrittenBy().getUserAccount().equals(userAccount));
-
-		authorities = (List<Authority>) endorsment.getWrittenTo().getUserAccount().getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("CUSTOMER"));
-
-		List<Integer> ids = new ArrayList<Integer>();
-		ids = this.handyWorkerRepository.getCustomersFromHandyWorker(logguedHandyWorker.getId());
-
-		Customer customer = this.customerService.getCustomerByUserName(endorsment.getWrittenTo().getUserAccount().getUsername());
-		Assert.isTrue(ids.contains(customer.getId()));
+		Customer customer = this.customerService.findOne(endorsment.getWrittenTo().getId());
+		List<Customer> customers = this.getCustomersByHandyWorker(handyWorker);
+		Assert.isTrue(customers.contains(customer));
 
 		Endorsement newEndorsment = this.endorsmentService.save(endorsment);
-		List<Endorsement> end = endorsment.getWrittenTo().getEndorsements();
+		Assert.isTrue(this.endorsmentService.findAll().contains(newEndorsment));
+
+		List<Endorsement> end = handyWorker.getEndorsements();
 		end.add(newEndorsment);
+		handyWorker.setEndorsements(end);
 
-		Endorser endorser1 = this.endorserSevice.findOne(endorsment.getWrittenTo().getId());
-		endorser1.setEndorsements(end);
+		end = customer.getEndorsements();
+		end.add(newEndorsment);
+		customer.setEndorsements(end);
 
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
+		this.customerService.save(customer);
+		this.handyWorkerRepository.save(handyWorker);
 
-		this.endorserSevice.save(endorser1);
-
-		end = endorsment.getWrittenBy().getEndorsements();
-		end.add(endorsment);
-		Endorser endorser2 = this.endorserSevice.findOne(endorsment.getWrittenBy().getId());
-		endorser2.setEndorsements(end);
-		this.endorserSevice.save(endorser2);
-		this.endorsmentService.save(newEndorsment);
-
+		Assert.isTrue(this.customerService.findOne(customer.getId()).getEndorsements().contains(newEndorsment));
+		Assert.isTrue(this.findOne(handyWorker.getId()).getEndorsements().contains(newEndorsment));
 	}
 
 	public List<Endorsement> showEndorsments() {
@@ -1034,6 +1057,16 @@ public class HandyWorkerService {
 
 		List<Endorsement> endorsments = logguedHandyWorker.getEndorsements();
 		return endorsments;
+	}
+
+	public List<String> filterComments(List<String> comments) {
+		List<String> result = new ArrayList<String>();
+		for (String s : comments) {
+			if (!s.trim().isEmpty()) {
+				result.add(s);
+			}
+		}
+		return result;
 	}
 
 	//Test Methods ------------------------------------------
@@ -1049,7 +1082,7 @@ public class HandyWorkerService {
 
 		return this.handyWorkerRepository.getPhasesByApplication(application.getId());
 	}
-	public List<Integer> getIdCustomersByHandyWorker(HandyWorker handyWorker) {
+	public List<Customer> getCustomersByHandyWorker(HandyWorker handyWorker) {
 		return this.handyWorkerRepository.getCustomersFromHandyWorker(handyWorker.getId());
 	}
 }

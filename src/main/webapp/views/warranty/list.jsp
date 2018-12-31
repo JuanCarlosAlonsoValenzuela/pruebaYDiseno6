@@ -15,21 +15,13 @@
 	pagesize="5" name="warranties" id="row"
 	requestURI="${requestURI}" >
 	
-	<jstl:if test="${row.isDraftMode}">
-		<display:column>
-			<a href="warranty/edit.do?warrantyId=${row.id}">
-				<spring:message code="warranty.edit" />
-			</a>
-		</display:column>
-	</jstl:if>
-	
 	<display:column property="title" titleKey="warranty.title">
 		<jstl:out value="${row.title}" />
 	</display:column>
 	
 	<display:column titleKey="warranty.terms">
         <jstl:set var="termsSize" value="${row.terms.size()}" />
-        <spring:url var="termsUrl" value="/terms/list.do?warrantyId={warrId}">
+        <spring:url var="termsUrl" value="/warranty/administrator/terms/list.do?warrantyId={warrId}">
               <spring:param name="warrId" value="${row.id}"/>
         </spring:url>
         <a href="${termsUrl}">
@@ -40,10 +32,10 @@
 		
 	<display:column titleKey="warranty.laws">
         <jstl:set var="lawsSize" value="${row.laws.size()}" />
-        <spring:url var="lawsUrl" value="/laws/list.do?warrantyId={warrId}">
+        <spring:url var="lawsUrl" value="/warranty/administrator/laws/list.do?warrantyId={warrId}">
               <spring:param name="warrId" value="${row.id}"/>
         </spring:url>
-        <a href="${termsUrl}">
+        <a href="${lawsUrl}">
               <spring:message var ="viewLaws1" code="warranty.viewLaws" />
               <jstl:out value="${viewLaws1}(${lawsSize})" />    
         </a>
@@ -56,10 +48,21 @@
 		<jstl:if test="${!row.isDraftMode}" >
 				<spring:message code="warranty.finalMode" />
 		</jstl:if>
-	</display:column>										
+	</display:column>
+	
+	
+		<display:column>
+				<jstl:if test="${row.isDraftMode}">
+				<a href="warranty/administrator/edit.do?warrantyId=${row.id}">
+					<spring:message code="warranty.edit" />
+				</a>
+			</jstl:if>
+		</display:column>
+	
+												
 </display:table>
 <br />
 
-<a href="fixuptask/warranty/edit.do"><spring:message code="warranty.create" /></a>
+<a href="warranty/administrator/create.do"><spring:message code="warranty.create" /></a>
 
 </security:authorize> 

@@ -15,19 +15,23 @@
 <security:authorize access="hasRole('ADMIN')">
 
 	<display:table pagesize="5" name="laws" id="row"
-		requestURI="warraty/laws/list.do">
-
-		<display:column>
-			<input type="submit"
-				name="delete" value="<spring:message code="warranty.delete" />"
-				onclick="return confirm('<spring:message code="law.verificationDelete" />')" />
-		</display:column>
-
-		<display:column property="laws" titlekey="laws.name">
-			<jstl:out value="${laws}" />
-		</display:column>
+		requestURI="warranty/administrator/laws/list.do">
+			
+			<display:column titleKey="warranty.laws">
+				<jstl:out value="${row}" />
+			</display:column>
+		
 	</display:table>
+
+<jstl:if test="${warranty.isDraftMode}" >
+	<spring:url var="createLawUrl" value="/warranty/administrator/laws/create.do?warrantyId={warrantyId}">
+		<spring:param name="warrantyId" value="${warrantyId}"/>
+	</spring:url>
 	
-<a href="warranty/law/create.do"><spring:message code="law.create" /></a>
+	<a href="${createLawUrl}"><spring:message code="law.create" /></a>
+	<br />
+</jstl:if>
+
+<a href="warranty/administrator/list.do"><spring:message code="warranty.back" /></a>
 
 </security:authorize>

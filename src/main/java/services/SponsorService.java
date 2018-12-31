@@ -156,7 +156,7 @@ public class SponsorService {
 		return s;
 	}
 
-	public Sponsor save(Sponsor sponsor) {	//Tenemos un listBox vacía
+	public Sponsor saveCreate(Sponsor sponsor) {	//Tenemos un listBox vacía
 
 		List<Box> boxes = new ArrayList<>();
 
@@ -186,7 +186,7 @@ public class SponsorService {
 		return this.sponsorRepository.save(sponsor);
 	}
 
-	public Sponsor updateSponsor(Sponsor s) {
+	public Sponsor save(Sponsor s) {
 		return this.sponsorRepository.save(s);
 	}
 

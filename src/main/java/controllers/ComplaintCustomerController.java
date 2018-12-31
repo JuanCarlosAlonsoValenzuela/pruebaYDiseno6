@@ -77,7 +77,7 @@ public class ComplaintCustomerController extends AbstractController {
 		} else {
 			try {
 				complaint.setAttachments(attachments);
-				this.customerService.createComplaint(fixUpTask, complaint);
+				this.customerService.createComplaint(fixUpTask);
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(complaint, "complaint.commit.error");

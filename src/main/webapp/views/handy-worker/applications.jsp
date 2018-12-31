@@ -39,7 +39,7 @@
 		<display:column titleKey="handyWorker.workPlan">	
 			<!-- Solo deja crear un WorkPlan si está aceptada-->	
 			<jstl:if test="${row.status == 'ACCEPTED'}">
-					<spring:url var="statusUrl" value="/workPlan/handyWorker/edit.do?applicationId={appId}">
+					<spring:url var="statusUrl" value="/phase/handyWorker/list.do?applicationId={appId}">
 							<spring:param name="appId" value="${row.id}"/>
 					</spring:url>
 					<jstl:if test="${row.fixUpTask.phases.size()==0}" >

@@ -53,7 +53,7 @@ public class AdministratorCreateUserController extends AbstractController {
 			result = this.createEditModelAndView(admin);
 		} else {
 			try {
-				this.adminService.save(admin);
+				this.adminService.saveCreate(admin);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(admin, "admin.commit.error");
@@ -106,7 +106,7 @@ public class AdministratorCreateUserController extends AbstractController {
 			result = this.createEditModelAndView(referee);
 		} else {
 			try {
-				this.refereeService.save(referee);
+				this.refereeService.saveCreate(referee);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(referee, "referee.commit.error");

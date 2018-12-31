@@ -1,31 +1,30 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Endorsement extends DomainEntity {
 
-	private Date				moment;
-	private Collection<String>	comments;
-	private Endorser			writtenBy;
-	private Endorser			writtenTo;
+	private Date			moment;
+	private List<String>	comments;
+	private Endorser		writtenBy;
+	private Endorser		writtenTo;
 
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Past
 	@NotNull
 	public Date getMoment() {
@@ -36,13 +35,12 @@ public class Endorsement extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@Valid
 	@ElementCollection(targetClass = String.class)
-	public Collection<String> getComments() {
+	public List<String> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(final List<String> comments) {
 		this.comments = comments;
 	}
 

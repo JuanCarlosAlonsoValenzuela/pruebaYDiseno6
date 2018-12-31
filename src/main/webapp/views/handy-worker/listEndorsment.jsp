@@ -16,8 +16,8 @@
 	pagesize="5" class="displaytag">
 	
  	  <display:column>
- 	  	<a href="endorsment/handyworker/edit.do?endorsmentId=${endorsment.id}">
- 	  		<spring:message code="endorsment.edit" />
+ 	  	<a href="endorsement/handyWorker/edit.do?endorsementId=${row.id}">
+ 	  		<spring:message code="endorsment.addComment" />
  	  	</a>
  	  </display:column>
 
@@ -34,8 +34,8 @@
       
       <display:column titleKey="endorsment.comments">
 				<jstl:set var="commentsSize" value="${row.comments.size()}" />
-				<spring:url var="attachmetsUrl" value="/comments/endorser/list.do">
-							<spring:param name="endorsement" value="${row.id}"/>
+				<spring:url var="commentsUrl" value="endorsement/handyWorker/listComments.do">
+							<spring:param name="endorsementId" value="${row.id}"/>
 				</spring:url>
 				<a href="${commentsUrl}">
 							<spring:message var ="viewComments1" code="endorsment.viewComments" />
@@ -45,7 +45,7 @@
 </display:table>
 
 <div>
-	<a href="endorsment/handyworker/create.do">
+	<a href="endorsement/handyWorker/create.do">
 		<spring:message code="endorsment.create" />
 	</a>
 </div>

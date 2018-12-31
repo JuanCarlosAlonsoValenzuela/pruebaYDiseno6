@@ -178,7 +178,7 @@ public class RefereeService {
 		return s;
 	}
 
-	public Referee save(Referee referee) {	//Tenemos un listBox vacía
+	public Referee saveCreate(Referee referee) {	//Tenemos un listBox vacía
 
 		List<Box> boxes = new ArrayList<>();
 
@@ -208,7 +208,7 @@ public class RefereeService {
 		return this.refereeRepository.save(referee);
 	}
 
-	public Referee updateReferee(Referee referee) {
+	public Referee save(Referee referee) {
 		return this.refereeRepository.save(referee);
 	}
 
