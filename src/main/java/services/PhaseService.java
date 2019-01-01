@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.PhaseRepository;
 import domain.Application;
@@ -60,6 +61,18 @@ public class PhaseService {
 
 	public void delete(Phase phase) {
 		this.phaseRepository.delete(phase);
+	}
+
+	public void saveWithPreviousCheck(Phase phase, int applicationId) {
+		Application application = this.applicationService.findOne(applicationId);
+		FixUpTask fixUpTask = application.getFixUpTask();
+
+		Date start = fixUpTask.getMomentPublished();
+		Date end = fixUpTask.getRealizationTime();
+
+		Assert.isTrue((phase.getStartMoment().after(start) || phase.getStartMoment().equals(start)) && (phase.getEndMoment().before(end) || phase.getEndMoment().equals(end)));
+
+		this.phaseRepository.save(phase);
 	}
 
 	public void saveAndUpdateFixUpTask(Phase phase, int applicationId) {
