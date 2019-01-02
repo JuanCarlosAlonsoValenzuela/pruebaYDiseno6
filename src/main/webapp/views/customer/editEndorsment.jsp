@@ -31,7 +31,7 @@
 		<br/>
 		
 		
-		<input type="submit" name="save" value="<spring:message code="customer.save" />" />
+		<input type="submit" name="save" value="<spring:message code="customer.addComment" />" />
 	
 		<input type="button" name="cancel" value="<spring:message code="customer.cancel" />"
 			onClick="javascript:relativeRedir('endorsement/customer/list.do');" />

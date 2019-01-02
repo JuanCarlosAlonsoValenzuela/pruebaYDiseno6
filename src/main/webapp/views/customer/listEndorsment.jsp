@@ -17,7 +17,7 @@
 	
  	  <display:column>
  	  	<a href="endorsement/customer/comment/create.do?endorsementId=${row.id}">
- 	  		<spring:message code="endorsment.addComment" />
+ 	  		<spring:message code="customer.addComment" />
  	  	</a>
  	  </display:column>
 
