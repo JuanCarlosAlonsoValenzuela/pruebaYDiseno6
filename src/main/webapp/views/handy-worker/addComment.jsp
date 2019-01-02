@@ -12,8 +12,8 @@
 
 <form name="comment" id="comment" action="application/handyWorker/saveComment.do" method="post" >
 
-	<label for="male"><spring:message code="comment.text" />: </label>
-	<input type="text" name="comment" id="comment" placeholder="<spring:message code="comment.writeComment"/>" value="${comment}"/>
+	<label for="text"><spring:message code="comment.text" />: </label>
+	<input type="text" name="comment" id="comment" required="required" placeholder="<spring:message code="comment.writeComment"/>" value="${comment}"/>
 	<input type="hidden" name="applicationId" id="applicationId" value="<jstl:out value="${applicationId}"/>"/>
 	
 	<input type="submit" name="create" value="<spring:message code="comment.create"/>" />	

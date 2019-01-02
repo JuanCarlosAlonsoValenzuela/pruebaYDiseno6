@@ -6,22 +6,30 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="report.note" /></p>	
+<p><spring:message code="report.addNote" /></p>	
 
 
-<form:form action="/report/note/edit.dodit.do" modelAttribute="complaint">
+<form:form action="note/handyWorker/edit.do" modelAttribute="note">
 
 		<!-- Hidden Attributes -->
 		<form:hidden path="id"/>
 		<form:hidden path="moment" />
-		<form:hidden path="optionalComment" />
+		<input type="hidden" name="reportId" id="reportId" value="<jstl:out value="${param.reportId}"/>"/>
 		
 		<!--  Mandatory Comment -->
-		<form:label path="mandatoryComment">	<!-- Tiles -->
-			<spring:message code="note.mandatoryComment" />	
-		</form:label>
-		<form:textarea path="mandatoryComment"/>
-		<form:errors cssClass="error" path="mandatoryComment"/>
+		<label for="text"><spring:message code="note.mandatoryComment" />: </label>
+		<input type="text" name="mandatoryComment" required="required" id="mandatoryComment" placeholder="<spring:message code="comment.writeComment"/>"/>
+		
+		</br>
+		<input type="submit" name="save" value="<spring:message code="note.create.button"/>" />	
 
 
 </form:form>
+
+
+<spring:url var="noteUrl" value="/note/handyWorker/list.do?reportId={reportId}">
+	<spring:param name="reportId" value="${param.reportId}"/>
+	</spring:url>
+	<a href="${noteUrl}">
+	<button><spring:message code="comment.cancel" /></button>	 	
+	</a>
