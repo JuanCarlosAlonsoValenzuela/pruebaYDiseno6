@@ -70,6 +70,25 @@
 				<jstl:out value="${row.category.name}"/>
 		</display:column>
 		
+		<!-- Complaints -->
+		
+		<display:column titleKey="fixUpTask.complaints">
+
+			<jstl:if test="${count=='1'}">
+			
+			<jstl:set var="complaintsSize" value="${row.complaints.size()}" />
+			<spring:url var="complaintsUrl" value="/complaint/handyWorker/list.do?fixUpTaskId={fixId}">
+						<spring:param name="fixId" value="${row.id}" />
+			</spring:url>
+			
+			<a href="${complaintsUrl}">
+							<spring:message var="seeComplaints" code="fixUpTask.seeComplaints"/> 	
+							<jstl:out value="${seeComplaints}(${complaintsSize})" />
+						</a>
+			</jstl:if>
+		</display:column>
+		
+		
 		<!-- Customer -->.
 		<display:column titleKey="fixUpTask.customerUsername">	
 				

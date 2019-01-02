@@ -13,9 +13,7 @@
 
 
 	<display:table pagesize="5" name="complaints" id="row"
-	class="displaytag" requestURI="/complaints/customer/list.do">
-		
-		<display:column property="ticker" titleKey="complaint.ticker" /> 
+	class="displaytag" requestURI="/complaint/handyWorker/list.do">
 		
 		<display:column property="moment" titleKey="complaint.moment"
 					sortable="true" format="{0,date,dd/MM/yyyy HH:mm}"  />	
@@ -24,15 +22,34 @@
 			
 				<display:column titleKey="complaint.attachments">
 				<jstl:set var="attachmentsSize" value="${row.attachments.size()}" />
-				<spring:url var="attachmetsUrl" value="/attachment/list.do?complaintnId={compId}">
-							<spring:param name="compId" value="${row.id}"/>
+				<spring:url var="attachmetsUrl" value="/complaint/handyWorker/attachmentList.do">
+							<spring:param name="complaintId" value="${row.id}"/>
+							<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 				</spring:url>
-				<a href="${attachmentsUrl}">
+				<a href="${attachmetsUrl}">
 							<spring:message var ="viewAttachments1" code="complaint.viewAttachments" />
-							<jstl:out value="$viewAttachments1}(${attachmentsSize})" />		
+							<jstl:out value="${viewAttachments1}(${attachmentsSize})" />		
+				</a>
+		</display:column>
+		
+		<display:column titleKey="complaint.reports">
+		<jstl:set var="reportsSize" value="${row.reports.size()}" />
+		<spring:url var="reportsUrl" value="/report/handyWorker/list.do">
+							<spring:param name="complaintId" value="${row.id}"/>
+							<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
+		</spring:url>
+		<a href="${reportsUrl}">
+							<spring:message var ="viewReports1" code="complaint.viewReports" />
+							<jstl:out value="${viewReports1} (${reportsSize})" />		
 				</a>
 		</display:column>
 		</display:table>
+		
+	<spring:url var="fixUpTaksUrl" value="/fixUpTask/handyWorker/list.do">
+	</spring:url>
+	<a href="${fixUpTaksUrl}">
+		<spring:message code="handyWorker.back" />			
+	</a>
 		
 		
 	

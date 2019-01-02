@@ -8,8 +8,22 @@
 
 <p><spring:message code="report.attachments" /></p>
 
-<jstl:forEach var="attachment" items="attachments">
-			<jstl:out value="${attachment}" />
-			<br /> 
-	</jstl:forEach> 	
-	
+<security:authorize access="hasRole('HANDYWORKER')">
+
+<display:table pagesize="5" name="attachments" id="row" class="displaytag" 
+					requestURI="/report/handyWorker/attachmentList.do">
+	<display:column titleKey="report.attachments">
+		<jstl:out value="${row}"/>
+	</display:column>
+</display:table>
+
+<spring:url var="reportUrl" value="/report/handyWorker/list.do">
+	<spring:param name="reportId" value="${param.reportId}"/>
+	<spring:param name="complaintId" value="${param.complaintId}"/>
+	<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
+	</spring:url>
+	<a href="${reportUrl}">
+		<spring:message code="handyWorker.back" />			
+	</a>
+
+</security:authorize>	

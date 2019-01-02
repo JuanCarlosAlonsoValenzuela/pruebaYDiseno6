@@ -12,30 +12,43 @@
 
  	
 	<display:table pagesize="5" name="notes" id="row" class="displaytag"
-			requestURI="report/note/list.do"> 
+			requestURI="note/handyWorker/list.do"> 
 			
 	<display:column property="moment" titleKey="note.moment"/>
 	
 	<display:column property="mandatoryComment" titleKey="note.mandatoryComment"/>
-		
 	<display:column titleKey="note.comments">
 				<jstl:set var="optionalCommentsSize" value="${row.optionalComments.size()}" />
-				<spring:url var="commentsUrl" value="report/note/comment/list.do?noteId{notId}">
-							<spring:param name="notId" value="${row.id}"/>
+				<spring:url var="commentsUrl" value="note/handyWorker/listComments.do?noteId={noteId}&reportId={reportId}">
+							<spring:param name="noteId" value="${row.id}"/>
+							<spring:param name="reportId" value="${reportId}"/>
+							<spring:param name="complaintId" value="${param.complaintId}"/>	
+							<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 				</spring:url>
 				<a href="${commentsUrl}">
 							<spring:message var ="viewComments1" code="note.viewComments" />
-							<jstl:out value="$viewComments1}(${commentsSize})" />		
+							<jstl:out value="${viewComments1}(${optionalCommentsSize})" />		
 				</a>
 	</display:column>
 		
 	</display:table>
 	
-	<spring:url var="createNoteUrl" value="report/note/edit.do?reportId={repId}">
-					<spring:param name="repId" value="${repId}"/>
+	<spring:url var="createNoteUrl" value="note/handyWorker/edit.do?reportId={repId}">
+					<spring:param name="repId" value="${reportId}"/>
 		</spring:url>
 		
 	
 		<a href="${createNoteUrl}">
 				<spring:message code="note.create" />			
 		</a>
+		
+	</br>	
+			<spring:url var="complaintUrl" value="/report/handyWorker/list.do">
+		<spring:param name="complaintId" value="${param.complaintId}"/>	
+		<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
+		
+	</spring:url>
+	<a href="${complaintUrl}">
+		<spring:message code="handyWorker.back" />			
+	</a>
+	
