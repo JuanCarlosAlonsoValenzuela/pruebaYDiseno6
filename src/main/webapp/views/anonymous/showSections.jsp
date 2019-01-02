@@ -31,12 +31,17 @@
 	</display:column>
 	<display:column property="text" titleKey="section.text">
 	</display:column>
+
 	<display:column titleKey="tutorial.pictures">
-		<jstl:forEach  items="${row.sectionPictures}" var="picture">
-			<a href="${picture}">Picture ${row.sectionPictures.indexOf(picture)+1}</a>
-			<br />  
-		</jstl:forEach>
-	</display:column>							
+		<jstl:set var="picturesSize" value="${row.sectionPictures.size()}" />
+		<spring:url var="picturesUrl" value="section/anonymous/showPictures.do">
+			<spring:param name="sectionId" value="${row.id}"/>
+		</spring:url>
+		<a href="${picturesUrl}">
+			<spring:message var ="viewPic" code="tutorial.picture" />
+			<jstl:out value="${viewPic}(${picturesSize})" />		
+		</a>
+	</display:column>						
 </display:table>
 <jstl:if test="${canEdit}">
 	<spring:url var="editSectionUrl" value="section/handyWorker/create.do">
@@ -45,6 +50,13 @@
 	<a href="${editSectionUrl}">
 		<spring:message code="section.create" />			
 	</a>
+</jstl:if>
+<br /> 
+<br /> 
+
+<jstl:if test="${canEdit}">
+	<input type="button" name="cancel" value="<spring:message code="section.back" />"
+	onClick="javascript: relativeRedir('tutorial/handyWorker/listHandyTutorials.do');" />
 </jstl:if>
 
 <br /> 

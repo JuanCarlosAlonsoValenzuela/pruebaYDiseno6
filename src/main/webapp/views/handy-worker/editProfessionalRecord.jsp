@@ -10,11 +10,12 @@
 
 <security:authorize access="hasRole('HANDYWORKER')">
 
-	<form:form modelAttribute="professionalRecord" action="professionalRecord/handyworker/edit.do">
+	<form:form modelAttribute="professionalRecord" action="curriculum/handyWorker/editProfessionalRecord.do">
 		
 		<!-- Hidden Attributes -->
 		<form:hidden path ="id"/>
 		<form:hidden path ="version"/>
+		<form:hidden path ="comments"/>
 		
 		
 		<!-- Company Name -->
@@ -29,16 +30,16 @@
 		<form:label path="startDate"> 
 			<spring:message code="professionalRecord.startDate" />		
 		</form:label>
-		<form:input path="startDate" placeholder="dd/MM/yyyy HH:mm" />
+		<form:input path="startDate" placeholder="dd/MM/yyyy" />
 		<form:errors cssClass="error" path="startDate" />
-		
+		<br />
 		<!-- End Date -->
 		<form:label path="endDate"> 
 			<spring:message code="professionalRecord.endDate" />		
 		</form:label>
-		<form:input path="endDate" placeholder="dd/MM/yyyy HH:mm" />
+		<form:input path="endDate" placeholder="dd/MM/yyyy" />
 		<form:errors cssClass="error" path="endDate" />
-		
+		<br />
 		<!-- Role -->
 		<form:label path="role">
 			<spring:message code="professionalRecord.role"/>	
@@ -50,21 +51,29 @@
 		<!-- Link Attachment -->
 		<form:label path="linkAttachment">
 			<spring:message code="professionalRecord.linkAttachment"/>	
-		</form:label>
-		<form:input path="linkAttachment" />
+		</form:label> 
+		<form:input path="linkAttachment" placeholder="https://www.example.com/..." />
 		<form:errors cssClass="error" path="linkAttachment"/>
+		<br />
+		
+		<spring:message code="comments.create"/>
+		<input type="hidden" name="newComment" value=""/>
+		<textarea rows="12" cols="50" name="newComment" id="newComment" placeholder="<spring:message code="comments.create"/>" ></textarea>
 		<br />
 		
 		
 		<!-- Buttons -->
-		<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" />
+		<jstl:choose>
+			<jstl:when test="${professionalRecord.id == 0}">
+				<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" />
+			</jstl:when><jstl:otherwise>
+				<input type="submit" name="edit" value="<spring:message code="curriculum.edit" />" />
+				<input type="submit" name="delete" value="<spring:message code="handyWorker.delete" />" onclick="return confirm('<spring:message code="professionalRecord.delete.confirm" />')" />
+			</jstl:otherwise>
+		</jstl:choose>
 
-		<input type="submit" <jstl:if test="${endorsment.id == 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
-		 			name="delete" value="<spring:message code="handyWorker.delete" />" 
-					onClick="return confirm('<spring:message code="handyWorker.verificationDelete" />')">
-	
-		<input type="submit" name="cancel" value="<spring:message code="handyWorker.cancel" />"
-				onClick="javascript: relativeRedir('handyWorker/endorsementList.do');" />
+		<input type="button" name="cancel" value="<spring:message code="handyWorker.cancel" />"
+				onClick="javascript: relativeRedir('curriculum/handyWorker/show.do');" />
 		
 	
 	</form:form>

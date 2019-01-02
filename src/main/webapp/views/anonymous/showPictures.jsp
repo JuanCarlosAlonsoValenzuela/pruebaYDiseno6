@@ -6,19 +6,17 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="handyworker.endorsmentComments" /></p>
+<p><spring:message code="anonymous.showPictures" /> <jstl:out value="${tutorial.title}"></jstl:out></p>
 
-<security:authorize access="hasRole('HANDYWORKER')">
-	
-<display:table pagesize="5" name="${comments}" id="comment"
+
+<display:table pagesize="5" name="${pictures}" id="picture"
 	requestURI="${requestURI}">
-	<display:column titleKey="handyworker.endorsmentComments">
-		<strong><jstl:out value="${comment}" /></strong>
+	<display:column titleKey="tutorial.picture">
+		<a href="${picture.trim()}" target="_blank"><spring:message code="tutorial.picture" /> ${pictures.indexOf(picture)+1}</a>
 	</display:column>
 	
 </display:table>
 	
-	<input type="button" name="cancel" value="<spring:message code="handyWorker.back" />"
-		onClick="javascript:relativeRedir('endorsement/handyWorker/list.do');" />
 
-</security:authorize>
+
+

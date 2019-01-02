@@ -63,6 +63,19 @@ public class SectionController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/anonymous/showPictures", method = RequestMethod.GET)
+	public ModelAndView showPictures(@RequestParam int sectionId) {
+
+		ModelAndView result;
+		Section section = this.sectionService.findOne(sectionId);
+
+		result = new ModelAndView("section/anonymous/showPictures");
+		result.addObject("pictures", section.getSectionPictures());
+		result.addObject("requestURI", "section/anonymous/showPictures.do");
+
+		return result;
+
+	}
 	@RequestMapping(value = "/handyWorker/list", method = RequestMethod.GET)
 	public ModelAndView listActor(@RequestParam int tutorialId) {
 

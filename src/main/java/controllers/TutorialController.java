@@ -63,6 +63,20 @@ public class TutorialController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/anonymous/showPictures", method = RequestMethod.GET)
+	public ModelAndView showPictures(@RequestParam int tutorialId) {
+
+		ModelAndView result;
+		Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+
+		result = new ModelAndView("tutorial/anonymous/showPictures");
+		result.addObject("pictures", tutorial.getPictures());
+		result.addObject("requestURI", "tutorial/anonymous/showPictures.do");
+
+		return result;
+
+	}
+
 	@RequestMapping(value = "/actor/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 

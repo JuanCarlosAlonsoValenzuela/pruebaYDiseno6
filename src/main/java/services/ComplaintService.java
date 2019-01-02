@@ -53,7 +53,7 @@ public class ComplaintService {
 	}
 
 	//Método auxiliar para generar el ticker-------------------------------
-	private String generateTicker() {
+	public String generateTicker() {
 		String res = "";
 		Date date = null;
 		String date1;

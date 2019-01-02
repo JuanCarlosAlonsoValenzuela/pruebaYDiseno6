@@ -39,6 +39,14 @@ public class HandyWorkerController extends AbstractController {
 		HandyWorker handyWorker = this.handyWorkerService.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(handyWorker);
 		Boolean canEdit = false;
+		Boolean hasCurriculum;
+
+		try {
+			Assert.notNull(handyWorker.getCurriculum());
+			hasCurriculum = true;
+		} catch (Exception e) {
+			hasCurriculum = false;
+		}
 
 		List<Sponsorship> sponsorships = this.tutorialService.getRandomSponsorShips(handyWorker.getTutorials());
 
@@ -48,6 +56,7 @@ public class HandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("handyWorker/actor/showProfile");
 
+		result.addObject("hasCurriculum", hasCurriculum);
 		result.addObject("sponsorships", sponsorships);
 		result.addObject("canEdit", canEdit);
 		result.addObject("handyWorker", handyWorker);
@@ -61,11 +70,20 @@ public class HandyWorkerController extends AbstractController {
 		HandyWorker handyWorker = this.handyWorkerService.findOne(handyId);
 		Assert.notNull(handyWorker);
 		Boolean canEdit = false;
+		Boolean hasCurriculum;
+
+		try {
+			Assert.notNull(handyWorker.getCurriculum());
+			hasCurriculum = true;
+		} catch (Exception e) {
+			hasCurriculum = false;
+		}
 
 		List<Sponsorship> sponsorships = this.tutorialService.getRandomSponsorShips(handyWorker.getTutorials());
 
 		result = new ModelAndView("handyWorker/anonymous/showProfile");
 
+		result.addObject("hasCurriculum", hasCurriculum);
 		result.addObject("sponsorships", sponsorships);
 		result.addObject("canEdit", canEdit);
 		result.addObject("handyWorker", handyWorker);

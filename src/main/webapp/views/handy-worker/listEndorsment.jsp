@@ -28,8 +28,14 @@
       <display:column titleKey="endorsment.writtenBy" sortable="true">
       		<jstl:out value="${row.writtenBy.name} ${row.writtenBy.middleName} ${row.writtenBy.surname}" />
       </display:column>
+      <display:column titleKey="endorsment.score" sortable="true">
+      		<jstl:out value="${row.writtenBy.score}" />
+      </display:column>
       <display:column titleKey="endorsment.writtenTo" sortable="true">
       		<jstl:out value="${row.writtenTo.name} ${row.writtenTo.middleName} ${row.writtenTo.surname}" />
+      </display:column>
+      <display:column titleKey="endorsment.score" sortable="true">
+      		<jstl:out value="${row.writtenTo.score}" />
       </display:column>
       
       <display:column titleKey="endorsment.comments">

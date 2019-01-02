@@ -86,7 +86,7 @@ public class PhaseHandyWorkerController extends AbstractController {
 				if (phase.getId() == 0) {
 					this.phaseService.saveAndUpdateFixUpTask(phase, applicationId);
 				} else {
-					this.phaseService.save(phase);
+					this.phaseService.saveWithPreviousCheck(phase, applicationId);
 				}
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {

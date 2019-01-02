@@ -47,7 +47,6 @@ public class EndorsementHandyWorkerController extends AbstractController {
 		return result;
 
 	}
-
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
@@ -70,7 +69,8 @@ public class EndorsementHandyWorkerController extends AbstractController {
 		Endorsement endorsement = this.endorsementService.findOne(endorsementId);
 
 		result = this.createEditModelAndView(endorsement);
-
+		result.addObject("username", LoginService.getPrincipal().getUsername());
+		result.addObject("username2", endorsement.getWrittenBy().getUserAccount().getUsername());
 		return result;
 	}
 
@@ -82,6 +82,7 @@ public class EndorsementHandyWorkerController extends AbstractController {
 		result = new ModelAndView("endorsement/handyWorker/listComments");
 		result.addObject("comments", this.handyWorkerService.filterComments(endorsement.getComments()));
 		result.addObject("endorsementId", endorsementId);
+		result.addObject("requestURI", "endorsement/handyWorker/listComments.do");
 		return result;
 	}
 

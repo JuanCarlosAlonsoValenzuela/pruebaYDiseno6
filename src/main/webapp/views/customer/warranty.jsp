@@ -11,19 +11,25 @@
 
 	<h2><jstl:out value="${warranty.title}" /></h2>
 
-	<h3><spring:message code="warranty.customer.terms"/></h3> <!--Añadir --><!-- Tiles -->
-		<ul>
-		<jstl:forEach var="term" items="${warranty.terms}">
-			<li><jstl:out value="${term}" /></li>
-		</jstl:forEach>
-		</ul>
+	<display:table pagesize="5" name="terms" id="row" class="displaytag" 
+					requestURI="phase/customer/list.do">
+					
+		<display:column titleKey="warranty.customer.terms">
+			<jstl:out value="${row}"/>
+		</display:column>
+		
+	</display:table>
 	
-	<h3><spring:message code="warranty.customer.laws"/></h3> <!--Añadir --><!-- Tiles -->
-		<ul>
-		<jstl:forEach var="law" items="${warranty.laws}">
-			<li><jstl:out value="${law}" /></li>
-		</jstl:forEach>
-		</ul>
+	<br/>
+	
+	<display:table pagesize="5" name="laws" id="row" class="displaytag" 
+					requestURI="phase/customer/list.do">
+					
+		<display:column titleKey="warranty.customer.laws">
+			<jstl:out value="${row}"/>
+		</display:column>
+		
+	</display:table>
 		
 	<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do?');"  value="<spring:message code="warranty.back.button"/>" />	
 </security:authorize>

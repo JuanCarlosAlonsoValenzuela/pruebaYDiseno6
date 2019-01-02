@@ -337,7 +337,7 @@ public class HandyWorkerService {
 		return lr;
 	}
 
-	public Curriculum addCurriculum() {
+	public void addCurriculum(Curriculum curriculum) {
 
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
@@ -349,65 +349,31 @@ public class HandyWorkerService {
 
 		Assert.isNull(logguedHandyWorker.getCurriculum());
 
-		Curriculum curriculum = this.curriculumService.create();
 		logguedHandyWorker.setCurriculum(curriculum);
 		this.handyWorkerRepository.save(logguedHandyWorker);
-		this.curriculumService.save(curriculum);
-		return curriculum;
-
-	}
-
-	public Curriculum addCurriculum(PersonalRecord personalRecord, List<ProfessionalRecord> professionalRecords, List<EducationRecord> educationRecords, List<MiscellaneousRecord> miscellaneousRecords, List<EndorserRecord> endorserRecords) {
-
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
-
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
-
-		Assert.isNull(logguedHandyWorker.getCurriculum());
-
-		Curriculum curriculum = this.curriculumService.create(endorserRecords, miscellaneousRecords, educationRecords, professionalRecords, personalRecord);
-		logguedHandyWorker.setCurriculum(curriculum);
-		this.handyWorkerRepository.save(logguedHandyWorker);
-		this.curriculumService.save(curriculum);
-		return curriculum;
 
 	}
 
 	public void deleteCurriculum(Curriculum curriculum) {
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
-
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
 
 		Assert.isTrue(logguedHandyWorker.getCurriculum().equals(curriculum));
+		logguedHandyWorker.setCurriculum(null);
+		this.handyWorkerRepository.save(logguedHandyWorker);
 
 		this.curriculumService.delete(curriculum);
 
 	}
 
-	public Curriculum editCurriculum(Curriculum curriculum, PersonalRecord personalRecord, List<ProfessionalRecord> professionalRecords, List<EducationRecord> educationRecords, List<MiscellaneousRecord> miscellaneousRecords,
-		List<EndorserRecord> endorserRecords) {
+	public Curriculum editCurriculum(Curriculum curriculum) {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
 		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
 
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
 
 		Assert.isTrue(logguedHandyWorker.getCurriculum().equals(curriculum));
-		curriculum.setEducationRecords(educationRecords);
-		curriculum.setEndorserRecords(endorserRecords);
-		curriculum.setMiscellaneousRecords(miscellaneousRecords);
-		curriculum.setPersonalRecord(personalRecord);
-		curriculum.setProfessionalRecords(professionalRecords);
 		return this.curriculumService.save(curriculum);
 	}
 
@@ -969,8 +935,7 @@ public class HandyWorkerService {
 	public void deleteEndorsment(Endorsement endorsement) {
 		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
 		HandyWorker handyWorker = this.findOne(endorsement.getWrittenBy().getId());
-		HandyWorker handyWorker2 = this.findOne(endorsement.getWrittenTo().getId());
-		Assert.isTrue(logguedHandyWorker.equals(handyWorker) || logguedHandyWorker.equals(handyWorker2));
+		Assert.isTrue(logguedHandyWorker.equals(handyWorker));
 
 		Customer customer = this.customerService.findOne(endorsement.getWrittenTo().getId());
 		Customer customer2 = this.customerService.findOne(endorsement.getWrittenBy().getId());
@@ -998,6 +963,8 @@ public class HandyWorkerService {
 		}
 		this.handyWorkerRepository.save(logguedHandyWorker);
 		this.endorsmentService.delete(endorsement);
+		this.configurationService.computeScore(endorsement.getWrittenBy());
+		this.configurationService.computeScore(endorsement.getWrittenTo());
 
 	}
 
@@ -1018,6 +985,8 @@ public class HandyWorkerService {
 		this.configurationService.isActorSuspicious(logguedHandyWorker);
 
 		this.endorsmentService.save(endorsment);
+		this.configurationService.computeScore(endorsment.getWrittenBy());
+		this.configurationService.computeScore(endorsment.getWrittenTo());
 	}
 
 	public void createEndorsment(Endorsement endorsment) {
@@ -1042,6 +1011,8 @@ public class HandyWorkerService {
 
 		this.customerService.save(customer);
 		this.handyWorkerRepository.save(handyWorker);
+		this.configurationService.computeScore(endorsment.getWrittenBy());
+		this.configurationService.computeScore(endorsment.getWrittenTo());
 
 		Assert.isTrue(this.customerService.findOne(customer.getId()).getEndorsements().contains(newEndorsment));
 		Assert.isTrue(this.findOne(handyWorker.getId()).getEndorsements().contains(newEndorsment));

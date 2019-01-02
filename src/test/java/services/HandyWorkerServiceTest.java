@@ -22,18 +22,13 @@ import domain.Application;
 import domain.Complaint;
 import domain.Curriculum;
 import domain.Customer;
-import domain.EducationRecord;
 import domain.Endorsement;
 import domain.Endorser;
-import domain.EndorserRecord;
 import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
-import domain.MiscellaneousRecord;
 import domain.Note;
-import domain.PersonalRecord;
 import domain.Phase;
-import domain.ProfessionalRecord;
 import domain.Report;
 import domain.Tutorial;
 
@@ -108,26 +103,28 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		Assert.isTrue(this.handyWorkerService.findAll().size() == before + 1);
 	}
 
-	@Test
-	public void addCurriculum() {
-		Actor h = new Actor();
-		h = this.actorService.getActorByUsername("Pepe2HW");
-		super.authenticate("Pepe2HW");
-
-		HandyWorker handyWorker = new HandyWorker();
-		handyWorker = this.handyWorkerService.getHandyWorkerByUsername("Pepe2HW");
-
-		Assert.isNull(handyWorker.getCurriculum());
-
-		List<EndorserRecord> endorserRecords = new ArrayList<>();
-		List<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>();
-		List<EducationRecord> educationRecords = new ArrayList<>();
-		List<ProfessionalRecord> professionalRecords = new ArrayList<>();
-		PersonalRecord personalRecord = this.personalRecordService.create("Prueba", "https://trello.com/b/MD1aM3qn/proyecto-4-dp", "rhermoso98@gmail.com", "+34686310633", "https://trello.com/b/MD1aM3qn/proyecto-4-dp");
-		Curriculum curriculum = this.handyWorkerService.addCurriculum(personalRecord, professionalRecords, educationRecords, miscellaneousRecords, endorserRecords);
-
-		Assert.notNull(handyWorker.getCurriculum());
-	}
+	/*
+	 * @Test
+	 * public void addCurriculum() {
+	 * Actor h = new Actor();
+	 * h = this.actorService.getActorByUsername("Pepe2HW");
+	 * super.authenticate("Pepe2HW");
+	 * 
+	 * HandyWorker handyWorker = new HandyWorker();
+	 * handyWorker = this.handyWorkerService.getHandyWorkerByUsername("Pepe2HW");
+	 * 
+	 * Assert.isNull(handyWorker.getCurriculum());
+	 * 
+	 * List<EndorserRecord> endorserRecords = new ArrayList<>();
+	 * List<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>();
+	 * List<EducationRecord> educationRecords = new ArrayList<>();
+	 * List<ProfessionalRecord> professionalRecords = new ArrayList<>();
+	 * PersonalRecord personalRecord = this.personalRecordService.create("Prueba", "https://trello.com/b/MD1aM3qn/proyecto-4-dp", "rhermoso98@gmail.com", "+34686310633", "https://trello.com/b/MD1aM3qn/proyecto-4-dp");
+	 * Curriculum curriculum = this.handyWorkerService.addCurriculum(personalRecord, professionalRecords, educationRecords, miscellaneousRecords, endorserRecords);
+	 * 
+	 * Assert.notNull(handyWorker.getCurriculum());
+	 * }
+	 */
 
 	@Test
 	public void testDeleteCurriculum() {
@@ -145,23 +142,25 @@ public class HandyWorkerServiceTest extends AbstractTest {
 
 	}
 
-	@Test
-	public void testEditCurriculum() {
-		Actor h = new Actor();
-		h = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
-
-		HandyWorker handyWorker = new HandyWorker();
-		handyWorker = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
-
-		Curriculum curriculum = handyWorker.getCurriculum();
-		PersonalRecord personalRecord = curriculum.getPersonalRecord();
-		personalRecord.setEmail("rhermoso98@gmail.com");
-
-		this.handyWorkerService.editCurriculum(curriculum, personalRecord, curriculum.getProfessionalRecords(), curriculum.getEducationRecords(), curriculum.getMiscellaneousRecords(), curriculum.getEndorserRecords());
-
-		Assert.isTrue(handyWorker.getCurriculum().getPersonalRecord().getEmail().equals("rhermoso98@gmail.com"));
-	}
+	/*
+	 * @Test
+	 * public void testEditCurriculum() {
+	 * Actor h = new Actor();
+	 * h = this.actorService.getActorByUsername("PepeHW");
+	 * super.authenticate("PepeHW");
+	 * 
+	 * HandyWorker handyWorker = new HandyWorker();
+	 * handyWorker = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
+	 * 
+	 * Curriculum curriculum = handyWorker.getCurriculum();
+	 * PersonalRecord personalRecord = curriculum.getPersonalRecord();
+	 * personalRecord.setEmail("rhermoso98@gmail.com");
+	 * 
+	 * this.handyWorkerService.editCurriculum(curriculum, personalRecord, curriculum.getProfessionalRecords(), curriculum.getEducationRecords(), curriculum.getMiscellaneousRecords(), curriculum.getEndorserRecords());
+	 * 
+	 * Assert.isTrue(handyWorker.getCurriculum().getPersonalRecord().getEmail().equals("rhermoso98@gmail.com"));
+	 * }
+	 */
 	//11.1
 	@Test
 	public void testShowFixUpTask() {

@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.PhaseService;
+import services.FixUpTaskService;
+import domain.FixUpTask;
+import domain.Phase;
 
 @Controller
 @RequestMapping("/phase/customer")
 public class PhaseCustomerController extends AbstractController {
 
 	@Autowired
-	private PhaseService	phaseService;
+	private FixUpTaskService	FixUpTaskService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -37,7 +41,14 @@ public class PhaseCustomerController extends AbstractController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listPhases(@RequestParam int fixUpTaskId) {
-		ModelAndView result = null;
+		ModelAndView result;
+
+		FixUpTask fixUpTask = this.FixUpTaskService.findOne(fixUpTaskId);
+		List<Phase> phases = (List<Phase>) fixUpTask.getPhases();
+
+		result = new ModelAndView("customer/phases");
+		result.addObject("phases", phases);
+		result.addObject("requestURI", "phase/customer/list.do");
 
 		return result;
 	}
