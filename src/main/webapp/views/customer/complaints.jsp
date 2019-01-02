@@ -11,7 +11,7 @@
 <security:authorize access="hasRole('CUSTOMER')">
 
 	<display:table pagesize="5" name="complaints" id="row"
-	class="displaytag" requestURI="${requestURI}">
+	class="displaytag" requestURI="complaint/customer/list.do">
 		
 		<display:column property="moment" titleKey="complaint.moment"
 					sortable="true" format="{0,date,dd/MM/yyyy HH:mm}"  />	
@@ -38,6 +38,4 @@
 				</a>
 		</display:column>
 		</display:table>
-		
-		<a href="complaint/customer/create.do"><spring:message code="complaint.create" /></a>
 </security:authorize>
