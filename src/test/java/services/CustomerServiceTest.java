@@ -23,7 +23,6 @@ import domain.CreditCard;
 import domain.Customer;
 import domain.Endorsement;
 import domain.FixUpTask;
-import domain.HandyWorker;
 import domain.Note;
 import domain.Phase;
 import domain.Report;
@@ -302,25 +301,6 @@ public class CustomerServiceTest extends AbstractTest {
 		List<Endorsement> le = (List<Endorsement>) this.endorsmentService.findAll();
 		Endorsement e = le.get(0);
 		Assert.isTrue(customer.getEndorsements().contains(e));
-		super.authenticate(null);
-	}
-
-	@Test
-	public void testCreateEndorsment() {
-		super.authenticate("PacoCustomer");
-
-		List<HandyWorker> handyWorkers = new ArrayList<HandyWorker>();
-		handyWorkers = (List<HandyWorker>) this.handyWorkerService.findAll();
-		HandyWorker hk = new HandyWorker();
-		hk = this.handyWorkerService.findOne(handyWorkers.get(0).getId());
-
-		Endorsement endo = new Endorsement();
-
-		// int numberEndorsments = this.endorsmentService.findAll().size();
-		endo = this.customerService.createEndorsment(new ArrayList<String>(), hk);
-
-		// int numberEndorsments2 = this.endorsmentService.findAll().size();
-		Assert.isTrue(this.endorsmentService.findAll().contains(endo));
 		super.authenticate(null);
 	}
 
