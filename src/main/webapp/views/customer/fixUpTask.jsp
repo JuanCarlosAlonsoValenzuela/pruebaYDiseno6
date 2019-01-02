@@ -45,8 +45,8 @@
 		
 		<display:column titleKey="fixUpTask.warranties">								
 				
-				<spring:url var="warrantiesUrl" value="/warranty/customer/list.do?fixUpTaskId={fixId}">
-						<spring:param name="fixId" value="${row.id}" />
+				<spring:url var="warrantiesUrl" value="/warranty/customer/show.do?warrantyId={fixId}">
+						<spring:param name="fixId" value="${row.warranty.id}" />
 				</spring:url>
 				
 				<a href="${warrantiesUrl}">
@@ -85,7 +85,7 @@
 				<jstl:set var="phasesSize" value="${row.phases.size()}" />
 				
 
-						<spring:url var="phasesUrl" value="/phases/customer/list.do?fixUpTaskId={fixId}">
+						<spring:url var="phasesUrl" value="/phase/customer/list.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}"/>	
 						</spring:url>
 						<a href="${phasesUrl}">
@@ -98,10 +98,10 @@
 		<display:column titleKey="fixUpTask.complaints">									
 				<jstl:set var="complaintsSize" value="${row.complaints.size()}" />
 				
-						<spring:url var="complaintsUrl" value="/complaints/customer/list.do?fixUpTaskId={fixId}">
+						<spring:url var="complaintsUrl" value="/complaint/customer/listPerTask.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}"/>	
 						</spring:url>
-						<a href="${phasesUrl}">
+						<a href="${complaintsUrl}">
 							<spring:message var="seeComplaints" code="fixUpTask.seeComplaints"/> 	
 							<jstl:out value="${seeComplaints}(${complaintsSize})" />
 						</a>
@@ -109,7 +109,7 @@
 		
 	</display:table>
 	
-	<spring:url var="createFixUpTask" value="/fixUpTask/customer/edit.do"/>
+	<spring:url var="createFixUpTask" value="/fixUpTask/customer/create.do"/>
 	<a href="${createFixUpTask}">
 			<spring:message code="fixUpTask.create"/>					
 	</a>
