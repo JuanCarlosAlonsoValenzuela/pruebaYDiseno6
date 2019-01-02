@@ -21,6 +21,6 @@
 				
 	</display:table>
 	
-	<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do?');"  value="<spring:message code="phase.back.button"/>" />	
+	<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');"  value="<spring:message code="phase.back.button"/>" />	
 	
 </security:authorize>
