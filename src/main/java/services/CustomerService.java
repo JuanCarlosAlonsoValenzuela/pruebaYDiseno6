@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,6 +18,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Application;
 import domain.Box;
+import domain.Category;
 import domain.Complaint;
 import domain.CreditCard;
 import domain.Customer;
@@ -25,9 +27,11 @@ import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Note;
+import domain.Phase;
 import domain.Report;
 import domain.SocialProfile;
 import domain.Status;
+import domain.Warranty;
 
 @Service
 @Transactional
@@ -483,34 +487,26 @@ public class CustomerService {
 		return complaintFound;
 	}
 
-	public Complaint createComplaint(FixUpTask fixUpTask) {
+	public Complaint createComplaint(FixUpTask fixUpTask, Complaint complaint) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
-		Complaint complaint = this.complaintService.create();
+		List<FixUpTask> fixUpTasks = loggedCustomer.getFixUpTasks();
 
-		Complaint complaintSaved = this.complaintService.save(complaint);
+		Assert.isTrue(fixUpTasks.contains(fixUpTask));
 
-		Collection<FixUpTask> fixUpTasks = this.customerRepository.findFixUpTasksById(loggedCustomer.getId());
+		Assert.notNull(fixUpTask);
 
-		FixUpTask fixUpTaskFound = null;
-		for (FixUpTask f : fixUpTasks) {
-			if (fixUpTask.getId() == f.getId()) {
-				fixUpTaskFound = f;
-				break;
-			}
-		}
-
-		Assert.isTrue(!fixUpTaskFound.equals(null));
-
-		List<Complaint> complaints = (List<Complaint>) fixUpTaskFound.getComplaints();
+		List<Complaint> complaints = (List<Complaint>) fixUpTask.getComplaints();
 		complaints.add(complaint);
-		fixUpTaskFound.setComplaints(complaints);
+		fixUpTask.setComplaints(complaints);
 
-		this.fixUpTaskService.save(fixUpTaskFound);
+		//this.complaintService.save(complaint);
+
+		this.fixUpTaskService.save(fixUpTask);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
-		return complaintSaved;
+		return complaint;
 	}
 
 	public Complaint createComplaint(FixUpTask fixUpTask, String description, List<String> attachments) {
@@ -518,29 +514,21 @@ public class CustomerService {
 
 		Complaint complaint = this.complaintService.create(description, attachments);
 
-		Complaint complaintSaved = this.complaintService.save(complaint);
+		List<FixUpTask> fixUpTasks = loggedCustomer.getFixUpTasks();
 
-		Collection<FixUpTask> fixUpTasks = this.customerRepository.findFixUpTasksById(loggedCustomer.getId());
+		Assert.isTrue(fixUpTasks.contains(fixUpTask));
 
-		FixUpTask fixUpTaskFound = null;
-		for (FixUpTask f : fixUpTasks) {
-			if (fixUpTask.getId() == f.getId()) {
-				fixUpTaskFound = f;
-				break;
-			}
-		}
+		Assert.notNull(fixUpTask);
 
-		Assert.isTrue(!fixUpTaskFound.equals(null));
-
-		List<Complaint> complaints = (List<Complaint>) fixUpTaskFound.getComplaints();
+		List<Complaint> complaints = (List<Complaint>) fixUpTask.getComplaints();
 		complaints.add(complaint);
-		fixUpTaskFound.setComplaints(complaints);
+		fixUpTask.setComplaints(complaints);
 
-		this.fixUpTaskService.save(fixUpTaskFound);
+		this.fixUpTaskService.save(fixUpTask);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
-		return complaintSaved;
+		return complaint;
 	}
 
 	// APPLICATIONS
