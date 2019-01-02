@@ -9,9 +9,10 @@
 
 
 <br /> 
-
-	<jstl:forEach  items="${comments}" var="comment">
-			<strong><jstl:out value="${comment}" /></strong>
-			<br /> 
-			<br /> 
-	</jstl:forEach> 
+<display:table pagesize="5" name="${comments}" id="comment"
+	requestURI="${requestURI}">
+<display:column titleKey="curriculum.comment">
+	<strong><jstl:out value="${comment}" /></strong>
+	</display:column>
+	
+</display:table>

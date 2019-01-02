@@ -69,6 +69,7 @@ public class MiscellaneousRecordController extends AbstractController {
 
 		result = new ModelAndView("curriculum/anonymous/showMiscellaneousComments");
 		result.addObject("comments", miscellaneousRecord.getComments());
+		result.addObject("requestURI", "curriculum/anonymous/showMiscellaneousComments.do");
 		return result;
 
 	}

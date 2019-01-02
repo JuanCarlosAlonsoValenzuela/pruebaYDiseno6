@@ -1849,7 +1849,7 @@
 	<bean id="educationRecord1" class="domain.EducationRecord">
 		<property name="title" value="Title of record" />
 		<property name="startDateStudy" value="09/11/2018 12:30" />
-		<property name="endDateStudy" value="09/11/2018 13:30" />
+		<property name="endDateStudy" value="09/12/2018 13:30" />
 		<property name="institution" value="Name of institution" />
 		<property name="url" value="https://www.url.com/example3" />
 		<property name="comments">

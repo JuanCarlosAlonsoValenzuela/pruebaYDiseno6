@@ -70,6 +70,7 @@ public class EducationRecordController extends AbstractController {
 
 		result = new ModelAndView("curriculum/anonymous/showEducationComments");
 		result.addObject("comments", educationRecord.getComments());
+		result.addObject("requestURI", "curriculum/anonymous/showEducationComments.do");
 		return result;
 
 	}

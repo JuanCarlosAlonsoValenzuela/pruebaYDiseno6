@@ -9,12 +9,14 @@
 <p><spring:message code="handyworker.endorsmentComments" /></p>
 
 <security:authorize access="hasRole('HANDYWORKER')">
-
-	<jstl:forEach  items="${comments}" var="comment">
-			<strong><jstl:out value="${comment}" /></strong>
-			<br /> 
-			<br /> 
-	</jstl:forEach> 
+	
+<display:table pagesize="5" name="${comments}" id="comment"
+	requestURI="${requestURI}">
+	<display:column titleKey="handyworker.endorsmentComments">
+		<strong><jstl:out value="${comment}" /></strong>
+	</display:column>
+	
+</display:table>
 	
 	<input type="button" name="cancel" value="<spring:message code="handyWorker.back" />"
 		onClick="javascript:relativeRedir('endorsement/handyWorker/list.do');" />

@@ -935,8 +935,7 @@ public class HandyWorkerService {
 	public void deleteEndorsment(Endorsement endorsement) {
 		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
 		HandyWorker handyWorker = this.findOne(endorsement.getWrittenBy().getId());
-		HandyWorker handyWorker2 = this.findOne(endorsement.getWrittenTo().getId());
-		Assert.isTrue(logguedHandyWorker.equals(handyWorker) || logguedHandyWorker.equals(handyWorker2));
+		Assert.isTrue(logguedHandyWorker.equals(handyWorker));
 
 		Customer customer = this.customerService.findOne(endorsement.getWrittenTo().getId());
 		Customer customer2 = this.customerService.findOne(endorsement.getWrittenBy().getId());
@@ -964,6 +963,8 @@ public class HandyWorkerService {
 		}
 		this.handyWorkerRepository.save(logguedHandyWorker);
 		this.endorsmentService.delete(endorsement);
+		this.configurationService.computeScore(endorsement.getWrittenBy());
+		this.configurationService.computeScore(endorsement.getWrittenTo());
 
 	}
 
@@ -984,6 +985,8 @@ public class HandyWorkerService {
 		this.configurationService.isActorSuspicious(logguedHandyWorker);
 
 		this.endorsmentService.save(endorsment);
+		this.configurationService.computeScore(endorsment.getWrittenBy());
+		this.configurationService.computeScore(endorsment.getWrittenTo());
 	}
 
 	public void createEndorsment(Endorsement endorsment) {
