@@ -77,7 +77,6 @@ public class ComplaintCustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
 	public ModelAndView create(@RequestParam int fix) {
 		ModelAndView result;
 		Complaint c;
