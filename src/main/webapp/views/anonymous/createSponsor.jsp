@@ -97,8 +97,9 @@
 		
 	<input type="submit" name="save" value="<spring:message code="sponsor.save" />" /> 
 	
-	<input type="submit" name="cancel" value="<spring:message code="sponsor.cancel" />"
-		onClick="javascript: relativeRedir('login.do');" /> 
+	<a href="#" style="text-decoration: none;">
+    	<input type="button" value="<spring:message code="sponsor.cancel" />" />
+	</a>
 	   
 	</form:form>
 	
