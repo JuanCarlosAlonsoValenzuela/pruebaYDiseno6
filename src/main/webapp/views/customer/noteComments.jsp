@@ -11,12 +11,15 @@
 
 <security:authorize access="hasRole('CUSTOMER')">
 
-	<jstl:forEach  items="${optionalComments}" var="comment">
-			<jstl:out value="${comment}" />
-			<br /> 
-			<br /> 
-	</jstl:forEach> 
+
 	
+	<display:table pagesize="5" name="${optionalComments}" id="comment"
+	requestURI="${requestURI}">
+	<display:column titleKey="note.comment.list">
+		<strong><jstl:out value="${comment}" /></strong>
+	</display:column>
+	
+</display:table>
 	
 			
 	<spring:url var="createCommentUrl" value="note/customer/addComment.do?noteId={noteId}">

@@ -71,6 +71,7 @@ public class TutorialController extends AbstractController {
 
 		result = new ModelAndView("tutorial/anonymous/showPictures");
 		result.addObject("pictures", tutorial.getPictures());
+		result.addObject("requestURI", "tutorial/anonymous/showPictures.do");
 
 		return result;
 

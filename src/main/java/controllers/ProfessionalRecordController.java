@@ -69,10 +69,10 @@ public class ProfessionalRecordController extends AbstractController {
 
 		result = new ModelAndView("curriculum/anonymous/showProfessionalComments");
 		result.addObject("comments", professionalRecord.getComments());
+		result.addObject("requestURI", "curriculum/anonymous/showProfessionalComments.do");
 		return result;
 
 	}
-
 	@RequestMapping(value = "/handyWorker/editProfessionalRecord", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid ProfessionalRecord professionalRecord, BindingResult binding, @RequestParam String newComment) {
 		ModelAndView result;

@@ -69,6 +69,7 @@ public class EndorserRecordController extends AbstractController {
 
 		result = new ModelAndView("curriculum/anonymous/showEndorserComments");
 		result.addObject("comments", endorserRecord.getComments());
+		result.addObject("requestURI", "curriculum/anonymous/showEndorserComments.do");
 		return result;
 
 	}

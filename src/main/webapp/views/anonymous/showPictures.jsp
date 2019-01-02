@@ -9,11 +9,13 @@
 <p><spring:message code="anonymous.showPictures" /> <jstl:out value="${tutorial.title}"></jstl:out></p>
 
 
-	<jstl:forEach  items="${pictures}" var="picture">
+<display:table pagesize="5" name="${pictures}" id="picture"
+	requestURI="${requestURI}">
+	<display:column titleKey="tutorial.picture">
 		<a href="${picture.trim()}" target="_blank"><spring:message code="tutorial.picture" /> ${pictures.indexOf(picture)+1}</a>
-		<br />  
-		<br /> 
-	</jstl:forEach> 
+	</display:column>
+	
+</display:table>
 	
 
 
