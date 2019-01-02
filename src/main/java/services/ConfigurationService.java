@@ -36,6 +36,10 @@ public class ConfigurationService {
 		return this.configurationRepository.findAll().get(0);
 	}
 
+	public Configuration save(Configuration configuration) {
+		return this.configurationRepository.save(configuration);
+	}
+
 	public List<String> getSpamWords() {
 		return this.configurationRepository.spamWords();
 	}

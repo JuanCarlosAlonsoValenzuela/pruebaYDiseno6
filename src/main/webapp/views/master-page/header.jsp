@@ -32,10 +32,10 @@
 					<li><a href="administrator/createadmin.do"><spring:message code="master.page.administrator.createadmin" /></a></li>					
 					<li><a href="administrator/createreferee.do"><spring:message code="master.page.administrator.createreferee" /></a></li>			
 					<li><a href="words/administrator/list.do"><spring:message code="master.page.administrator.goodAndBadWordsList" /></a></li>	
-					<li><a href="statistics/administrator/show.do"><spring:message code="master.page.administrator.showstaitsticspart1" /></a></li>	
-											
+					<li><a href="statistics/administrator/show.do"><spring:message code="master.page.administrator.showstaitsticspart1" /></a></li>			
 					<li><a href="warranty/administrator/list.do"><spring:message code="master.page.administrator.listwarranty" /></a></li>
-					<li><a href="category/administrator/list.do"><spring:message code="master.page.administrator.listCategory" /></a></li>														
+					<li><a href="category/administrator/list.do"><spring:message code="master.page.administrator.listCategory" /></a></li>
+					<li><a href="configuration/administrator/list.do"><spring:message code="master.page.administrator.configuration" /></a></li>												
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
