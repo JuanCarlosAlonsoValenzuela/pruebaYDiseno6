@@ -3,7 +3,6 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -18,7 +17,6 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Application;
 import domain.Box;
-import domain.Category;
 import domain.Complaint;
 import domain.CreditCard;
 import domain.Customer;
@@ -27,11 +25,9 @@ import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Note;
-import domain.Phase;
 import domain.Report;
 import domain.SocialProfile;
 import domain.Status;
-import domain.Warranty;
 
 @Service
 @Transactional
@@ -692,6 +688,18 @@ public class CustomerService {
 		return this.customerRepository.AllEndorsmentsById(loggedCustomer.getId());
 	}
 
+	public List<Endorsement> showEndorsments1() {
+		UserAccount userAccount = LoginService.getPrincipal();
+		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
+		Assert.isTrue(authorities.get(0).toString().equals("CUSTOMER"));
+
+		Customer logguedCustomer = new Customer();
+		logguedCustomer = this.customerRepository.getCustomerByUsername(userAccount.getUsername());
+
+		List<Endorsement> endorsments = logguedCustomer.getEndorsements();
+		return endorsments;
+	}
+
 	public Endorsement getEndorsment(int endorsmentId) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
@@ -718,30 +726,26 @@ public class CustomerService {
 		Assert.isTrue(authorities.get(0).toString().equals("CUSTOMER"));
 	}
 
-	public Endorsement createEndorsment(List<String> comments, HandyWorker writtenTo) {
-		Customer loggedCustomer = this.securityAndCustomer();
+	public void createEndorsment(Endorsement endorsement) {
+		Customer logguedCustomer = this.customerRepository.getCustomerByUsername(LoginService.getPrincipal().getUsername());
+		endorsement.setWrittenBy(logguedCustomer);
+		HandyWorker handyWorker = this.handyWorkerService.findOne(endorsement.getWrittenTo().getId());
 
-		Assert.isTrue(writtenTo.getClass().equals(HandyWorker.class));
+		Endorsement newEndorsement = this.endorsmentService.save(endorsement);
 
-		Collection<HandyWorker> handyWorkers = this.customerRepository.handyWorkersById(loggedCustomer.getId());
+		List<Endorsement> end = logguedCustomer.getEndorsements();
+		end.add(newEndorsement);
+		logguedCustomer.setEndorsements(end);
 
-		HandyWorker handyWorkerFound = null;
-		for (HandyWorker h : handyWorkers) {
-			if (h.getId() == writtenTo.getId()) {
-				handyWorkerFound = h;
-				break;
-			}
-		}
+		end = handyWorker.getEndorsements();
+		end.add(newEndorsement);
+		handyWorker.setEndorsements(end);
 
-		Assert.notNull(handyWorkerFound);
+		this.save(logguedCustomer);
+		this.handyWorkerService.save2(handyWorker);
+		this.configurationService.computeScore(endorsement.getWrittenBy());
+		this.configurationService.computeScore(endorsement.getWrittenTo());
 
-		Endorsement endorsment = this.endorsmentService.createEndorsment(comments, writtenTo);
-
-		Endorsement endorsmentSave = this.endorsmentService.save(endorsment);
-
-		this.configurationService.isActorSuspicious(loggedCustomer);
-
-		return endorsmentSave;
 	}
 
 	public Endorsement updateEndorsment(Endorsement endorsment) {
@@ -766,22 +770,53 @@ public class CustomerService {
 		return endorsmentSave;
 	}
 
-	public void deleteEndorsment(Endorsement endorsment) {
-		Customer loggedCustomer = this.securityAndCustomer();
+	public void deleteEndorsment(Endorsement endorsement) {
+		//		Customer loggedCustomer = this.securityAndCustomer();
+		//
+		//		Collection<Endorsement> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
+		//
+		//		Endorsement endorsmentFound = null;
+		//		for (Endorsement e : endorsments) {
+		//			if (e.getId() == endorsment.getId()) {
+		//				endorsmentFound = e;
+		//				break;
+		//			}
+		//		}
+		//
+		//		Assert.notNull(endorsmentFound);
+		//	
+		//		this.endorsmentService.delete(endorsment);
 
-		Collection<Endorsement> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
+		//Hacer un set de la lista de endorsements
+		//Hacer save del endorser
+		//Hacer delete del endorsement
+		Customer logguedCustomer = this.customerRepository.getCustomerByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(logguedCustomer.getEndorsements().contains(endorsement));
+		Assert.isTrue(endorsement.getWrittenBy().equals(logguedCustomer));
 
-		Endorsement endorsmentFound = null;
-		for (Endorsement e : endorsments) {
-			if (e.getId() == endorsment.getId()) {
-				endorsmentFound = e;
+		List<Endorsement> customerEndorsements = logguedCustomer.getEndorsements();
+		customerEndorsements.remove(endorsement);
+		logguedCustomer.setEndorsements(customerEndorsements);
+		this.customerRepository.save(logguedCustomer);
+
+		HandyWorker handyWorkerReceptor = new HandyWorker();
+
+		for (HandyWorker handyWorker : this.handyWorkerService.findAll()) {
+			if (handyWorker.equals(endorsement.getWrittenTo())) {
+				handyWorkerReceptor = handyWorker;
 				break;
 			}
 		}
+		Assert.isTrue(handyWorkerReceptor != null);
 
-		Assert.notNull(endorsmentFound);
+		List<Endorsement> handyWorkerEndorsements = handyWorkerReceptor.getEndorsements();
+		handyWorkerEndorsements.remove(endorsement);
+		handyWorkerReceptor.setEndorsements(handyWorkerEndorsements);
+		this.handyWorkerService.save2(handyWorkerReceptor);
 
-		this.endorsmentService.delete(endorsment);
+		this.endorsmentService.delete(endorsement);
+		this.configurationService.computeScore(handyWorkerReceptor);
+		this.configurationService.computeScore(logguedCustomer);
 	}
 
 	// REPORTS
@@ -807,4 +842,9 @@ public class CustomerService {
 	public List<HandyWorker> getHandyWorkersById(int customerId) {
 		return (List<HandyWorker>) this.customerRepository.handyWorkersById(customerId);
 	}
+
+	public List<Application> findApplicationsById(int customerId) {
+		return (List<Application>) this.customerRepository.findApplicationsById(customerId);
+	}
+
 }

@@ -52,7 +52,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="fixUpTask/customer/list.do"><spring:message code="master.page.customer.fixUpTask" /></a></li>
-					<li><a href="customer/listendorsment.do"><spring:message code="master.page.customer.listendorsment" /></a></li>									
+					<li><a href="endorsement/customer/list.do"><spring:message code="master.page.customer.listendorsment" /></a></li>									
 					<li><a href="complaint/customer/list.do"><spring:message code="master.page.customer.listcomplaint" /></a></li>																
 				</ul>
 			</li>
