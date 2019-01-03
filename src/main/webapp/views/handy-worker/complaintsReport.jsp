@@ -46,11 +46,11 @@
 	
 	</display:table>
 	
-	<spring:url var="complaintUrl" value="/complaint/handyWorker/list.do">
+	<spring:url var="complaintUrl" value="complaint/handyWorker/list.do">
 	<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 	</spring:url>
-	<a href="${complaintUrl}">
-		<spring:message code="handyWorker.back" />			
-	</a>
 	
+	<input type="button"
+		name="cancel"
+		value="<spring:message code="handyWorker.back"/>" onclick="javascript:relativeRedir('${complaintUrl}');" />
 

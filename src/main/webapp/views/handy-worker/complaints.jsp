@@ -45,11 +45,10 @@
 		</display:column>
 		</display:table>
 		
-	<spring:url var="fixUpTaksUrl" value="/fixUpTask/handyWorker/list.do">
-	</spring:url>
-	<a href="${fixUpTaksUrl}">
-		<spring:message code="handyWorker.back" />			
-	</a>
+	
+	<input type="button"
+		name="cancel"
+		value="<spring:message code="handyWorker.back"/>" onclick="javascript:relativeRedir('fixUpTask/handyWorker/list.do');" />
 		
 		
 	

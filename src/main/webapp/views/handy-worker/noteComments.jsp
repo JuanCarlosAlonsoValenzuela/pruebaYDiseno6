@@ -36,29 +36,31 @@
 	<jstl:if test="${count=='0'}">
 
 	</br>
-	<spring:url var="createCommentUrl" value="/note/handyWorker/newComment.do">
+	<spring:url var="createCommentUrl" value="note/handyWorker/newComment.do">
 	<spring:param name="noteId" value="${param.noteId}"/>
 	<spring:param name="reportId" value="${param.reportId}"/>
 	<spring:param name="complaintId" value="${param.complaintId}"/>	
 	<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 	</spring:url>
-	
-	<a href="${createCommentUrl}">
-		<spring:message code="comments.create" />			
-	</a>
-	</br>
+		
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="comments.create"/>" onclick="javascript:relativeRedir('${createCommentUrl}');" />
 	
 	</jstl:if>
 	
-	<spring:url var="noteUrl" value="/note/handyWorker/list.do?reportId={reportId}">
+	<spring:url var="noteUrl" value="note/handyWorker/list.do?reportId={reportId}">
 	<spring:param name="noteId" value="${param.noteid}"/>
 	<spring:param name="reportId" value="${param.reportId}"/>
 	<spring:param name="complaintId" value="${param.complaintId}"/>	
 	<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 	</spring:url>
-	<a href="${noteUrl}">
-		<spring:message code="comment.back" />			
-	</a>
+
+	
+	
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="comment.back"/>" onclick="javascript:relativeRedir('${noteUrl}');" />
 	
 	
 

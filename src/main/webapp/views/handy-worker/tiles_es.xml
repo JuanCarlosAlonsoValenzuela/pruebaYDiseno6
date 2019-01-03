@@ -207,5 +207,10 @@
 		<put-attribute name="title" value="Historial Profesional" />
 		<put-attribute name="body" value="/views/handy-worker/editProfessionalRecord.jsp" />
 	</definition>
+	
+		<definition name="handy-worker/warranty" extends="master.page">	
+		<put-attribute name="title" value="Garantía" />
+		<put-attribute name="body" value="/views/handy-worker/warranty.jsp" />
+	</definition>
 
 </tiles-definitions>

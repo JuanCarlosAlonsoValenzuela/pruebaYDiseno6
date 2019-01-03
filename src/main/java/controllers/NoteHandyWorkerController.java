@@ -77,7 +77,7 @@ public class NoteHandyWorkerController extends AbstractController {
 
 	//Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Note note, BindingResult binding, @Valid int reportId) {
+	public ModelAndView save(@Valid Note note, BindingResult binding, @Valid int reportId, @Valid int complaintId, @Valid int fixUpTaskId) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
@@ -93,6 +93,8 @@ public class NoteHandyWorkerController extends AbstractController {
 
 				result = new ModelAndView("redirect:list.do");
 				result.addObject("reportId", reportId);
+				result.addObject("complaintId", complaintId);
+				result.addObject("fixUpTaskId", fixUpTaskId);
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(note, "note.commit.error");
 			}
