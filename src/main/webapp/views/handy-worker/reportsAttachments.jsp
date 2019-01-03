@@ -17,13 +17,14 @@
 	</display:column>
 </display:table>
 
-<spring:url var="reportUrl" value="/report/handyWorker/list.do">
+<spring:url var="reportUrl" value="report/handyWorker/list.do">
 	<spring:param name="reportId" value="${param.reportId}"/>
 	<spring:param name="complaintId" value="${param.complaintId}"/>
 	<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 	</spring:url>
-	<a href="${reportUrl}">
-		<spring:message code="handyWorker.back" />			
-	</a>
+			
+	<input type="button"
+		name="cancel"
+		value="<spring:message code="handyWorker.back"/>" onclick="javascript:relativeRedir('${reportUrl}');" />
 
 </security:authorize>	

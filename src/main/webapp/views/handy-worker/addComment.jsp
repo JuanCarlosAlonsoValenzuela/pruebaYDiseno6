@@ -26,9 +26,10 @@
 	<spring:url var="applicationUrl" value="/application/handyWorker/listComments.do?applicationId={appId}">
 	<spring:param name="appId" value="${param.applicationId}"/>
 	</spring:url>
-	<a href="${applicationUrl}">
-		<spring:message code="comment.cancel" />			
-	</a>
+	
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="comment.cancel"/>" onclick="javascript:relativeRedir('${applicationUrl}');" />
 
 
 </security:authorize>
