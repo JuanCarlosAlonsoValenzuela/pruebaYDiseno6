@@ -40,7 +40,7 @@
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
-					<li><a href="administrator/administrator/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="authenticated/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
 					<li><a href="personalData/administrator/edit.do"><spring:message code="master.page.customer.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
@@ -58,7 +58,7 @@
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
-					<li><a href="customer/customer/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="authenticated/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
 					<li><a href="personalData/customer/edit.do"><spring:message code="master.page.customer.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
@@ -92,7 +92,7 @@
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
-					<li><a href="referee/referee/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="authenticated/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
 					<li><a href="personalData/referee/editReferee.do"><spring:message code="master.page.referee.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
@@ -108,7 +108,7 @@
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
-					<li><a href="sponsor/sponsor/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="authenticated/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 					<li><a href="personalData/sponsor/edit.do"><spring:message code="master.page.sponsor.editPersonalData" /></a></li>	
 				</ul>
