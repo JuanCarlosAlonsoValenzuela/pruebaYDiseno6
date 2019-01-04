@@ -523,16 +523,21 @@ public class AdminService {
 	public void broadcastMessage(Message message) {
 		this.loggedAsAdmin();
 
-		//List<Actor> actors = new ArrayList<Actor>();
-		//actors = this.actorService.findAll();
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		Actor admin = this.actorService.getActorByUsername(userAccount.getUsername());
 
-		message.setReceiver(message.getReceiver());
+		List<Actor> actors = new ArrayList<Actor>();
+		actors = this.actorService.findAll();
 
-		Message saved = this.messageService.save(message);
-		this.messageService.sendMessage(saved);
-
+		for (Actor a : actors) {
+			if (!(a.equals(admin))) {
+				message.setReceiver(a);
+				this.messageService.sendMessageBroadcasted(message);
+			}
+		}
+		System.out.println("Something");
 	}
-
 	public void banSuspiciousActor(Actor a) {
 		this.loggedAsAdmin();
 

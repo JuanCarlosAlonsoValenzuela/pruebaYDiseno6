@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -40,6 +41,10 @@ public class ActorService {
 	@Autowired
 	private ConfigurationService	configurationService;
 
+
+	public Actor flushSave(Actor actor) {
+		return this.actorRepository.saveAndFlush(actor);
+	}
 
 	public HandyWorker saveHandyWorker(final HandyWorker handyWorker) {
 		return this.actorRepository.save(handyWorker);
@@ -236,8 +241,9 @@ public class ActorService {
 
 		tutorials = this.tutorialService.findAll();
 
-		for (Tutorial t : tutorials)
+		for (Tutorial t : tutorials) {
 			result.put(t.getTitle(), t);
+		}
 
 		return result;
 	}
@@ -249,9 +255,11 @@ public class ActorService {
 
 		handyWorkers = (List<HandyWorker>) this.handyWorkerService.findAll();
 
-		for (HandyWorker h : handyWorkers)
-			if (h.getTutorials().contains(tutorial))
+		for (HandyWorker h : handyWorkers) {
+			if (h.getTutorials().contains(tutorial)) {
 				requiredHandyWorker = h;
+			}
+		}
 
 		result.put(requiredHandyWorker, requiredHandyWorker.getTutorials());
 
