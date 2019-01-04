@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import repositories.ConfigurationRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 import domain.Box;
 import domain.Configuration;
@@ -31,6 +33,9 @@ public class ConfigurationService {
 	@Autowired
 	private EndorserService			endorserService;
 
+	@Autowired
+	private ActorService			actorService;
+
 
 	public Configuration getConfiguration() {
 		return this.configurationRepository.findAll().get(0);
@@ -47,15 +52,30 @@ public class ConfigurationService {
 	public Boolean isStringSpam(String s, List<String> spamWords) {
 		Boolean result = false;
 
+		this.actorService.loggedAsActor();
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+
+		Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
+
+		List<String> trimmedString = new ArrayList<String>();
+		trimmedString = Arrays.asList(s.split("\\s+|(?=[ ,.?;])"));
+
+		//("\\s*(=>|,|\\s)\\s*"));
 		for (String g : spamWords) {
-			if (s.contains(g)) {
-				result = true;
-				break;
+			for (String c : trimmedString) {
+				if (g.equalsIgnoreCase(c)) {
+					result = true;
+					break;
+				}
 			}
+		}
+		if (result == true) {
+			actor.setHasSpam(true);
+			this.actorService.save(actor);
 		}
 		return result;
 	}
-
 	public Boolean isActorSuspicious(Actor a) {
 		Boolean result = false;
 		List<String> spamWords = new ArrayList<String>();
