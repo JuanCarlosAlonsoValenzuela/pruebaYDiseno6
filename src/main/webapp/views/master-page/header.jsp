@@ -24,7 +24,7 @@
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/banunban.do"><spring:message code="master.page.administrator.banUnban" /></a></li>
+					<li><a href="suspicious/administrator/list.do"><spring:message code="master.page.administrator.banUnban" /></a></li>
 					<li><a href="administrator/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>	
 					<li><a href="administrator/createAdmin.do"><spring:message code="master.page.administrator.createAdmin" /></a></li>					
 					<li><a href="administrator/createReferee.do"><spring:message code="master.page.administrator.createReferee" /></a></li>			

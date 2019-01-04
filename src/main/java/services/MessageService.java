@@ -60,6 +60,10 @@ public class MessageService {
 		Box boxSpam = new Box();
 		Box boxSent = new Box();
 
+		List<String> spam = new ArrayList<String>();
+
+		spam = this.configurationService.getSpamWords();
+
 		Message messageSaved = this.messageRepository.save(message);
 		Message messageCopy = this.create(messageSaved.getSubject(), messageSaved.getBody(), messageSaved.getPriority(), messageSaved.getReceiver());
 		Message messageCopySaved = this.messageRepository.save(messageCopy);
@@ -69,12 +73,14 @@ public class MessageService {
 
 		// Guardar la box con ese mensaje;
 
-		if (this.configurationService.isActorSuspicious(sender)) {
-			List<Message> list = boxSpam.getMessages();
-			list.add(messageSaved);
-			boxSpam.setMessages(list);
+		if (this.configurationService.isStringSpam(messageSaved.getBody(), spam) || this.configurationService.isStringSpam(messageSaved.getSubject(), spam)) {
+			boxSent.getMessages().add(messageSaved);
+			boxSpam.getMessages().add(messageCopySaved);
+
+			this.boxService.saveSystem(boxSent);
 			this.boxService.saveSystem(boxSpam);
-			this.actorService.save(message.getReceiver());
+			this.actorService.save(messageSaved.getSender());
+			this.actorService.save(actorRecieved);
 
 		} else {
 			boxRecieved.getMessages().add(messageCopySaved);
@@ -92,6 +98,9 @@ public class MessageService {
 		Actor sender = message.getSender();
 
 		Actor actorRecieved = message.getReceiver();
+		List<String> spam = new ArrayList<String>();
+
+		spam = this.configurationService.getSpamWords();
 
 		Box boxRecieved = new Box();
 		Box boxSpam = new Box();
@@ -106,12 +115,14 @@ public class MessageService {
 
 		// Guardar la box con ese mensaje;
 
-		if (this.configurationService.isActorSuspicious(sender)) {
-			List<Message> list = boxSpam.getMessages();
-			list.add(messageSaved);
-			boxSpam.setMessages(list);
+		if (this.configurationService.isStringSpam(messageSaved.getBody(), spam) || this.configurationService.isStringSpam(messageSaved.getSubject(), spam)) {
+			boxSent.getMessages().add(messageSaved);
+			boxSpam.getMessages().add(messageCopySaved);
+
+			this.boxService.saveSystem(boxSent);
 			this.boxService.saveSystem(boxSpam);
-			this.actorService.save(message.getReceiver());
+			this.actorService.save(messageSaved.getSender());
+			this.actorService.save(actorRecieved);
 
 		} else {
 			boxRecieved.getMessages().add(messageCopySaved);
