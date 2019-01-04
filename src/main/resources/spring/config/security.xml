@@ -63,7 +63,7 @@
 		<security:intercept-url pattern="/words/administrator/**" access="hasRole('ADMIN')"  />
 		<security:intercept-url pattern="/configuration/administrator/**" access="hasRole('ADMIN')"  />
 		<security:intercept-url pattern="/suspicious/administrator/**" access="hasRole('ADMIN')"  />
-		
+		<security:intercept-url pattern="/broadcast/administrator/**" access="hasRole('ADMIN')"  />
 		
 		<!-- CUSTOMER -->
 		<security:intercept-url pattern="/services/general-services.do" access="hasRole('CUSTOMER')" /> 
