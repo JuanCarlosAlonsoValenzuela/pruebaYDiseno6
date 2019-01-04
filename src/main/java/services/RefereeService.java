@@ -255,6 +255,7 @@ public class RefereeService {
 		Assert.notNull(comp);
 		complaint.setReferee(loggedReferee);
 		Complaint complaintSaved = this.complaintService.save(complaint);
+		this.refereeRepository.save(loggedReferee);
 		this.configurationService.isActorSuspicious(loggedReferee);
 		return complaintSaved;
 	}
