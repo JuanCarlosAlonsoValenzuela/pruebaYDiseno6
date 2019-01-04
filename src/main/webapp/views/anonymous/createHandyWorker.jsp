@@ -103,8 +103,9 @@
 		
 	<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" /> 
 	
-	<input type="submit" name="cancel" value="<spring:message code="handyWorker.cancel" />"
-		onClick="javascript: relativeRedir('index.do');" />
+	<a href="#" style="text-decoration: none;">
+    	<input type="button" value="<spring:message code="handyWorker.cancel" />" />
+	</a>
 	
 	</form:form>
 	

@@ -35,6 +35,8 @@
 		<form:textarea path="attachments"/>
 		<form:errors cssClass="error" path="attachments" /> --%>
 		
+		<input type="hidden" name="fix" value="${fix}" />
+		
 		<spring:message code="complaint.attachments" />:
 		<br />
 		<input type="hidden" name="newAttachments" value=""/>

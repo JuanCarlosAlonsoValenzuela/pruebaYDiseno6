@@ -7,8 +7,22 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p><spring:message code="referee.attachments" /></p>
+	
+<security:authorize access="hasRole('HANDYWORKER')">
 
-<jstl:forEach var="attachment" items="attachments">
-			<jstl:out value="${attachment}" />
-			<br /> 
-	</jstl:forEach> 	
+<display:table pagesize="5" name="attachments" id="row" class="displaytag" 
+					requestURI="/complaint/handyWorker/attachmentList.do">
+	<display:column titleKey="complaint.attachments">
+		<jstl:out value="${row}"/>
+	</display:column>
+</display:table>
+
+	<spring:url var="complaintUrl" value="complaint/handyWorker/list.do">
+	<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
+	</spring:url>	
+		
+	<input type="button"
+		name="cancel"
+		value="<spring:message code="handyWorker.back"/>" onclick="javascript:relativeRedir('${complaintUrl}');" />
+
+</security:authorize>

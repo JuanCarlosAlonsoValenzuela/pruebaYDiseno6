@@ -9,7 +9,7 @@
 <p><spring:message code="referee.editReferee" /></p>
 
 <security:authorize access="hasRole('REFEREE')">
-	<form:form modelAttribute="referee" action="personalData/referee/edit.do">
+	<form:form modelAttribute="referee" action="personalData/referee/editReferee.do">
     <!--Hidden Attributes -->
 	<form:hidden path ="id"/>
 	<form:hidden path ="version"/>

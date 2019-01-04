@@ -120,7 +120,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	//Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "create")
-	public ModelAndView save(@Valid Application application, @RequestParam int fixUpTaskId, BindingResult binding) {
+	public ModelAndView save(@Valid Application application, BindingResult binding, @RequestParam int fixUpTaskId) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {

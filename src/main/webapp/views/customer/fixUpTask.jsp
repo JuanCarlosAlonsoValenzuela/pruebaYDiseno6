@@ -20,6 +20,17 @@
 					<a href="${updateFixUpTask}">
 							<spring:message code="fixUpTask.updateFixUpTask" />				
 					</a>
+		</display:column>
+		
+		<display:column>
+					<!-- Si la fix up task no ha sido aceptada, me permite proponer una aplicación -->
+					<spring:url var="createComplaint" value="/complaint/customer/create.do">
+							<spring:param name="fix" value="${row.id}" />
+					</spring:url>
+					
+					<a href="${createComplaint}">
+							<spring:message code="fixUpTask.createComplaint" />				
+					</a>
 		</display:column>				
 		
 		<display:column property="momentPublished" titleKey="fixUpTask.momentPublished" format="{0,date,dd/MM/yyyy HH:mm}" />		
@@ -34,11 +45,11 @@
 		
 		<display:column titleKey="fixUpTask.warranties">								
 				
-				<spring:url var="warrantyUrl" value="/warranty/customer/show.do?warrantyId={warrId}">
-						<spring:param name="warrId" value="${row.warranty.id}" />
+				<spring:url var="warrantiesUrl" value="/warranty/customer/show.do?warrantyId={fixId}">
+						<spring:param name="fixId" value="${row.warranty.id}" />
 				</spring:url>
 				
-				<a href="${warrantyUrl}">
+				<a href="${warrantiesUrl}">
 						<jstl:out value="${row.warranty.title}" />
 				</a>
 				
@@ -53,6 +64,7 @@
 		<display:column titleKey="fixUpTask.applications">									
 				<jstl:set var="applicationsSize" value="${row.applications.size()}" />
 				
+				<jstl:if test="${applicationsSize > 0}">
 						<spring:url var="applicationsUrl" value="/application/customer/list.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}"/>	
 						</spring:url>
@@ -60,6 +72,11 @@
 							<spring:message var="seeApplications" code="fixUpTask.seeApplications"/> 		
 							<jstl:out value="${seeApplications}(${applicationsSize})" />
 						</a>
+				</jstl:if>
+				
+				<jstl:if test="${applicationsSize == 0}">
+						<spring:message code="applications.noDisplay" />		
+				</jstl:if>
 				
 		</display:column>
 		
@@ -81,10 +98,10 @@
 		<display:column titleKey="fixUpTask.complaints">									
 				<jstl:set var="complaintsSize" value="${row.complaints.size()}" />
 				
-						<spring:url var="complaintsUrl" value="/complaints/customer/list.do?fixUpTaskId={fixId}">
+						<spring:url var="complaintsUrl" value="/complaint/customer/listPerTask.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}"/>	
 						</spring:url>
-						<a href="${phasesUrl}">
+						<a href="${complaintsUrl}">
 							<spring:message var="seeComplaints" code="fixUpTask.seeComplaints"/> 	
 							<jstl:out value="${seeComplaints}(${complaintsSize})" />
 						</a>

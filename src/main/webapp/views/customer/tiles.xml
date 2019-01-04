@@ -28,7 +28,7 @@
 	
 	<definition name="customer/comments" extends="master.page">	
 		<put-attribute name="title" value="Comments" />
-		<put-attribute name="body" value="/views/customer/comments.jsp" />
+		<put-attribute name="body" value="/views/customer/endorsementComments.jsp" />
 	</definition>
 	
 	<definition name="customer/addComment" extends="master.page">	
@@ -134,6 +134,38 @@
 	<definition name="/complaint/report/attachment/list.do" extends="master.page">	
 		<put-attribute name="title" value="Report's Attachments" />
 		<put-attribute name="body" value="/views/customer/reportsAttachments.jsp" />
+	</definition>
+	
+	<!-- Endorsements -->
+	
+	<definition name="endorsement/customer/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit endorsement" />
+		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/list" extends="master.page">	
+		<put-attribute name="title" value="Show endorsements" />
+		<put-attribute name="body" value="/views/customer/listEndorsment.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/listComments" extends="master.page">	
+		<put-attribute name="title" value="Show endorsement's comments" />
+		<put-attribute name="body" value="/views/customer/endorsementComments.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/comment/create" extends="master.page">	
+		<put-attribute name="title" value="Add a comment" />
+		<put-attribute name="body" value="/views/customer/createComment.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/delete" extends="master.page">	
+		<put-attribute name="title" value="Delete Endorsement" />
+		<put-attribute name="body" value="/views/customer/endorsementDelete.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/create" extends="master.page">	
+		<put-attribute name="title" value="Create endorsement" />
+		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
 	</definition>
 	
 	

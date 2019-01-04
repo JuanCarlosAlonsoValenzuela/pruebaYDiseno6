@@ -14,8 +14,8 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
       
-<tiles-definitions>
-	
+<tiles-definitions> 
+	 
 	<definition name="personalData/customer/edit" extends="master.page">	
 		<put-attribute name="title" value="Editar Datos personales" />
 		<put-attribute name="body" value="/views/customer/editCustomer.jsp" />
@@ -128,6 +128,38 @@
 	<definition name="/complaint/report/attachment/list.do" extends="master.page">	
 		<put-attribute name="title" value="Archivos de los informes" />
 		<put-attribute name="body" value="/views/customer/reportsAttachments.jsp" />
+	</definition>
+	
+	<!-- Endorsements -->
+	
+	<definition name="endorsement/customer/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar aprobaciones" />
+		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/list" extends="master.page">	
+		<put-attribute name="title" value="Listado de Aprobaciones" />
+		<put-attribute name="body" value="/views/customer/listEndorsment.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/listComments" extends="master.page">	
+		<put-attribute name="title" value="Comentarios de la aprobacion" />
+		<put-attribute name="body" value="/views/customer/endorsementComments.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/comment/create" extends="master.page">	
+		<put-attribute name="title" value="Añadir un comentario" />
+		<put-attribute name="body" value="/views/customer/createComment.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/delete" extends="master.page">	
+		<put-attribute name="title" value="Eliminar aprobacion" />
+		<put-attribute name="body" value="/views/customer/endorsementDelete.jsp" />
+	</definition>
+	
+	<definition name="endorsement/customer/create" extends="master.page">	
+		<put-attribute name="title" value="Crear Aprobación" />
+		<put-attribute name="body" value="/views/customer/editEndorsment.jsp" />
 	</definition>
 	
 </tiles-definitions>

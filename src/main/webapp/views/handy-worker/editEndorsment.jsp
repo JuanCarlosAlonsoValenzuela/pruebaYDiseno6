@@ -35,7 +35,9 @@
 		</jstl:when><jstl:otherwise>
 			<form:hidden path ="writtenTo"/>
 			<input type="submit" name="edit" value="<spring:message code="handyWorker.edit" />" />
+			<jstl:if test="${username == username2}">
 			<input type="submit" name="delete" value="<spring:message code="handyWorker.delete" />" onClick="return confirm('<spring:message code="handyWorker.verificationDelete" />')">
+			</jstl:if>
 		</jstl:otherwise>
 	</jstl:choose>
 	

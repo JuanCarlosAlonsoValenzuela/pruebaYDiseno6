@@ -10,6 +10,17 @@
 
 	<display:table pagesize="5" name="phases" id="row" class="displaytag" 
 					requestURI="phase/customer/list.do">
+					
+		<display:column property="title" titleKey="phase.title" />
+		
+		<display:column property="description" titleKey="phase.description" />
+		
+		<display:column property="startMoment" titleKey="phase.startMoment" format="{0,date,dd/MM/yyyy HH:mm}" />
+			
+		<display:column property="endMoment" titleKey="phase.endMoment" format="{0,date,dd/MM/yyyy HH:mm}" />
+				
 	</display:table>
+	
+	<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');"  value="<spring:message code="phase.back.button"/>" />	
 	
 </security:authorize>

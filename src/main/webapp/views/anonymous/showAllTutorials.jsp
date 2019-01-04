@@ -110,10 +110,14 @@
 	</display:column>	
 	
 	<display:column titleKey="tutorial.pictures">
-		<jstl:forEach  items="${row.pictures}" var="picture">
-			<a href="${picture.trim()}" target="_blank"><spring:message code="tutorial.picture" /> ${row.pictures.indexOf(picture)+1}</a>
-			<br />  
-		</jstl:forEach>
+		<jstl:set var="picturesSize" value="${row.pictures.size()}" />
+		<spring:url var="picturesUrl" value="tutorial/anonymous/showPictures.do">
+			<spring:param name="tutorialId" value="${row.id}"/>
+		</spring:url>
+		<a href="${picturesUrl}">
+			<spring:message var ="viewPic" code="tutorial.picture" />
+			<jstl:out value="${viewPic}(${picturesSize})" />		
+		</a>
 	</display:column>
 	
 	<display:column titleKey="tutorial.sponsorship">

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ComplaintService;
 import services.CustomerService;
+import services.FixUpTaskService;
 import domain.Complaint;
 import domain.FixUpTask;
 
@@ -29,6 +30,9 @@ public class ComplaintCustomerController extends AbstractController {
 
 	@Autowired
 	private CustomerService		customerService;
+
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
 
 
 	public ComplaintCustomerController() {
@@ -53,39 +57,63 @@ public class ComplaintCustomerController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/listPerTask", method = RequestMethod.GET)
+	public ModelAndView listPerFixUpTask(@RequestParam int fixUpTaskId) {
+
+		ModelAndView result;
+
+		Collection<Complaint> complaints;
+
+		FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		complaints = fixUpTask.getComplaints();
+
+		result = new ModelAndView("complaint/customer/list");
+
+		result.addObject("complaints", complaints);
+		result.addObject("requestURI", "complaint/customer/listPerTask.do");
+
+		return result;
+
+	}
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam int fix) {
 		ModelAndView result;
 		Complaint c;
 
 		c = this.complaintService.create();
 		result = this.createEditModelAndView(c);
+		result.addObject("fix", fix);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Complaint complaint, BindingResult binding, @RequestParam String newAttachments, @RequestParam FixUpTask fixUpTask) {
+	public ModelAndView save(@Valid Complaint complaint, BindingResult binding, @RequestParam String newAttachments, @RequestParam int fix) {
 		ModelAndView result;
 		List<String> attachments = new ArrayList<String>();
+		FixUpTask fixUpTask = this.fixUpTaskService.findOne(fix);
 
 		if (!newAttachments.trim().equals("")) {
 			attachments.add(newAttachments);
 		}
+
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(complaint);
+			result.addObject("fix", fix);
 		} else {
+
 			try {
 				complaint.setAttachments(attachments);
-				this.customerService.createComplaint(fixUpTask);
+				this.customerService.createComplaint(fixUpTask, complaint);
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(complaint, "complaint.commit.error");
+				result.addObject("fix", fix);
 			}
 		}
 		return result;
 	}
-
 	protected ModelAndView createEditModelAndView(Complaint complaint) {
 		ModelAndView result;
 

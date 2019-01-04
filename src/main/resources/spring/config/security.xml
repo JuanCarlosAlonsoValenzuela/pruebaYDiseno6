@@ -47,6 +47,9 @@
 		<security:intercept-url pattern="/handyWorker/anonymous/showProfile.do" access="permitAll" />
 		<security:intercept-url pattern="/tutorial/anonymous/listHandyTutorials.do" access="permitAll" />
 		<security:intercept-url pattern="/section/anonymous/list.do" access="permitAll" />
+		<security:intercept-url pattern="/tutorial/anonymous/showPictures.do" access="permitAll" />
+		<security:intercept-url pattern="/section/anonymous/showPictures.do" access="permitAll" />
+		<security:intercept-url pattern="/curriculum/anonymous/**" access="permitAll" />
 		
 		
 		<!-- ADMIN -->
@@ -58,6 +61,7 @@
 		<security:intercept-url pattern="/personalData/administrator/**" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/category/administrator/**" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/words/administrator/**" access="hasRole('ADMIN')"  />
+		<security:intercept-url pattern="/configuration/administrator/**" access="hasRole('ADMIN')"  />
 		
 		<!-- CUSTOMER -->
 		<security:intercept-url pattern="/services/general-services.do" access="hasRole('CUSTOMER')" /> 
@@ -84,6 +88,7 @@
 		<security:intercept-url pattern="/note/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/warranty/customer/**" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/phase/customer/**" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/endorsement/customer/**" access="hasRole('CUSTOMER')" />
 		
 		<!-- HANDY WORKER -->
 		<security:intercept-url pattern="/section/handyWorker/**" access="hasRole('HANDYWORKER')" /> 
@@ -95,6 +100,11 @@
 		<security:intercept-url pattern="/finder/handyWorker/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/tutorial/handyWorker/**" access="hasRole('HANDYWORKER')" />
 		<security:intercept-url pattern="/phase/handyWorker/**" access="hasRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/curriculum/handyWorker/**" access="hasRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/complaint/handyWorker/**" access="hasRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/report/handyWorker/**" access="hasRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/note/handyWorker/**" access="hasRole('HANDYWORKER')" />
+		<security:intercept-url pattern="/warranty/handyWorker/**" access="hasRole('HANDYWORKER')" />
 		
 		<!-- SPONSOR -->
 		<security:intercept-url pattern="/personalData/sponsor/**" access="hasRole('SPONSOR')" /> 
@@ -109,6 +119,7 @@
 		<security:intercept-url pattern="/box/actor/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/message/actor/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/tutorial/actor/list.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/authenticated/**" access="isAuthenticated()" />
 		
 		<!-- ANONYMOUS -->
 		<security:intercept-url pattern="/tutorial/anonymous/list.do" access="isAnonymous()" />

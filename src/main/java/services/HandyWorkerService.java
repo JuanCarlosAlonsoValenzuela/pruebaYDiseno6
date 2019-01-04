@@ -337,7 +337,7 @@ public class HandyWorkerService {
 		return lr;
 	}
 
-	public Curriculum addCurriculum() {
+	public void addCurriculum(Curriculum curriculum) {
 
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
@@ -349,65 +349,31 @@ public class HandyWorkerService {
 
 		Assert.isNull(logguedHandyWorker.getCurriculum());
 
-		Curriculum curriculum = this.curriculumService.create();
 		logguedHandyWorker.setCurriculum(curriculum);
 		this.handyWorkerRepository.save(logguedHandyWorker);
-		this.curriculumService.save(curriculum);
-		return curriculum;
-
-	}
-
-	public Curriculum addCurriculum(PersonalRecord personalRecord, List<ProfessionalRecord> professionalRecords, List<EducationRecord> educationRecords, List<MiscellaneousRecord> miscellaneousRecords, List<EndorserRecord> endorserRecords) {
-
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
-
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
-
-		Assert.isNull(logguedHandyWorker.getCurriculum());
-
-		Curriculum curriculum = this.curriculumService.create(endorserRecords, miscellaneousRecords, educationRecords, professionalRecords, personalRecord);
-		logguedHandyWorker.setCurriculum(curriculum);
-		this.handyWorkerRepository.save(logguedHandyWorker);
-		this.curriculumService.save(curriculum);
-		return curriculum;
 
 	}
 
 	public void deleteCurriculum(Curriculum curriculum) {
-		UserAccount userAccount;
-		userAccount = LoginService.getPrincipal();
-		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
-		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
-
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(LoginService.getPrincipal().getUsername());
 
 		Assert.isTrue(logguedHandyWorker.getCurriculum().equals(curriculum));
+		logguedHandyWorker.setCurriculum(null);
+		this.handyWorkerRepository.save(logguedHandyWorker);
 
 		this.curriculumService.delete(curriculum);
 
 	}
 
-	public Curriculum editCurriculum(Curriculum curriculum, PersonalRecord personalRecord, List<ProfessionalRecord> professionalRecords, List<EducationRecord> educationRecords, List<MiscellaneousRecord> miscellaneousRecords,
-		List<EndorserRecord> endorserRecords) {
+	public Curriculum editCurriculum(Curriculum curriculum) {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
 		Assert.isTrue(authorities.get(0).toString().equals("HANDYWORKER"));
 
-		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
+		HandyWorker logguedHandyWorker = this.handyWorkerRepository.getHandyWorkerByUsername(userAccount.getUsername());
 
 		Assert.isTrue(logguedHandyWorker.getCurriculum().equals(curriculum));
-		curriculum.setEducationRecords(educationRecords);
-		curriculum.setEndorserRecords(endorserRecords);
-		curriculum.setMiscellaneousRecords(miscellaneousRecords);
-		curriculum.setPersonalRecord(personalRecord);
-		curriculum.setProfessionalRecords(professionalRecords);
 		return this.curriculumService.save(curriculum);
 	}
 
@@ -1042,6 +1008,8 @@ public class HandyWorkerService {
 
 		this.customerService.save(customer);
 		this.handyWorkerRepository.save(handyWorker);
+		this.configurationService.computeScore(endorsment.getWrittenBy());
+		this.configurationService.computeScore(endorsment.getWrittenTo());
 
 		Assert.isTrue(this.customerService.findOne(customer.getId()).getEndorsements().contains(newEndorsment));
 		Assert.isTrue(this.findOne(handyWorker.getId()).getEndorsements().contains(newEndorsment));

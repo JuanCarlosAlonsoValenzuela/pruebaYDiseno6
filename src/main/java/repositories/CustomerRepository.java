@@ -46,4 +46,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	@Query("select h from Customer c join c.fixUpTasks f join f.applications a join a.handyWorker h where c.id = ?1")
 	Collection<HandyWorker> handyWorkersById(int customerId);
 
+	//@Query("select distinct h from HandyWorker h join h.fixUpTasks f join f.applications a join a.customer b where b.id = ?1 and a.status='ACCEPTED'")
+	//public List<HandyWorker> getHandyWorkersFromCustomer(int id);
+
 }

@@ -17,4 +17,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 
 	@Query("select a.applications from FixUpTask a where a.id = ?1")
 	public Collection<Application> getAllApplicationsFromAFixUpTask(int id);
+
 }

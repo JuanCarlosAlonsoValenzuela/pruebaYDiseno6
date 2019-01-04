@@ -34,6 +34,7 @@
 		<value>/views/handy-worker/messages</value>
 		<value>/views/sponsor/messages</value>
 		<value>/views/category/messages</value>
+		<value>/views/referee/messages</value>
 	</util:list>
 
 </beans>

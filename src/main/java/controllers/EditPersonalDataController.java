@@ -179,8 +179,8 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(referee);
 		} else {
 			try {
-				this.refereeService.save(referee);	//Cambiar por update
-				result = new ModelAndView("redirect:edit.do");
+				this.refereeService.save(referee);
+				result = new ModelAndView("redirect:editReferee.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(referee, "referee.commit.error");
 			}

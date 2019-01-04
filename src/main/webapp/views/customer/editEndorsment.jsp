@@ -10,39 +10,31 @@
 
 <security:authorize access="hasRole('CUSTOMER')">
 
-<form:form modelAttribute="endorsmentList" action="endorsment/customer/edit.do">
+<form:form modelAttribute="endorsement" action="endorsement/customer/create.do">
 
 	<form:hidden path ="id"/>
 	<form:hidden path ="version"/>
 	<form:hidden path ="moment"/>
 	<form:hidden path ="writtenBy"/>
-
+	<form:hidden path ="comments"/>
 	
-	<form:label path="comments">
-		<spring:message code="endorsment.comments" />
-	</form:label>
-	<form:textarea path="comments"/>
-	<form:errors cssClass="error" path="comments"/>
+	<spring:message code="endorsment.comments" />
 	<br />
-	
-	<form:label path="customers">
-		<spring:message code="endorsment.customers" />
-	</form:label>
-	<form:select id="customers" path = "customers">
-		<form:options items="${handyWorkers}" itemLabel="name" itemValue="id"/>
-	</form:select>
-	<form:errors cssClass="error" path="customers"/>
-	
-	<input type="submit" <jstl:if test="${endorsment.id != 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
-		name="save" value="<spring:message code="customer.save" />" />
+	<input type="hidden" name="comment" />
+	<textarea rows="12" cols="50" name="comment" id="comment" placeholder="<spring:message code="endorsement.place"/>" ></textarea>
+	<br />
 
-	<input type="submit" <jstl:if test="${endorsment.id == 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
-		 name="delete" value="<spring:message code="customer.delete" />" 
-			onClick="return confirm('<spring:message code="customer.verificationDelete" />')">
+		<form:select path="writtenTo">
+			<form:options items="${handyWorkers}" itemLabel="userAccount.username" itemValue="id"/>								 		
+		</form:select>
+		<form:errors cssClass="error" path="writtenTo"/>
+		<br/>
+		
+		
+		<input type="submit" name="save" value="<spring:message code="customer.addComment" />" />
 	
-	<input type="submit" name="cancel" value="<spring:message code="customer.cancel" />"
-		onClick="javascript: relativeRedir('customer/endorsementList.do');" />
-</form:form>
+		<input type="button" name="cancel" value="<spring:message code="customer.cancel" />"
+			onClick="javascript:relativeRedir('endorsement/customer/list.do');" />
+</form:form>	
 
 </security:authorize>
-	

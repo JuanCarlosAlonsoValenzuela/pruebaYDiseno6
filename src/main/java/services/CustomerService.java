@@ -483,34 +483,26 @@ public class CustomerService {
 		return complaintFound;
 	}
 
-	public Complaint createComplaint(FixUpTask fixUpTask) {
+	public Complaint createComplaint(FixUpTask fixUpTask, Complaint complaint) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
-		Complaint complaint = this.complaintService.create();
+		List<FixUpTask> fixUpTasks = loggedCustomer.getFixUpTasks();
 
-		Complaint complaintSaved = this.complaintService.save(complaint);
+		Assert.isTrue(fixUpTasks.contains(fixUpTask));
 
-		Collection<FixUpTask> fixUpTasks = this.customerRepository.findFixUpTasksById(loggedCustomer.getId());
+		Assert.notNull(fixUpTask);
 
-		FixUpTask fixUpTaskFound = null;
-		for (FixUpTask f : fixUpTasks) {
-			if (fixUpTask.getId() == f.getId()) {
-				fixUpTaskFound = f;
-				break;
-			}
-		}
-
-		Assert.isTrue(!fixUpTaskFound.equals(null));
-
-		List<Complaint> complaints = (List<Complaint>) fixUpTaskFound.getComplaints();
+		List<Complaint> complaints = (List<Complaint>) fixUpTask.getComplaints();
 		complaints.add(complaint);
-		fixUpTaskFound.setComplaints(complaints);
+		fixUpTask.setComplaints(complaints);
 
-		this.fixUpTaskService.save(fixUpTaskFound);
+		//this.complaintService.save(complaint);
+
+		this.fixUpTaskService.save(fixUpTask);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
-		return complaintSaved;
+		return complaint;
 	}
 
 	public Complaint createComplaint(FixUpTask fixUpTask, String description, List<String> attachments) {
@@ -518,29 +510,21 @@ public class CustomerService {
 
 		Complaint complaint = this.complaintService.create(description, attachments);
 
-		Complaint complaintSaved = this.complaintService.save(complaint);
+		List<FixUpTask> fixUpTasks = loggedCustomer.getFixUpTasks();
 
-		Collection<FixUpTask> fixUpTasks = this.customerRepository.findFixUpTasksById(loggedCustomer.getId());
+		Assert.isTrue(fixUpTasks.contains(fixUpTask));
 
-		FixUpTask fixUpTaskFound = null;
-		for (FixUpTask f : fixUpTasks) {
-			if (fixUpTask.getId() == f.getId()) {
-				fixUpTaskFound = f;
-				break;
-			}
-		}
+		Assert.notNull(fixUpTask);
 
-		Assert.isTrue(!fixUpTaskFound.equals(null));
-
-		List<Complaint> complaints = (List<Complaint>) fixUpTaskFound.getComplaints();
+		List<Complaint> complaints = (List<Complaint>) fixUpTask.getComplaints();
 		complaints.add(complaint);
-		fixUpTaskFound.setComplaints(complaints);
+		fixUpTask.setComplaints(complaints);
 
-		this.fixUpTaskService.save(fixUpTaskFound);
+		this.fixUpTaskService.save(fixUpTask);
 
 		this.configurationService.isActorSuspicious(loggedCustomer);
 
-		return complaintSaved;
+		return complaint;
 	}
 
 	// APPLICATIONS
@@ -704,6 +688,18 @@ public class CustomerService {
 		return this.customerRepository.AllEndorsmentsById(loggedCustomer.getId());
 	}
 
+	public List<Endorsement> showEndorsments1() {
+		UserAccount userAccount = LoginService.getPrincipal();
+		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
+		Assert.isTrue(authorities.get(0).toString().equals("CUSTOMER"));
+
+		Customer logguedCustomer = new Customer();
+		logguedCustomer = this.customerRepository.getCustomerByUsername(userAccount.getUsername());
+
+		List<Endorsement> endorsments = logguedCustomer.getEndorsements();
+		return endorsments;
+	}
+
 	public Endorsement getEndorsment(int endorsmentId) {
 		Customer loggedCustomer = this.securityAndCustomer();
 
@@ -730,30 +726,26 @@ public class CustomerService {
 		Assert.isTrue(authorities.get(0).toString().equals("CUSTOMER"));
 	}
 
-	public Endorsement createEndorsment(List<String> comments, HandyWorker writtenTo) {
-		Customer loggedCustomer = this.securityAndCustomer();
+	public void createEndorsment(Endorsement endorsement) {
+		Customer logguedCustomer = this.customerRepository.getCustomerByUsername(LoginService.getPrincipal().getUsername());
+		endorsement.setWrittenBy(logguedCustomer);
+		HandyWorker handyWorker = this.handyWorkerService.findOne(endorsement.getWrittenTo().getId());
 
-		Assert.isTrue(writtenTo.getClass().equals(HandyWorker.class));
+		Endorsement newEndorsement = this.endorsmentService.save(endorsement);
 
-		Collection<HandyWorker> handyWorkers = this.customerRepository.handyWorkersById(loggedCustomer.getId());
+		List<Endorsement> end = logguedCustomer.getEndorsements();
+		end.add(newEndorsement);
+		logguedCustomer.setEndorsements(end);
 
-		HandyWorker handyWorkerFound = null;
-		for (HandyWorker h : handyWorkers) {
-			if (h.getId() == writtenTo.getId()) {
-				handyWorkerFound = h;
-				break;
-			}
-		}
+		end = handyWorker.getEndorsements();
+		end.add(newEndorsement);
+		handyWorker.setEndorsements(end);
 
-		Assert.notNull(handyWorkerFound);
+		this.save(logguedCustomer);
+		this.handyWorkerService.save2(handyWorker);
+		this.configurationService.computeScore(endorsement.getWrittenBy());
+		this.configurationService.computeScore(endorsement.getWrittenTo());
 
-		Endorsement endorsment = this.endorsmentService.createEndorsment(comments, writtenTo);
-
-		Endorsement endorsmentSave = this.endorsmentService.save(endorsment);
-
-		this.configurationService.isActorSuspicious(loggedCustomer);
-
-		return endorsmentSave;
 	}
 
 	public Endorsement updateEndorsment(Endorsement endorsment) {
@@ -778,22 +770,53 @@ public class CustomerService {
 		return endorsmentSave;
 	}
 
-	public void deleteEndorsment(Endorsement endorsment) {
-		Customer loggedCustomer = this.securityAndCustomer();
+	public void deleteEndorsment(Endorsement endorsement) {
+		//		Customer loggedCustomer = this.securityAndCustomer();
+		//
+		//		Collection<Endorsement> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
+		//
+		//		Endorsement endorsmentFound = null;
+		//		for (Endorsement e : endorsments) {
+		//			if (e.getId() == endorsment.getId()) {
+		//				endorsmentFound = e;
+		//				break;
+		//			}
+		//		}
+		//
+		//		Assert.notNull(endorsmentFound);
+		//	
+		//		this.endorsmentService.delete(endorsment);
 
-		Collection<Endorsement> endorsments = this.customerRepository.endorsmentsOfById(loggedCustomer.getId());
+		//Hacer un set de la lista de endorsements
+		//Hacer save del endorser
+		//Hacer delete del endorsement
+		Customer logguedCustomer = this.customerRepository.getCustomerByUsername(LoginService.getPrincipal().getUsername());
+		Assert.isTrue(logguedCustomer.getEndorsements().contains(endorsement));
+		Assert.isTrue(endorsement.getWrittenBy().equals(logguedCustomer));
 
-		Endorsement endorsmentFound = null;
-		for (Endorsement e : endorsments) {
-			if (e.getId() == endorsment.getId()) {
-				endorsmentFound = e;
+		List<Endorsement> customerEndorsements = logguedCustomer.getEndorsements();
+		customerEndorsements.remove(endorsement);
+		logguedCustomer.setEndorsements(customerEndorsements);
+		this.customerRepository.save(logguedCustomer);
+
+		HandyWorker handyWorkerReceptor = new HandyWorker();
+
+		for (HandyWorker handyWorker : this.handyWorkerService.findAll()) {
+			if (handyWorker.equals(endorsement.getWrittenTo())) {
+				handyWorkerReceptor = handyWorker;
 				break;
 			}
 		}
+		Assert.isTrue(handyWorkerReceptor != null);
 
-		Assert.notNull(endorsmentFound);
+		List<Endorsement> handyWorkerEndorsements = handyWorkerReceptor.getEndorsements();
+		handyWorkerEndorsements.remove(endorsement);
+		handyWorkerReceptor.setEndorsements(handyWorkerEndorsements);
+		this.handyWorkerService.save2(handyWorkerReceptor);
 
-		this.endorsmentService.delete(endorsment);
+		this.endorsmentService.delete(endorsement);
+		this.configurationService.computeScore(handyWorkerReceptor);
+		this.configurationService.computeScore(logguedCustomer);
 	}
 
 	// REPORTS
@@ -819,4 +842,9 @@ public class CustomerService {
 	public List<HandyWorker> getHandyWorkersById(int customerId) {
 		return (List<HandyWorker>) this.customerRepository.handyWorkersById(customerId);
 	}
+
+	public List<Application> findApplicationsById(int customerId) {
+		return (List<Application>) this.customerRepository.findApplicationsById(customerId);
+	}
+
 }

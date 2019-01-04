@@ -217,8 +217,6 @@ public class CategoryController extends AbstractController {
 			Category newSaved = this.categoryService.save(newFatherCategory);
 
 			Category possibleSaved = this.categoryService.save(possibleCategory);
-			//Category oldSaved = this.categoryService.save(oldFatherCategory);
-			//Category newSaved = this.categoryService.save(newFatherCategory);
 
 			//for possible
 			for (FixUpTask fixUpTask : fixUpTasks2) {
@@ -243,7 +241,7 @@ public class CategoryController extends AbstractController {
 				this.fixUpTaskService.save(fixUpTask);
 			}
 
-			result = new ModelAndView("category/administrator/list");
+			result = new ModelAndView("redirect:/category/administrator/list.do");  //"category/administrator/list"
 			result.addObject("requestURI", "category/administrator/list.do");
 
 		} catch (Throwable oops) {
