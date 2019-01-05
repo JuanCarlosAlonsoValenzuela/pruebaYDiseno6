@@ -32,9 +32,18 @@
       <display:column titleKey="administrator.actors">
       		<jstl:out value="${actorList.userAccount.username}" />
       </display:column>
+      
+       <display:column titleKey="administrator.suspicious">
+       <jstl:choose>
+ 	  	<jstl:when test="${actorList.hasSpam}">
+					<spring:message code="administrator.yes" />
+ 	  	</jstl:when>
+ 	  	<jstl:otherwise>
+ 	  				<jstl:out value="No" />
+ 	  	</jstl:otherwise>
+ 	  	</jstl:choose>
+     
+      </display:column>
 </display:table>
-
-<input type="submit" name="cancel" value="<spring:message code="administrator.cancel" />"
-		onClick="javascript: relativeRedir('administrator/profile.do');" />
 
 </security:authorize>

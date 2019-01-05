@@ -164,7 +164,7 @@ public class AdminService {
 	}
 
 	public Admin saveCreate(Admin admin) {	//Tenemos un listBox vacía
-
+		this.loggedAsAdmin();
 		List<Box> boxes = new ArrayList<>();
 
 		//Boxes

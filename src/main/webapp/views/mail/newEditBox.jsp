@@ -44,9 +44,11 @@
 		<form:errors cssClass="error" path="fatherBox"/>
 	<br />
 
-	<input  type="submit" name = "save" value="<spring:message code="mail.save"/>" onclick="return confirm('<spring:message code="mail.save" />')"/> 
+	<input  type="submit" <jstl:if test="${box.id != 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
+		 name = "save" value="<spring:message code="mail.save"/>" onclick="return confirm('<spring:message code="mail.save" />')"/> 
 	
-	<input type="submit" name = "delete" value="<spring:message code="mail.delete"/>" onclick="return confirm('<spring:message code="mail.delete" />')"/>
+	<input type="submit" <jstl:if test="${box.id == 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
+		 name = "delete" value="<spring:message code="mail.delete"/>" onclick="return confirm('<spring:message code="mail.delete" />')"/>
 	</form:form>
 
 <spring:url var="mail" value="/box/actor/list.do"/>
