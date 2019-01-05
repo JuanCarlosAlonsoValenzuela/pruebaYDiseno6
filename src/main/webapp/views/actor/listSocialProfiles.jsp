@@ -45,6 +45,8 @@
 
 </table>
 
+<h2> <spring:message code="socialProfile.mySocialProfiles"  /></h2>
+
 <display:table
 	pagesize="5" name="socialProfiles" id="socialProfile"
 	requestURI="${requestURI}">
@@ -55,8 +57,18 @@
 	
 	<display:column property="profileLink" titleKey="socialProfile.profileLink" />
 	
+	<display:column>
+				
+				<a href="authenticated/socialProfile/edit.do?socialProfileId=${socialProfile.id}">
+					<spring:message code="socialProfile.edit" />
+				</a>
+			
+		</display:column>
+	
 	
 </display:table>
+
+<a href="authenticated/socialProfile/create.do"><spring:message code="socialProfile.create" /></a>
 
 
 </security:authorize>

@@ -21,4 +21,9 @@
 		<put-attribute name="body" value="/views/actor/listSocialProfiles.jsp" />
 	</definition>
 	
+	<definition name="authenticated/socialProfile/create" extends="master.page">	
+		<put-attribute name="title" value="Crear/Editar Un perfil en una Red Social" />
+		<put-attribute name="body" value="/views/actor/editSocialProfile.jsp" />
+	</definition>
+	
 </tiles-definitions>
