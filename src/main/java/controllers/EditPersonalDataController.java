@@ -15,10 +15,12 @@ import security.LoginService;
 import security.UserAccount;
 import services.AdminService;
 import services.CustomerService;
+import services.HandyWorkerService;
 import services.RefereeService;
 import services.SponsorService;
 import domain.Admin;
 import domain.Customer;
+import domain.HandyWorker;
 import domain.Referee;
 import domain.Sponsor;
 
@@ -27,13 +29,15 @@ import domain.Sponsor;
 public class EditPersonalDataController extends AbstractController {
 
 	@Autowired
-	private CustomerService	customerService;
+	private CustomerService		customerService;
 	@Autowired
-	private SponsorService	sponsorService;
+	private SponsorService		sponsorService;
 	@Autowired
-	private RefereeService	refereeService;
+	private RefereeService		refereeService;
 	@Autowired
-	private AdminService	adminService;
+	private AdminService		adminService;
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
 
 
 	//Constructor
@@ -69,7 +73,7 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(customer);
 		} else {
 			try {
-				this.customerService.save(customer);	//Cambiar por update 
+				this.customerService.save(customer);
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(customer, "customer.commit.error");
@@ -235,7 +239,7 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(admin);
 		} else {
 			try {
-				this.adminService.save(admin);	//Cambiar por update
+				this.adminService.save(admin);
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(admin, "admin.commit.error");
@@ -257,6 +261,60 @@ public class EditPersonalDataController extends AbstractController {
 
 		result = new ModelAndView("personalData/administrator/edit");
 		result.addObject("admin", admin);
+		result.addObject("message", messageCode);
+
+		return result;
+	}
+
+	//-------------------------------------------------------------------------------------------	
+	//-------------------------- HANDYWORKER ----------------------------------------------------
+	@RequestMapping(value = "/handyWorker/edit", method = RequestMethod.GET)
+	public ModelAndView editHandyWorker() {
+		ModelAndView result;
+
+		HandyWorker handyWorker;
+
+		UserAccount userAccount = LoginService.getPrincipal();
+		String username = userAccount.getUsername();
+
+		handyWorker = this.handyWorkerService.getHandyWorkerByUsername(username);
+		Assert.notNull(handyWorker);
+		result = this.createEditModelAndView(handyWorker);
+
+		return result;
+	}
+	//Save Admin
+	@RequestMapping(value = "/handyWorker/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveHandyWorker(@Valid HandyWorker handyWorker, BindingResult binding) {
+
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			result = this.createEditModelAndView(handyWorker);
+		} else {
+			try {
+				this.handyWorkerService.save(handyWorker);
+				result = new ModelAndView("redirect:edit.do");
+			} catch (Throwable oops) {
+				result = this.createEditModelAndView(handyWorker, "handyWorker.commit.error");
+			}
+		}
+		return result;
+	}
+
+	//createEditModelAndView
+	protected ModelAndView createEditModelAndView(HandyWorker handyWorker) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(handyWorker, null);
+
+		return result;
+	}
+	protected ModelAndView createEditModelAndView(HandyWorker handyWorker, String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("personalData/handyWorker/edit");
+		result.addObject("handyWorker", handyWorker);
 		result.addObject("message", messageCode);
 
 		return result;

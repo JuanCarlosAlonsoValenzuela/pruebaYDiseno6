@@ -29,6 +29,8 @@
 					<li><a href="administrator/createAdmin.do"><spring:message code="master.page.administrator.createAdmin" /></a></li>					
 					<li><a href="administrator/createReferee.do"><spring:message code="master.page.administrator.createReferee" /></a></li>			
 					<li><a href="score/administrator/list.do"><spring:message code="master.page.administrator.computedscore" /></a></li>					
+					<li><a href="administrator/createadmin.do"><spring:message code="master.page.administrator.createadmin" /></a></li>					
+					<li><a href="administrator/createreferee.do"><spring:message code="master.page.administrator.createreferee" /></a></li>			
 					<li><a href="words/administrator/list.do"><spring:message code="master.page.administrator.goodAndBadWordsList" /></a></li>	
 					<li><a href="statistics/administrator/show.do"><spring:message code="master.page.administrator.showstaitsticspart1" /></a></li>			
 					<li><a href="warranty/administrator/list.do"><spring:message code="master.page.administrator.listwarranty" /></a></li>
@@ -75,6 +77,7 @@
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
 					<li><a href="handyWorker/handyWorker/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="personalData/handyWorker/edit.do"><spring:message code="master.page.customer.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
 			</li>

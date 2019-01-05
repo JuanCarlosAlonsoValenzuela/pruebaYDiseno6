@@ -25,19 +25,13 @@ import domain.Box;
 import domain.Complaint;
 import domain.Curriculum;
 import domain.Customer;
-import domain.EducationRecord;
-import domain.Endorser;
-import domain.EndorserRecord;
 import domain.Endorsement;
 import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Message;
-import domain.MiscellaneousRecord;
 import domain.Note;
-import domain.PersonalRecord;
 import domain.Phase;
-import domain.ProfessionalRecord;
 import domain.Report;
 import domain.Section;
 import domain.SocialProfile;
@@ -93,50 +87,55 @@ public class HandyWorkerService {
 
 		HandyWorker handyWorker = new HandyWorker();
 
+		//SE CREAN LAS LISTAS VACÍAS	
+		//Actor
 		List<SocialProfile> socialProfiles = new ArrayList<SocialProfile>();
 		List<Box> boxes = new ArrayList<Box>();
-		List<Endorsement> endorsments = new ArrayList<Endorsement>();
+		//Endorser
+		List<Endorsement> endorsements = new ArrayList<Endorsement>();
+		//Handy Worker
 		List<Application> applications = new ArrayList<Application>();
 		List<Tutorial> tutorials = new ArrayList<Tutorial>();
 		Curriculum curriculum = new Curriculum();
-		curriculum = this.curriculumService.create();
+
+		//curriculum = this.curriculumService.create();
 
 		Finder finder = new Finder();
 
-		finder = this.finderService.createFinder();
+		//finder = this.finderService.createFinder();
 
 		UserAccount userAccountActor = new UserAccount();
 		userAccountActor.setUsername("");
 		userAccountActor.setPassword("");
 
-		Box spamBox = new Box();
-		List<Message> messages1 = new ArrayList<>();
-		spamBox.setIsSystem(true);
-		spamBox.setMessages(messages1);
-		spamBox.setName("Spam");
-
-		Box trashBox = new Box();
-		List<Message> messages2 = new ArrayList<>();
-		trashBox.setIsSystem(true);
-		trashBox.setMessages(messages2);
-		trashBox.setName("Trash");
-
-		Box sentBox = new Box();
-		List<Message> messages3 = new ArrayList<>();
-		sentBox.setIsSystem(true);
-		sentBox.setMessages(messages3);
-		sentBox.setName("Sent messages");
-
-		Box receivedBox = new Box();
-		List<Message> messages4 = new ArrayList<>();
-		receivedBox.setIsSystem(true);
-		receivedBox.setMessages(messages4);
-		receivedBox.setName("Received messages");
-
-		boxes.add(receivedBox);
-		boxes.add(sentBox);
-		boxes.add(spamBox);
-		boxes.add(trashBox);
+		//		Box spamBox = new Box();
+		//		List<Message> messages1 = new ArrayList<>();
+		//		spamBox.setIsSystem(true);
+		//		spamBox.setMessages(messages1);
+		//		spamBox.setName("Spam");
+		//
+		//		Box trashBox = new Box();
+		//		List<Message> messages2 = new ArrayList<>();
+		//		trashBox.setIsSystem(true);
+		//		trashBox.setMessages(messages2);
+		//		trashBox.setName("Trash");
+		//
+		//		Box sentBox = new Box();
+		//		List<Message> messages3 = new ArrayList<>();
+		//		sentBox.setIsSystem(true);
+		//		sentBox.setMessages(messages3);
+		//		sentBox.setName("Sent messages");
+		//
+		//		Box receivedBox = new Box();
+		//		List<Message> messages4 = new ArrayList<>();
+		//		receivedBox.setIsSystem(true);
+		//		receivedBox.setMessages(messages4);
+		//		receivedBox.setName("Received messages");
+		//
+		//		boxes.add(receivedBox);
+		//		boxes.add(sentBox);
+		//		boxes.add(spamBox);
+		//		boxes.add(trashBox);
 
 		handyWorker.setTutorials(tutorials);
 		handyWorker.setName("");
@@ -147,7 +146,7 @@ public class HandyWorkerService {
 		handyWorker.setPhoneNumber("");
 		handyWorker.setSocialProfiles(socialProfiles);
 		handyWorker.setScore(0.0);
-		handyWorker.setEndorsements(endorsments);
+		handyWorker.setEndorsements(endorsements);
 		handyWorker.setMake("");
 		handyWorker.setApplications(applications);
 		handyWorker.setPhoto("");
@@ -272,39 +271,51 @@ public class HandyWorkerService {
 		return this.handyWorkerRepository.findOne(id);
 	}
 
-	public HandyWorker save(HandyWorker handyWorker) {
+	public HandyWorker saveCreate(HandyWorker handyWorker) {
 
 		handyWorker.setMake(handyWorker.getName() + "" + handyWorker.getMiddleName() + "" + handyWorker.getSurname());
 		HandyWorker saved = new HandyWorker();
 
-		List<Box> boxes = new ArrayList<Box>();
-		Box box1 = new Box();
-		Box box2 = new Box();
-		Box box3 = new Box();
-		Box box4 = new Box();
-		box1 = this.boxService.saveSystem(handyWorker.getBoxes().get(0));
-		box2 = this.boxService.saveSystem(handyWorker.getBoxes().get(1));
-		box3 = this.boxService.saveSystem(handyWorker.getBoxes().get(2));
-		box4 = this.boxService.saveSystem(handyWorker.getBoxes().get(3));
-		boxes.add(box1);
-		boxes.add(box2);
-		boxes.add(box3);
-		boxes.add(box4);
+		List<Box> boxes = new ArrayList<>();
+
+		//Boxes
+		Box box1 = this.boxService.createSystem();
+		box1.setName("Spam");
+		Box saved1 = this.boxService.saveSystem(box1);
+		boxes.add(saved1);
+
+		Box box2 = this.boxService.createSystem();
+		box2.setName("Trash");
+		Box saved2 = this.boxService.saveSystem(box2);
+		boxes.add(saved2);
+
+		Box box3 = this.boxService.createSystem();
+		box3.setName("Sent messages");
+		Box saved3 = this.boxService.saveSystem(box3);
+		boxes.add(saved3);
+
+		Box box4 = this.boxService.createSystem();
+		box4.setName("Received messages");
+		Box saved4 = this.boxService.saveSystem(box4);
+		boxes.add(saved4);
+
 		handyWorker.setBoxes(boxes);
 
 		Finder savedFinder = new Finder();
 		Curriculum savedCurriculum = new Curriculum();
+
 		savedFinder = this.finderService.save(handyWorker.getFinder());
 		savedCurriculum = this.curriculumService.save(handyWorker.getCurriculum());
-		handyWorker.setFinder(savedFinder);
-		handyWorker.setCurriculum(savedCurriculum);
+
+		//handyWorker.setFinder(savedFinder);
+		//handyWorker.setCurriculum(savedCurriculum);
 
 		saved = this.handyWorkerRepository.save(handyWorker);
 
 		return saved;
 	}
 
-	public HandyWorker save2(HandyWorker handyWorker) {
+	public HandyWorker save(HandyWorker handyWorker) {
 		return this.handyWorkerRepository.save(handyWorker);
 	}
 
@@ -479,7 +490,7 @@ public class HandyWorkerService {
 	}
 	//11.2 ------------------------------------------------------------------------------------------------------------------
 
-		public void filterFixUpTasksByFinder() {
+	public void filterFixUpTasksByFinder() {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		List<Authority> authorities = (List<Authority>) userAccount.getAuthorities();
