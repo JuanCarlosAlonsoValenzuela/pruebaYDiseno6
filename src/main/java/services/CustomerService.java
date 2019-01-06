@@ -438,7 +438,7 @@ public class CustomerService {
 				}
 			}
 			h.setApplications(applicationsHw);
-			this.handyWorkerService.save2(h);
+			this.handyWorkerService.save(h);
 		}
 
 		for (Application app : applicationsNew) {
@@ -742,7 +742,7 @@ public class CustomerService {
 		handyWorker.setEndorsements(end);
 
 		this.save(logguedCustomer);
-		this.handyWorkerService.save2(handyWorker);
+		this.handyWorkerService.save(handyWorker);
 		this.configurationService.computeScore(endorsement.getWrittenBy());
 		this.configurationService.computeScore(endorsement.getWrittenTo());
 
@@ -812,7 +812,7 @@ public class CustomerService {
 		List<Endorsement> handyWorkerEndorsements = handyWorkerReceptor.getEndorsements();
 		handyWorkerEndorsements.remove(endorsement);
 		handyWorkerReceptor.setEndorsements(handyWorkerEndorsements);
-		this.handyWorkerService.save2(handyWorkerReceptor);
+		this.handyWorkerService.save(handyWorkerReceptor);
 
 		this.endorsmentService.delete(endorsement);
 		this.configurationService.computeScore(handyWorkerReceptor);

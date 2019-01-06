@@ -42,10 +42,10 @@ public class AnonymousController extends AbstractController {
 	@RequestMapping(value = "/createHandyWorker", method = RequestMethod.GET)
 	public ModelAndView createHandyWorker() {
 		ModelAndView result;
-		HandyWorker handyworker;
+		HandyWorker handyWorker;
 
-		handyworker = this.handyWorkerService.createHandyWorker();
-		result = this.createEditModelAndView(handyworker);
+		handyWorker = this.handyWorkerService.createHandyWorker();
+		result = this.createEditModelAndView(handyWorker);
 
 		return result;
 	}
@@ -58,8 +58,8 @@ public class AnonymousController extends AbstractController {
 			result = this.createEditModelAndView(handyWorker);
 		} else {
 			try {
-				this.handyWorkerService.save(handyWorker);
-				result = new ModelAndView("redirect:login.do");
+				this.handyWorkerService.saveCreate(handyWorker);
+				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(handyWorker, "handyWorker.commit.error");
 			}

@@ -14,11 +14,15 @@
     <!--Hidden Attributes -->
 	<form:hidden path ="id"/>
 	<form:hidden path ="version"/>
+	
 	<form:hidden path ="hasSpam"/>
 	<form:hidden path ="boxes"/>
 	<form:hidden path ="socialProfiles"/>
-	<form:hidden path ="userAccount.authorities"/>
-	<form:hidden path ="userAccount.isNotLocked"/>
+	
+	<%-- <form:hidden path ="userAccount.authorities"/>
+	<form:hidden path ="userAccount.isNotLocked"/> --%>
+	<form:hidden path="userAccount" />
+	
 	<form:hidden path ="score"/>
 	<form:hidden path ="endorsements"/>
 	<form:hidden path ="make"/>
@@ -97,7 +101,7 @@
 	</form:label>
 	<form:password path="userAccount.password" />
 	<form:errors cssClass="error" path="userAccount.password"/>
-	<br />
+	<br /> 
 	
 	
 		
