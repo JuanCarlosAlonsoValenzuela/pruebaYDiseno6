@@ -19,10 +19,7 @@
 	<form:hidden path="version"/>
 	<form:hidden path="moment"/>
 	<form:hidden path="sender"/>
-	<form:hidden path="tags"/>
-	<form:hidden path="priority"/>
-	
-	
+
 
 	<form:label path="subject">
 		<spring:message code="mail.message.subject"/>:
@@ -41,8 +38,23 @@
 		<form:errors cssClass="error" path="receiver"/>
 	<br />
 	
-
+	<form:label path="tags">
+		<spring:message code="mail.message.tags"/>:
+	</form:label>
+	<form:input path="tags" />
+	<form:errors cssClass="error" path="tags"/>
+	<br />
 	
+	<form:label path="priority">
+		<spring:message code="mail.message.priority"/>:
+	</form:label>
+	<form:select path="priority">
+	<form:options items="${priority}" />
+	</form:select>
+	<form:errors cssClass="error" path="priority"/>
+	
+	<br />
+
     	
 	<form:label path="body">
 		<spring:message code="mail.message"/>:
