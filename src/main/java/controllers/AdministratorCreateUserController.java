@@ -4,6 +4,7 @@ package controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,11 +49,14 @@ public class AdministratorCreateUserController extends AbstractController {
 	public ModelAndView save(@Valid Admin admin, BindingResult binding) {
 
 		ModelAndView result;
+		Md5PasswordEncoder encoder;
+		encoder = new Md5PasswordEncoder();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(admin);
 		} else {
 			try {
+				admin.getUserAccount().setPassword(encoder.encodePassword(admin.getUserAccount().getPassword(), null));
 				this.adminService.saveCreate(admin);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
@@ -101,11 +105,14 @@ public class AdministratorCreateUserController extends AbstractController {
 	public ModelAndView save(@Valid Referee referee, BindingResult binding) {
 
 		ModelAndView result;
+		Md5PasswordEncoder encoder;
+		encoder = new Md5PasswordEncoder();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(referee);
 		} else {
 			try {
+				referee.getUserAccount().setPassword(encoder.encodePassword(referee.getUserAccount().getPassword(), null));
 				this.refereeService.saveCreate(referee);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
