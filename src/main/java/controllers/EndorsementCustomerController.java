@@ -147,7 +147,7 @@ public class EndorsementCustomerController extends AbstractController {
 	}
 	//ADD A COMMENT
 	@RequestMapping(value = "/comment/create", method = RequestMethod.GET)
-	public ModelAndView newLaw(@RequestParam int endorsementId) {
+	public ModelAndView newComment(@RequestParam int endorsementId) {
 		ModelAndView result;
 
 		result = new ModelAndView("endorsement/customer/comment/create");
@@ -157,7 +157,7 @@ public class EndorsementCustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/comment/create", method = RequestMethod.POST, params = "create")
-	public ModelAndView saveLaw(@Valid int endorsementId, @Valid String comment) {
+	public ModelAndView save(@Valid int endorsementId, @Valid String comment) {
 		ModelAndView result;
 
 		try {
@@ -166,6 +166,12 @@ public class EndorsementCustomerController extends AbstractController {
 			if (comment != null && comment != "") {
 				comments.add(comment);
 			}
+			List<String> spam = new ArrayList<String>();
+			Boolean bol;
+			spam = this.configurationService.getSpamWords();
+
+			bol = this.configurationService.isStringSpam(comment, spam);
+
 			endorsement.setComments(comments);
 			this.endorsementService.save(endorsement);
 

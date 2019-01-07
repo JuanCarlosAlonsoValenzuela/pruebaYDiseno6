@@ -25,13 +25,16 @@
 	<input type="submit" name="create" value="<spring:message code="comment.create"/>" />	
 </form>
 
-	<spring:url var="noteUrl" value="/note/handyWorker/listComments.do?noteId={appId}">
-	<spring:param name="appId" value="${noteId}"/>
-	<spring:param name="reportId" value="${reportId}"/>
+	<spring:url var="noteUrl" value="note/handyWorker/listComments.do">
+	<spring:param name="noteId" value="${param.noteid}"/>
+	<spring:param name="reportId" value="${param.reportId}"/>
+	<spring:param name="complaintId" value="${param.complaintId}"/>	
+	<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 	</spring:url>
-	<a href="${noteUrl}">
-		<spring:message code="comment.cancel" />			
-	</a>
+	
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="comment.cancel"/>" onclick="javascript:relativeRedir('${noteUrl}');" />
 
 
 </security:authorize>

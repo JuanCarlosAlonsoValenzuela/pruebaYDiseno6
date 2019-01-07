@@ -16,7 +16,7 @@
        
 <tiles-definitions>
 
-	<definition name="administrator/banUnban" extends="master.page">	
+	<definition name="suspicious/administrator/list" extends="master.page">	
 		<put-attribute name="title" value="Administrator: Ban/unban" />
 		<put-attribute name="body" value="/views/administrator/banUnban.jsp" />
 	</definition>
@@ -69,6 +69,11 @@
 	<definition name="administrator/editConfiguration" extends="master.page">	
 		<put-attribute name="title" value="Edit Configuration" /> 
 		<put-attribute name="body" value="/views/administrator/editConfiguration.jsp" />
+	</definition>
+	
+	<definition name="broadcast/administrator/send" extends="master.page">	
+		<put-attribute name="title" value="Broadcast message" /> 
+		<put-attribute name="body" value="/views/administrator/broadcast.jsp" />
 	</definition>
 	
 </tiles-definitions>

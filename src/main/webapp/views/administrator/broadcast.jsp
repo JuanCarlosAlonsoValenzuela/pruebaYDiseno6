@@ -14,15 +14,34 @@
 
 <security:authorize access="hasRole('ADMIN')">
 
-<form:form modelAttribute="broadcast">
-	<form:label path="message"><spring:message code="broadcast.message" />:</form:label>
-	<form:input path="message" />
-	</br>
+<form:form modelAttribute="messageSend" action="broadcast/administrator/send.do">
+
+	<form:hidden path="id"/>
+	<form:hidden path="version"/>
+	<form:hidden path="moment"/>
+	<form:hidden path="sender"/>
+	<form:hidden path="receiver"/>
+	<form:hidden path="tags"/>
+	<form:hidden path="priority"/>
+
+
+	<form:label path="subject">
+		<spring:message code="broadcast.subject"/>:
+	</form:label>
+	<form:input path="subject" />
+	<form:errors cssClass="error" path="subject"/>
+	<br />
+
+
+	<form:label path="body">
+		<spring:message code="mail.message"/>:
+	</form:label>
+	<form:textarea path="body" />
+	<form:errors cssClass="error" path="body"/>
+	<br />
 	
 	<input type="submit" name="send" value="<spring:message code="broadcast.send" />" />
 	
-	<input type="submit" name="cancel" value="<spring:message code="broadcast.cancel" />"
-		onClick="javascript: relativeRedir('administrator/action-7.do');" />
 </form:form>
 
 </security:authorize>

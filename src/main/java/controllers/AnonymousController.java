@@ -4,6 +4,7 @@ package controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +43,10 @@ public class AnonymousController extends AbstractController {
 	@RequestMapping(value = "/createHandyWorker", method = RequestMethod.GET)
 	public ModelAndView createHandyWorker() {
 		ModelAndView result;
-		HandyWorker handyworker;
+		HandyWorker handyWorker;
 
-		handyworker = this.handyWorkerService.createHandyWorker();
-		result = this.createEditModelAndView(handyworker);
+		handyWorker = this.handyWorkerService.createHandyWorker();
+		result = this.createEditModelAndView(handyWorker);
 
 		return result;
 	}
@@ -53,13 +54,16 @@ public class AnonymousController extends AbstractController {
 	@RequestMapping(value = "/createHandyWorker", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveHandyWorker(@Valid HandyWorker handyWorker, BindingResult binding) {
 		ModelAndView result;
+		Md5PasswordEncoder encoder;
+		encoder = new Md5PasswordEncoder();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(handyWorker);
 		} else {
 			try {
-				this.handyWorkerService.save(handyWorker);
-				result = new ModelAndView("redirect:login.do");
+				handyWorker.getUserAccount().setPassword(encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null));
+				this.handyWorkerService.saveCreate(handyWorker);
+				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(handyWorker, "handyWorker.commit.error");
 			}
@@ -105,11 +109,14 @@ public class AnonymousController extends AbstractController {
 	public ModelAndView save(@Valid Customer customer, BindingResult binding) {
 
 		ModelAndView result;
+		Md5PasswordEncoder encoder;
+		encoder = new Md5PasswordEncoder();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(customer);
 		} else {
 			try {
+				customer.getUserAccount().setPassword(encoder.encodePassword(customer.getUserAccount().getPassword(), null));
 				this.customerService.saveCreate(customer);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
@@ -157,11 +164,14 @@ public class AnonymousController extends AbstractController {
 	public ModelAndView save(@Valid Sponsor sponsor, BindingResult binding) {
 
 		ModelAndView result;
+		Md5PasswordEncoder encoder;
+		encoder = new Md5PasswordEncoder();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(sponsor);
 		} else {
 			try {
+				sponsor.getUserAccount().setPassword(encoder.encodePassword(sponsor.getUserAccount().getPassword(), null));
 				this.sponsorService.saveCreate(sponsor);
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {

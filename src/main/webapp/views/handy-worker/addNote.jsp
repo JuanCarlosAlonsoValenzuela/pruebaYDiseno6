@@ -15,6 +15,8 @@
 		<form:hidden path="id"/>
 		<form:hidden path="moment" />
 		<input type="hidden" name="reportId" id="reportId" value="<jstl:out value="${param.reportId}"/>"/>
+		<input type="hidden" name="complaintId" id="complaintId" value="<jstl:out value="${param.complaintId}"/>"/>
+		<input type="hidden" name="fixUpTaskId" id="fixUpTaskId" value="<jstl:out value="${param.fixUpTaskId}"/>"/>
 		
 		<!--  Mandatory Comment -->
 		<label for="text"><spring:message code="note.mandatoryComment" />: </label>
@@ -29,6 +31,8 @@
 
 <spring:url var="noteUrl" value="/note/handyWorker/list.do?reportId={reportId}">
 	<spring:param name="reportId" value="${param.reportId}"/>
+	<spring:param name="complaintId" value="${param.complaintId}"/>	
+	<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 	</spring:url>
 	<a href="${noteUrl}">
 	<button><spring:message code="comment.cancel" /></button>	 	

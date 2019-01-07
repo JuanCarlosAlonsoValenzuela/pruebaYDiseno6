@@ -16,7 +16,7 @@
 	<input type="text" name="comment" id="comment" placeholder="<spring:message code="comment.addComment"/>" value="${comment}"/>
 	<input type="hidden" name="endorsementId" id="endorsementId" value="<jstl:out value="${endorsementId}"/>"/>
 	
-	<input type="submit" name="create" value="<spring:message code="law.create"/>" />	
+	<input type="submit" name="create" value="<spring:message code="customer.addComment"/>" />	
 </form>
 
 	<spring:url var="endorsementURL" value="/endorsement/customer/listComments.do?endorsementId={endorsementId}">

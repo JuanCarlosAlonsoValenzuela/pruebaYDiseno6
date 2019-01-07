@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import repositories.ConfigurationRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 import domain.Box;
 import domain.Configuration;
@@ -31,6 +33,12 @@ public class ConfigurationService {
 	@Autowired
 	private EndorserService			endorserService;
 
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private AdminService			adminService;
+
 
 	public Configuration getConfiguration() {
 		return this.configurationRepository.findAll().get(0);
@@ -47,15 +55,30 @@ public class ConfigurationService {
 	public Boolean isStringSpam(String s, List<String> spamWords) {
 		Boolean result = false;
 
+		this.actorService.loggedAsActor();
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+
+		Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
+
+		List<String> trimmedString = new ArrayList<String>();
+		trimmedString = Arrays.asList(s.split("\\s+|(?=[ ,.¿?;!¡])"));
+
+		//("\\s*(=>|,|\\s)\\s*"));
 		for (String g : spamWords) {
-			if (s.contains(g)) {
-				result = true;
-				break;
+			for (String c : trimmedString) {
+				if (g.equalsIgnoreCase(c)) {
+					result = true;
+					break;
+				}
 			}
+		}
+		if (result == true) {
+			actor.setHasSpam(true);
+			this.actorService.save(actor);
 		}
 		return result;
 	}
-
 	public Boolean isActorSuspicious(Actor a) {
 		Boolean result = false;
 		List<String> spamWords = new ArrayList<String>();
@@ -284,6 +307,7 @@ public class ConfigurationService {
 	}
 
 	public List<String> showGoodWordsList() {
+		this.adminService.loggedAsAdmin();
 		String goodWordString = this.configurationRepository.goodWords();
 
 		List<String> goodWordsList = Arrays.asList(goodWordString.split(",[ ]*"));
@@ -292,6 +316,7 @@ public class ConfigurationService {
 	}
 
 	public List<String> showBadWordsList() {
+		this.adminService.loggedAsAdmin();
 		String badWordString = this.configurationRepository.badWords();
 
 		List<String> badWordsList = Arrays.asList(badWordString.split(",[ ]*"));
@@ -300,6 +325,7 @@ public class ConfigurationService {
 	}
 
 	public String addGoodWords(String word) {
+		this.adminService.loggedAsAdmin();
 		Configuration configuration = this.configurationRepository.configuration();
 		String goodWords = configuration.getGoodWords();
 		configuration.setGoodWords(goodWords = goodWords + "," + word);
@@ -309,6 +335,7 @@ public class ConfigurationService {
 	}
 
 	public String addBadWords(String word) {
+		this.adminService.loggedAsAdmin();
 		Configuration configuration = this.configurationRepository.configuration();
 		String badWords = configuration.getBadWords();
 		configuration.setBadWords(badWords = badWords + "," + word);
@@ -318,6 +345,7 @@ public class ConfigurationService {
 	}
 
 	public String editWord(String word, String originalWord) {
+		this.adminService.loggedAsAdmin();
 		String result = "";
 		String goodWords = this.showGoodWords();
 		String badWords = this.showBadWords();
@@ -371,6 +399,7 @@ public class ConfigurationService {
 	}
 
 	public void deleteGoodWord(String word) {
+		this.adminService.loggedAsAdmin();
 		String goodWords = this.showGoodWords();
 		Configuration configuration = this.configurationRepository.configuration();
 
@@ -396,6 +425,7 @@ public class ConfigurationService {
 	}
 
 	public void deleteBadWord(String word) {
+		this.adminService.loggedAsAdmin();
 		String badWords = this.showBadWords();
 		Configuration configuration = this.configurationRepository.configuration();
 

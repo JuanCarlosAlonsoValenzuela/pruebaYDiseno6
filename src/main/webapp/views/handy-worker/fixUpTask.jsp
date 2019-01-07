@@ -55,7 +55,7 @@
 		<!-- See Warranties -->
 		<display:column titleKey="fixUpTask.warranties">								
 				
-				<spring:url var="warrantiesUrl" value="/warranty/customer/list.do?fixUpTaskId={fixId}">
+				<spring:url var="warrantiesUrl" value="/warranty/handyWorker/list.do?fixUpTaskId={fixId}">
 						<spring:param name="fixId" value="${row.id}" />
 				</spring:url>
 				

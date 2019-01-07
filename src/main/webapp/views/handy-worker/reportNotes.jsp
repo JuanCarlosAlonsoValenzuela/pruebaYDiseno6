@@ -33,22 +33,25 @@
 		
 	</display:table>
 	
-	<spring:url var="createNoteUrl" value="note/handyWorker/edit.do?reportId={repId}">
-					<spring:param name="repId" value="${reportId}"/>
+	<spring:url var="createNoteUrl" value="note/handyWorker/edit.do">
+							<spring:param name="reportId" value="${reportId}"/>
+							<spring:param name="complaintId" value="${param.complaintId}"/>	
+							<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 		</spring:url>
 		
 	
-		<a href="${createNoteUrl}">
-				<spring:message code="note.create" />			
-		</a>
 		
-	</br>	
-			<spring:url var="complaintUrl" value="/report/handyWorker/list.do">
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="note.create"/>" onclick="javascript:relativeRedir('${createNoteUrl}');" />
+
+			<spring:url var="complaintUrl" value="report/handyWorker/list.do">
 		<spring:param name="complaintId" value="${param.complaintId}"/>	
 		<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>
 		
 	</spring:url>
-	<a href="${complaintUrl}">
-		<spring:message code="handyWorker.back" />			
-	</a>
+	
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="handyWorker.back"/>" onclick="javascript:relativeRedir('${complaintUrl}');" />
 	

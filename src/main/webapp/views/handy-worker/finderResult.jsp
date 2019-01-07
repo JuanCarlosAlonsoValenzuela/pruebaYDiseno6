@@ -58,22 +58,40 @@
 		
 		<display:column property="realizationTime" titleKey="fixUpTask.realizationTime"/> 
 		
-		<!-- See Warranties -->
+			<!-- See Warranties -->
 		<display:column titleKey="fixUpTask.warranties">								
 				
-				<spring:url var="warrantiesUrl" value="/warranty/customer/list.do?fixUpTaskId={fixId}">
-						<spring:param name="fixId" value="${row.id}" />
-				</spring:url>
+			<spring:url var="warrantiesUrl" value="/warranty/handyWorker/list.do?fixUpTaskId={fixId}">
+			<spring:param name="fixId" value="${row.id}" />
+			</spring:url>
 				
-				<a href="${warrantiesUrl}">
-						<jstl:out value="${row.warranty.title}" />
-				</a>
+		<a href="${warrantiesUrl}">
+			<jstl:out value="${row.warranty.title}" />
+		</a>
 				
 		</display:column>
-		
+					
 		<!-- Category -->
 		<display:column titleKey="fixUpTask.categories">		
 				<jstl:out value="${row.category.name}"/>
+		</display:column>
+		
+		<!-- Complaints -->
+		
+		<display:column titleKey="fixUpTask.complaints">
+
+			<jstl:if test="${count=='1'}">
+			
+			<jstl:set var="complaintsSize" value="${row.complaints.size()}" />
+			<spring:url var="complaintsUrl" value="/complaint/handyWorker/list.do?fixUpTaskId={fixId}">
+						<spring:param name="fixId" value="${row.id}" />
+			</spring:url>
+			
+			<a href="${complaintsUrl}">
+							<spring:message var="seeComplaints" code="fixUpTask.seeComplaints"/> 	
+							<jstl:out value="${seeComplaints}(${complaintsSize})" />
+						</a>
+			</jstl:if>
 		</display:column>
 		
 		<!-- Customer -->.

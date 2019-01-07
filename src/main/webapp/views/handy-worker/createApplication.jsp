@@ -38,6 +38,11 @@
 	
 	
 	</form:form>
+	
+		
+	<input type="button"
+		name="cancel"
+		value="<spring:message code="handyWorker.cancel"/>" onclick="javascript:relativeRedir('fixUpTask/handyWorker/list.do');" />
 
 
 </security:authorize>

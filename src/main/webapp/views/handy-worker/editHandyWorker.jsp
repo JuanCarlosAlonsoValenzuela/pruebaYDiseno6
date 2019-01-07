@@ -6,103 +6,98 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="anonymous.createCustomer" /></p>
+<p><spring:message code="handyWorker.editHandyWorker" /></p>	
 
-<security:authorize access="isAnonymous()">
-
-<form:form modelAttribute="customer" action="anonymous/createCustomer.do">
+<security:authorize access="hasRole('HANDYWORKER')">
+	<form:form modelAttribute="handyWorker" action="personalData/handyWorker/edit.do">
     <!--Hidden Attributes -->
 	<form:hidden path ="id"/>
 	<form:hidden path ="version"/>
+	
 	<form:hidden path ="hasSpam"/>
 	<form:hidden path ="boxes"/>
 	<form:hidden path ="socialProfiles"/>
-	<form:hidden path ="userAccount.authorities"/>
-	<form:hidden path ="userAccount.isNotLocked"/>
+	
 	<form:hidden path ="score"/>
-	<form:hidden path ="fixUpTasks"/>
 	<form:hidden path ="endorsements"/>
+	<form:hidden path="userAccount" />
 	
+	<form:hidden path="applications"/>
+	<form:hidden path="finder"/>
+	<form:hidden path="tutorials"/>
+	<form:hidden path="curriculum"/>
 	
-	<!-- Actor Attributes -->
+	<!-- Name -->
 	<form:label path="name">
-		<spring:message code="customer.name" />
+		<spring:message code="handyWorker.name" />
 	</form:label>
 	<form:input path="name" />
 	<form:errors cssClass="error" path="name"/>
-	<br />
+	<br />	
 	
-	
+	<!-- Middle Name -->
 	<form:label path="middleName">
-		<spring:message code="customer.middleName" />
+		<spring:message code="handyWorker.middleName" />
 	</form:label>
 	<form:input path="middleName" />
 	<form:errors cssClass="error" path="middleName"/>
 	<br />
 
-	
+	<!-- Surname -->
 	<form:label path="surname">
-		<spring:message code="customer.surname" />
+		<spring:message code="handyWorker.surname" />
 	</form:label>
 	<form:input path="surname" />
 	<form:errors cssClass="error" path="surname"/>
 	<br />
 	
-	
+	<!-- Photo -->
 	<form:label path="photo">
-		<spring:message code="customer.photo" />
+		<spring:message code="handyWorker.photo" />
 	</form:label>
 	<form:input path="photo"/>
 	<form:errors cssClass="error" path="photo"/>
 	<br />
 	
-	
+	<!-- Email -->
 	<form:label path="email">
-		<spring:message code="customer.email" />
+		<spring:message code="handyWorker.email" />
 	</form:label>
 	<form:input path="email" />
 	<form:errors cssClass="error" path="email"/>
 	<br />
-
+	
+	<!-- Phone Number -->
 	<form:label path="phoneNumber">
-		<spring:message code="customer.phoneNumber" />
+		<spring:message code="handyWorker.phoneNumber" />
 	</form:label>
 	<form:input path="phoneNumber"/>
 	<form:errors cssClass="error" path="phoneNumber"/>
 	<br />
 
-	
+	<!-- Address -->
 	<form:label path="address">
-		<spring:message code="customer.address" />
+		<spring:message code="handyWorker.address" />
 	</form:label>
 	<form:input path="address"/>
 	<form:errors cssClass="error" path="address"/>
 	<br />
 	
-	
-	<form:label path="userAccount.username">
-		<spring:message code="customer.username" />
+	<!-- Make -->
+	<form:label path="make">
+		<spring:message code="handyWorker.make" />
 	</form:label>
-	<form:input path="userAccount.username" />
-	<form:errors cssClass="error" path="userAccount.username"/>
+	<form:input path="make"/>
+	<form:errors cssClass="error" path="make"/>
 	<br />
 	
 	
-	<form:label path="userAccount.password">
-		<spring:message code="customer.password" />
-	</form:label>
-	<form:password path="userAccount.password" />
-	<form:errors cssClass="error" path="userAccount.password"/>
-	<br />
-	
-
-	<!-- BOTONES -->	
-	<input type="submit" name="save" value="<spring:message code="customer.save" />" /> 
+	<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" /> 
 	
 	<a href="#" style="text-decoration: none;">
-    	<input type="button" value="<spring:message code="customer.cancel" />" />
+    	<input type="button" value="<spring:message code="handyWorker.cancel" />" />
 	</a>
-	
+		
+
 	</form:form>
-	
 </security:authorize>
