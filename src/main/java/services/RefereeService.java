@@ -254,9 +254,16 @@ public class RefereeService {
 		}
 		Assert.notNull(comp);
 		complaint.setReferee(loggedReferee);
+
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
+
+		bol = this.configurationService.isStringSpam(complaint.getDescription(), spam);
+
 		Complaint complaintSaved = this.complaintService.save(complaint);
 		this.refereeRepository.save(loggedReferee);
-		this.configurationService.isActorSuspicious(loggedReferee);
+
 		return complaintSaved;
 	}
 
@@ -294,7 +301,6 @@ public class RefereeService {
 		Report reportSaved = this.reportService.save(rep);
 		Assert.notNull(reportSaved);
 
-		this.configurationService.isActorSuspicious(loggedReferee);
 		return noteSaved;
 	}
 
@@ -313,7 +319,7 @@ public class RefereeService {
 		comments.add(comment);
 		noteFound.setOptionalComments(comments);
 		Note noteSaved = this.noteService.save(noteFound);
-		this.configurationService.isActorSuspicious(loggedReferee);
+
 		return noteSaved;
 	}
 
@@ -343,7 +349,6 @@ public class RefereeService {
 		com.setReports(repList2);
 		this.complaintService.save(com);
 
-		this.configurationService.isActorSuspicious(loggedReferee);
 		return reportSaved;
 	}
 
@@ -352,7 +357,7 @@ public class RefereeService {
 		Assert.isTrue(!report.getFinalMode());
 		Assert.isTrue(loggedReferee.getReports().contains(this.reportService.findOne(report.getId())));
 		Report rp = this.reportService.save(report);
-		this.configurationService.isActorSuspicious(loggedReferee);
+
 		return rp;
 	}
 
@@ -376,7 +381,7 @@ public class RefereeService {
 		}
 
 		this.reportService.delete(report);
-		this.configurationService.isActorSuspicious(loggedReferee);
+
 	}
 
 }
