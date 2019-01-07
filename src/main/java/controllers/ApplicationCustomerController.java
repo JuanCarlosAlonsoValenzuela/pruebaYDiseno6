@@ -11,6 +11,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -26,6 +27,7 @@ import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
 import services.ApplicationService;
+import services.ConfigurationService;
 import services.CustomerService;
 import services.FixUpTaskService;
 import services.MessageService;
@@ -41,15 +43,17 @@ import domain.Status;
 public class ApplicationCustomerController extends AbstractController {
 
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService		fixUpTaskService;
 	@Autowired
-	private ApplicationService	applicationService;
+	private ApplicationService		applicationService;
 	@Autowired
-	private CustomerService		customerService;
+	private CustomerService			customerService;
 	@Autowired
-	private MessageService		messageService;
+	private MessageService			messageService;
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -132,6 +136,10 @@ public class ApplicationCustomerController extends AbstractController {
 				if (application.getStatus().equals(Status.ACCEPTED)) {
 					result = new ModelAndView("customer/creditCard");
 					result.addObject("applicationId", application.getId());
+
+					List<String> cards = this.configurationService.getConfiguration().getCardType();
+
+					result.addObject("cards", cards);
 
 					CreditCard creditCard = new CreditCard();
 
