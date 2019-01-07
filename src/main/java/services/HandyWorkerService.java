@@ -100,36 +100,61 @@ public class HandyWorkerService {
 
 		//curriculum = this.curriculumService.create();
 
-		Finder finder = this.finderService.createFinder();
+		Finder finder = new Finder();
+
+		//finder = this.finderService.createFinder();
 
 		UserAccount userAccountActor = new UserAccount();
 		userAccountActor.setUsername("");
 		userAccountActor.setPassword("");
 
-		handyWorker.setTutorials(tutorials);
+		//		Box spamBox = new Box();
+		//		List<Message> messages1 = new ArrayList<>();
+		//		spamBox.setIsSystem(true);
+		//		spamBox.setMessages(messages1);
+		//		spamBox.setName("Spam");
+		//
+		//		Box trashBox = new Box();
+		//		List<Message> messages2 = new ArrayList<>();
+		//		trashBox.setIsSystem(true);
+		//		trashBox.setMessages(messages2);
+		//		trashBox.setName("Trash");
+		//
+		//		Box sentBox = new Box();
+		//		List<Message> messages3 = new ArrayList<>();
+		//		sentBox.setIsSystem(true);
+		//		sentBox.setMessages(messages3);
+		//		sentBox.setName("Sent messages");
+		//
+		//		Box receivedBox = new Box();
+		//		List<Message> messages4 = new ArrayList<>();
+		//		receivedBox.setIsSystem(true);
+		//		receivedBox.setMessages(messages4);
+		//		receivedBox.setName("Received messages");
+		//
+		//		boxes.add(receivedBox);
+		//		boxes.add(sentBox);
+		//		boxes.add(spamBox);
+		//		boxes.add(trashBox);
 
-		//Actor
+		handyWorker.setTutorials(tutorials);
 		handyWorker.setName("");
-		handyWorker.setMiddleName("");
 		handyWorker.setSurname("");
-		handyWorker.setPhoto("");
-		handyWorker.setEmail("");
-		handyWorker.setPhoneNumber("");
 		handyWorker.setAddress("");
-		handyWorker.setHasSpam(false);
+		handyWorker.setEmail("");
+		handyWorker.setMiddleName("");
+		handyWorker.setPhoneNumber("");
 		handyWorker.setSocialProfiles(socialProfiles);
-		handyWorker.setBoxes(boxes);
-
-		//Endorser
-		handyWorker.setScore(0.);
+		handyWorker.setScore(0.0);
 		handyWorker.setEndorsements(endorsements);
-
-		//Handy Worker
-		handyWorker.setMake("Hola a todos");
+		handyWorker.setMake("");
 		handyWorker.setApplications(applications);
+		handyWorker.setPhoto("");
 		handyWorker.setFinder(finder);
-		handyWorker.setTutorials(tutorials);
+		handyWorker.setBoxes(boxes);
 		handyWorker.setCurriculum(curriculum);
+
+		handyWorker.setHasSpam(false);
 
 		List<Authority> authorities = new ArrayList<Authority>();
 
@@ -147,7 +172,6 @@ public class HandyWorkerService {
 
 	}
 
-	/////////////////////////
 	public HandyWorker createHandyWorker(String name, String middleName, String surname, String photo, String email, String phoneNumber, String address, String userName, String password, Double score, List<Tutorial> tutorials, Curriculum curriculum) {
 
 		HandyWorker handyWorker = new HandyWorker();
@@ -250,6 +274,7 @@ public class HandyWorkerService {
 	public HandyWorker saveCreate(HandyWorker handyWorker) {
 
 		handyWorker.setMake(handyWorker.getName() + "" + handyWorker.getMiddleName() + "" + handyWorker.getSurname());
+		HandyWorker saved = new HandyWorker();
 
 		List<Box> boxes = new ArrayList<>();
 
@@ -277,12 +302,14 @@ public class HandyWorkerService {
 		handyWorker.setBoxes(boxes);
 
 		Finder savedFinder = new Finder();
+		Curriculum savedCurriculum = new Curriculum();
 
-		savedFinder = this.finderService.save(this.finderService.createFinder());
+		savedFinder = this.finderService.save(handyWorker.getFinder());
+		savedCurriculum = this.curriculumService.save(handyWorker.getCurriculum());
 
-		handyWorker.setFinder(savedFinder);
+		//handyWorker.setFinder(savedFinder);
+		//handyWorker.setCurriculum(savedCurriculum);
 
-		HandyWorker saved = new HandyWorker();
 		saved = this.handyWorkerRepository.save(handyWorker);
 
 		return saved;
@@ -386,9 +413,13 @@ public class HandyWorkerService {
 		comments.add(comment);
 		applicationFound.setComments(comments);
 
-		Application applicationSave = this.applicationService.save(application);
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
 
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
+		bol = this.configurationService.isStringSpam(comment, spam);
+
+		Application applicationSave = this.applicationService.save(application);
 
 		return applicationSave;
 	}
@@ -590,8 +621,6 @@ public class HandyWorkerService {
 		Assert.notNull(newFixUpTask);
 		newFixUpTask.setPhases(newPhases);
 
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
-
 		this.fixUpTaskService.save(newFixUpTask);
 
 	}
@@ -630,7 +659,11 @@ public class HandyWorkerService {
 
 		FixUpTask f = this.handyWorkerRepository.getFixUpTaskByPhase(phase.getId());
 
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
+
+		bol = this.configurationService.isStringSpam(phase.getTitle(), spam);
 
 		this.phaseService.save(phase);
 	}
@@ -721,8 +754,6 @@ public class HandyWorkerService {
 		notes.add(note);
 		report.setNotes(notes);
 
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
-
 		this.reportService.save(report);
 
 	}
@@ -753,8 +784,6 @@ public class HandyWorkerService {
 
 		Assert.isTrue(report.getNotes().contains(note));
 		note.getOptionalComments().add(comment);
-
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
 
 		this.noteService.save(note);
 
@@ -818,8 +847,16 @@ public class HandyWorkerService {
 		Assert.isTrue(logguedHandyWorker.getTutorials().contains(tutorial));
 
 		tutorial.setPictures(this.listUrlsTutorial(tutorial));
+
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
+
+		bol = this.configurationService.isStringSpam(tutorial.getSummary(), spam);
+		bol = this.configurationService.isStringSpam(tutorial.getTitle(), spam);
+
 		this.tutorialService.save(tutorial);
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
+
 	}
 
 	public void updateSection(Section section, Tutorial tutorial) {
@@ -831,9 +868,17 @@ public class HandyWorkerService {
 		Assert.isTrue(tutorial.getSections().contains(section));
 
 		section.setSectionPictures(this.listUrlsSection(section));
+
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
+
+		bol = this.configurationService.isStringSpam(section.getSectionTitle(), spam);
+		bol = this.configurationService.isStringSpam(section.getText(), spam);
+
 		this.tutorialService.save(tutorial);
 		this.sectionService.save(section);
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
+
 	}
 
 	public void createTutorial(Tutorial newTutorial) {
@@ -849,7 +894,12 @@ public class HandyWorkerService {
 		tutorials.add(tutorial);
 		logguedHandyWorker.setTutorials(tutorials);
 
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
+
+		bol = this.configurationService.isStringSpam(tutorial.getTitle(), spam);
+		bol = this.configurationService.isStringSpam(tutorial.getSummary(), spam);
 
 		this.handyWorkerRepository.save(logguedHandyWorker);
 
@@ -868,9 +918,15 @@ public class HandyWorkerService {
 		List<Section> sections = tutorial.getSections();
 		sections.add(newSection);
 		tutorial.setSections(sections);
-		this.tutorialService.save(tutorial);
 
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
+
+		bol = this.configurationService.isStringSpam(newSection.getSectionTitle(), spam);
+		bol = this.configurationService.isStringSpam(newSection.getText(), spam);
+
+		this.tutorialService.save(tutorial);
 
 	}
 
@@ -964,8 +1020,6 @@ public class HandyWorkerService {
 		Assert.isTrue(customers.contains(customer) || customers.contains(customer2));
 
 		Assert.isTrue(logguedHandyWorker.getEndorsements().contains(endorsment));
-
-		this.configurationService.isActorSuspicious(logguedHandyWorker);
 
 		this.endorsmentService.save(endorsment);
 	}
