@@ -23,6 +23,19 @@
 	
 	<display:column property="maxTimeFinder" titleKey="configuration.maxTimeFinder" />
 	
+	<display:column property="iva21" titleKey="configuration.vatPercentage" />
+	
+	<display:column property="cardType" titleKey="configuration.cardTypes" />
+	
+	<display:column property="spainTelephoneCode" titleKey="configuration.spainTelephoneCode" />
+	<!--  -->
+	<display:column property="welcomeMessageEnglish" titleKey="configuration.welcomeMessageEnglish" />
+	
+	<display:column property="welcomeMessageSpanish" titleKey="configuration.welcomeMessageSpanish" />
+	
+	<display:column property="systemName" titleKey="configuration.systemName" />
+	
+	
 </display:table>
 
 <input type="button" name="back" onclick="javascript:relativeRedir('configuration/administrator/edit.do');"  value="<spring:message code="configuration.edit.button"/>" />	

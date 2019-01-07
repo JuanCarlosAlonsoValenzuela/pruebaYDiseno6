@@ -21,7 +21,7 @@
 	<form:hidden path ="score"/>
 	<form:hidden path ="endorsements"/>
 	<form:hidden path="userAccount" />
-	<form:hidden path="make"/>
+	
 	<form:hidden path="applications"/>
 	<form:hidden path="finder"/>
 	<form:hidden path="tutorials"/>
@@ -81,6 +81,14 @@
 	</form:label>
 	<form:input path="address"/>
 	<form:errors cssClass="error" path="address"/>
+	<br />
+	
+	<!-- Make -->
+	<form:label path="make">
+		<spring:message code="handyWorker.make" />
+	</form:label>
+	<form:input path="make"/>
+	<form:errors cssClass="error" path="make"/>
 	<br />
 	
 	

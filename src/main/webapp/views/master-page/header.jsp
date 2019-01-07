@@ -136,7 +136,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="box/actor/list.do"><spring:message code="master.page.mailSystem" /> </a></li>
-					<li><a href="profile/boxes.do"><spring:message code="master.page.profile.boxes" /></a></li>
+					<!-- <li><a href="profile/boxes.do"><spring:message code="master.page.profile.boxes" /></a></li>	-->
 				</ul>
 			</li>
 			<li><a class="fNiv" href="tutorial/actor/list.do"><spring:message code="master.page.tutorial" /></a></li>	

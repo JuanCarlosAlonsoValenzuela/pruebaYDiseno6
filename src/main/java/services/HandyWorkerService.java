@@ -100,61 +100,36 @@ public class HandyWorkerService {
 
 		//curriculum = this.curriculumService.create();
 
-		Finder finder = new Finder();
-
-		//finder = this.finderService.createFinder();
+		Finder finder = this.finderService.createFinder();
 
 		UserAccount userAccountActor = new UserAccount();
 		userAccountActor.setUsername("");
 		userAccountActor.setPassword("");
 
-		//		Box spamBox = new Box();
-		//		List<Message> messages1 = new ArrayList<>();
-		//		spamBox.setIsSystem(true);
-		//		spamBox.setMessages(messages1);
-		//		spamBox.setName("Spam");
-		//
-		//		Box trashBox = new Box();
-		//		List<Message> messages2 = new ArrayList<>();
-		//		trashBox.setIsSystem(true);
-		//		trashBox.setMessages(messages2);
-		//		trashBox.setName("Trash");
-		//
-		//		Box sentBox = new Box();
-		//		List<Message> messages3 = new ArrayList<>();
-		//		sentBox.setIsSystem(true);
-		//		sentBox.setMessages(messages3);
-		//		sentBox.setName("Sent messages");
-		//
-		//		Box receivedBox = new Box();
-		//		List<Message> messages4 = new ArrayList<>();
-		//		receivedBox.setIsSystem(true);
-		//		receivedBox.setMessages(messages4);
-		//		receivedBox.setName("Received messages");
-		//
-		//		boxes.add(receivedBox);
-		//		boxes.add(sentBox);
-		//		boxes.add(spamBox);
-		//		boxes.add(trashBox);
-
 		handyWorker.setTutorials(tutorials);
-		handyWorker.setName("");
-		handyWorker.setSurname("");
-		handyWorker.setAddress("");
-		handyWorker.setEmail("");
-		handyWorker.setMiddleName("");
-		handyWorker.setPhoneNumber("");
-		handyWorker.setSocialProfiles(socialProfiles);
-		handyWorker.setScore(0.0);
-		handyWorker.setEndorsements(endorsements);
-		handyWorker.setMake("");
-		handyWorker.setApplications(applications);
-		handyWorker.setPhoto("");
-		handyWorker.setFinder(finder);
-		handyWorker.setBoxes(boxes);
-		handyWorker.setCurriculum(curriculum);
 
+		//Actor
+		handyWorker.setName("");
+		handyWorker.setMiddleName("");
+		handyWorker.setSurname("");
+		handyWorker.setPhoto("");
+		handyWorker.setEmail("");
+		handyWorker.setPhoneNumber("");
+		handyWorker.setAddress("");
 		handyWorker.setHasSpam(false);
+		handyWorker.setSocialProfiles(socialProfiles);
+		handyWorker.setBoxes(boxes);
+
+		//Endorser
+		handyWorker.setScore(0.);
+		handyWorker.setEndorsements(endorsements);
+
+		//Handy Worker
+		handyWorker.setMake("defaultMake");
+		handyWorker.setApplications(applications);
+		handyWorker.setFinder(finder);
+		handyWorker.setTutorials(tutorials);
+		handyWorker.setCurriculum(curriculum);
 
 		List<Authority> authorities = new ArrayList<Authority>();
 
@@ -274,7 +249,6 @@ public class HandyWorkerService {
 	public HandyWorker saveCreate(HandyWorker handyWorker) {
 
 		handyWorker.setMake(handyWorker.getName() + "" + handyWorker.getMiddleName() + "" + handyWorker.getSurname());
-		HandyWorker saved = new HandyWorker();
 
 		List<Box> boxes = new ArrayList<>();
 
@@ -302,14 +276,12 @@ public class HandyWorkerService {
 		handyWorker.setBoxes(boxes);
 
 		Finder savedFinder = new Finder();
-		Curriculum savedCurriculum = new Curriculum();
 
-		savedFinder = this.finderService.save(handyWorker.getFinder());
-		savedCurriculum = this.curriculumService.save(handyWorker.getCurriculum());
+		savedFinder = this.finderService.save(this.finderService.createFinder());
 
-		//handyWorker.setFinder(savedFinder);
-		//handyWorker.setCurriculum(savedCurriculum);
+		handyWorker.setFinder(savedFinder);
 
+		HandyWorker saved = new HandyWorker();
 		saved = this.handyWorkerRepository.save(handyWorker);
 
 		return saved;
