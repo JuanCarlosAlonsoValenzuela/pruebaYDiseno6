@@ -22,14 +22,16 @@
 </spring:url>
 <a href="${newComment}">
 	<spring:message var ="newComment1" code="application.comment.new" />
-	<input type="button" name="newComment" value="${newComment1}">
+	<jstl:out value="${newComment1}"/>
 </a>
+
+</br>
 
 <spring:url var="urlApplications" value="/application/customer/list.do?fixUpTaskId={fixId}">
 	<spring:param name="fixId" value="${fixUpTaskId}"/>
 </spring:url>
 <a href="${urlApplications}">
 	<spring:message var ="back" code="application.back" />
-	<input type="button" name="back" value="${back}">
+	<jstl:out value="${back}"/>
 </a>
 </security:authorize>

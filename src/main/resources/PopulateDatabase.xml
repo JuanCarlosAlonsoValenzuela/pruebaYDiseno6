@@ -274,6 +274,19 @@
 		</property>
 		<property name="isNotLocked" value="True" />
 	</bean>
+	
+	<bean id="userAccount20" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+		<property name="isNotLocked" value="True" />
+	</bean>
 
 	<!-- Other domain beans come here -->
 
@@ -316,6 +329,13 @@
 		<property name="maxTimeFinder" value="24" />
 		<property name="finderResult" value="10"/>
 		<property name="timeFinder" value="1"/>
+
+		
+		<property name="welcomeMessageEnglish" value="Welcome to Acme Handy Worker! Price, quality, and trust in a single place" />
+		<property name="welcomeMessageSpanish" value="¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio" />
+		
+		<property name="systemName" value="Acme Handy Worker" />
+		
 	</bean>
 	
 	
@@ -1625,12 +1645,12 @@
 	</bean>
 	
 	<bean id="admin2" class="domain.Admin">
-		<property name="name" value="System" />
+		<property name="name" value="Alex" />
 		<property name="middleName" value="" />
-		<property name="surname" value="Notifications" />
-		<property name="photo" value="https://www.url.com/system" />
-		<property name="email" value="notifications@acmehandyworker.com" />
-		<property name="phoneNumber" value="+34676958523" />
+		<property name="surname" value="Ubago" />
+		<property name="photo" value="https://www.url.com/system/admin" />
+		<property name="email" value="admin.alex@acmehandyworker.com" />
+		<property name="phoneNumber" value="+34676958511" />
 		<property name="address" value="Central Offices" />
 		<property name="boxes">
 			<list>
@@ -1641,6 +1661,26 @@
 			</list>
 		</property>
 		<property name="userAccount" ref="userAccount19" />
+		<property name="hasSpam" value = "false"/>
+	</bean>
+	
+	<bean id="admin3" class="domain.Admin">
+		<property name="name" value="System" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Notifications" />
+		<property name="photo" value="https://www.url.com/system" />
+		<property name="email" value="notifications@acmehandyworker.com" />
+		<property name="phoneNumber" value="+34676958523" />
+		<property name="address" value="Central Offices" />
+		<property name="boxes">
+			<list>
+				<ref bean="box1System2" />
+				<ref bean="box2System2" />
+				<ref bean="box3System2" />
+				<ref bean="box4System2" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount20" />
 		<property name="hasSpam" value = "false"/>
 	</bean>
 	<!-- ADMIN -->
@@ -2356,6 +2396,25 @@
 	</bean>
 	
 	<bean class="domain.Box" id="box4System">
+		<property value="Spam" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+	
+	<bean class="domain.Box" id="box1System2">
+		<property value="Sent messages" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+	<bean class="domain.Box" id="box2System2">
+		<property value="Received messages" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+
+	<bean class="domain.Box" id="box3System2">
+		<property value="Trash" name="name" />
+		<property value="true" name="isSystem" />
+	</bean>
+	
+	<bean class="domain.Box" id="box4System2">
 		<property value="Spam" name="name" />
 		<property value="true" name="isSystem" />
 	</bean>

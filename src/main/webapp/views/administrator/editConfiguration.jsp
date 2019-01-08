@@ -13,9 +13,6 @@
 		<form:hidden path="id"/>
 		<form:hidden path="version" />
 		<form:hidden path="spamWords" />
-		<form:hidden path="iva21" />
-		<form:hidden path="cardType"/>
-		<form:hidden path="spainTelephoneCode"/>
 		<form:hidden path="goodWords"/>
 		<form:hidden path="badWords"/>
 		
@@ -59,6 +56,49 @@
 		</form:label>
 		<form:input path="maxTimeFinder"/>
 		<form:errors cssClass="error" path="maxTimeFinder" />
+		<br/>
+		
+		<form:label path="iva21">
+			<spring:message code="configuration.vatPercentage" />	
+		</form:label>
+		<form:input path="iva21"/>
+		<form:errors cssClass="error" path="iva21" />
+		<br/>
+		
+		
+		<form:label path="cardType">
+			<spring:message code="configuration.cardTypes" />	
+		</form:label>
+		<form:input path="cardType"/>
+		<form:errors cssClass="error" path="cardType" />
+		<br/>
+		
+		<form:label path="spainTelephoneCode">
+			<spring:message code="configuration.spainTelephoneCode" />	
+		</form:label>
+		<form:input path="spainTelephoneCode"/>
+		<form:errors cssClass="error" path="spainTelephoneCode" />
+		<br/>
+		
+		<form:label path="welcomeMessageEnglish">
+			<spring:message code="configuration.welcomeMessageEnglish" />	
+		</form:label>
+		<form:input path="welcomeMessageEnglish"/>
+		<form:errors cssClass="error" path="welcomeMessageEnglish" />
+		<br/>
+		
+		<form:label path="welcomeMessageSpanish">
+			<spring:message code="configuration.welcomeMessageSpanish" />	
+		</form:label>
+		<form:input path="welcomeMessageSpanish"/>
+		<form:errors cssClass="error" path="welcomeMessageSpanish" />
+		<br/>
+	
+		<form:label path="systemName">
+			<spring:message code="configuration.systemName" />	
+		</form:label>
+		<form:input path="systemName"/>
+		<form:errors cssClass="error" path="systemName" />
 		<br/><br/>
 		
 		<input type="submit" name="save" value="<spring:message code="configuration.save.button"/>" />
