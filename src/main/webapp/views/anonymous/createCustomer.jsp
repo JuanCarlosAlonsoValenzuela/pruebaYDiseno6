@@ -10,6 +10,32 @@
 
 <security:authorize access="isAnonymous()">
 
+<script type="text/javascript">
+
+  function phonenumberval() {
+	  
+  var phoneNumber;
+  phoneNumber = document.getElementById("phoneNumber").value;
+
+		
+  var res = false;
+ 
+  if (/(\+[0-9]{1,3})(\([0-9]{1,3}\))([0-9]{4,})$/.test(phoneNumber)) {
+    res = true;
+  }
+  if (/(\+[0-9]{3})([0-9]{4,})$/.test(phoneNumber)) {
+	    res = true;
+  }
+  if(res == false) {
+	  
+    alert("<spring:message code="anonymous.confirmationPhone" />");
+  }
+ 
+}
+  </script>
+
+
+
 <form:form modelAttribute="customer" action="anonymous/createCustomer.do">
     <!--Hidden Attributes -->
 	<form:hidden path ="id"/>
@@ -83,7 +109,7 @@
 	<form:label path="userAccount.username">
 		<spring:message code="customer.username" />
 	</form:label>
-	<form:input path="userAccount.username" />
+	<form:input path="userAccount.username"  />
 	<form:errors cssClass="error" path="userAccount.username"/>
 	<br />
 	
@@ -91,13 +117,14 @@
 	<form:label path="userAccount.password">
 		<spring:message code="customer.password" />
 	</form:label>
-	<form:password path="userAccount.password" />
+	<form:password path="userAccount.password"  />
 	<form:errors cssClass="error" path="userAccount.password"/>
 	<br />
 	
 
 	<!-- BOTONES -->	
-	<input type="submit" name="save" value="<spring:message code="customer.save" />" /> 
+	<input type="submit" name="save" value="<spring:message code="customer.save" />" 
+	onclick="phonenumberval()"/> 
 	
 	<a href="#" style="text-decoration: none;">
     	<input type="button" value="<spring:message code="customer.cancel" />" />

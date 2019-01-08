@@ -10,6 +10,31 @@
 
 <security:authorize access="isAnonymous()">
 
+<script type="text/javascript">
+
+  function phonenumberval() {
+	  
+  var phoneNumber;
+  phoneNumber = document.getElementById("phoneNumber").value;
+
+		
+  var res = false;
+ 
+  if (/(\+[0-9]{1,3})(\([0-9]{1,3}\))([0-9]{4,})$/.test(phoneNumber)) {
+    res = true;
+  }
+  if (/(\+[0-9]{3})([0-9]{4,})$/.test(phoneNumber)) {
+	    res = true;
+  }
+  if(res == false) {
+	  
+    alert("<spring:message code="anonymous.confirmationPhone" />");
+  }
+ 
+}
+  </script>
+
+
 <form:form modelAttribute="handyWorker" action="anonymous/createHandyWorker.do">
     <!--Hidden Attributes -->
 	<form:hidden path ="id"/>
@@ -19,8 +44,9 @@
 	<form:hidden path ="boxes"/>
 	<form:hidden path ="socialProfiles"/>
 	
-	<form:hidden path ="userAccount.authorities"/>
-	<form:hidden path ="userAccount.isNotLocked"/> 
+	<%-- <form:hidden path ="userAccount.authorities"/>
+	<form:hidden path ="userAccount.isNotLocked"/> --%>
+	<form:hidden path="userAccount" />
 	
 	<form:hidden path ="score"/>
 	<form:hidden path ="endorsements"/>
@@ -113,7 +139,8 @@
 	
 	
 		
-	<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" /> 
+	<input type="submit" name="save" value="<spring:message code="handyWorker.save" />" 
+	onclick="phonenumberval()" /> 
 	
 	<a href="#" style="text-decoration: none;">
     	<input type="button" value="<spring:message code="handyWorker.cancel" />" />

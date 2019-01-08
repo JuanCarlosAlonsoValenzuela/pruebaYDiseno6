@@ -57,11 +57,14 @@ public class WelcomeController extends AbstractController {
 			welcomeMessage = this.configurationService.getConfiguration().getWelcomeMessageSpanish();
 		}
 
+		String imageURL = this.configurationService.getConfiguration().getImageURL();
+
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
 		result.addObject("moment", moment);
 		result.addObject("welcomeMessage", welcomeMessage);
 		result.addObject("systemName", systemName);
+		result.addObject("imageURL", imageURL);
 
 		return result;
 	}

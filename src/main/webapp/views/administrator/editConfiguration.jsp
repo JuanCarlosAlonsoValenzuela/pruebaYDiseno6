@@ -99,6 +99,13 @@
 		</form:label>
 		<form:input path="systemName"/>
 		<form:errors cssClass="error" path="systemName" />
+		<br/>
+		
+		<form:label path="imageURL">
+			<spring:message code="configuration.imageURL" />	
+		</form:label>
+		<form:input path="imageURL"/>
+		<form:errors cssClass="error" path="imageURL" />
 		<br/><br/>
 		
 		<input type="submit" name="save" value="<spring:message code="configuration.save.button"/>" />

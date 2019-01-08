@@ -335,6 +335,7 @@
 		<property name="welcomeMessageSpanish" value="¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio" />
 		
 		<property name="systemName" value="Acme Handy Worker" />
+		<property name="imageURL" value="https://tinyurl.com/acme-handy-worker-logo" />
 		
 	</bean>
 	

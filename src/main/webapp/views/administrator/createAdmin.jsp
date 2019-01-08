@@ -19,6 +19,30 @@
 
 <security:authorize access="hasRole('ADMIN')">
 
+<script type="text/javascript">
+
+  function phonenumberval() {
+	  
+  var phoneNumber;
+  phoneNumber = document.getElementById("phoneNumber").value;
+
+		
+  var res = false;
+ 
+  if (/(\+[0-9]{1,3})(\([0-9]{1,3}\))([0-9]{4,})$/.test(phoneNumber)) {
+    res = true;
+  }
+  if (/(\+[0-9]{3})([0-9]{4,})$/.test(phoneNumber)) {
+	    res = true;
+  }
+  if(res == false) {
+	  
+    alert("<spring:message code="admin.confirmationPhone" />");
+  }
+ 
+}
+  </script>
+
 <form:form modelAttribute="admin" action="administrator/createAdmin.do">
 	<!-- Hidden Attributes -->		
 	<form:hidden path ="id"/>
@@ -94,7 +118,8 @@
 	<br />
 	
 		
-	<input type="submit" name="save" value="<spring:message code="administrator.save" />" /> 
+	<input type="submit" name="save" value="<spring:message code="administrator.save" />" 
+	onclick="phonenumberval()"/> 
 		
 	<a href="#" style="text-decoration: none;">
     	<input type="button" value="<spring:message code="administrator.cancel" />" />
