@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ConfigurationService;
 import services.CustomerService;
 import services.HandyWorkerService;
 import services.SponsorService;
+import domain.Configuration;
 import domain.Customer;
 import domain.HandyWorker;
 import domain.Sponsor;
@@ -23,13 +25,16 @@ import domain.Sponsor;
 public class AnonymousController extends AbstractController {
 
 	@Autowired
-	private CustomerService		customerService;
+	private CustomerService			customerService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
 
 	@Autowired
-	private SponsorService		sponsorService;
+	private SponsorService			sponsorService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	public AnonymousController() {
@@ -56,13 +61,22 @@ public class AnonymousController extends AbstractController {
 		ModelAndView result;
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
+		Configuration configuration = this.configurationService.getConfiguration();
+
+		String prefix = configuration.getSpainTelephoneCode();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(handyWorker);
 		} else {
 			try {
+
 				handyWorker.getUserAccount().setPassword(encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null));
-				this.handyWorkerService.saveCreate(handyWorker);
+				if (!handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+					handyWorker.setPhoneNumber(prefix + handyWorker.getPhoneNumber());
+					this.handyWorkerService.saveCreate(handyWorker);
+				} else {
+					this.handyWorkerService.saveCreate(handyWorker);
+				}
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(handyWorker, "handyWorker.commit.error");
@@ -111,13 +125,21 @@ public class AnonymousController extends AbstractController {
 		ModelAndView result;
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
+		Configuration configuration = this.configurationService.getConfiguration();
 
+		String prefix = configuration.getSpainTelephoneCode();
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(customer);
 		} else {
 			try {
 				customer.getUserAccount().setPassword(encoder.encodePassword(customer.getUserAccount().getPassword(), null));
-				this.customerService.saveCreate(customer);
+
+				if (!customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+					customer.setPhoneNumber(prefix + customer.getPhoneNumber());
+					this.customerService.saveCreate(customer);
+				} else {
+					this.customerService.saveCreate(customer);
+				}
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(customer, "customer.commit.error");
@@ -125,7 +147,6 @@ public class AnonymousController extends AbstractController {
 		}
 		return result;
 	}
-
 	//CreateEditModelAndView
 	protected ModelAndView createEditModelAndView(Customer customer) {
 		ModelAndView result;
@@ -140,6 +161,7 @@ public class AnonymousController extends AbstractController {
 
 		result = new ModelAndView("anonymous/createCustomer");
 		result.addObject("customer", customer);
+
 		result.addObject("message", messageCode);
 
 		return result;
@@ -166,13 +188,21 @@ public class AnonymousController extends AbstractController {
 		ModelAndView result;
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
+		Configuration configuration = this.configurationService.getConfiguration();
+
+		String prefix = configuration.getSpainTelephoneCode();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(sponsor);
 		} else {
 			try {
 				sponsor.getUserAccount().setPassword(encoder.encodePassword(sponsor.getUserAccount().getPassword(), null));
-				this.sponsorService.saveCreate(sponsor);
+				if (!sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+					sponsor.setPhoneNumber(prefix + sponsor.getPhoneNumber());
+					this.sponsorService.saveCreate(sponsor);
+				} else {
+					this.sponsorService.saveCreate(sponsor);
+				}
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(sponsor, "sponsor.commit.error");
