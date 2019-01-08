@@ -35,6 +35,8 @@
 	
 	<display:column property="systemName" titleKey="configuration.systemName" />
 	
+	<display:column property="imageURL" titleKey="configuration.imageURL" />
+	
 	
 </display:table>
 
