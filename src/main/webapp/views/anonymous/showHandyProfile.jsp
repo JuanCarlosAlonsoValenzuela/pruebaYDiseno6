@@ -82,7 +82,20 @@
 	<display:column titleKey="socialProfile.profileLink">
 		<a href="${row.profileLink}" ><spring:message code="handyWorker.linkProfile" /></a>
 	</display:column>
+	
+	<jstl:if test="${canEdit}">
+		<display:column>		
+			<a href="authenticated/socialProfile/edit.do?socialProfileId=${row.id}">
+				<spring:message code="socialProfile.edit" />
+			</a>
+		</display:column>
+	</jstl:if>
+	
 </display:table>
+
+<jstl:if test="${canEdit}">
+	<a href="authenticated/socialProfile/create.do"><spring:message code="socialProfile.create" /></a>
+</jstl:if>
 
 <br/>
 <br/>

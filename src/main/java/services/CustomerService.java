@@ -308,8 +308,13 @@ public class CustomerService {
 
 	public FixUpTask createFixUpTask() {
 		Customer loggedCustomer = this.securityAndCustomer();
-
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
 		FixUpTask fixUpTask = this.fixUpTaskService.create();
+
+		bol = this.configurationService.isStringSpam(fixUpTask.getDescription(), spam);
+		bol = this.configurationService.isStringSpam(fixUpTask.getAddress(), spam);
 
 		FixUpTask fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
 
@@ -320,14 +325,18 @@ public class CustomerService {
 
 		this.save(loggedCustomer);
 
-		this.configurationService.isActorSuspicious(loggedCustomer);
-
 		return fixUpTaskSaved;
 
 	}
 
 	public FixUpTask createFixUpTask(FixUpTask fixUpTask) {
 		Customer loggedCustomer = this.securityAndCustomer();
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
+
+		bol = this.configurationService.isStringSpam(fixUpTask.getDescription(), spam);
+		bol = this.configurationService.isStringSpam(fixUpTask.getAddress(), spam);
 
 		FixUpTask fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
 
@@ -337,8 +346,6 @@ public class CustomerService {
 		loggedCustomer.setFixUpTasks(listf);
 
 		this.customerRepository.save(loggedCustomer);
-
-		this.configurationService.isActorSuspicious(loggedCustomer);
 
 		return fixUpTaskSaved;
 
@@ -359,9 +366,14 @@ public class CustomerService {
 
 		Assert.isTrue(!fixUpTaskFound.equals(null));
 
-		FixUpTask fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
 
-		this.configurationService.isActorSuspicious(loggedCustomer);
+		bol = this.configurationService.isStringSpam(fixUpTask.getDescription(), spam);
+		bol = this.configurationService.isStringSpam(fixUpTask.getAddress(), spam);
+
+		FixUpTask fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
 
 		return fixUpTaskSaved;
 
@@ -394,10 +406,15 @@ public class CustomerService {
 
 			Assert.isTrue(!fixUpTaskFound.equals(null));
 
+			List<String> spam = new ArrayList<String>();
+			Boolean bol;
+			spam = this.configurationService.getSpamWords();
+
+			bol = this.configurationService.isStringSpam(fixUpTask.getDescription(), spam);
+			bol = this.configurationService.isStringSpam(fixUpTask.getAddress(), spam);
+
 			fixUpTaskSaved = this.fixUpTaskService.save(fixUpTask);
 		}
-
-		this.configurationService.isActorSuspicious(loggedCustomer);
 
 		return fixUpTaskSaved;
 
@@ -438,7 +455,7 @@ public class CustomerService {
 				}
 			}
 			h.setApplications(applicationsHw);
-			this.handyWorkerService.save2(h);
+			this.handyWorkerService.save(h);
 		}
 
 		for (Application app : applicationsNew) {
@@ -498,9 +515,13 @@ public class CustomerService {
 
 		//this.complaintService.save(complaint);
 
-		this.fixUpTaskService.save(fixUpTask);
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
 
-		this.configurationService.isActorSuspicious(loggedCustomer);
+		bol = this.configurationService.isStringSpam(complaint.getDescription(), spam);
+
+		this.fixUpTaskService.save(fixUpTask);
 
 		return complaint;
 	}
@@ -520,9 +541,13 @@ public class CustomerService {
 		complaints.add(complaint);
 		fixUpTask.setComplaints(complaints);
 
-		this.fixUpTaskService.save(fixUpTask);
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
 
-		this.configurationService.isActorSuspicious(loggedCustomer);
+		bol = this.configurationService.isStringSpam(complaint.getDescription(), spam);
+
+		this.fixUpTaskService.save(fixUpTask);
 
 		return complaint;
 	}
@@ -557,8 +582,6 @@ public class CustomerService {
 
 		Application applicationSave = this.applicationService.save(application);
 
-		this.configurationService.isActorSuspicious(loggedCustomer);
-
 		return applicationSave;
 	}
 
@@ -578,13 +601,17 @@ public class CustomerService {
 
 		Assert.isTrue(!applicationFound.equals(null));
 
+		List<String> spam = new ArrayList<String>();
+		Boolean bol;
+		spam = this.configurationService.getSpamWords();
+
+		bol = this.configurationService.isStringSpam(comment, spam);
+
 		List<String> comments = (List<String>) applicationFound.getComments();
 		comments.add(comment);
 		applicationFound.setComments(comments);
 
 		Application applicationSave = this.applicationService.save(application);
-
-		this.configurationService.isActorSuspicious(loggedCustomer);
 
 		return applicationSave;
 	}
@@ -606,8 +633,6 @@ public class CustomerService {
 
 		report.setNotes(notes);
 		this.reportService.save(report);
-
-		this.configurationService.isActorSuspicious(loggedCustomer);
 
 	}
 
@@ -654,8 +679,6 @@ public class CustomerService {
 		Note noteSaved = this.noteService.save(note);
 		this.reportService.save(report);
 
-		this.configurationService.isActorSuspicious(loggedCustomer);
-
 		return noteSaved;
 	}
 
@@ -676,8 +699,6 @@ public class CustomerService {
 		note.setOptionalComments(comments);
 		note.setUsernames(usernames);
 		Note savedNote = this.noteService.save(note);
-
-		this.configurationService.isActorSuspicious(loggedCustomer);
 
 		return savedNote;
 	}
@@ -742,7 +763,7 @@ public class CustomerService {
 		handyWorker.setEndorsements(end);
 
 		this.save(logguedCustomer);
-		this.handyWorkerService.save2(handyWorker);
+		this.handyWorkerService.save(handyWorker);
 		this.configurationService.computeScore(endorsement.getWrittenBy());
 		this.configurationService.computeScore(endorsement.getWrittenTo());
 
@@ -764,8 +785,6 @@ public class CustomerService {
 		Assert.notNull(endorsmentFound);
 
 		Endorsement endorsmentSave = this.endorsmentService.save(endorsment);
-
-		this.configurationService.isActorSuspicious(loggedCustomer);
 
 		return endorsmentSave;
 	}
@@ -812,7 +831,7 @@ public class CustomerService {
 		List<Endorsement> handyWorkerEndorsements = handyWorkerReceptor.getEndorsements();
 		handyWorkerEndorsements.remove(endorsement);
 		handyWorkerReceptor.setEndorsements(handyWorkerEndorsements);
-		this.handyWorkerService.save2(handyWorkerReceptor);
+		this.handyWorkerService.save(handyWorkerReceptor);
 
 		this.endorsmentService.delete(endorsement);
 		this.configurationService.computeScore(handyWorkerReceptor);

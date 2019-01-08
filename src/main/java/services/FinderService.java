@@ -39,10 +39,12 @@ public class FinderService {
 		result.setFixUpTasks(fixUpTasks);
 		result.setKeyWord("");
 
-		result.setMaxPrice(0.0);
-		result.setMinPrice(0.0);
+		result.setMaxPrice(1.0);
+		result.setMinPrice(1.0);
 		Date startDate = new Date();
 		Date endDate = new Date();
+
+		result.setLastEdit(new Date());
 
 		result.setEndDate(endDate);
 		result.setStartDate(startDate);
@@ -82,7 +84,6 @@ public class FinderService {
 	}
 
 	public Finder save(Finder finder) {
-
 		return this.finderRepository.save(finder);
 	}
 

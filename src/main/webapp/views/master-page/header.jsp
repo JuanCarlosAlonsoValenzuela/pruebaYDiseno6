@@ -24,13 +24,11 @@
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="administrator/banunban.do"><spring:message code="master.page.administrator.banUnban" /></a></li>
-					<li><a href="administrator/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>	
+					<li><a href="suspicious/administrator/list.do"><spring:message code="master.page.administrator.banUnban" /></a></li>
+					<li><a href="broadcast/administrator/send.do"><spring:message code="master.page.administrator.broadcast" /></a></li>	
 					<li><a href="administrator/createAdmin.do"><spring:message code="master.page.administrator.createAdmin" /></a></li>					
 					<li><a href="administrator/createReferee.do"><spring:message code="master.page.administrator.createReferee" /></a></li>			
-					<li><a href="score/administrator/list.do"><spring:message code="master.page.administrator.computedscore" /></a></li>					
-					<li><a href="administrator/createadmin.do"><spring:message code="master.page.administrator.createadmin" /></a></li>					
-					<li><a href="administrator/createreferee.do"><spring:message code="master.page.administrator.createreferee" /></a></li>			
+					<li><a href="score/administrator/list.do"><spring:message code="master.page.administrator.computedscore" /></a></li>							
 					<li><a href="words/administrator/list.do"><spring:message code="master.page.administrator.goodAndBadWordsList" /></a></li>	
 					<li><a href="statistics/administrator/show.do"><spring:message code="master.page.administrator.showstaitsticspart1" /></a></li>			
 					<li><a href="warranty/administrator/list.do"><spring:message code="master.page.administrator.listwarranty" /></a></li>
@@ -40,7 +38,7 @@
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
-					<li><a href="administrator/administrator/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="authenticated/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
 					<li><a href="personalData/administrator/edit.do"><spring:message code="master.page.customer.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
@@ -58,7 +56,7 @@
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
-					<li><a href="customer/customer/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="authenticated/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
 					<li><a href="personalData/customer/edit.do"><spring:message code="master.page.customer.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
@@ -77,6 +75,7 @@
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
 					<li><a href="handyWorker/handyWorker/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="personalData/handyWorker/edit.do"><spring:message code="master.page.customer.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
 			</li>
@@ -92,7 +91,7 @@
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
-					<li><a href="referee/referee/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="authenticated/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
 					<li><a href="personalData/referee/editReferee.do"><spring:message code="master.page.referee.editPersonalData" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 				</ul>
@@ -108,7 +107,7 @@
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
 				<ul>
-					<li><a href="sponsor/sponsor/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
+					<li><a href="authenticated/showProfile.do"><spring:message code="master.page.myProfile" /> </a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>	
 					<li><a href="personalData/sponsor/edit.do"><spring:message code="master.page.sponsor.editPersonalData" /></a></li>	
 				</ul>
@@ -137,7 +136,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="box/actor/list.do"><spring:message code="master.page.mailSystem" /> </a></li>
-					<li><a href="profile/boxes.do"><spring:message code="master.page.profile.boxes" /></a></li>
+					<!-- <li><a href="profile/boxes.do"><spring:message code="master.page.profile.boxes" /></a></li>	-->
 				</ul>
 			</li>
 			<li><a class="fNiv" href="tutorial/actor/list.do"><spring:message code="master.page.tutorial" /></a></li>	

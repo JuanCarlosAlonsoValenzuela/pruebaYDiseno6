@@ -166,6 +166,12 @@ public class EndorsementCustomerController extends AbstractController {
 			if (comment != null && comment != "") {
 				comments.add(comment);
 			}
+			List<String> spam = new ArrayList<String>();
+			Boolean bol;
+			spam = this.configurationService.getSpamWords();
+
+			bol = this.configurationService.isStringSpam(comment, spam);
+
 			endorsement.setComments(comments);
 			this.endorsementService.save(endorsement);
 

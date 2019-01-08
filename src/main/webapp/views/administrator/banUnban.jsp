@@ -10,29 +10,40 @@
 
 <security:authorize access="hasRole('ADMIN')">
 
-<display:table name="suspiciousActor" id="actorList" requestURI="${admin/administrator/list.do}"
+<display:table name="actors" id="actorList" requestURI="suspicious/administrator/list.do"
 	pagesize="5" class="displaytag">
 
  	  <display:column>
  	  	<jstl:choose>
- 	  	<jstl:when test="${actorList.userAccount.isNotLocked == false}">
- 	  		<input type="submit" name="Ban" value="<spring:message code="administrator.ban" />"
- 	  			onclick="return confirm('<spring:message code="administrator.verificationBan" />')">
+ 	  	<jstl:when test="${actorList.userAccount.isNotLocked == true && actorList.hasSpam == true}">
+ 	  		<a href="suspicious/administrator/ban.do?actorId=${actorList.id}">
+					<spring:message code="administrator.ban"/>
+ 	  		</a>
  	  	</jstl:when>
  	  	
- 	  	<jstl:when test="${actorList.userAccount.isNotLocked == true}">
- 	  		<input type="submit" name="Ban" value="<spring:message code="administrator.unban" />"
- 	  			onclick="return confirm('<spring:message code="administrator.verificationUnban" />')">
+ 	  	<jstl:when test="${actorList.userAccount.isNotLocked == false}">
+ 	  		<a href="suspicious/administrator/unban.do?actorId=${actorList.id}">
+					<spring:message code="administrator.unban"/>
+ 	  		</a>
  	  	</jstl:when>
  	  	</jstl:choose>
  	  </display:column>
  	  
-      <display:column property="actorName" title="<spring:message code="administrator.actorName" />" sortable="true">
-      		<jstl:out value="${suspiciousActor.username}" />
+      <display:column titleKey="administrator.actors">
+      		<jstl:out value="${actorList.userAccount.username}" />
+      </display:column>
+      
+       <display:column titleKey="administrator.suspicious">
+       <jstl:choose>
+ 	  	<jstl:when test="${actorList.hasSpam}">
+					<spring:message code="administrator.yes" />
+ 	  	</jstl:when>
+ 	  	<jstl:otherwise>
+ 	  				<jstl:out value="No" />
+ 	  	</jstl:otherwise>
+ 	  	</jstl:choose>
+     
       </display:column>
 </display:table>
-
-<input type="submit" name="cancel" value="<spring:message code="administrator.cancel" />"
-		onClick="javascript: relativeRedir('administrator/profile.do');" />
 
 </security:authorize>

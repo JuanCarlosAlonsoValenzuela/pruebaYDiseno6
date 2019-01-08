@@ -23,18 +23,9 @@
 		</form:label>
 		
 		<form:select path="brandName">
-			<form:option
-				label="VISA"			
-				value="VISA" />									
-			<form:option
-				label="Master Card"		
-				value="MASTER" />								
-			<form:option
-				label="Dinners"		
-				value="DINNERS" />							
-			<form:option
-				label="Amex"		
-				value="AMEX" />									
+		<jstl:forEach items="${cards}" var="card">
+			<form:option label="${card}" value="${card}"/>
+		</jstl:forEach>						
 		</form:select>
 		<form:errors cssClass="error" path="brandName" />
 		<br />

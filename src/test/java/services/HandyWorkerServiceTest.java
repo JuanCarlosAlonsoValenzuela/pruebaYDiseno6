@@ -87,20 +87,9 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		h.getUserAccount().setPassword("12345");
 
 		HandyWorker saved = new HandyWorker();
-		saved = this.handyWorkerService.save(h);
+		saved = this.handyWorkerService.saveCreate(h);
 
 		Assert.isTrue(this.handyWorkerService.findAll().contains(saved));
-	}
-
-	@Test
-	public void testCreateHandyWorker() {
-
-		List<Tutorial> tutorials = new ArrayList<Tutorial>();
-		HandyWorker h = this.handyWorkerService.createHandyWorker("Roberto", "s", "Hermoso", "https://trello.com/b/MD1aM3qn/proyecto-4-dp", "rhermoso98@gmail.com", "+34686310633", "C/Falsa 123", "Quimi", "asfghdgr", 0., tutorials, null);
-		Integer before = this.handyWorkerService.findAll().size();
-		this.handyWorkerService.save(h);
-
-		Assert.isTrue(this.handyWorkerService.findAll().size() == before + 1);
 	}
 
 	/*

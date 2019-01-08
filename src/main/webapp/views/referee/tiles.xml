@@ -31,6 +31,16 @@
 		<put-attribute name="body" value="/views/referee/refereesComplaints.jsp" />
 	</definition>
 	
+	<definition name="/complaint/referee/listUnassigned.do" extends="master.page">	
+		<put-attribute name="title" value="Unassigned Complaints" />
+		<put-attribute name="body" value="/views/referee/unassignedComplaints.jsp" />
+	</definition>
+	
+	<definition name="/complaint/referee/assign.do" extends="master.page">	
+		<put-attribute name="title" value="Assign Complaint" />
+		<put-attribute name="body" value="/views/referee/assignComplaint.jsp" />
+	</definition>
+	
 	<definition name="/complaint/report/referee/list.do" extends="master.page">	
 		<put-attribute name="title" value="Complaint's Report" />
 		<put-attribute name="body" value="/views/referee/complaintsReport.jsp" />

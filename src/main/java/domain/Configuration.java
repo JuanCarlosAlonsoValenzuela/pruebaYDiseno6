@@ -29,6 +29,41 @@ public class Configuration extends DomainEntity {
 	private String			goodWords;
 	private String			badWords;
 
+	//New parameters
+	private String			welcomeMessageEnglish;
+	private String			welcomeMessageSpanish;
+	private String			systemName;
+
+
+	//Name of the System
+	//Banner
+	//Message at the welcome page
+	@NotBlank
+	public String getSystemName() {
+		return this.systemName;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
+
+	@NotBlank
+	public String getWelcomeMessageEnglish() {
+		return this.welcomeMessageEnglish;
+	}
+
+	public void setWelcomeMessageEnglish(String welcomeMessageEnglish) {
+		this.welcomeMessageEnglish = welcomeMessageEnglish;
+	}
+
+	@NotBlank
+	public String getWelcomeMessageSpanish() {
+		return this.welcomeMessageSpanish;
+	}
+
+	public void setWelcomeMessageSpanish(String welcomeMessageSpanish) {
+		this.welcomeMessageSpanish = welcomeMessageSpanish;
+	}
 
 	@NotNull
 	public Integer getmaxFinderResults() {
