@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import security.UserAccount;
 import services.ApplicationService;
+import services.ConfigurationService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
 import domain.Application;
@@ -27,11 +28,13 @@ import domain.HandyWorker;
 public class ApplicationHandyWorkerController extends AbstractController {
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
 	@Autowired
-	private ApplicationService	applicationService;
+	private ApplicationService		applicationService;
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService		fixUpTaskService;
+	@Autowired
+	private ConfigurationService	configuariotnService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -48,10 +51,13 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 		applications = this.handyWorkerService.showApplications();
 
+		Integer iva = this.configuariotnService.getConfiguration().getIva21();
+
 		result = new ModelAndView("handy-worker/applications");
 
 		result.addObject("applications", applications);
 		result.addObject("requestURI", "application/handyWorker/list.do");
+		result.addObject("iva", iva);
 
 		return result;
 	}
@@ -132,6 +138,13 @@ public class ApplicationHandyWorkerController extends AbstractController {
 				FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 				application.setFixUpTask(fixUpTask);
 				application.setHandyWorker(logguedHandyWorker);
+
+				Integer iva = this.configuariotnService.getConfiguration().getIva21();
+
+				Double price = application.getOfferedPrice();
+
+				Double priceIva = price + price * (iva / 100.);
+				application.setOfferedPrice(priceIva);
 
 				this.applicationService.save(application);
 

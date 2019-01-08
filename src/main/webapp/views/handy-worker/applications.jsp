@@ -66,7 +66,10 @@
 		
 		<display:column property="status" titleKey="application.status" style="color:${color}" />	
 		
-		<display:column property="offeredPrice" titleKey="application.offeredPrice" style="color:${color}"/>	
+		<display:column titleKey="application.offeredPrice" style="color:${color}">	
+		
+		<jstl:out value=" ${row.offeredPrice} (  IVA ${iva} %)"/>	
+		</display:column>
 		
 		<div style=<jstl:out value="${color}"/>>
 		<display:column titleKey="application.comments">

@@ -70,7 +70,7 @@ public class Application extends DomainEntity {
 		return this.offeredPrice;
 	}
 
-	public void setOfferedPrice(final double offeredPrice) {
+	public void setOfferedPrice(double offeredPrice) {
 		this.offeredPrice = offeredPrice;
 	}
 
