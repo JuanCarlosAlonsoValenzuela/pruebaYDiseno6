@@ -70,10 +70,10 @@
 		
 	<input type="hidden" name="applicationId" value="${applicationId}"/>
 	
-	<input type="submit" name="create" value="<spring:message code="creditCard.create"/>" />		
-
+	<br/>
+	<input type="submit" name="create" value="<spring:message code="creditCard.validate"/>" />		
+	<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');" value="<spring:message code="creditCard.cancel"/>" />	
+	
 </form:form>
-
-<input type="submit" name="cancel" onclick="history.back()" value="<spring:message code="creditCard.cancel"/>" />	
 
 </security:authorize>

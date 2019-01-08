@@ -10,21 +10,9 @@
 	<form:form action="application/customer/changeStatus.do" modelAttribute="application">
 		<form:hidden path="id"/>
 		<form:hidden path="version" /> 
-		
-		<form:label path="moment">
-			<spring:message code="customer.application.moment" />		
-		</form:label>
-		<form:input path="moment" readonly="true"/>
-		<br/>
-		
-		<form:label path="offeredPrice">
-			<spring:message code="application.offeredPrice" />		
-		</form:label>
-		<form:input path="offeredPrice" readonly="true"/>
-		<br/>
-		
+		<form:hidden path="moment"/>
+		<form:hidden path="offeredPrice"/>
 		<form:hidden path="comments" />
-		
 		<form:hidden path="fixUpTask" />
 		<form:hidden path="handyWorker" />
 		
@@ -44,10 +32,10 @@
 		<br/><br/>
 		
 		<input type="submit" name="save" value="<spring:message code="application.save"/>" />
+		
+		<spring:message var="cancel" code="application.cancel"/> 
+		<input type="button" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');" value="${cancel}">
 
-	</form:form>
-	
-	<spring:message var="cancel" code="application.cancel"/> 		
-	<input type="button" onclick="history.back()" name="back" value="${cancel}">
+	</form:form>		
 	
 </security:authorize>
