@@ -14,7 +14,7 @@
 
 	<label for="text"><spring:message code="comment.text" />: </label>
 	<input type="text" name="comment" id="comment"  required="required" placeholder="<spring:message code="comment.writeComment"/>"/>
-	<input type="hidden" name="noteId" id="noteId" value="<jstl:out value="${noteId}"/>"/>
+	<input type="hidden" name="noteId" id="noteId" value="<jstl:out value="${param.noteId}"/>"/>
 	<input type="hidden" name="reportId" id="reportId" value="<jstl:out value="${reportId}"/>"/>
 	<input type="hidden" name="complaintId" id="complaintId" value="<jstl:out value="${param.complaintId}"/>"/>
 	<input type="hidden" name="fixUpTaskId" id="fixUpTaskId" value="<jstl:out value="${param.fixUpTaskId}"/>"/>
@@ -26,7 +26,7 @@
 </form>
 
 	<spring:url var="noteUrl" value="note/handyWorker/listComments.do">
-	<spring:param name="noteId" value="${param.noteid}"/>
+	<spring:param name="noteId" value="${param.noteId}"/>
 	<spring:param name="reportId" value="${param.reportId}"/>
 	<spring:param name="complaintId" value="${param.complaintId}"/>	
 	<spring:param name="fixUpTaskId" value="${param.fixUpTaskId}"/>

@@ -50,6 +50,8 @@
 		
 		<display:column property="address" titleKey="fixUpTask.address"/>
 		
+		<display:column property="maxPrice" titleKey="fixUpTask.maxPrice"/>
+		
 		<display:column property="realizationTime" titleKey="fixUpTask.realizationTime"/> 
 		
 		<!-- See Warranties -->

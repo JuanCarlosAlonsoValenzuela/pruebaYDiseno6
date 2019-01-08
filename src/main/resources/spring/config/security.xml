@@ -111,7 +111,8 @@
 		
 		
 		<!-- SPONSOR -->
-		<security:intercept-url pattern="/personalData/sponsor/**" access="hasRole('SPONSOR')" /> 
+		<security:intercept-url pattern="/personalData/sponsor/**" access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasRole('SPONSOR')" /> 
 		
 		<!-- REFEREE -->
 		<security:intercept-url pattern="/personalData/referee/**" access="hasRole('REFEREE')" /> 
