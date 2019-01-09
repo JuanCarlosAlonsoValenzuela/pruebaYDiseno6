@@ -35,7 +35,7 @@ public class AdministratorBanUnbanController extends AbstractController {
 	public ModelAndView suspicious() {
 		ModelAndView result;
 		List<Actor> actors = new ArrayList<Actor>();
-		actors = this.actorService.findAll();
+		actors = this.actorService.findAllExceptAdmin();
 
 		result = new ModelAndView("suspicious/administrator/list");
 
