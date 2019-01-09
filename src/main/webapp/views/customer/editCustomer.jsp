@@ -8,6 +8,30 @@
 
 <p><spring:message code="customer.editCustomer" /></p>
 
+<script type="text/javascript">
+
+  function phonenumberval() {
+	  
+  var phoneNumber;
+  phoneNumber = document.getElementById("phoneNumber").value;
+
+		
+  var res = false;
+ 
+  if (/(\+[0-9]{1,3})(\([0-9]{1,3}\))([0-9]{4,})$/.test(phoneNumber)) {
+    res = true;
+  }
+  if (/(\+[0-9]{1,3})([0-9]{4,})$/.test(phoneNumber)) {
+	res = true;
+  }
+  if(res == false) {
+	  
+    confirm("<spring:message code="anonymous.confirmationPhone" />");
+  }
+ 
+}
+  </script>
+
 <security:authorize access="hasRole('CUSTOMER')">
 	<form:form modelAttribute="customer" action="personalData/customer/edit.do">
     <!--Hidden Attributes -->
@@ -77,7 +101,8 @@
 	<br />
 	
 	
-	<input type="submit" name="save" value="<spring:message code="customer.save" />" /> 
+	<input type="submit" name="save" value="<spring:message code="customer.save" />" 
+	onclick="phonenumberval()"/> 
 	
 	<a href="#" style="text-decoration: none;">
     	<input type="button" value="<spring:message code="customer.cancel" />" />

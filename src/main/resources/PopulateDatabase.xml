@@ -65,31 +65,6 @@
 		<property name="isNotLocked" value="True" />
 	</bean>
 
-	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="HANDYWORKER" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="REFEREE" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="SPONSOR" />
-				</bean>
-			</list>
-		</property>
-		<property name="isNotLocked" value="True" />
-	</bean>
-	
 	<bean id="userAccount4" class="security.UserAccount">
 		<property name="username" value="customer1" />
 		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />

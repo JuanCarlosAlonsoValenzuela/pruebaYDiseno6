@@ -14,11 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import security.UserAccount;
 import services.AdminService;
+import services.ConfigurationService;
 import services.CustomerService;
 import services.HandyWorkerService;
 import services.RefereeService;
 import services.SponsorService;
 import domain.Admin;
+import domain.Configuration;
 import domain.Customer;
 import domain.HandyWorker;
 import domain.Referee;
@@ -29,15 +31,17 @@ import domain.Sponsor;
 public class EditPersonalDataController extends AbstractController {
 
 	@Autowired
-	private CustomerService		customerService;
+	private CustomerService			customerService;
 	@Autowired
-	private SponsorService		sponsorService;
+	private SponsorService			sponsorService;
 	@Autowired
-	private RefereeService		refereeService;
+	private RefereeService			refereeService;
 	@Autowired
-	private AdminService		adminService;
+	private AdminService			adminService;
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	//Constructor
@@ -68,12 +72,19 @@ public class EditPersonalDataController extends AbstractController {
 	public ModelAndView save(@Valid Customer customer, BindingResult binding) {
 
 		ModelAndView result;
+		Configuration configuration = this.configurationService.getConfiguration();
+		String prefix = configuration.getSpainTelephoneCode();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(customer);
 		} else {
 			try {
-				this.customerService.save(customer);
+				if (customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || customer.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+					this.customerService.save(customer);
+				} else {
+					customer.setPhoneNumber(prefix + customer.getPhoneNumber());
+					this.customerService.save(customer);
+				}
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(customer, "customer.commit.error");
@@ -123,12 +134,19 @@ public class EditPersonalDataController extends AbstractController {
 	public ModelAndView saveSponsor(@Valid Sponsor sponsor, BindingResult binding) {
 
 		ModelAndView result;
+		Configuration configuration = this.configurationService.getConfiguration();
+		String prefix = configuration.getSpainTelephoneCode();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(sponsor);
 		} else {
 			try {
-				this.sponsorService.save(sponsor);	//Cambiar por update
+				if (sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+					this.sponsorService.save(sponsor);
+				} else {
+					sponsor.setPhoneNumber(prefix + sponsor.getPhoneNumber());
+					this.sponsorService.save(sponsor);
+				}
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(sponsor, "sponsor.commit.error");
@@ -178,12 +196,19 @@ public class EditPersonalDataController extends AbstractController {
 	public ModelAndView saveReferee(@Valid Referee referee, BindingResult binding) {
 
 		ModelAndView result;
+		Configuration configuration = this.configurationService.getConfiguration();
+		String prefix = configuration.getSpainTelephoneCode();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(referee);
 		} else {
 			try {
-				this.refereeService.save(referee);
+				if (referee.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || referee.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+					this.refereeService.save(referee);
+				} else {
+					referee.setPhoneNumber(prefix + referee.getPhoneNumber());
+					this.refereeService.save(referee);
+				}
 				result = new ModelAndView("redirect:editReferee.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(referee, "referee.commit.error");
@@ -234,12 +259,19 @@ public class EditPersonalDataController extends AbstractController {
 	public ModelAndView saveAdministrator(@Valid Admin admin, BindingResult binding) {
 
 		ModelAndView result;
+		Configuration configuration = this.configurationService.getConfiguration();
+		String prefix = configuration.getSpainTelephoneCode();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(admin);
 		} else {
 			try {
-				this.adminService.save(admin);
+				if (admin.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || admin.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+					this.adminService.save(admin);
+				} else {
+					admin.setPhoneNumber(prefix + admin.getPhoneNumber());
+					this.adminService.save(admin);
+				}
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(admin, "admin.commit.error");
@@ -288,12 +320,19 @@ public class EditPersonalDataController extends AbstractController {
 	public ModelAndView saveHandyWorker(@Valid HandyWorker handyWorker, BindingResult binding) {
 
 		ModelAndView result;
+		Configuration configuration = this.configurationService.getConfiguration();
+		String prefix = configuration.getSpainTelephoneCode();
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(handyWorker);
 		} else {
 			try {
-				this.handyWorkerService.save(handyWorker);
+				if (handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+					this.handyWorkerService.save(handyWorker);
+				} else {
+					handyWorker.setPhoneNumber(prefix + handyWorker.getPhoneNumber());
+					this.handyWorkerService.save(handyWorker);
+				}
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(handyWorker, "handyWorker.commit.error");

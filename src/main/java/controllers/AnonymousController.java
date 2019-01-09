@@ -62,7 +62,6 @@ public class AnonymousController extends AbstractController {
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
 		Configuration configuration = this.configurationService.getConfiguration();
-
 		String prefix = configuration.getSpainTelephoneCode();
 
 		if (binding.hasErrors()) {

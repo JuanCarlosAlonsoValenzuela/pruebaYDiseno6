@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import security.UserAccount;
+import services.ActorService;
 import services.ConfigurationService;
 
 @Controller
@@ -30,6 +33,9 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	private ConfigurationService	configurationService;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -51,6 +57,15 @@ public class WelcomeController extends AbstractController {
 
 		String welcomeMessage;
 		String systemName = this.configurationService.getConfiguration().getSystemName();
+		UserAccount userAccount;
+		String username;
+
+		try {
+			userAccount = LoginService.getPrincipal();
+			username = userAccount.getUsername();
+		} catch (Exception oops) {
+			username = "";
+		}
 
 		String imageURL = this.configurationService.getConfiguration().getImageURL();
 
@@ -65,6 +80,7 @@ public class WelcomeController extends AbstractController {
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
+		result.addObject("username", username);
 		result.addObject("moment", moment);
 		result.addObject("welcomeMessage", welcomeMessage);
 		result.addObject("systemName", systemName);

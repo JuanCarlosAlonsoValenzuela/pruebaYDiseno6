@@ -30,7 +30,9 @@
  	  </display:column>
  	  
       <display:column titleKey="administrator.actors">
+      
       		<jstl:out value="${actorList.userAccount.username}" />
+      
       </display:column>
       
        <display:column titleKey="administrator.suspicious">
