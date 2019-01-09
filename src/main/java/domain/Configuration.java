@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -33,11 +34,22 @@ public class Configuration extends DomainEntity {
 	private String			welcomeMessageEnglish;
 	private String			welcomeMessageSpanish;
 	private String			systemName;
+	private String			imageURL;
 
 
 	//Name of the System
 	//Banner
 	//Message at the welcome page
+	@NotBlank
+	@URL
+	public String getImageURL() {
+		return this.imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
 	@NotBlank
 	public String getSystemName() {
 		return this.systemName;

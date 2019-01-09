@@ -35,9 +35,11 @@
 	
 	<display:column property="systemName" titleKey="configuration.systemName" />
 	
+	<display:column property="imageURL" titleKey="configuration.imageURL" />
+	
 	
 </display:table>
 
-<input type="button" name="back" onclick="javascript:relativeRedir('configuration/administrator/edit.do');"  value="<spring:message code="configuration.edit.button"/>" />	
+<input type="button" onclick="javascript:relativeRedir('configuration/administrator/edit.do');"  value="<spring:message code="configuration.edit.button"/>" />	
 
 </security:authorize>

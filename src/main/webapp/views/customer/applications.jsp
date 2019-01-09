@@ -88,5 +88,7 @@ java.sql.Timestamp now = new java.sql.Timestamp(utilDate.getTime());
 				<jstl:out value="${row.handyWorker.score}" />
 		</display:column>
 	</display:table>
+	
+	<input type="button" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');"  value="<spring:message code="application.back"/>" />
 
 </security:authorize>

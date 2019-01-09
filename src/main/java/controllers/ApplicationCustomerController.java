@@ -96,10 +96,17 @@ public class ApplicationCustomerController extends AbstractController {
 		ModelAndView result;
 
 		try {
-			this.customerService.addComment(this.applicationService.findOne(applicationId), comment);
-			result = new ModelAndView("redirect:listComments.do");
-			result.addObject("fixUpTaskId", fixUpTaskId);
-			result.addObject("applicationId", applicationId);
+			if (comment.trim().isEmpty()) {
+				result = new ModelAndView("customer/addComment");
+				result.addObject("comment", comment);
+				result.addObject("applicationId", applicationId);
+				result.addObject("fixUpTaskId", fixUpTaskId);
+			} else {
+				this.customerService.addComment(this.applicationService.findOne(applicationId), comment);
+				result = new ModelAndView("redirect:listComments.do");
+				result.addObject("fixUpTaskId", fixUpTaskId);
+				result.addObject("applicationId", applicationId);
+			}
 		} catch (Throwable oops) {
 			result = new ModelAndView("customer/addComment");
 			result.addObject("comment", comment);
