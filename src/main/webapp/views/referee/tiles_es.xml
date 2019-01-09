@@ -26,24 +26,39 @@
 		<put-attribute name="body" value="/views/refere/complaints.jsp" />
 	</definition>
 	
-	<definition name="/complaint/referee/list.do" extends="master.page">	
+	<definition name="complaint/referee/list" extends="master.page">	
 		<put-attribute name="title" value="Mis quejas" />
 		<put-attribute name="body" value="/views/referee/refereesComplaints.jsp" />
 	</definition>
 	
-	<definition name="/complaint/referee/listUnassigned.do" extends="master.page">	
+	<definition name="attachment/referee/list" extends="master.page">	
+		<put-attribute name="title" value="Archivos" />
+		<put-attribute name="body" value="/views/referee/attachments.jsp" />
+	</definition>
+	
+	<definition name="attachment/referee/listRep" extends="master.page">	
+		<put-attribute name="title" value="Attachments" />
+		<put-attribute name="body" value="/views/referee/attachmentReport.jsp" />
+	</definition>
+	
+	<definition name="complaint/referee/listUnassigned" extends="master.page">	
 		<put-attribute name="title" value="Quejas sin asignar" />
 		<put-attribute name="body" value="/views/referee/unassignedComplaints.jsp" />
 	</definition>
 	
-	<definition name="/complaint/referee/assign.do" extends="master.page">	
+	<definition name="complaint/referee/assign" extends="master.page">	
 		<put-attribute name="title" value="Asignar queja" />
 		<put-attribute name="body" value="/views/referee/assignComplaint.jsp" />
 	</definition>
 	
-	<definition name="/complaint/report/referee/list.do" extends="master.page">	
+	<definition name="report/referee/list" extends="master.page">	
 		<put-attribute name="title" value="Informes de la queja" />
 		<put-attribute name="body" value="/views/referee/complaintsReport.jsp" />
+	</definition>
+	
+	<definition name="report/referee/create" extends="master.page">	
+		<put-attribute name="title" value="Create report" />
+		<put-attribute name="body" value="/views/referee/createReport.jsp" />
 	</definition>
 	
 	<definition name="/complaint/attachment/list.do" extends="master.page">	
@@ -52,9 +67,19 @@
 	</definition>
 	
 	
-	<definition name="/complaint/report/note/list.do" extends="master.page">	
+	<definition name="note/referee/list" extends="master.page">	
 		<put-attribute name="title" value="Notas del informe" />
 		<put-attribute name="body" value="/views/referee/reportNotes.jsp" />
+	</definition>
+	
+	<definition name="note/referee/create" extends="master.page">	
+		<put-attribute name="title" value="Crear Nota" />
+		<put-attribute name="body" value="/views/referee/addNote.jsp" />
+	</definition>
+	
+	<definition name="note/referee/showComments" extends="master.page">	
+		<put-attribute name="title" value="Note's Comment" />
+		<put-attribute name="body" value="/views/referee/noteComments.jsp" />
 	</definition>
 	
 		<definition name="/complaint/report/attachment/referee/list.do" extends="master.page">	

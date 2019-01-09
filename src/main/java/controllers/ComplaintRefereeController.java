@@ -34,6 +34,24 @@ public class ComplaintRefereeController extends AbstractController {
 		super();
 	}
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+
+		ModelAndView result;
+
+		Collection<Complaint> complaints;
+
+		complaints = this.refereeService.selfAssignedComplaints();
+
+		result = new ModelAndView("complaint/referee/list");
+
+		result.addObject("complaints", complaints);
+		result.addObject("requestURI", "complaint/referee/list.do");
+
+		return result;
+
+	}
+
 	@RequestMapping(value = "/listUnassigned", method = RequestMethod.GET)
 	public ModelAndView listUnassigned() {
 
@@ -53,35 +71,37 @@ public class ComplaintRefereeController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/assign", method = RequestMethod.GET)
-	public ModelAndView assignComplaint(@RequestParam int complaintId) {
+	public ModelAndView assignComplaint(@RequestParam int comp) {
 		ModelAndView result;
 		Complaint complaint;
 
-		complaint = this.complaintService.findOne(complaintId);
+		complaint = this.complaintService.findOne(comp);
 		Assert.notNull(complaint);
 		result = this.createEditModelAndView(complaint);
+		result.addObject("comp", comp);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/assign", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Complaint complaint, BindingResult binding) {
+	public ModelAndView save(@Valid Complaint complaint, BindingResult binding, @RequestParam int comp) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(complaint);
+			result.addObject("comp", comp);
 		} else {
 			try {
-				this.complaintService.save(complaint);
 				this.refereeService.assingComplaint(complaint);
+				//this.complaintService.save(complaint);
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(complaint, "complaint.commit.error");
+				result.addObject("comp", comp);
 			}
 		}
 		return result;
 	}
-
 	protected ModelAndView createEditModelAndView(Complaint complaint) {
 		ModelAndView result;
 
