@@ -70,11 +70,13 @@ public class AnonymousController extends AbstractController {
 			try {
 
 				handyWorker.getUserAccount().setPassword(encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null));
-				if (!handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+					this.handyWorkerService.saveCreate(handyWorker);
+				} else if (handyWorker.getPhoneNumber().matches("([0-9]{4,})$")) {
 					handyWorker.setPhoneNumber(prefix + handyWorker.getPhoneNumber());
 					this.handyWorkerService.saveCreate(handyWorker);
 				} else {
-					this.handyWorkerService.saveCreate(handyWorker);
+					result = new ModelAndView("redirect:/anonymous/createHandyWorker.do");
 				}
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
@@ -133,11 +135,13 @@ public class AnonymousController extends AbstractController {
 			try {
 				customer.getUserAccount().setPassword(encoder.encodePassword(customer.getUserAccount().getPassword(), null));
 
-				if (!customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+					this.customerService.saveCreate(customer);
+				} else if (customer.getPhoneNumber().matches("([0-9]{4,})$")) {
 					customer.setPhoneNumber(prefix + customer.getPhoneNumber());
 					this.customerService.saveCreate(customer);
 				} else {
-					this.customerService.saveCreate(customer);
+					result = new ModelAndView("redirect:/anonymous/createCustomer.do");
 				}
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
@@ -196,11 +200,13 @@ public class AnonymousController extends AbstractController {
 		} else {
 			try {
 				sponsor.getUserAccount().setPassword(encoder.encodePassword(sponsor.getUserAccount().getPassword(), null));
-				if (!sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+					this.sponsorService.saveCreate(sponsor);
+				} else if (sponsor.getPhoneNumber().matches("([0-9]{4,})$")) {
 					sponsor.setPhoneNumber(prefix + sponsor.getPhoneNumber());
 					this.sponsorService.saveCreate(sponsor);
 				} else {
-					this.sponsorService.saveCreate(sponsor);
+					result = new ModelAndView("redirect:/anonymous/createSponsor.do");
 				}
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {

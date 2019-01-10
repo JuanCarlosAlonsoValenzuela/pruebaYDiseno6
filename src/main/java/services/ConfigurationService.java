@@ -62,12 +62,12 @@ public class ConfigurationService {
 		Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
 
 		List<String> trimmedString = new ArrayList<String>();
-		trimmedString = Arrays.asList(s.split("\\s+|(?=[ ,.¿?;!¡])"));
+		trimmedString = Arrays.asList(s.split("\\+|(?=[,.¿?;!¡])"));
 
 		//("\\s*(=>|,|\\s)\\s*"));
 		for (String g : spamWords) {
 			for (String c : trimmedString) {
-				if (g.equalsIgnoreCase(c)) {
+				if (g.equals(c)) {
 					result = true;
 					break;
 				}

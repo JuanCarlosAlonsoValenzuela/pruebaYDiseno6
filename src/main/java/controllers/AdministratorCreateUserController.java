@@ -64,11 +64,13 @@ public class AdministratorCreateUserController extends AbstractController {
 		} else {
 			try {
 				admin.getUserAccount().setPassword(encoder.encodePassword(admin.getUserAccount().getPassword(), null));
-				if (!admin.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (admin.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+					this.adminService.saveCreate(admin);
+				} else if (admin.getPhoneNumber().matches("([0-9]{4,})$")) {
 					admin.setPhoneNumber(prefix + admin.getPhoneNumber());
 					this.adminService.saveCreate(admin);
 				} else {
-					this.adminService.saveCreate(admin);
+					result = new ModelAndView("redirect:/anonymous/createAdmin.do");
 				}
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {
@@ -127,11 +129,13 @@ public class AdministratorCreateUserController extends AbstractController {
 		} else {
 			try {
 				referee.getUserAccount().setPassword(encoder.encodePassword(referee.getUserAccount().getPassword(), null));
-				if (!referee.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (referee.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+					this.refereeService.saveCreate(referee);
+				} else if (referee.getPhoneNumber().matches("([0-9]{4,})$")) {
 					referee.setPhoneNumber(prefix + referee.getPhoneNumber());
 					this.refereeService.saveCreate(referee);
 				} else {
-					this.refereeService.saveCreate(referee);
+					result = new ModelAndView("redirect:/anonymous/createReferee.do");
 				}
 				result = new ModelAndView("redirect:/security/login.do");
 			} catch (Throwable oops) {

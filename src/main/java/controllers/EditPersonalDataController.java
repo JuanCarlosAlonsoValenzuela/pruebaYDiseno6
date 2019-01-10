@@ -79,12 +79,15 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(customer);
 		} else {
 			try {
-				if (customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || customer.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+				if (customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
 					this.customerService.save(customer);
-				} else {
+				} else if (customer.getPhoneNumber().matches("([0-9]{4,})$")) {
 					customer.setPhoneNumber(prefix + customer.getPhoneNumber());
 					this.customerService.save(customer);
+				} else {
+					result = new ModelAndView("redirect:edit.do");
 				}
+
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
 				result = this.createEditModelAndView(customer, "customer.commit.error");
@@ -141,11 +144,13 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(sponsor);
 		} else {
 			try {
-				if (sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+				if (sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
 					this.sponsorService.save(sponsor);
-				} else {
+				} else if (sponsor.getPhoneNumber().matches("([0-9]{4,})$")) {
 					sponsor.setPhoneNumber(prefix + sponsor.getPhoneNumber());
 					this.sponsorService.save(sponsor);
+				} else {
+					result = new ModelAndView("redirect:edit.do");
 				}
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
@@ -203,11 +208,13 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(referee);
 		} else {
 			try {
-				if (referee.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || referee.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+				if (referee.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
 					this.refereeService.save(referee);
-				} else {
+				} else if (referee.getPhoneNumber().matches("([0-9]{4,})$")) {
 					referee.setPhoneNumber(prefix + referee.getPhoneNumber());
 					this.refereeService.save(referee);
+				} else {
+					result = new ModelAndView("redirect:editReferee.do");
 				}
 				result = new ModelAndView("redirect:editReferee.do");
 			} catch (Throwable oops) {
@@ -266,11 +273,13 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(admin);
 		} else {
 			try {
-				if (admin.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || admin.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+				if (admin.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
 					this.adminService.save(admin);
-				} else {
+				} else if (admin.getPhoneNumber().matches("([0-9]{4,})$")) {
 					admin.setPhoneNumber(prefix + admin.getPhoneNumber());
 					this.adminService.save(admin);
+				} else {
+					result = new ModelAndView("redirect:edit.do");
 				}
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
@@ -327,11 +336,13 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(handyWorker);
 		} else {
 			try {
-				if (handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
+				if (handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
 					this.handyWorkerService.save(handyWorker);
-				} else {
+				} else if (handyWorker.getPhoneNumber().matches("([0-9]{4,})$")) {
 					handyWorker.setPhoneNumber(prefix + handyWorker.getPhoneNumber());
 					this.handyWorkerService.save(handyWorker);
+				} else {
+					result = new ModelAndView("redirect:edit.do");
 				}
 				result = new ModelAndView("redirect:edit.do");
 			} catch (Throwable oops) {
