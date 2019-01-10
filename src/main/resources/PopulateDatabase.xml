@@ -65,31 +65,6 @@
 		<property name="isNotLocked" value="True" />
 	</bean>
 
-	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="HANDYWORKER" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="REFEREE" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="SPONSOR" />
-				</bean>
-			</list>
-		</property>
-		<property name="isNotLocked" value="True" />
-	</bean>
-	
 	<bean id="userAccount4" class="security.UserAccount">
 		<property name="username" value="customer1" />
 		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
@@ -649,6 +624,7 @@
 	</bean>
 
 	<bean id="warranty4" class="domain.Warranty">
+	<property name="isDraftMode" value="false"/>
 		<property name="title" value="title4" />
 		<property name="terms">
 			<list>
@@ -665,6 +641,7 @@
 	</bean>
 
 	<bean id="warranty5" class="domain.Warranty">
+	<property name="isDraftMode" value="false"/>
 		<property name="title" value="title5" />
 		<property name="terms">
 			<list>
@@ -681,6 +658,7 @@
 	</bean>
 
 	<bean id="warranty6" class="domain.Warranty">
+	<property name="isDraftMode" value="false"/>
 		<property name="title" value="title6" />
 		<property name="terms">
 			<list>
@@ -697,6 +675,7 @@
 	</bean>
 
 	<bean id="warranty7" class="domain.Warranty">
+	<property name="isDraftMode" value="false"/>
 		<property name="title" value="title7" />
 		<property name="terms">
 			<list>
@@ -718,19 +697,39 @@
 	<!-- CATEGORY -->
 	<bean id="CATEGORY" class="domain.Category">
 		<property name="name" value="CATEGORY" />
+		<property name="nameSpanish" value="CATEGORIA" />
 		<property name="subCategories">
 			<list>
 				<ref bean="category4" />
+				<ref bean="category5" />
+				<ref bean="category6" />
+				<ref bean="category7" />
+				<ref bean="category8" />
+				<ref bean="category9" />
+				<ref bean="category10" />
+				<ref bean="category11" />
+				<ref bean="category12" />
+				<ref bean="category13" />
+				<ref bean="category14" />
+				<ref bean="category15" />
+				<ref bean="category16" />
+				<ref bean="category17" />
+				<ref bean="category18" />
+				<ref bean="category19" />
+				<ref bean="category20" />
+				<ref bean="category21" />
 			</list>
 		</property>
 	</bean>
 	
 	<bean id="category1" class="domain.Category">
-		<property name="name" value="name1" />
+		<property name="name" value="Carpentry" />
+		<property name="nameSpanish" value="Carpinteria" />
 	</bean>
 
 	<bean id="category2" class="domain.Category">
-		<property name="name" value="name2" />
+		<property name="name" value="Ceiling repair" />
+		<property name="nameSpanish" value="Reparacion de techos" />
 		<property name="subCategories">
 			<list>
 				<ref bean="category1" />
@@ -739,7 +738,8 @@
 	</bean>
 
 	<bean id="category3" class="domain.Category">
-		<property name="name" value="name3" />
+		<property name="name" value="Cleaning" />
+		<property name="nameSpanish" value="Limpieza" />
 		<property name="subCategories">
 			<list>
 				<ref bean="category2" />
@@ -749,13 +749,102 @@
 	</bean>
 
 	<bean id="category4" class="domain.Category">
-		<property name="name" value="name4" />
+		<property name="name" value="Concrete work" />
+		<property name="nameSpanish" value="Hormigon" />
 		<property name="subCategories">
 			<list>
 				<ref bean="category3" />
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="category5" class="domain.Category">
+		<property name="name" value="Doors" />
+		<property name="nameSpanish" value="Puertas" />
+	</bean>
+	
+	
+	
+	<bean id="category6" class="domain.Category">
+		<property name="name" value="Electrical wiring" />
+		<property name="nameSpanish" value="Cableado Electrico" />
+	</bean>
+	
+	<bean id="category7" class="domain.Category">
+		<property name="name" value="Fan installation" />
+		<property name="nameSpanish" value="Instalacion de Ventiladores" />
+	</bean>
+	
+	<bean id="category8" class="domain.Category">
+		<property name="name" value="Fence fixing" />
+		<property name="nameSpanish" value="Reparacion de Verjas" />
+	</bean>
+	
+	<bean id="category9" class="domain.Category">
+		<property name="name" value="Home security systems" />
+		<property name="nameSpanish" value="Sistemas de Seguridad residenciales" />
+	</bean>
+	
+	<bean id="category10" class="domain.Category">
+		<property name="name" value="Insulation installation" />
+		<property name="nameSpanish" value="Instalacion de aislamientos" />
+	</bean>
+	
+	<bean id="category11" class="domain.Category">
+		<property name="name" value="Lamp repairs" />
+		<property name="nameSpanish" value="Reparacion de lamparas" />
+	</bean>
+	
+	<bean id="category12" class="domain.Category">
+		<property name="name" value="Moving" />
+		<property name="nameSpanish" value="Mudanzas" />
+	</bean>
+	
+	<bean id="category13" class="domain.Category">
+		<property name="name" value="Painting" />
+		<property name="nameSpanish" value="Pintura" />
+	</bean>
+	
+	<bean id="category14" class="domain.Category">
+		<property name="name" value="Pest control" />
+		<property name="nameSpanish" value="Control de plagas" />
+	</bean>
+	
+	<bean id="category15" class="domain.Category">
+		<property name="name" value="Plumbing repairs" />
+		<property name="nameSpanish" value="Fontaneria" />
+	</bean>
+	
+	<bean id="category16" class="domain.Category">
+		<property name="name" value="Roofing" />
+		<property name="nameSpanish" value="Techados" />
+	</bean>
+	
+	<bean id="category17" class="domain.Category">
+		<property name="name" value="Shelf installation" />
+		<property name="nameSpanish" value="Instalacion de estanterias" />
+	</bean>
+	
+	<bean id="category18" class="domain.Category">
+		<property name="name" value="Solar panels" />
+		<property name="nameSpanish" value="Paneles solares" />
+	</bean>
+	
+	<bean id="category19" class="domain.Category">
+		<property name="name" value="Soundproofing" />
+		<property name="nameSpanish" value="Aislamiento de sonido" />
+	</bean>
+	
+	<bean id="category20" class="domain.Category">
+		<property name="name" value="Sprinkler repair" />
+		<property name="nameSpanish" value="Reparacion de aspersores" />
+	</bean>
+	
+	<bean id="category21" class="domain.Category">
+		<property name="name" value="Window repair" />
+		<property name="nameSpanish" value="Reparacion de Ventanas" />
+	</bean>
+	
 	<!-- END OF CATEGORY -->
 
 

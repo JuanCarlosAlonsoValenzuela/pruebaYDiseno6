@@ -240,19 +240,19 @@ public class RefereeService {
 
 	public List<Complaint> unassignedComplaints() {
 		this.securityAndReferee();
-		return (List<Complaint>) this.refereeRepository.complaintsUnassigned();
+		return this.refereeRepository.complaintsUnassigned();
 	}
 
 	public Complaint assingComplaint(Complaint complaint) {
 		Referee loggedReferee = this.securityAndReferee();
-		List<Complaint> unassignedComplaints = (List<Complaint>) this.refereeRepository.complaintsUnassigned();
+		List<Complaint> unassignedComplaints = this.refereeRepository.complaintsUnassigned();
 		Complaint comp = new Complaint();
 		for (Complaint c : unassignedComplaints) {
 			if (c == complaint) {
 				c = comp;
 			}
 		}
-		Assert.notNull(comp);
+		Assert.notNull(complaint);
 		complaint.setReferee(loggedReferee);
 
 		List<String> spam = new ArrayList<String>();
@@ -264,7 +264,7 @@ public class RefereeService {
 		Complaint complaintSaved = this.complaintService.save(complaint);
 		this.refereeRepository.save(loggedReferee);
 
-		return complaintSaved;
+		return complaint;
 	}
 
 	public List<Complaint> selfAssignedComplaints() {
@@ -306,7 +306,7 @@ public class RefereeService {
 
 	public Note writeComment(String comment, Note note) {
 		Referee loggedReferee = this.securityAndReferee();
-		List<Note> notes = (List<Note>) this.refereeRepository.notesReferee(loggedReferee.getId());
+		List<Note> notes = this.refereeRepository.notesReferee(loggedReferee.getId());
 		Note no = null;
 		for (Note n : notes) {
 			if (n.getId() == note.getId()) {
@@ -381,7 +381,71 @@ public class RefereeService {
 		}
 
 		this.reportService.delete(report);
+	}
+	public Report createReport(Complaint complaint, Report report) {
 
+		Referee loggedReferee = this.securityAndReferee();
+
+		List<Complaint> complaints = this.complaintService.findAll();
+
+		Assert.isTrue(complaints.contains(complaint));
+
+		Assert.notNull(complaint);
+
+		Report reportSaved = this.reportService.save(report);
+
+		List<Report> reports = complaint.getReports();
+		if (reports.contains(report)) {
+			reports.remove(report);
+		}
+		reports.add(reportSaved);
+		complaint.setReports(reports);
+		this.complaintService.save(complaint);
+
+		this.configurationService.isActorSuspicious(loggedReferee);
+
+		return report;
+	}
+
+	public List<Note> showNotes(Report report) {
+		Referee loggedReferee = this.securityAndReferee();
+		Assert.isTrue(this.reportService.findAll().contains(report));
+		return report.getNotes();
+	}
+
+	public void createNote(Report report, Note note) {
+		Referee loggedReferee = this.securityAndReferee();
+
+		Assert.isTrue(this.reportService.findAll().contains(report));
+
+		List<Note> notes = report.getNotes();
+		List<String> usernames = note.getUsernames();
+
+		usernames.add(loggedReferee.getUserAccount().getUsername());
+		note.setUsernames(usernames);
+		notes.add(note);
+
+		report.setNotes(notes);
+		this.reportService.save(report);
+
+		this.configurationService.isActorSuspicious(loggedReferee);
+
+	}
+
+	public Note addComent(Note note, String comment) {
+		Referee loggedReferee = this.securityAndReferee();
+
+		List<String> usernames = note.getUsernames();
+		List<String> comments = note.getOptionalComments();
+		usernames.add(loggedReferee.getUserAccount().getUsername());
+		comments.add(comment);
+		note.setOptionalComments(comments);
+		note.setUsernames(usernames);
+		Note savedNote = this.noteService.save(note);
+
+		this.configurationService.isActorSuspicious(loggedReferee);
+
+		return savedNote;
 	}
 
 }

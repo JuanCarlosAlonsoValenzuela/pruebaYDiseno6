@@ -8,6 +8,32 @@
 
 <p><spring:message code="admin.editPersonalData" /></p>
 
+
+<script type="text/javascript">
+
+  function phonenumberval() {
+	  
+  var phoneNumber;
+  phoneNumber = document.getElementById("phoneNumber").value;
+
+		
+  var res = false;
+ 
+  if (/(\+[0-9]{1,3})(\([0-9]{1,3}\))([0-9]{4,})$/.test(phoneNumber)) {
+    res = true;
+  }
+  if (/(\+[0-9]{1,3})([0-9]{4,})$/.test(phoneNumber)) {
+	res = true;
+  }
+  if(res == false) {
+	  
+    confirm("<spring:message code="anonymous.confirmationPhone" />");
+  }
+ 
+}
+  </script>
+
+
 <security:authorize access="hasRole('ADMIN')">
 	<form:form modelAttribute="admin" action="personalData/administrator/edit.do">
     <!--Hidden Attributes -->
@@ -74,7 +100,8 @@
 	<br />
 	
 	
-	<input type="submit" name="save" value="<spring:message code="administrator.save" />" /> 
+	<input type="submit" name="save" value="<spring:message code="administrator.save" />" 
+	onclick="phonenumberval()"/> 
 	
 	<a href="#" style="text-decoration: none;">
     	<input type="button" value="<spring:message code="administrator.cancel" />" />

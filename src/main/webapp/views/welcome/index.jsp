@@ -19,6 +19,6 @@
 
 <h1> <jstl:out value="${welcomeMessage}" /> </h1>
 
-<p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
+<p><spring:message code="welcome.greeting.prefix" /> ${username}<spring:message code="welcome.greeting.suffix" /></p>
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 

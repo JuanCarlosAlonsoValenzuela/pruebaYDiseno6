@@ -14,6 +14,13 @@
 
 		<!-- Hidden Attributes -->
 		
+		<form:hidden path="ticker" />
+		<form:hidden path="moment" />
+		<form:hidden path="description" />
+		<form:hidden path="attachments" />
+		<form:hidden path="reports" />
+		<form:hidden path="referee" />
+		
 		<input type="hidden" name="comp" value="${comp}" />
 		
 		<input type="submit" name="save" value="<spring:message code="complaint.assign.button"/>" />	

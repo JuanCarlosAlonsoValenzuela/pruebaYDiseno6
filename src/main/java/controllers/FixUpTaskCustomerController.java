@@ -11,6 +11,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -91,10 +92,10 @@ public class FixUpTaskCustomerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(FixUpTask fixUpTask, String tile) {
 		ModelAndView result;
 		Collection<Category> categories;
-		Collection<Warranty> warranties;
+		List<Warranty> warranties;
 
 		categories = this.categoryService.findAll();
-		warranties = this.warrantyService.findAll();
+		warranties = this.warrantyService.warrantiesFilteredByMode(false);
 
 		result = new ModelAndView(tile);
 		result.addObject("fixUpTask", fixUpTask);

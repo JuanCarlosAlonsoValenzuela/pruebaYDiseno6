@@ -25,10 +25,15 @@
 		<spring:message code="mail.message.subject"/>:
 	</form:label>
 	<form:input path="subject" />
+	
 	<form:errors cssClass="error" path="subject"/>
+	<jstl:if test="${messageTest.subject==''}">
+ 		 <a style="color:red"><spring:message code="mail.subjectNotBlank"/></a>
+	</jstl:if>
 	<br />
 	
 	
+
 	<form:label path="receiver">
 			<spring:message code="mail.message.receiver"/>:
 	</form:label>
@@ -61,9 +66,12 @@
 	</form:label>
 	<form:textarea path="body" />
 	<form:errors cssClass="error" path="body"/>
+	<jstl:if test="${messageTest.body==''}">
+ 		 <a style="color:red"><spring:message code="mail.bodyNotBlank"/></a>
+	</jstl:if>
 	<br />
 	
-	 <input name="boxId" type="hidden" value="${boxId}">
+	
 	
 	<input type="submit" <jstl:if test="${messageTest.id != 0}"><jstl:out value="disabled='disabled'"/></jstl:if>
 		name="save" value="<spring:message code="mail.message.send"/>" />

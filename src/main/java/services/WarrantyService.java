@@ -63,4 +63,8 @@ public class WarrantyService {
 		return this.warrantyRepository.findAll();
 	}
 
+	public List<Warranty> warrantiesFilteredByMode(Boolean isDraftMode) {
+		return this.warrantyRepository.warrantiesFilteredByMode(isDraftMode);
+	}
+
 }

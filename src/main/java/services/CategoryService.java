@@ -29,6 +29,7 @@ public class CategoryService {
 
 		Category category = new Category();
 		category.setName("");
+		category.setNameSpanish("");
 		List<Category> subCategories = new ArrayList<>();
 		category.setSubCategories(subCategories);
 

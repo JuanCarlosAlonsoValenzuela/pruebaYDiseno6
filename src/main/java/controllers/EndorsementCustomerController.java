@@ -135,6 +135,7 @@ public class EndorsementCustomerController extends AbstractController {
 			try {
 				endorsement.setComments(c);
 				this.customerService.createEndorsment(endorsement);
+
 				//this.endorsementService.save(endorsement);
 				result = new ModelAndView("redirect:list.do");
 

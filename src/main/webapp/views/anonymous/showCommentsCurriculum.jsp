@@ -15,4 +15,11 @@
 	<strong><jstl:out value="${comment}" /></strong>
 	</display:column>
 	
+	
+	
+	
 </display:table>
+
+<input type="button"
+		name="cancel"
+		value="<spring:message code="handyWorker.cancel"/>" onclick="javascript:relativeRedir('curriculum/handyWorker/show.do');" />

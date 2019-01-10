@@ -29,6 +29,30 @@ public class AttachmentCustomerController extends AbstractController {
 
 	// ModelAndView -------------------------------------------------------------
 
+	@RequestMapping(value = "/listPerFixUpTask", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam int complaintId, @RequestParam int fixUpTaskId) {
+
+		ModelAndView result;
+
+		Collection<String> attachments;
+
+		Complaint c = new Complaint();
+
+		c = this.ComplaintService.findOne(complaintId);
+
+		attachments = c.getAttachments();
+
+		result = new ModelAndView("attachment/customer/list");
+
+		result.addObject("attachments", attachments);
+		result.addObject("requestURI", "attachment/customer/listPerFixUpTask.do");
+
+		result.addObject("fixUpTaskId", fixUpTaskId);
+
+		return result;
+
+	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam int complaintId) {
 

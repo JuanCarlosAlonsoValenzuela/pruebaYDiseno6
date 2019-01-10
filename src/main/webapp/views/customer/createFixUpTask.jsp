@@ -94,16 +94,10 @@
 		<input type="submit" name="save" value="<spring:message code="${submitButton}"/>" />
 		
 		<jstl:if test="${fixUpTask.id!=0}">
-			<%-- 
-			<spring:url var="deleteUrl" value="/fixUpTask/customer/delete.do?fixUpTaskId={fixId}">
-				<spring:param name="fixId" value="${fixUpTask.id}"/>	
-			</spring:url>
-			<a href="${deleteUrl}"><button type="button" name="delete"><spring:message code="fixUpTask.delete.button"/></button></a>
-			--%>
 			<input type="submit" name="delete" onclick="return confirm('<spring:message code="fixUpTask.delete.confirmation" />')" value="<spring:message code="fixUpTask.delete.button"/>"/>
 		</jstl:if>
 		
-		<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do?');"  value="<spring:message code="fixUpTask.cancel.button"/>" />	
+		<input type="button" name="cancel" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');"  value="<spring:message code="fixUpTask.cancel.button"/>" />	
 </form:form>
 
 </security:authorize>

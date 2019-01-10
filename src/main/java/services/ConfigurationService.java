@@ -1,6 +1,7 @@
 
 package services;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,6 +40,12 @@ public class ConfigurationService {
 	@Autowired
 	private AdminService			adminService;
 
+	@Autowired
+	private CustomerService			customerService;
+
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
+
 
 	public Configuration getConfiguration() {
 		return this.configurationRepository.findAll().get(0);
@@ -62,12 +69,12 @@ public class ConfigurationService {
 		Actor actor = this.actorService.getActorByUsername(userAccount.getUsername());
 
 		List<String> trimmedString = new ArrayList<String>();
-		trimmedString = Arrays.asList(s.split("\\s+|(?=[ ,.¿?;!¡])"));
+		trimmedString = Arrays.asList(s.split("\\+|(?=[,.¿?;!¡])"));
 
 		//("\\s*(=>|,|\\s)\\s*"));
 		for (String g : spamWords) {
 			for (String c : trimmedString) {
-				if (g.equalsIgnoreCase(c)) {
+				if (g.equals(c) || g.equalsIgnoreCase(c)) {
 					result = true;
 					break;
 				}
@@ -489,6 +496,9 @@ public class ConfigurationService {
 				}
 			}
 		}
+		if (total == 0.) {
+			total = 1.;
+		}
 		parcialresult.add((countGood / total) + (countBad / total));
 		Double res = 0.0;
 		Double cont = 0.0;
@@ -497,20 +507,18 @@ public class ConfigurationService {
 			cont = cont + d;
 		}
 		if (parcialresult.size() == 0) {
-			res = 0.0;
-			//e.setScore(res);
-
-			//this.endorserService.save(e);
-
+			res = 0.;
 		} else {
 			res = cont / parcialresult.size();
-			//e.setScore(res);
-
-			//this.endorserService.save(e);
 		}
+		DecimalFormat df2 = new DecimalFormat(".##");
+		e.setScore(Double.valueOf(df2.format(res)));
 
-		return total;
+		this.endorserService.save(e);
+
+		return res;
 	}
+
 	public Map<Endorser, Double> computeAllScores(List<Endorser> endorsers) {
 		Map<Endorser, Double> result = new HashMap<Endorser, Double>();
 

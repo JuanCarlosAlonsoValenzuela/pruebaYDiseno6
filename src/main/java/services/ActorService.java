@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
@@ -54,6 +55,25 @@ public class ActorService {
 		return this.actorRepository.findAll();
 	}
 
+	public List<Actor> findAllExceptAdmin() {
+
+		List<Actor> actors = new ArrayList<Actor>();
+		List<Actor> actorsNoAdmin = new ArrayList<Actor>();
+
+		actors = this.actorRepository.findAll();
+
+		for (Actor a : actors) {
+			List<Authority> authorities = new ArrayList<Authority>();
+
+			authorities = (List<Authority>) a.getUserAccount().getAuthorities();
+			if (!(authorities.get(0).toString().equals("ADMIN"))) {
+				actorsNoAdmin.add(a);
+			}
+		}
+
+		return actorsNoAdmin;
+	}
+
 	public Actor findOne(int id) {
 		return this.actorRepository.findOne(id);
 	}
@@ -70,6 +90,18 @@ public class ActorService {
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		Assert.isTrue(userAccount.getAuthorities().size() > 0);
+	}
+
+	public Boolean loggedAsActorBolean() {
+		Boolean res = false;
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		if (userAccount.getAuthorities().size() > 0) {
+			res = true;
+		} else {
+			res = false;
+		}
+		return res;
 	}
 
 	public Actor createActor() {

@@ -25,7 +25,7 @@
 	<jstl:out value="${newComment1}"/>
 </a>
 
-</br>
+<br/>
 
 <spring:url var="urlApplications" value="/application/customer/list.do?fixUpTaskId={fixId}">
 	<spring:param name="fixId" value="${fixUpTaskId}"/>

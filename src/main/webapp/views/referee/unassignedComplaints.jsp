@@ -10,17 +10,18 @@
 
 <security:authorize access="hasRole('REFEREE')">
 
-	<display:table pagesize="5" name="unassignedComplaints" id="row"
+	<display:table pagesize="5" name="complaints" id="row"
 	class="displaytag" requestURI="complaint/referee/listUnassigned.do">
 	
 		<display:column property="description" titleKey="complaint.description" /> 
 		
-		<display:column titleKey="referee.complaints">
-				<spring:url var="refComplaints" value="/complaint/referee/assign.do?complaintId={comp}">
+		<display:column titleKey="referee.autoassign">
+				<spring:url var="refComplaints" value="/complaint/referee/assign.do">
 					<spring:param name="comp" value="${row.id}"/>
 				</spring:url>
 				<a href="${refComplaints}">
-							<spring:message var ="complaints" code="complaint.assign" />
+							<spring:message var ="assign" code="complaint.assign" />
+							<jstl:out value="${assign}" />
 				</a>
 		</display:column>
 		

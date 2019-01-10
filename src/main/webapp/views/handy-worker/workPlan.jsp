@@ -39,9 +39,13 @@
 	</spring:url>
 								
 	<a href="${createUrl}">
-			<spring:message code="workPlan.createPhase" />		<!-- Añadir -->
+			<spring:message code="workPlan.createPhase" />		
 	</a>
 	
+	<input type="button"
+		name="cancel"
+		value="<spring:message code="handyWorker.cancel"/>" onclick="javascript:relativeRedir('application/handyWorker/list.do');" />
 	
+																								
 
 </security:authorize>

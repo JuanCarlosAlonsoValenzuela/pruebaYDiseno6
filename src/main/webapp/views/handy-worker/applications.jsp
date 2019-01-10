@@ -6,6 +6,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.math.BigDecimal"%>
 
 <p><spring:message code="handyWorker.applications" />
 <security:authorize access="hasRole('HANDYWORKER')">
@@ -67,8 +69,12 @@
 		<display:column property="status" titleKey="application.status" style="color:${color}" />	
 		
 		<display:column titleKey="application.offeredPrice" style="color:${color}">	
+	
+	
+		<fmt:formatNumber type="number" maxFractionDigits="2" value="${row.offeredPrice} "/> euros
+		(<fmt:formatNumber type="number" maxFractionDigits="2" value="${row.offeredPrice + row.offeredPrice*iva/100} "/> euros)
 		
-		<jstl:out value=" ${row.offeredPrice} (  IVA ${iva} %)"/>	
+		 
 		</display:column>
 		
 		<div style=<jstl:out value="${color}"/>>
@@ -105,9 +111,29 @@
 		</display:column>
 		
 		<display:column titleKey="application.maxPrice" style="color:${color}">
-				<jstl:out value="${row.fixUpTask.maxPrice}" />
+		<fmt:formatNumber type="number" maxFractionDigits="2" value="${row.fixUpTask.maxPrice} "/> euros
+		(<fmt:formatNumber type="number" maxFractionDigits="2" value="${row.fixUpTask.maxPrice + row.fixUpTask.maxPrice*iva/100} "/> euros)
+				
 		</display:column>
 		
 	</display:table>
 	</security:authorize>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

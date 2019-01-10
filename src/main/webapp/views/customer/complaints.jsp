@@ -23,6 +23,12 @@
 				<spring:url var="attachmentsUrl" value="/attachment/customer/list.do?complaintId={compId}">
 							<spring:param name="compId" value="${row.id}"/>
 				</spring:url>
+				<jstl:if test="${fixUpTaskId>0}">
+				<spring:url var="attachmentsUrl" value="/attachment/customer/listPerFixUpTask.do?complaintId={compId}">
+							<spring:param name="compId" value="${row.id}"/>
+							<spring:param name="fixUpTaskId" value="${fixUpTaskId}"/>
+				</spring:url>
+				</jstl:if>
 				<a href="${attachmentsUrl}">
 							<spring:message var ="viewAttachments1" code="customer.viewAttachments" />
 							<jstl:out value="${viewAttachments1}(${attachmentsSize})" />		
@@ -36,6 +42,12 @@
 							<spring:message var ="reports" code="complaint.reports" />
 							<jstl:out value="${reports}" />		
 				</a>
+				
 		</display:column>
+		
 		</display:table>
+		
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="customer.cancel"/>" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');" />
 </security:authorize>
