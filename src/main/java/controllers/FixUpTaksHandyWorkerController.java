@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,8 +58,11 @@ public class FixUpTaksHandyWorkerController extends AbstractController {
 		HandyWorker logguedHandyWorker = new HandyWorker();
 		logguedHandyWorker = this.handyWorkerService.getHandyWorkerByUsername(userAccount.getUsername());
 
+		String locale = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("map", map);
+		result.addObject("locale", locale);
 		result.addObject("currentUsername", logguedHandyWorker.getUserAccount().getUsername());
 
 		result.addObject("requestURI", "fixUpTask/handyWorker/list.do");
@@ -107,9 +111,12 @@ public class FixUpTaksHandyWorkerController extends AbstractController {
 		userAccount = LoginService.getPrincipal();
 		String username = userAccount.getUsername();
 
+		String locale = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("customer", customer);
 		result.addObject("currentUsername", username);
+		result.addObject("locale", locale);
 		result.addObject("requestURI", "fixUpTask/handyWorker/customerList.do");
 
 		return result;
