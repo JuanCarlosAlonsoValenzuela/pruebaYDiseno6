@@ -21,8 +21,8 @@
 	
 	
 	
+		<input type="submit" name="create" value="<spring:message code="comment.create" />" onclick="return confirm('<spring:message code="note.addComment.confirm" />')"/>			
 	
-	<input type="submit" name="create" value="<spring:message code="comment.create"/>" />	
 </form>
 
 	<spring:url var="noteUrl" value="note/handyWorker/listComments.do">

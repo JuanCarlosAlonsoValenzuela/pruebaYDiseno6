@@ -82,6 +82,8 @@ public class FinderHandyWorkerController extends AbstractController {
 		Map<FixUpTask, Customer> map;
 		Collection<FixUpTask> fixUpTasks;
 
+		String username = userAccount.getUsername();
+
 		if (currentDay.equals(lastEditDay) && currentMonth.equals(lastEditMonth) && currentYear.equals(lastEditYear) && lastEditHour < (currentHour + time)) {
 			Integer numFinderResult = this.configuarionService.getConfiguration().getFinderResult();
 			List<FixUpTask> fixUpTasksResult = finder.getFixUpTasks();
@@ -108,6 +110,7 @@ public class FinderHandyWorkerController extends AbstractController {
 
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("map", map);
+		result.addObject("currentUsername", username);
 		result.addObject("requestURI", "finder/handyWorker/list.do");
 
 		return result;

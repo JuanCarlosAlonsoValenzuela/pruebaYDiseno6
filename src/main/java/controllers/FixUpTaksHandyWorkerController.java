@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import security.UserAccount;
-import services.ConfigurationService;
 import services.CustomerService;
 import services.FinderService;
 import services.HandyWorkerService;
@@ -27,13 +26,11 @@ import domain.HandyWorker;
 public class FixUpTaksHandyWorkerController extends AbstractController {
 
 	@Autowired
-	private HandyWorkerService		handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
 	@Autowired
-	private CustomerService			customerService;
+	private CustomerService		customerService;
 	@Autowired
-	private ConfigurationService	configuarionService;
-	@Autowired
-	private FinderService			finderService;
+	private FinderService		finderService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -55,8 +52,15 @@ public class FixUpTaksHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("handy-worker/fixUpTask");
 
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		HandyWorker logguedHandyWorker = new HandyWorker();
+		logguedHandyWorker = this.handyWorkerService.getHandyWorkerByUsername(userAccount.getUsername());
+
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("map", map);
+		result.addObject("currentUsername", logguedHandyWorker.getUserAccount().getUsername());
+
 		result.addObject("requestURI", "fixUpTask/handyWorker/list.do");
 
 		return result;
@@ -99,8 +103,13 @@ public class FixUpTaksHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("handy-worker/fixUpTaskCustomerInfo");
 
+		UserAccount userAccount;
+		userAccount = LoginService.getPrincipal();
+		String username = userAccount.getUsername();
+
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("customer", customer);
+		result.addObject("currentUsername", username);
 		result.addObject("requestURI", "fixUpTask/handyWorker/customerList.do");
 
 		return result;

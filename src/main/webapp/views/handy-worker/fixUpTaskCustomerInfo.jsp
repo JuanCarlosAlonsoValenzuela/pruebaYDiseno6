@@ -36,18 +36,18 @@
 					
 					<display:column>
 					
-					<jstl:forEach
+					<jstl:set var="isAccepted" value="0"/>
+			<jstl:forEach
 				var="application"
 				items="${row.applications}">
 				<jstl:set var="count" value="0" />
 				<jstl:if test="${application.status.toString()=='ACCEPTED'}">	
 				<jstl:set var="count" value="${count+1}"/>
+				<jstl:set var="isAccepted" value="${count}"/>
 				</jstl:if>
-			
-			
-				</jstl:forEach>
+			</jstl:forEach>
+					<jstl:if test="${isAccepted==0}">
 					
-					<jstl:if test="${count=='0'}">
 					<!-- Si la fix up task no ha sido aceptada, me permite proponer una aplicación -->
 					<spring:url var="createApplicationUrl" value="/application/handyWorker/edit.do?fixUpTaskId={fixId}">
 							<spring:param name="fixId" value="${row.id}" />
@@ -93,7 +93,23 @@
 		
 				<display:column titleKey="fixUpTask.complaints">
 		
-					<jstl:if test="${count=='1'}">
+					<jstl:set var="isInvolved" value="${0}"/>
+		<jstl:forEach
+				var="application"
+				items="${row.applications}">
+				
+				<jstl:set var="counts" value="0" />
+				<jstl:if test="${application.status.toString()=='ACCEPTED'}">	
+				<jstl:set var="counts" value="${counts+1}"/>
+				<jstl:if test="${application.getHandyWorker().getUserAccount().getUsername().equals(currentUsername)}">	
+				<jstl:set var="counts" value="${counts+1}"/>
+				<jstl:set var="isInvolved" value="${counts}"/>
+				</jstl:if>
+				</jstl:if>
+				</jstl:forEach>
+
+			<jstl:if test="${isInvolved==2}">
+			
 					
 					<jstl:set var="complaintsSize" value="${row.complaints.size()}" />
 					<spring:url var="complaintsUrl" value="/complaint/handyWorker/list.do?fixUpTaskId={fixId}">
