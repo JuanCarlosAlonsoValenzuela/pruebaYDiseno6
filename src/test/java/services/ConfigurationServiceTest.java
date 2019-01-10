@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -15,65 +16,66 @@ import utilities.AbstractTest;
 import domain.HandyWorker;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/datasource.xml",
-	"classpath:spring/config/packages.xml" })
+@ContextConfiguration(locations = {
+	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
+})
 @Transactional
 public class ConfigurationServiceTest extends AbstractTest {
 
-    @Autowired
-    private ConfigurationService configurationService;
+	@Autowired
+	private ConfigurationService	configurationService;
 
-    @Autowired
-    private CustomerService customerService;
+	@Autowired
+	private CustomerService			customerService;
 
-    @Autowired
-    private HandyWorkerService handyWorkerService;
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
 
-    @Test
-    public void testGoodWords() {
-	String goodWords;
-	super.authenticate("PacoCustomer");
-	goodWords = this.configurationService.showGoodWords();
 
-	Assert.isTrue(!goodWords.isEmpty());
-	super.authenticate(null);
-    }
+	@Test
+	public void testGoodWords() {
+		String goodWords;
+		super.authenticate("PacoCustomer");
+		goodWords = this.configurationService.showGoodWords();
 
-    @Test
-    public void testBadWords() {
-	String badWords;
-	super.authenticate("PacoCustomer");
-	badWords = this.configurationService.showBadWords();
+		Assert.isTrue(!goodWords.isEmpty());
+		super.authenticate(null);
+	}
 
-	Assert.isTrue(!badWords.isEmpty());
-	super.authenticate(null);
-    }
+	@Test
+	public void testBadWords() {
+		String badWords;
+		super.authenticate("PacoCustomer");
+		badWords = this.configurationService.showBadWords();
 
-    @Test
-    public void testIsStringSpam() {
-	Boolean result = false;
-	super.authenticate("PacoCustomer");
-	List<String> spam = new ArrayList<String>();
-	spam = this.configurationService.getSpamWords();
-	result = this.configurationService.isStringSpam("sex", spam);
+		Assert.isTrue(!badWords.isEmpty());
+		super.authenticate(null);
+	}
 
-	Assert.isTrue(result);
+	@Test
+	public void testIsStringSpam() {
+		Boolean result = false;
+		super.authenticate("PacoCustomer");
+		List<String> spam = new ArrayList<String>();
+		spam = this.configurationService.getSpamWords();
+		result = this.configurationService.isStringSpam("sex", spam);
 
-	super.authenticate(null);
+		Assert.isTrue(result);
 
-    }
+		super.authenticate(null);
 
-    @Test
-    public void testComputeScore() {
-	super.authenticate("PacoCustomer");
-	Double res = 0.0;
-	HandyWorker handyWorker = new HandyWorker();
-	handyWorker = this.handyWorkerService
-		.getHandyWorkerByUsername("PepeHW");
+	}
 
-	res = this.configurationService.computeScore(handyWorker);
-	Assert.isTrue(res == 0.3333333333333333);
+	@Test
+	public void testComputeScore() {
+		super.authenticate("handyWorker1");
+		Double res = 0.0;
+		HandyWorker handyWorker = new HandyWorker();
+		handyWorker = this.handyWorkerService.getHandyWorkerByUsername("handyWorker1");
 
-	super.authenticate(null);
-    }
+		res = this.configurationService.computeScore(handyWorker);
+		Assert.isTrue(res == 0.3333333333333333);
+
+		super.authenticate(null);
+	}
 }

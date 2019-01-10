@@ -52,4 +52,8 @@ public class EndorserService {
 	public void delete(Endorser endorser) {
 		this.endorserRepository.delete(endorser);
 	}
+
+	public Endorser saveAndFlush(Endorser endorser) {
+		return this.endorserRepository.saveAndFlush(endorser);
+	}
 }

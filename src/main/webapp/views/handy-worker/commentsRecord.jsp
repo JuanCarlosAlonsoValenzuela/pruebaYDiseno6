@@ -25,7 +25,11 @@
 		<a href="${createCommentUrl}">
 			<spring:message code="comments.create" />					
 		</a>
+		
+		
 	</security:authorize>
+	
+	
 
 
 </security:authorize>

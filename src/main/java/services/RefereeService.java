@@ -245,7 +245,7 @@ public class RefereeService {
 
 	public Complaint assingComplaint(Complaint complaint) {
 		Referee loggedReferee = this.securityAndReferee();
-		List<Complaint> unassignedComplaints = (List<Complaint>) this.refereeRepository.complaintsUnassigned();
+		List<Complaint> unassignedComplaints = this.refereeRepository.complaintsUnassigned();
 		Complaint comp = new Complaint();
 		for (Complaint c : unassignedComplaints) {
 			if (c == complaint) {
@@ -306,7 +306,7 @@ public class RefereeService {
 
 	public Note writeComment(String comment, Note note) {
 		Referee loggedReferee = this.securityAndReferee();
-		List<Note> notes = (List<Note>) this.refereeRepository.notesReferee(loggedReferee.getId());
+		List<Note> notes = this.refereeRepository.notesReferee(loggedReferee.getId());
 		Note no = null;
 		for (Note n : notes) {
 			if (n.getId() == note.getId()) {
@@ -381,6 +381,7 @@ public class RefereeService {
 		}
 
 		this.reportService.delete(report);
+	}
 	public Report createReport(Complaint complaint, Report report) {
 
 		Referee loggedReferee = this.securityAndReferee();
