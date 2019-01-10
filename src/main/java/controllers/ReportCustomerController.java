@@ -43,6 +43,8 @@ public class ReportCustomerController extends AbstractController {
 		result.addObject("reports", reports);
 		result.addObject("requestURI", "report/customer/list.do");
 
+		result.addObject("comId", complaintId);
+
 		return result;
 
 	}

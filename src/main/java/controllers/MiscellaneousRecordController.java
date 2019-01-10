@@ -62,7 +62,7 @@ public class MiscellaneousRecordController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/anonymous/showMiscellaneousComments", method = RequestMethod.GET)
-	public ModelAndView showMiscellaneousComments(@RequestParam int miscellaneousRecordId) {
+	public ModelAndView showMiscellaneousComments(@RequestParam int miscellaneousRecordId, @RequestParam boolean canEdit, @RequestParam int handyId) {
 
 		ModelAndView result;
 		MiscellaneousRecord miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
@@ -70,6 +70,8 @@ public class MiscellaneousRecordController extends AbstractController {
 		result = new ModelAndView("curriculum/anonymous/showMiscellaneousComments");
 		result.addObject("comments", miscellaneousRecord.getComments());
 		result.addObject("requestURI", "curriculum/anonymous/showMiscellaneousComments.do");
+		result.addObject("canEdit", canEdit);
+		result.addObject("handyId", handyId);
 		return result;
 
 	}

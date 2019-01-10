@@ -62,7 +62,7 @@ public class EndorserRecordController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/anonymous/showEndorserComments", method = RequestMethod.GET)
-	public ModelAndView showEndorserComments(@RequestParam int endorserRecordId) {
+	public ModelAndView showEndorserComments(@RequestParam int endorserRecordId, @RequestParam boolean canEdit, @RequestParam int handyId) {
 
 		ModelAndView result;
 		EndorserRecord endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
@@ -70,6 +70,8 @@ public class EndorserRecordController extends AbstractController {
 		result = new ModelAndView("curriculum/anonymous/showEndorserComments");
 		result.addObject("comments", endorserRecord.getComments());
 		result.addObject("requestURI", "curriculum/anonymous/showEndorserComments.do");
+		result.addObject("canEdit", canEdit);
+		result.addObject("handyId", handyId);
 		return result;
 
 	}
