@@ -1,7 +1,9 @@
 
 package services;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -261,7 +263,7 @@ public class RefereeService {
 
 		bol = this.configurationService.isStringSpam(complaint.getDescription(), spam);
 
-		Complaint complaintSaved = this.complaintService.save(complaint);
+		//Complaint complaintSaved = this.complaintService.save(complaint);
 		this.refereeRepository.save(loggedReferee);
 
 		return complaint;
@@ -392,6 +394,8 @@ public class RefereeService {
 
 		Assert.notNull(complaint);
 
+		report.setAttachments(this.listUrlsAttachmentsReport(report));
+
 		Report reportSaved = this.reportService.save(report);
 
 		List<Report> reports = complaint.getReports();
@@ -446,6 +450,31 @@ public class RefereeService {
 		this.configurationService.isActorSuspicious(loggedReferee);
 
 		return savedNote;
+	}
+
+	public List<String> listUrlsAttachmentsReport(Report r) {
+		List<String> att = new ArrayList<String>();
+
+		if (r.getAttachments().size() == 1 && r.getAttachments().get(0).contains(",")) {
+			String attach = r.getAttachments().get(0).trim();
+			List<String> attachments = Arrays.asList(attach.split(","));
+
+			for (String a : attachments) {
+				if (!a.isEmpty() && !att.contains(a.trim()) && this.isUrl(a)) {
+					att.add(a.trim());
+				}
+			}
+		}
+		return att;
+	}
+
+	public Boolean isUrl(String url) {
+		try {
+			new URL(url).toURI();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }
