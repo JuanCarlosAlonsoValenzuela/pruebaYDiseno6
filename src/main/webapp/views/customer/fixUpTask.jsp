@@ -96,28 +96,39 @@
 		<!-- See Phases -->
 		<display:column titleKey="fixUpTask.phases">									
 				<jstl:set var="phasesSize" value="${row.phases.size()}" />
+						
+				<jstl:if test="${phasesSize > 0}">
+					<spring:url var="phasesUrl" value="/phase/customer/list.do?fixUpTaskId={fixId}">
+						<spring:param name="fixId" value="${row.id}"/>	
+					</spring:url>
+					<a href="${phasesUrl}">
+						<spring:message var="seePhases" code="fixUpTask.seePhases"/> 	
+						<jstl:out value="${seePhases}(${phasesSize})" />
+					</a>
+				</jstl:if>
 				
-
-						<spring:url var="phasesUrl" value="/phase/customer/list.do?fixUpTaskId={fixId}">
-							<spring:param name="fixId" value="${row.id}"/>	
-						</spring:url>
-						<a href="${phasesUrl}">
-							<spring:message var="seePhases" code="fixUpTask.seePhases"/> 	
-							<jstl:out value="${seePhases}(${phasesSize})" />
-						</a>
+				<jstl:if test="${phasesSize == 0}">
+					<spring:message code="phases.noDisplay"/>
+				</jstl:if>
 		</display:column>
 		
 		<!-- See Complaints -->
 		<display:column titleKey="fixUpTask.complaints">									
 				<jstl:set var="complaintsSize" value="${row.complaints.size()}" />
 				
-						<spring:url var="complaintsUrl" value="/complaint/customer/listPerTask.do?fixUpTaskId={fixId}">
-							<spring:param name="fixId" value="${row.id}"/>	
-						</spring:url>
-						<a href="${complaintsUrl}">
-							<spring:message var="seeComplaints" code="fixUpTask.seeComplaints"/> 	
-							<jstl:out value="${seeComplaints}(${complaintsSize})" />
-						</a>
+				<jstl:if test="${complaintsSize > 0}">
+					<spring:url var="complaintsUrl" value="/complaint/customer/listPerTask.do?fixUpTaskId={fixId}">
+						<spring:param name="fixId" value="${row.id}"/>	
+					</spring:url>
+					<a href="${complaintsUrl}">
+						<spring:message var="seeComplaints" code="fixUpTask.seeComplaints"/> 	
+						<jstl:out value="${seeComplaints}(${complaintsSize})" />
+					</a>
+				</jstl:if>
+				
+				<jstl:if test="${complaintsSize == 0}">
+					<spring:message code="complaints.noDisplay"/>
+				</jstl:if>
 		</display:column>
 		
 	</display:table>
