@@ -46,7 +46,7 @@
 		<input type="submit" name="save" value="<spring:message code="fixUpTask.create.button"/>" />	
 			
 		
-		<input type="submit" name="cancel" value="<spring:message code="fixUpTask.cancel.button"/>" />
+		<input type="button" name="cancel" value="<spring:message code="fixUpTask.cancel.button"/>" onClick="javascript:relativeRedir('complaint/customer/list.do')" />
 		
 
 

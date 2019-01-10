@@ -98,11 +98,12 @@ public class RefereeServiceTest extends AbstractTest {
 
 		Complaint complaint = null;
 		List<Complaint> complaints = this.complaintService.findAll();
-		for (Complaint c : complaints)
+		for (Complaint c : complaints) {
 			if (c.getReferee().equals(loggedReferee)) {
 				complaint = c;
 				break;
 			}
+		}
 		Assert.notNull(complaint);
 
 		int numberOfReports = this.reportService.findAll().size();
@@ -128,11 +129,12 @@ public class RefereeServiceTest extends AbstractTest {
 
 		Referee loggedReferee = this.refereeService.securityAndReferee();
 		Report report = null;
-		for (Report r : loggedReferee.getReports())
+		for (Report r : loggedReferee.getReports()) {
 			if (!r.getFinalMode()) {
 				report = r;
 				break;
 			}
+		}
 		Assert.notNull(report);
 
 		Assert.isTrue(report.getDescription().equals("description1"));
@@ -152,11 +154,12 @@ public class RefereeServiceTest extends AbstractTest {
 
 		Referee loggedReferee = this.refereeService.securityAndReferee();
 		Report report = null;
-		for (Report r : loggedReferee.getReports())
+		for (Report r : loggedReferee.getReports()) {
 			if (!r.getFinalMode()) {
 				report = r;
 				break;
 			}
+		}
 		Assert.notNull(report);
 
 		int numberOfReports = this.reportService.findAll().size();
@@ -176,11 +179,12 @@ public class RefereeServiceTest extends AbstractTest {
 
 		Referee loggedReferee = this.refereeService.securityAndReferee();
 		Report report = null;
-		for (Report r : loggedReferee.getReports())
+		for (Report r : loggedReferee.getReports()) {
 			if (r.getFinalMode()) {
 				report = r;
 				break;
 			}
+		}
 		Assert.notNull(report);
 
 		int numberNotes = this.noteService.findAll().size();
@@ -211,6 +215,20 @@ public class RefereeServiceTest extends AbstractTest {
 		int numberOfComments2 = this.noteService.findOne(note.getId()).getOptionalComments().size();
 
 		Assert.isTrue(numberOfComments + 1 == numberOfComments2);
+
+		super.authenticate(null);
+	}
+
+	@Test
+	public void testCreateReport() {
+		super.authenticate("referee1");
+
+		Referee loggedReferee = this.refereeService.securityAndReferee();
+		Complaint c = this.complaintService.findAll().get(0);
+		Report r = this.reportService.findAll().get(0);
+		Report rep = this.refereeService.createReport(c, r);
+		List<Report> lr = loggedReferee.getReports();
+		Assert.isTrue(lr.contains(rep));
 
 		super.authenticate(null);
 	}

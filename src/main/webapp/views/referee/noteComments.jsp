@@ -7,22 +7,36 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="note.comments.list" /></p>
+<p><spring:message code="note.comment.list" /></p>
 
-	<jstl:forEach var="comment" items="comments">
-			<jstl:out value="${comment}" />
-			<br /> 
-	</jstl:forEach> 
+<security:authorize access="hasRole('REFEREE')">
+
+
+	
+	<display:table pagesize="5" name="${optionalComments}" id="comment"
+	requestURI="${requestURI}">
+	<display:column titleKey="note.comment.list">
+		<strong><jstl:out value="${comment}" /></strong>
+	</display:column>
+	
+</display:table>
 	
 			
-	<spring:url var="createCommentUrl" value="complaint/report/note/comment/edit.do?noteId={notId}">
-			<spring:param name="notId" value="${note.id}"/>
+	<spring:url var="createCommentUrl" value="note/referee/addComment.do?noteId={noteId}">
+			<spring:param name="noteId" value="${noteId}"/>
+			
 	</spring:url>
+		
 	
-	<a href="${createCommentUrl}">
+	<jstl:choose>
+		<jstl:when  test="${canComment}">
+			<a href="${createCommentUrl}">
 				<spring:message code="comments.create" />			
-	</a>
-	
-	
-
-
+			</a>
+		</jstl:when>
+		<jstl:otherwise>
+			<spring:message code="comments.cannotCreate" />
+		</jstl:otherwise>
+	</jstl:choose>
+	<br/>
+</security:authorize>
