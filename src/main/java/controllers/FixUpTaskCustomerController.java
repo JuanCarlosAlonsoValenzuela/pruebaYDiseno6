@@ -100,11 +100,13 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		categories = this.categoryService.findAll();
 		warranties = this.warrantyService.warrantiesFilteredByMode(false);
+		String locale = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 
 		result = new ModelAndView(tile);
 		result.addObject("fixUpTask", fixUpTask);
 		result.addObject("categories", categories);
 		result.addObject("warranties", warranties);
+		result.addObject("locale", locale);
 
 		return result;
 	}
@@ -116,6 +118,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		categories = this.categoryService.findAll();
 		warranties = this.warrantyService.findAll();
+		String locale = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 
 		result = new ModelAndView(tile);
 		result.addObject("fixUpTask", fixUpTask);
@@ -123,6 +126,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		result.addObject("warranties", warranties);
 
 		result.addObject("message", message);
+		result.addObject("locale", locale);
 
 		return result;
 	}
