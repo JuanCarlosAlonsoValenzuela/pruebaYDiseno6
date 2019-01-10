@@ -62,7 +62,7 @@ public class ProfessionalRecordController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/anonymous/showProfessionalComments", method = RequestMethod.GET)
-	public ModelAndView showProfessionalComments(@RequestParam int professionalRecordId) {
+	public ModelAndView showProfessionalComments(@RequestParam int professionalRecordId, @RequestParam boolean canEdit, @RequestParam int handyId) {
 
 		ModelAndView result;
 		ProfessionalRecord professionalRecord = this.professionalRecordService.findOne(professionalRecordId);
@@ -70,6 +70,8 @@ public class ProfessionalRecordController extends AbstractController {
 		result = new ModelAndView("curriculum/anonymous/showProfessionalComments");
 		result.addObject("comments", professionalRecord.getComments());
 		result.addObject("requestURI", "curriculum/anonymous/showProfessionalComments.do");
+		result.addObject("canEdit", canEdit);
+		result.addObject("handyId", handyId);
 		return result;
 
 	}

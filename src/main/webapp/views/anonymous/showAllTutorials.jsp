@@ -121,7 +121,7 @@
 	</display:column>
 	
 	<display:column titleKey="tutorial.sponsorship">
-		<a href="${sponsorships.get(tutorials.indexOf(row)).link}">
+		<a href="${sponsorships.get(tutorials.indexOf(row)).link}" target="_blank">
 			<img src="${sponsorships.get(tutorials.indexOf(row)).bannerUrl}" alt="${sponsorships.get(tutorials.indexOf(row)).link}" style="width:50px;height:50px;border:0;">
 		</a>	
 	</display:column>

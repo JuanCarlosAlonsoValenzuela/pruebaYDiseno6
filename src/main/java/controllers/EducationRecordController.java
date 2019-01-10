@@ -63,7 +63,7 @@ public class EducationRecordController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/anonymous/showEducationComments", method = RequestMethod.GET)
-	public ModelAndView showEducationComments(@RequestParam int educationRecordId) {
+	public ModelAndView showEducationComments(@RequestParam int educationRecordId, @RequestParam boolean canEdit, @RequestParam int handyId) {
 
 		ModelAndView result;
 		EducationRecord educationRecord = this.educationRecordService.findOne(educationRecordId);
@@ -71,6 +71,9 @@ public class EducationRecordController extends AbstractController {
 		result = new ModelAndView("curriculum/anonymous/showEducationComments");
 		result.addObject("comments", educationRecord.getComments());
 		result.addObject("requestURI", "curriculum/anonymous/showEducationComments.do");
+		result.addObject("canEdit", canEdit);
+		result.addObject("handyId", handyId);
+
 		return result;
 
 	}

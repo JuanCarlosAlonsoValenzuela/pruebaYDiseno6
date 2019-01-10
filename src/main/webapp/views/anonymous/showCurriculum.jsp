@@ -85,6 +85,8 @@
 		<jstl:set var="commentsSize" value="${row.comments.size()}" />
 		<spring:url var="commentsUrl" value="curriculum/anonymous/showEducationComments.do">
 			<spring:param name="educationRecordId" value="${row.id}"/>
+			<spring:param name="handyId" value="${handyId}"/>
+			<spring:param name="canEdit" value="${canEdit}"/>
 		</spring:url>
 		<a href="${commentsUrl}">
 			<spring:message var ="viewComments1" code="note.viewComments" />
@@ -132,6 +134,8 @@
 		<jstl:set var="commentsSize" value="${row.comments.size()}" />
 		<spring:url var="commentsUrl" value="curriculum/anonymous/showProfessionalComments.do">
 			<spring:param name="professionalRecordId" value="${row.id}"/>
+			<spring:param name="handyId" value="${handyId}"/>
+			<spring:param name="canEdit" value="${canEdit}"/>
 		</spring:url>
 		<a href="${commentsUrl}">
 			<spring:message var ="viewComments1" code="note.viewComments" />
@@ -175,6 +179,8 @@
 		<jstl:set var="commentsSize" value="${row.comments.size()}" />
 		<spring:url var="commentsUrl" value="curriculum/anonymous/showEndorserComments.do">
 			<spring:param name="endorserRecordId" value="${row.id}"/>
+			<spring:param name="handyId" value="${handyId}"/>
+			<spring:param name="canEdit" value="${canEdit}"/>
 		</spring:url>
 		<a href="${commentsUrl}">
 			<spring:message var ="viewComments1" code="note.viewComments" />
@@ -214,6 +220,8 @@
 		<jstl:set var="commentsSize" value="${row.comments.size()}" />
 		<spring:url var="commentsUrl" value="curriculum/anonymous/showMiscellaneousComments.do">
 			<spring:param name="miscellaneousRecordId" value="${row.id}"/>
+			<spring:param name="handyId" value="${handyId}"/>
+			<spring:param name="canEdit" value="${canEdit}"/>
 		</spring:url>
 		<a href="${commentsUrl}">
 			<spring:message var ="viewComments1" code="note.viewComments" />
