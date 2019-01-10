@@ -16,6 +16,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,9 +61,12 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		fixUpTasks = this.customerService.showFixUpTasks();
 
+		String locale = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+
 		result = new ModelAndView("customer/fixUpTask");
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("requestURI", "fixUpTask/customer/list.do");
+		result.addObject("locale", locale);
 
 		return result;
 	}
