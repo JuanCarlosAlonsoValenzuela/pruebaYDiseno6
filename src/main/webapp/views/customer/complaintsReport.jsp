@@ -17,13 +17,14 @@
 	
 	<display:column property="description" titleKey="report.description"/>
 	
-	<display:column titleKey="customer.attachments">
+	<display:column titleKey="report.attachments">
 				<jstl:set var="attachmentsSize" value="${row.attachments.size()}" />
-				<spring:url var="attachmetsUrl" value="/attachment/list.do?reportId={repId}">
+				<spring:url var="attachmentsUrl" value="/attachment/customer/listPerReport.do">
 							<spring:param name="repId" value="${row.id}"/>
+							<spring:param name="comId" value="${comId}"/>
 				</spring:url>
 				<a href="${attachmentsUrl}">
-							<spring:message var ="viewAttachments1" code="customer.viewAttachments" />
+							<spring:message var ="viewAttachments1" code="report.viewAttachments" />
 							<jstl:out value="${viewAttachments1}(${attachmentsSize})" />		
 				</a>
 		</display:column>

@@ -118,6 +118,11 @@
 		<put-attribute name="title" value="Complaint's Attachments" />
 		<put-attribute name="body" value="/views/customer/attachments.jsp" />
 	</definition>
+	
+	<definition name="attachment/customer/listPerReport" extends="master.page">	
+		<put-attribute name="title" value="Report's Attachments" />
+		<put-attribute name="body" value="/views/customer/attachmentsReport.jsp" />
+	</definition>
 
 	<definition name="note/customer/showComments" extends="master.page">	
 		<put-attribute name="title" value="Note's Comment" />
