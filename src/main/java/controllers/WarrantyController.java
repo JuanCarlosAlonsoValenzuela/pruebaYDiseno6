@@ -147,7 +147,7 @@ public class WarrantyController extends AbstractController {
 		try {
 			Warranty warranty = this.warrantyService.findOne(warrantyId);
 			List<String> terms = warranty.getTerms();
-			if (term != null && term != "") {
+			if (!term.trim().isEmpty()) {
 				terms.add(term);
 			}
 			warranty.setTerms(terms);
@@ -185,7 +185,7 @@ public class WarrantyController extends AbstractController {
 		try {
 			Warranty warranty = this.warrantyService.findOne(warrantyId);
 			List<String> laws = warranty.getLaws();
-			if (law != null && law != "") {
+			if (!law.trim().isEmpty()) {
 				laws.add(law);
 			}
 			warranty.setLaws(laws);

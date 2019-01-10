@@ -24,10 +24,19 @@
 			</a>
 			</jstl:if>
 		</display:column>
-
+		
+		
+		<jstl:if test="${locale=='EN'}" >
 		<display:column property="name" titleKey="category.name">
 			<jstl:out value="${row.name}" />
 		</display:column>
+		</jstl:if>
+		
+		<jstl:if test="${locale=='ES'}" >
+		<display:column property="nameSpanish" titleKey="category.nameSpanish">
+			<jstl:out value="${row.nameSpanish}" />
+		</display:column>
+		</jstl:if>
 
 		<display:column titleKey="category.subCategories">
 			<jstl:set var="subCategoriesSize" value="${row.subCategories.size()}" />
@@ -41,11 +50,21 @@
 			</a>
 		</display:column>
 		
+		<jstl:if test="${locale=='EN'}" >
 		<display:column titleKey="category.fatherCategory">
 			<jstl:if test="${row.name!='CATEGORY'}" >
 					<jstl:out value="${mapCategories.get(row).name}" />
 			</jstl:if>
 		</display:column>
+		</jstl:if>
+		
+		<jstl:if test="${locale=='ES'}" >
+		<display:column titleKey="category.fatherCategory">
+			<jstl:if test="${row.name!='CATEGORY'}" >
+					<jstl:out value="${mapCategories.get(row).nameSpanish}" />
+			</jstl:if>
+		</display:column>
+		</jstl:if>
 		
 		<display:column>
 			

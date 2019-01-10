@@ -44,9 +44,8 @@
 	<form:hidden path ="boxes"/>
 	<form:hidden path ="socialProfiles"/>
 	
-	<%-- <form:hidden path ="userAccount.authorities"/>
-	<form:hidden path ="userAccount.isNotLocked"/> --%>
-	<form:hidden path="userAccount" />
+	<form:hidden path ="userAccount.authorities"/>
+	<form:hidden path ="userAccount.isNotLocked"/> 
 	
 	<form:hidden path ="score"/>
 	<form:hidden path ="endorsements"/>
@@ -55,14 +54,6 @@
 	<form:hidden path ="finder"/>
 	<form:hidden path ="tutorials"/>
 	<form:hidden path ="curriculum"/>
-	
-<%-- 	<form:errors cssClass="error" path="score"/>
-	<form:errors cssClass="error" path="endorsements"/>
-	<form:errors cssClass="error" path="make"/>
-	<form:errors cssClass="error" path="applications"/>
-	<form:errors cssClass="error" path="finder"/>
-	<form:errors cssClass="error" path="tutorials"/>
-	<form:errors cssClass="error" path="curriculum"/> --%>
 	
 
 	<!-- Actor Attributes -->

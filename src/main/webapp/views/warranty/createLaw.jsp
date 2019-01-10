@@ -16,6 +16,10 @@
 	<input type="text" name="law" id="law" placeholder="<spring:message code="law.writelaw"/>" value="${law}"/>
 	<input type="hidden" name="warrantyId" id="warrantyId" value="<jstl:out value="${warrantyId}"/>"/>
 	
+	<jstl:if test="${law=='' || law!=null}">
+	<p style="color:red"><spring:message code="operation.error"/></p>
+</jstl:if>
+	
 	<input type="submit" name="create" value="<spring:message code="law.create"/>" />	
 </form>
 

@@ -33,6 +33,10 @@
 		<td><jstl:out value="${handyWorker.score}" /></td>
 	</tr>
 	<tr>
+		<td><spring:message code="handyWorker.make"/></td> 
+		<td><jstl:out value="${handyWorker.make}" /></td>
+	</tr>
+	<tr>
 		<td><spring:message code="handyWorker.photo"/></td> 
 		<td><img src="${handyWorker.photo}" alt="${handyWorker.photo}" style="width:100px;height:100px;border:0;"/> </td>
 	</tr>

@@ -17,9 +17,18 @@
 	<display:table pagesize="5" name="subCategories" id="row"
 		requestURI="category/administrator/subCategories/list.do">
 			
+			<jstl:if test="${locale=='EN'}" >
 			<display:column titleKey="category.subCategories">
 				<jstl:out value="${row.name}" />
 			</display:column>
+			</jstl:if>
+			
+			<jstl:if test="${locale=='ES'}" >
+			<display:column titleKey="category.subCategories">
+				<jstl:out value="${row.nameSpanish}" />
+			</display:column>
+			</jstl:if>
+			
 		
 	</display:table>
 

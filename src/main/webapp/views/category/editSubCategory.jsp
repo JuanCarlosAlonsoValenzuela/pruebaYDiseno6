@@ -18,6 +18,7 @@
 		
 		
 		<jstl:if test="${possibleCategories.size()>0}">
+		<jstl:if test="${locale=='EN'}" >
 			<jstl:forEach var="i" begin="0" end="${possibleCategories.size()-1}">
 				<input type="radio" name="possibleCategoryName" id="possibleCategoryName" value="${possibleCategories.get(i).name}">
 			
@@ -27,6 +28,18 @@
 			
 				<br />
 			</jstl:forEach>
+		</jstl:if>
+		
+		<jstl:if test="${locale=='ES'}" >
+		<jstl:forEach var="i" begin="0" end="${possibleCategories.size()-1}">
+				<input type="radio" name="possibleCategoryName" id="possibleCategoryName" value="${possibleCategories.get(i).name}">
+			
+				<label for="possibleCategoryId"> 
+					<jstl:out value="${possibleCategories.get(i).nameSpanish }" /> 
+				</label>
+				<br />
+			</jstl:forEach>
+		</jstl:if>
 		</jstl:if>	
 	
 

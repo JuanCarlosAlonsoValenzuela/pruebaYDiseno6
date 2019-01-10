@@ -36,6 +36,12 @@
 							<spring:message var ="reports" code="complaint.reports" />
 							<jstl:out value="${reports}" />		
 				</a>
+				
 		</display:column>
+		
 		</display:table>
+		
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="customer.cancel"/>" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');" />
 </security:authorize>

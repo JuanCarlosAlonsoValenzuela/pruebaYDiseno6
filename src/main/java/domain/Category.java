@@ -18,6 +18,7 @@ public class Category extends DomainEntity {
 
 	private List<Category>	subCategories;
 	private String			name;
+	private String			nameSpanish;
 
 
 	public Category() {		//Created for Json purposes
@@ -42,5 +43,15 @@ public class Category extends DomainEntity {
 
 	public void setName(final String name) {
 		this.name = name;
+	}
+
+	@Column(unique = true)
+	@NotBlank
+	public String getNameSpanish() {
+		return this.nameSpanish;
+	}
+
+	public void setNameSpanish(String nameSpanish) {
+		this.nameSpanish = nameSpanish;
 	}
 }

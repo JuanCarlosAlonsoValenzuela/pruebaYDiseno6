@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -48,9 +49,12 @@ public class CategoryController extends AbstractController {
 		categories = this.categoryService.findAll();
 		Map<Category, Category> mapCategories = this.categoryService.findFatherCategoryPerCategory();
 
+		String locale = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+
 		result = new ModelAndView("category/administrator/list");
 		result.addObject("categories", categories);
 		result.addObject("mapCategories", mapCategories);
+		result.addObject("locale", locale);
 		result.addObject("requestURI", "category/administrator/list.do");
 
 		return result;
@@ -63,9 +67,10 @@ public class CategoryController extends AbstractController {
 		ModelAndView result;
 
 		Category category = this.categoryService.findOne(categoryId);
+		String locale = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 
 		result = new ModelAndView("category/administrator/subCategories/list");
-
+		result.addObject("locale", locale);
 		result.addObject("categoryId", categoryId);
 		result.addObject("subCategories", category.getSubCategories());
 		result.addObject("requestURI", "category/administrator/subCategories/list.do");
@@ -159,9 +164,11 @@ public class CategoryController extends AbstractController {
 		possibleCategories.remove(this.categoryService.getCategoryByName("CATEGORY"));
 
 		Assert.notNull(category);
+		String locale = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 
 		result = new ModelAndView("category/administrator/editSubCategory");
 		result.addObject("categoryId", categoryId);
+		result.addObject("locale", locale);
 		result.addObject("category", category);
 		result.addObject("possibleCategories", possibleCategories);
 
