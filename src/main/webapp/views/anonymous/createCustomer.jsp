@@ -32,10 +32,7 @@
   }
  
 }
-  </script>
-
-
-
+   </script>
 <form:form modelAttribute="customer" action="anonymous/createCustomer.do">
     <!--Hidden Attributes -->
 	<form:hidden path ="id"/>
@@ -86,7 +83,7 @@
 	<form:label path="email">
 		<spring:message code="customer.email" />
 	</form:label>
-	<form:input path="email" />
+	<form:input path="email"/>
 	<form:errors cssClass="error" path="email"/>
 	<br />
 
@@ -124,7 +121,7 @@
 
 	<!-- BOTONES -->	
 	<input type="submit" name="save" value="<spring:message code="customer.save" />" 
-	onclick="phonenumberval()"/> 
+	onclick="phonenumberval();validateEmail();"/> 
 	
 	<a href="#" style="text-decoration: none;">
     	<input type="button" value="<spring:message code="customer.cancel" />" />

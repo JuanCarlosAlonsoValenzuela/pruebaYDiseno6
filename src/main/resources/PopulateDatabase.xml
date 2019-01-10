@@ -1607,7 +1607,7 @@
 		<property name="middleName" value="" />
 		<property name="surname" value="Gilo" />
 		<property name="photo" value="https://www.url.com/example" />
-		<property name="email" value="arbitraso.univ@gmail.com" />
+		<property name="email" value="arbitrasouniv@gmail.com" />
 		<property name="phoneNumber" value="+34609235521" />
 		<property name="address" value="Almendralejo" />
 		<property name="reports">
@@ -1634,7 +1634,7 @@
 		<property name="middleName" value="" />
 		<property name="surname" value="Gilo" />
 		<property name="photo" value="https://www.url.com/example" />
-		<property name="email" value="referoo.univ@gmail.com" />
+		<property name="email" value="referoouniv@gmail.com" />
 		<property name="phoneNumber" value="+34609235545" />
 		<property name="address" value="Almendralejo" />
 		<property name="reports">
@@ -1661,7 +1661,7 @@
 		<property name="middleName" value="" />
 		<property name="surname" value="Gilo" />
 		<property name="photo" value="https://www.url.com/example" />
-		<property name="email" value="referoo123.univ@gmail.com" />
+		<property name="email" value="referoo123@gmail.com" />
 		<property name="phoneNumber" value="+34609225545" />
 		<property name="address" value="Almendralejo" />
 		<property name="reports">
@@ -1686,7 +1686,7 @@
 		<property name="middleName" value="" />
 		<property name="surname" value="Gildo" />
 		<property name="photo" value="https://www.url.com/example" />
-		<property name="email" value="refweroo.univ@gmail.com" />
+		<property name="email" value="refweroo@gmail.com" />
 		<property name="phoneNumber" value="+34619235545" />
 		<property name="address" value="Almendralejo" />
 		<property name="reports">
@@ -1714,7 +1714,7 @@
 		<property name="middleName" value="" />
 		<property name="surname" value="Alonso Gil" />
 		<property name="photo" value="https://www.url.com/example" />
-		<property name="email" value="davidgil.univ@gmail.com" />
+		<property name="email" value="davidgiluniv@gmail.com" />
 		<property name="phoneNumber" value="+34609235520" />
 		<property name="address" value="Almendralejo" />
 		<property name="socialProfiles">
@@ -1739,7 +1739,7 @@
 		<property name="middleName" value="" />
 		<property name="surname" value="Ubago" />
 		<property name="photo" value="https://www.url.com/system/admin" />
-		<property name="email" value="admin.alex@acmehandyworker.com" />
+		<property name="email" value="adminalex@acmehandyworker.com" />
 		<property name="phoneNumber" value="+34676958511" />
 		<property name="address" value="Central Offices" />
 		<property name="boxes">
@@ -1781,7 +1781,7 @@
 		<property name="middleName" value="Luis" />
 		<property name="surname" value="Martinez" />
 		<property name="photo" value="https://www.url.com/example2" />
-		<property name="email" value="pepe.luis@gmail.com" />
+		<property name="email" value="pepeluis@gmail.com" />
 		<property name="phoneNumber" value="+34600256914" />
 		<property name="address" value="Sevilla" />
 		<property name="socialProfiles">
@@ -1832,7 +1832,7 @@
 		<property name="middleName" value="Luis" />
 		<property name="surname" value="Gil" />
 		<property name="photo" value="https://www.url.com/example2" />
-		<property name="email" value="pepe.luis2@gmail.com" />
+		<property name="email" value="pepeluis2@gmail.com" />
 		<property name="phoneNumber" value="+34622256914" />
 		<property name="address" value="Sevilla" />
 		<property name="score" value="0.8" />
@@ -1866,7 +1866,7 @@
 		<property name="middleName" value="Manuel" />
 		<property name="surname" value="Rodriguez" />
 		<property name="photo" value="https://www.url.com/example2" />
-		<property name="email" value="pepe.luis3@gmail.com" />
+		<property name="email" value="pepeluis3@gmail.com" />
 		<property name="phoneNumber" value="+34633256914" />
 		<property name="address" value="Sevilla" />
 		<property name="score" value="0" />
@@ -1899,7 +1899,7 @@
 		<property name="middleName" value="" />
 		<property name="surname" value="Fernandez" />
 		<property name="photo" value="https://www.url.com/example2" />
-		<property name="email" value="pepe.luis4@gmail.com" />
+		<property name="email" value="pepeluis4@gmail.com" />
 		<property name="phoneNumber" value="+34644456914" />
 		<property name="address" value="Sevilla" />
 		<property name="score" value="-1" />
@@ -2017,7 +2017,7 @@
 				<ref bean="trashCustomer1" />
 			</list>
 		</property>
-		<property name="email" value="paco.univ@gmail.com" />
+		<property name="email" value="pacouniv@gmail.com" />
 		<property name="phoneNumber" value="+34746985321" />
 		<property name="address" value="Reina Mercedes" />
 		<property name="socialProfiles">
@@ -2057,7 +2057,7 @@
 				<ref bean="trashCustomer2" />
 			</list>
 		</property>
-		<property name="email" value="juan.david@gmail.com" />
+		<property name="email" value="juandavid@gmail.com" />
 		<property name="phoneNumber" value="+34746952921" />
 		<property name="address" value="Reina Mercedes" />
 		<property name="score" value="0" />
@@ -2075,7 +2075,7 @@
 		<property name="middleName" value="Mateo" />
 		<property name="surname" value="Benitez" />
 		<property name="photo" value="https://www.url2.com/example55" />
-		<property name="email" value="dani.mateo.benitez@gmail.com" />
+		<property name="email" value="danimateo.benitez@gmail.com" />
 		<property name="phoneNumber" value="+34746952589" />
 		<property name="address" value="Reina Mercedes" />
 		<property name="boxes">
@@ -2109,7 +2109,7 @@
 				<ref bean="trashCustomer4" />
 			</list>
 		</property>
-		<property name="email" value="Jose.luis.martin@gmail.com" />
+		<property name="email" value="JoseLuis.martin@gmail.com" />
 		<property name="phoneNumber" value="+34746989159" />
 		<property name="address" value="Reina Mercedes" />
 		<property name="score" value="0" />

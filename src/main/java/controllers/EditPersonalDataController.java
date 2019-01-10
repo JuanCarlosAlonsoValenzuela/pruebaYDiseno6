@@ -79,7 +79,11 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(customer);
 		} else {
 			try {
-				if (customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (customer.getEmail().matches("[\\w.%-]+\\<[\\w.%-]+\\@+\\>|[\\w.%-]+")) {
+
+					result = new ModelAndView("redirect:edit.do");
+
+				} else if (customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || customer.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
 					this.customerService.save(customer);
 				} else if (customer.getPhoneNumber().matches("([0-9]{4,})$")) {
 					customer.setPhoneNumber(prefix + customer.getPhoneNumber());
@@ -144,7 +148,11 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(sponsor);
 		} else {
 			try {
-				if (sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (sponsor.getEmail().matches("[\\w.%-]+\\<[\\w.%-]+\\@+\\>|[\\w.%-]+")) {
+
+					result = new ModelAndView("redirect:edit.do");
+
+				} else if (sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
 					this.sponsorService.save(sponsor);
 				} else if (sponsor.getPhoneNumber().matches("([0-9]{4,})$")) {
 					sponsor.setPhoneNumber(prefix + sponsor.getPhoneNumber());
@@ -208,7 +216,11 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(referee);
 		} else {
 			try {
-				if (referee.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (referee.getEmail().matches("[\\w.%-]+\\<[\\w.%-]+\\@+\\>|[\\w.%-]+")) {
+
+					result = new ModelAndView("redirect:edit.do");
+
+				} else if (referee.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || referee.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
 					this.refereeService.save(referee);
 				} else if (referee.getPhoneNumber().matches("([0-9]{4,})$")) {
 					referee.setPhoneNumber(prefix + referee.getPhoneNumber());
@@ -273,7 +285,8 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(admin);
 		} else {
 			try {
-				if (admin.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+
+				if (admin.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || admin.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
 					this.adminService.save(admin);
 				} else if (admin.getPhoneNumber().matches("([0-9]{4,})$")) {
 					admin.setPhoneNumber(prefix + admin.getPhoneNumber());
@@ -336,7 +349,12 @@ public class EditPersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(handyWorker);
 		} else {
 			try {
-				if (handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (handyWorker.getEmail().matches("[\\w.%-]+\\<[\\w.%-]+\\@+\\>|[\\w.%-]+")) {
+
+					result = new ModelAndView("redirect:edit.do");
+
+				} else if ((handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$"))
+				/* && handyWorker.getEmail().matches("\\([A-Za-z0-9])+\\<([A-Za-z0-9])+(\\@)([A-Za-z0-9])+\\>") */) {
 					this.handyWorkerService.save(handyWorker);
 				} else if (handyWorker.getPhoneNumber().matches("([0-9]{4,})$")) {
 					handyWorker.setPhoneNumber(prefix + handyWorker.getPhoneNumber());
@@ -351,7 +369,6 @@ public class EditPersonalDataController extends AbstractController {
 		}
 		return result;
 	}
-
 	//createEditModelAndView
 	protected ModelAndView createEditModelAndView(HandyWorker handyWorker) {
 		ModelAndView result;

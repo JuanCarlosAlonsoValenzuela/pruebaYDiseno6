@@ -11,8 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
@@ -99,7 +99,9 @@ public class Actor extends DomainEntity {
 	}
 
 	@NotBlank
-	@Email
+	//@Email
+	@Pattern(regexp = "[\\w.%-]+\\@[-.\\w]+\\.[A-Za-z]{2,4}|[\\w.%-]+\\<+[\\w.%-]+\\@[-.\\w]+\\.[A-Za-z]{2,4}|[\\w.%-]+\\<[\\w.%-]+\\@+\\>|[\\w.%-]+",
+		message = "Email doesn't follow the pattern, must be identifier@domain.asd or alias <identifier@domain.asd>")
 	@Column(unique = true)
 	public String getEmail() {
 		return this.email;
