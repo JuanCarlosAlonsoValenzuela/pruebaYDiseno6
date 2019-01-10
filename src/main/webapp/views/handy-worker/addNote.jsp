@@ -22,9 +22,9 @@
 		<label for="text"><spring:message code="note.mandatoryComment" />: </label>
 		<input type="text" name="mandatoryComment" required="required" id="mandatoryComment" placeholder="<spring:message code="comment.writeComment"/>"/>
 		
-		</br>
-		<input type="submit" name="save" value="<spring:message code="note.create.button"/>" />	
+		<br/>
 
+		<input type="submit" name="save" value="<spring:message code="note.create.button" />" onclick="return confirm('<spring:message code="note.create.confirm" />')"/>			
 
 </form:form>
 
