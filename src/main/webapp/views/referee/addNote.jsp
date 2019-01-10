@@ -13,9 +13,9 @@
 	<input type="hidden" name="reportId" value="${reportId}"/>
 
 	<jstl:choose>
-		<jstl:when test="${noteTest.getId() == 0}">
+		<jstl:when test="${note.getId() == 0}">
 			<p><spring:message code="note.mandatoryCommentAdd" /></p>	
-			<form:form action="note/referee/create.do" modelAttribute="noteTest" id="add" method="post">
+			<form:form action="note/referee/create.do" modelAttribute="note" id="add" method="post">
 
 				<!-- Hidden Attributes -->
 				<form:hidden path="id"/>
