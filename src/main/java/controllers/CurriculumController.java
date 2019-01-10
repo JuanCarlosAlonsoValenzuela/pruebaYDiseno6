@@ -72,6 +72,7 @@ public class CurriculumController extends AbstractController {
 
 		result = new ModelAndView("curriculum/handyWorker/show");
 
+		result.addObject("handyId", handyWorker.getId());
 		result.addObject("canEdit", canEdit);
 		result.addObject("curriculum", curriculum);
 		result.addObject("requestURI", "curriculum/handyWorker/show.do");
