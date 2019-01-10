@@ -86,7 +86,11 @@
 		
 					<!-- Category -->
 					<display:column titleKey="fixUpTask.categories">		
-							<jstl:out value="${row.category.name}"/>
+							<jstl:set var="category" value="${row.category.name}"/>
+					<jstl:if test="${locale=='ES'}">
+							<jstl:set var="category" value="${row.category.nameSpanish}"/>
+					</jstl:if>
+					<jstl:out value="${category}"/>
 					</display:column>
 					
 							<!-- Complaints -->
