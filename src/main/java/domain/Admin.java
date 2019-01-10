@@ -10,5 +10,7 @@ import javax.persistence.Entity;
 public class Admin extends Actor {
 
 	public Admin() {
+
 	}
+
 }
