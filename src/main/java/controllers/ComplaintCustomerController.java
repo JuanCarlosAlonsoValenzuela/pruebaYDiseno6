@@ -70,6 +70,7 @@ public class ComplaintCustomerController extends AbstractController {
 		result = new ModelAndView("complaint/customer/list");
 
 		result.addObject("complaints", complaints);
+		result.addObject("fixUpTaskId", fixUpTaskId);
 		result.addObject("requestURI", "complaint/customer/listPerTask.do");
 
 		return result;
