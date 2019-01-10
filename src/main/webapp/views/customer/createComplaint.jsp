@@ -43,11 +43,11 @@
 		<textarea rows="12" cols="50" name="newAttachments" id="newAttachments" placeholder="http://www.aaa.com, http://www.bbb.com" ></textarea>
 		<br />
 		
-		<input type="submit" name="save" value="<spring:message code="fixUpTask.create.button"/>" />	
-			
+		<input type="submit" name="save" value="<spring:message code="fixUpTask.create.button"/>" onclick="return confirm('<spring:message code="complaint.create.confirm" />')"/>	
 		
-		<input type="submit" name="cancel" value="<spring:message code="fixUpTask.cancel.button"/>" />
-		
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="customer.cancel"/>" onclick="javascript:relativeRedir('fixUpTask/customer/list.do');" />
 
 
 </form:form>

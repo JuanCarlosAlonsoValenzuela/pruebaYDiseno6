@@ -23,14 +23,23 @@
 		</display:column>
 		
 		<display:column>
-					<!-- Si la fix up task no ha sido aceptada, me permite proponer una aplicación -->
-					<spring:url var="createComplaint" value="/complaint/customer/create.do">
-							<spring:param name="fix" value="${row.id}" />
-					</spring:url>
+			
+			<jstl:set var="appAccepted" value="false"/>
+			<jstl:forEach items="${row.applications}" var="app">
+				<jstl:if test="${app.status.toString()=='ACCEPTED'}">
+					<jstl:set var="appAccepted" value="true"/>
+				</jstl:if>
+			</jstl:forEach>
 					
-					<a href="${createComplaint}">
-							<spring:message code="fixUpTask.createComplaint" />				
-					</a>
+			<spring:url var="createComplaint" value="/complaint/customer/create.do">
+					<spring:param name="fix" value="${row.id}" />
+			</spring:url>
+			
+			<jstl:if test="${appAccepted==true}">
+				<a href="${createComplaint}">
+						<spring:message code="fixUpTask.createComplaint" />				
+				</a>
+			</jstl:if>	
 		</display:column>				
 		
 		<display:column property="momentPublished" titleKey="fixUpTask.momentPublished" format="{0,date,dd/MM/yyyy HH:mm}" />		
@@ -55,8 +64,12 @@
 				
 		</display:column>
 		
-		<display:column titleKey="fixUpTask.categories">		
-				<jstl:out value="${row.category.name}"/>
+		<display:column titleKey="fixUpTask.categories">	
+			<jstl:set var="category" value="${row.category.name}"/>
+			<jstl:if test="${locale=='ES'}">
+				<jstl:set var="category" value="${row.category.nameSpanish}"/>
+			</jstl:if>
+			<jstl:out value="${category}"/>
 		</display:column>
 		
 		
@@ -83,28 +96,39 @@
 		<!-- See Phases -->
 		<display:column titleKey="fixUpTask.phases">									
 				<jstl:set var="phasesSize" value="${row.phases.size()}" />
+						
+				<jstl:if test="${phasesSize > 0}">
+					<spring:url var="phasesUrl" value="/phase/customer/list.do?fixUpTaskId={fixId}">
+						<spring:param name="fixId" value="${row.id}"/>	
+					</spring:url>
+					<a href="${phasesUrl}">
+						<spring:message var="seePhases" code="fixUpTask.seePhases"/> 	
+						<jstl:out value="${seePhases}(${phasesSize})" />
+					</a>
+				</jstl:if>
 				
-
-						<spring:url var="phasesUrl" value="/phase/customer/list.do?fixUpTaskId={fixId}">
-							<spring:param name="fixId" value="${row.id}"/>	
-						</spring:url>
-						<a href="${phasesUrl}">
-							<spring:message var="seePhases" code="fixUpTask.seePhases"/> 	
-							<jstl:out value="${seePhases}(${phasesSize})" />
-						</a>
+				<jstl:if test="${phasesSize == 0}">
+					<spring:message code="phases.noDisplay"/>
+				</jstl:if>
 		</display:column>
 		
 		<!-- See Complaints -->
 		<display:column titleKey="fixUpTask.complaints">									
 				<jstl:set var="complaintsSize" value="${row.complaints.size()}" />
 				
-						<spring:url var="complaintsUrl" value="/complaint/customer/listPerTask.do?fixUpTaskId={fixId}">
-							<spring:param name="fixId" value="${row.id}"/>	
-						</spring:url>
-						<a href="${complaintsUrl}">
-							<spring:message var="seeComplaints" code="fixUpTask.seeComplaints"/> 	
-							<jstl:out value="${seeComplaints}(${complaintsSize})" />
-						</a>
+				<jstl:if test="${complaintsSize > 0}">
+					<spring:url var="complaintsUrl" value="/complaint/customer/listPerTask.do?fixUpTaskId={fixId}">
+						<spring:param name="fixId" value="${row.id}"/>	
+					</spring:url>
+					<a href="${complaintsUrl}">
+						<spring:message var="seeComplaints" code="fixUpTask.seeComplaints"/> 	
+						<jstl:out value="${seeComplaints}(${complaintsSize})" />
+					</a>
+				</jstl:if>
+				
+				<jstl:if test="${complaintsSize == 0}">
+					<spring:message code="complaints.noDisplay"/>
+				</jstl:if>
 		</display:column>
 		
 	</display:table>

@@ -15,4 +15,20 @@
 	<strong><jstl:out value="${comment}" /></strong>
 	</display:column>
 	
+	
+	
+	
 </display:table>
+
+	<jstl:choose><jstl:when test="${canEdit}">
+	
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="tutorial.comment.back"/>" onclick="javascript:relativeRedir('curriculum/handyWorker/show.do');" />
+		</jstl:when><jstl:otherwise>
+		
+		<input type="button"
+		name="cancel"
+		value="<spring:message code="tutorial.comment.back"/>" onclick="javascript:relativeRedir('curriculum/anonymous/show.do?handyId=${handyId}');" />
+		</jstl:otherwise>
+		  </jstl:choose>

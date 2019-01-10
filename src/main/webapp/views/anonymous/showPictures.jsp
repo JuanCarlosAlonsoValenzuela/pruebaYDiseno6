@@ -16,7 +16,10 @@
 	</display:column>
 	
 </display:table>
-	
 
+<input type="button"
+		name="cancel"
+		value="<spring:message code="handyWorker.cancel"/>" onclick="javascript:relativeRedir('tutorial/anonymous/list.do');" />
+																						
 
 

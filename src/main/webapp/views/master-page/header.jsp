@@ -73,6 +73,7 @@
 					<li><a href="application/handyWorker/list.do"><spring:message code="master.page.handyworker.applications" /></a></li>
 					<li><a href="endorsement/handyWorker/list.do"><spring:message code="master.page.handyworker.listendorsment" /></a></li>	
 					<li><a href="fixUpTask/handyWorker/list.do"><spring:message code="master.page.handyworker.fixUpTask" /></a></li>								
+					<li><a href="tutorial/handyWorker/listHandyTutorials.do"><spring:message code="master.page.handyworker.tutorials" /></a></li>							
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
@@ -88,8 +89,8 @@
 			<li><a class="fNiv"><spring:message	code="master.page.referee" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="referee/complaints.do"><spring:message code="master.page.referee.complaints" /></a></li>
-					<li><a href="referee/complaintsreport.do"><spring:message code="master.page.referee.complaintsreport" /></a></li>									
+					<li><a href="complaint/referee/list.do"><spring:message code="master.page.referee.selfassignedcomplaints" /></a></li>
+					<li><a href="complaint/referee/listUnassigned.do"><spring:message code="master.page.referee.unassignedcomplaints" /></a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.profile" /></a>

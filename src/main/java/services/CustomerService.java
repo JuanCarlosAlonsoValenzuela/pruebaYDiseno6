@@ -1,7 +1,9 @@
 
 package services;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -509,6 +511,8 @@ public class CustomerService {
 
 		Assert.notNull(fixUpTask);
 
+		complaint.setAttachments(this.listUrlsAttachmentsComplaint(complaint));
+
 		List<Complaint> complaints = (List<Complaint>) fixUpTask.getComplaints();
 		complaints.add(complaint);
 		fixUpTask.setComplaints(complaints);
@@ -864,6 +868,31 @@ public class CustomerService {
 
 	public List<Application> findApplicationsById(int customerId) {
 		return (List<Application>) this.customerRepository.findApplicationsById(customerId);
+	}
+
+	public List<String> listUrlsAttachmentsComplaint(Complaint c) {
+		List<String> att = new ArrayList<String>();
+
+		if (c.getAttachments().size() == 1 && c.getAttachments().get(0).contains(",")) {
+			String attach = c.getAttachments().get(0).trim();
+			List<String> attachments = Arrays.asList(attach.split(","));
+
+			for (String a : attachments) {
+				if (!a.isEmpty() && !att.contains(a.trim()) && this.isUrl(a)) {
+					att.add(a.trim());
+				}
+			}
+		}
+		return att;
+	}
+
+	public Boolean isUrl(String url) {
+		try {
+			new URL(url).toURI();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

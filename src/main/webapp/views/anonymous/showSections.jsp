@@ -63,7 +63,7 @@
 <br /> 
 <jstl:if test="${!sections.isEmpty()}">
 <spring:message code="tutorial.sponsorship" /><jstl:out value=":"/>
-	<a href="${sponsorship.link}">
+	<a href="${sponsorship.link}" target="_blank">
 		<img src="${sponsorship.bannerUrl}" alt="${sponsorship.link}" style="width:50px;height:50px;border:0;">
 	</a>
 </jstl:if>

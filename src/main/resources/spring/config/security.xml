@@ -117,6 +117,9 @@
 		<!-- REFEREE -->
 		<security:intercept-url pattern="/personalData/referee/**" access="hasRole('REFEREE')" /> 
 		<security:intercept-url pattern="/complaint/referee/**" access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/report/referee/**" access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/attachment/referee/**" access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/note/referee/**" access="hasRole('REFEREE')" />
 		
 		<!-- AUTHENTICATED -->
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 

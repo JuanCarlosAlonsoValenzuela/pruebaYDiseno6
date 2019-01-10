@@ -58,10 +58,16 @@
 		
 		<form:select path="category">
 				<jstl:forEach var="category" items="${categories}">
-						<form:option
-								label="${category.name}"		
-								value="${category.id}"
-						/>
+				
+					<jstl:set var="categoryName" value="${category.name}"/>
+					<jstl:if test="${locale=='ES'}">
+						<jstl:set var="categoryName" value="${category.nameSpanish}"/>
+					</jstl:if>
+				
+					<form:option
+						label="${categoryName}"		
+						value="${category.id}"
+					/>
 						
 				</jstl:forEach>
 		

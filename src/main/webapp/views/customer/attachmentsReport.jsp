@@ -21,10 +21,7 @@
 			</display:column>
 	</display:table>
 	
-	<jstl:set var="javascript" value="javascript:relativeRedir('complaint/customer/list.do');"/>
-	<jstl:if test="${fixUpTaskId>0}">
-		<jstl:set var="javascript" value="javascript:relativeRedir('complaint/customer/listPerTask.do?fixUpTaskId=${fixUpTaskId}');"/>
-	</jstl:if>
+	<jstl:set var="javascript" value="javascript:relativeRedir('report/customer/list.do?complaintId=${comId}');"/>
 	
 	<input type="button" name="cancel" onclick="${javascript}"  value="<spring:message code="phase.back.button"/>" />	
 	

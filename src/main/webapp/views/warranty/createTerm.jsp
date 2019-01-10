@@ -16,6 +16,11 @@
 	<input type="text" name="term" id="term" placeholder="<spring:message code="term.writeterm"/>" value="${term}"/>
 	<input type="hidden" name="warrantyId" id="warrantyId" value="<jstl:out value="${warrantyId}"/>"/>
 	
+	<jstl:if test="${term=='' || term!=null}">
+	<p style="color:red"><spring:message code="operation.error"/></p>
+</jstl:if>
+	
+	
 	<input type="submit" name="create" value="<spring:message code="term.create"/>" />	
 </form>
 

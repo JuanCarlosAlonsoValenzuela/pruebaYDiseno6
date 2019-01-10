@@ -27,8 +27,18 @@
 		<br />
 	</jstl:if>
 	
+	<jstl:if test="${row.name!='CATEGORY'}" >
+		<form:label path="nameSpanish">
+			<spring:message code="category.nameSpanish" />
+		</form:label>
+		<form:input path="nameSpanish" />
+		<form:errors cssClass="error" path="nameSpanish"/>
+		<br />
+	</jstl:if>
+	
 	<jstl:if test="${row.name=='CATEGORY'}" >
 		<form:hidden path ="name"/>
+		<form:hidden path ="nameSpanish"/>
 	</jstl:if>
 	
 	
