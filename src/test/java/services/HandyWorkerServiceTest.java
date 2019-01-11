@@ -20,7 +20,6 @@ import utilities.AbstractTest;
 import domain.Actor;
 import domain.Application;
 import domain.Complaint;
-import domain.Curriculum;
 import domain.Customer;
 import domain.Endorsement;
 import domain.Endorser;
@@ -85,10 +84,10 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		h.setAddress("C/Falsa 123");
 		h.getUserAccount().setUsername("Quimi");
 		h.getUserAccount().setPassword("12345");
+		h.setCurriculum(null);
 
 		HandyWorker saved = new HandyWorker();
 		saved = this.handyWorkerService.saveCreate(h);
-
 		Assert.isTrue(this.handyWorkerService.findAll().contains(saved));
 	}
 
@@ -115,31 +114,15 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	 * }
 	 */
 
-	@Test
-	public void testDeleteCurriculum() {
-		Actor h = new Actor();
-		h = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
-
-		HandyWorker handyWorker = new HandyWorker();
-		handyWorker = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
-
-		Curriculum curriculum = handyWorker.getCurriculum();
-		this.handyWorkerService.deleteCurriculum(curriculum);
-
-		Assert.isNull(handyWorker.getCurriculum());
-
-	}
-
 	/*
 	 * @Test
 	 * public void testEditCurriculum() {
 	 * Actor h = new Actor();
-	 * h = this.actorService.getActorByUsername("PepeHW");
-	 * super.authenticate("PepeHW");
+	 * h = this.actorService.getActorByUsername("handyWorker1");
+	 * super.authenticate("handyWorker1");
 	 * 
 	 * HandyWorker handyWorker = new HandyWorker();
-	 * handyWorker = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
+	 * handyWorker = this.handyWorkerService.getHandyWorkerByUsername("handyWorker1");
 	 * 
 	 * Curriculum curriculum = handyWorker.getCurriculum();
 	 * PersonalRecord personalRecord = curriculum.getPersonalRecord();
@@ -154,8 +137,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testShowFixUpTask() {
 		Actor h = new Actor();
-		h = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		h = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		Collection<FixUpTask> fResults = this.handyWorkerService.showFixUpTasks();
 		Collection<FixUpTask> f = this.fixUpTaskService.findAll();
@@ -167,11 +150,11 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testgetFixUpTaskPerCustomer() {
 		Actor h = new Actor();
-		h = this.actorService.getActorByUsername("PepeHW");
+		h = this.actorService.getActorByUsername("handyWorker2");
 		Customer customer = new Customer();
-		super.authenticate("PepeHW");
+		super.authenticate("handyWorker2");
 
-		customer = this.customerService.getCustomerByUserName("PacoCustomer");
+		customer = this.customerService.getCustomerByUserName("customer1");
 
 		Map<Customer, Collection<FixUpTask>> m = this.handyWorkerService.getFixUpTaskPerCustomer(customer.getFixUpTasks().get(0).getId());
 
@@ -184,8 +167,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testFilterFixUpTasksByFinder() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
@@ -203,8 +186,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testShowApplication() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
@@ -218,11 +201,11 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testCreateApplicationHandyWorker() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = new HandyWorker();
-		h = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
+		h = this.handyWorkerService.getHandyWorkerByUsername("handyWorker1");
 
 		List<String> comments = new ArrayList<String>();
 		FixUpTask fixUpTask = h.getApplications().get(0).getFixUpTask();
@@ -235,11 +218,11 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testShowPhasesForHandyWorker() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = new HandyWorker();
-		h = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
+		h = this.handyWorkerService.getHandyWorkerByUsername("handyWorker1");
 
 		FixUpTask fixUpTask = h.getApplications().get(0).getFixUpTask();
 		Collection<Phase> phasesF = fixUpTask.getPhases();
@@ -253,11 +236,11 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testCreatePhasesForApplicaion() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = new HandyWorker();
-		h = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
+		h = this.handyWorkerService.getHandyWorkerByUsername("handyWorker1");
 
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, 2018);
@@ -289,11 +272,11 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testDeletePhaseForApplication() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker logguedHandyWorker = new HandyWorker();
-		logguedHandyWorker = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
+		logguedHandyWorker = this.handyWorkerService.getHandyWorkerByUsername("handyWorker1");
 
 		FixUpTask fixUpTaskBeforeDelePhase = this.handyWorkerService.getFixUpTaskByHandyWorker(logguedHandyWorker).get(0);
 
@@ -313,11 +296,11 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testUpdatePhaseForHandyWorker() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = new HandyWorker();
-		h = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
+		h = this.handyWorkerService.getHandyWorkerByUsername("handyWorker1");
 
 		Application app = h.getApplications().get(0);
 		FixUpTask fixUpTask = app.getFixUpTask();
@@ -340,8 +323,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testShowFinderFromHandyWorker() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 		Finder finder = h.getFinder();
@@ -358,8 +341,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testShowFinderResult() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
@@ -374,8 +357,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testShowComplaintsFromHandyWorker() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
@@ -390,14 +373,14 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testCreateNoteFromHandyWorker() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		List<String> optionalComments = new ArrayList<String>();
 		Note newNote = this.noteServce.create("Prueba", optionalComments);
 
 		HandyWorker h = new HandyWorker();
-		h = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
+		h = this.handyWorkerService.getHandyWorkerByUsername("handyWorker1");
 
 		List<Complaint> complaints = this.handyWorkerService.showComplaintsFromHandyWorker();
 		Complaint complaint = complaints.get(0);
@@ -417,15 +400,15 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testWriteCommentFromHandyWorker() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = new HandyWorker();
-		h = this.handyWorkerService.getHandyWorkerByUsername("PepeHW");
+		h = this.handyWorkerService.getHandyWorkerByUsername("handyWorker1");
 
 		List<Complaint> complaints = this.handyWorkerService.showComplaintsFromHandyWorker();
 		Complaint complaint = complaints.get(0);
-		Report report = complaint.getReports().get(0);
+		Report report = complaint.getReports().get(1);
 		Note note = report.getNotes().get(0);
 
 		Integer numCommentsBefore = note.getOptionalComments().size();
@@ -443,8 +426,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testShowTutorials() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
@@ -459,8 +442,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void TestDeleteTutorial() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
@@ -478,8 +461,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void TestUpdateTutorial() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
@@ -500,8 +483,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testCreateTutorial() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
@@ -510,7 +493,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 		cal.set(Calendar.YEAR, 2017);
 		cal.set(Calendar.MONTH, Calendar.DECEMBER);
 		cal.set(Calendar.DAY_OF_MONTH, 12);
-		Date lastUpdate = cal.getTime();
+		Date lastUpdate = new Date();
+		lastUpdate.setTime(lastUpdate.getTime() - 1);
 
 		Tutorial newTutorial = this.tutoralService.create("Prueba", lastUpdate, "Summary");
 
@@ -526,8 +510,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testDeleteEndorsment() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 		Endorsement endorsment = h.getEndorsements().get(0);
@@ -542,8 +526,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testUpdateEndorsment() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 		Endorsement endorsment = h.getEndorsements().get(0);
@@ -565,8 +549,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	//TODO
 	public void testCreateEndorsment() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 
@@ -604,8 +588,8 @@ public class HandyWorkerServiceTest extends AbstractTest {
 	@Test
 	public void testShowEndorsments() {
 		Actor actor = new Actor();
-		actor = this.actorService.getActorByUsername("PepeHW");
-		super.authenticate("PepeHW");
+		actor = this.actorService.getActorByUsername("handyWorker1");
+		super.authenticate("handyWorker1");
 
 		HandyWorker h = this.handyWorkerService.findOne(actor.getId());
 

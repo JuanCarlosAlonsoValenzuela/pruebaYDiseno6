@@ -27,7 +27,7 @@ import domain.Report;
 @Transactional
 public class RefereeServiceTest extends AbstractTest {
 
-	//arbitrasoRF id = 1435;
+	//referee1 id = 1435;
 
 	@Autowired
 	private RefereeService		refereeService;
@@ -48,7 +48,7 @@ public class RefereeServiceTest extends AbstractTest {
 
 	@Test
 	public void testGetLoggedReferee() {
-		super.authenticate("arbitrasoRF");
+		super.authenticate("referee1");
 		Referee loggedReferee = this.refereeService.securityAndReferee();
 		Assert.isTrue(loggedReferee.getAddress().equals("Almendralejo"));
 
@@ -57,7 +57,7 @@ public class RefereeServiceTest extends AbstractTest {
 
 	@Test
 	public void testComplaintsUnassigned() {
-		super.authenticate("arbitrasoRF");
+		super.authenticate("referee1");
 		Collection<Complaint> complaints = this.refereeService.complaintsUnassigned();
 		Assert.isTrue(complaints.size() == 1); //Hay un complaint sin asignar
 
@@ -66,7 +66,7 @@ public class RefereeServiceTest extends AbstractTest {
 
 	@Test
 	public void testAssignComplaint() {
-		super.authenticate("arbitrasoRF");
+		super.authenticate("referee1");
 		List<Complaint> complaints = (List<Complaint>) this.refereeService.complaintsUnassigned();
 		Complaint complaintUnassigned = complaints.get(0);
 		Complaint complaintAssigned = this.refereeService.assingComplaint(complaintUnassigned);
@@ -83,16 +83,16 @@ public class RefereeServiceTest extends AbstractTest {
 
 	@Test
 	public void testSelfAssignedComplaints() {
-		super.authenticate("arbitrasoRF");
+		super.authenticate("referee1");
 		List<Complaint> complaintsAssigned = this.refereeService.selfAssignedComplaints();
-		Assert.isTrue(complaintsAssigned.size() == 3); //Tiene 3 asignados
+		Assert.isTrue(complaintsAssigned.size() == 2); //Tiene 2 asignados
 
 		super.authenticate(null);
 	}
 
 	@Test
 	public void testWriteReportRegardingComplaint() {
-		super.authenticate("arbitrasoRF");
+		super.authenticate("referee1");
 
 		Referee loggedReferee = this.refereeService.securityAndReferee();
 
@@ -125,7 +125,7 @@ public class RefereeServiceTest extends AbstractTest {
 
 	@Test
 	public void testModifyReport() {
-		super.authenticate("arbitrasoRF");
+		super.authenticate("referee1");
 
 		Referee loggedReferee = this.refereeService.securityAndReferee();
 		Report report = null;
@@ -150,7 +150,7 @@ public class RefereeServiceTest extends AbstractTest {
 
 	@Test
 	public void testEliminateReport() {
-		super.authenticate("arbitrasoRF");
+		super.authenticate("referee1");
 
 		Referee loggedReferee = this.refereeService.securityAndReferee();
 		Report report = null;
@@ -175,7 +175,7 @@ public class RefereeServiceTest extends AbstractTest {
 
 	@Test
 	public void testWriteNoteReport() {
-		super.authenticate("arbitrasoRF");
+		super.authenticate("referee1");
 
 		Referee loggedReferee = this.refereeService.securityAndReferee();
 		Report report = null;
@@ -202,7 +202,7 @@ public class RefereeServiceTest extends AbstractTest {
 
 	@Test
 	public void testWriteComment() {
-		super.authenticate("arbitrasoRF");
+		super.authenticate("referee1");
 
 		Referee loggedReferee = this.refereeService.securityAndReferee();
 		List<Note> notes = (List<Note>) this.refereeService.notesReferee(loggedReferee.getId());

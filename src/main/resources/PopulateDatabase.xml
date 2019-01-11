@@ -1124,6 +1124,21 @@
 		</property>
 		<property name="referee" ref="referee2"/>
 	</bean>
+	
+	<bean id="complaint12" class="domain.Complaint">
+		<property name="ticker" value="181127-5967ii" />
+		<property name="moment" value="11/09/2008 23:59" />
+		<property name="description" value="description12" />
+		<property name="attachments">
+			<list>
+				<value>attachment16</value>
+			</list>
+		</property>
+		<property name="reports">
+			<list>
+			</list>
+		</property>
+	</bean>
 	<!-- END OF COMPLAINT -->
 
 	<!-- END OF COMPLAINT -->

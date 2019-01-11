@@ -49,6 +49,7 @@ public class TutorialService {
 		Tutorial tutorial = new Tutorial();
 		List<Section> sections = new ArrayList<Section>();
 		List<Sponsorship> sponsorships = new ArrayList<Sponsorship>();
+		List<String> pictures = new ArrayList<String>();
 
 		sponsorships.addAll(this.sponsorshipService.findAll());
 
@@ -57,6 +58,7 @@ public class TutorialService {
 		tutorial.setSummary(sumary);
 		tutorial.setSections(sections);
 		tutorial.setSponsorships(sponsorships);
+		tutorial.setPictures(pictures);
 
 		return tutorial;
 	}

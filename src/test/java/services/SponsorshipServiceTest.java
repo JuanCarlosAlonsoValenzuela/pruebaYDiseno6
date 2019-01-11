@@ -40,7 +40,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 		Sponsorship sponsorship = new Sponsorship();
 		Sponsorship savedSponsorship = new Sponsorship();
 
-		super.authenticate("pepeSponsor");
+		super.authenticate("sponsor1");
 
 		Long number = 4599997102987605L;
 		CreditCard creditCard = new CreditCard();

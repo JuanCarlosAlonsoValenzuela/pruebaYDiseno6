@@ -35,7 +35,7 @@ public class FinderServiceTest extends AbstractTest {
 		Finder finder, saved;
 		Collection<Finder> finders;
 
-		finder = this.finderService.createFinder(null, null, null, null, null, null, null, null);
+		finder = this.finderService.createFinder(null, null, null, 0.0, 0.0, null, null, null);
 		saved = this.finderService.save(finder);
 		finders = this.finderService.findAll();
 		Assert.isTrue(finders.contains(saved));
@@ -48,7 +48,7 @@ public class FinderServiceTest extends AbstractTest {
 		Collection<Finder> finders;
 		List<FixUpTask> fixUpTasks = this.fixUpTaskService.findAll();
 
-		finder = this.finderService.createFinder("k", "c", "w", 1.0, 0.0, null, null, fixUpTasks);
+		finder = this.finderService.createFinder("k", "c", "w", 1.0, 2.0, null, null, fixUpTasks);
 		saved = this.finderService.save(finder);
 		finders = this.finderService.findAll();
 		Assert.isTrue(finders.contains(saved));
@@ -66,7 +66,7 @@ public class FinderServiceTest extends AbstractTest {
 		starDate.setYear(20);
 		endDate.setYear(19);
 
-		finder = this.finderService.createFinder("k", "c", "w", 1.0, 0.0, starDate, endDate, fixUpTasks);
+		finder = this.finderService.createFinder("k", "c", "w", 1.0, 2.0, starDate, endDate, fixUpTasks);
 		saved = this.finderService.save(finder);
 		finders = this.finderService.findAll();
 		Assert.isTrue(finders.contains(saved));

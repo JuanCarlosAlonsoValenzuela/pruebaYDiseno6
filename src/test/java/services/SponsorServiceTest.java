@@ -27,7 +27,7 @@ public class SponsorServiceTest extends AbstractTest {
 	public void testCreateSponsor() {
 		Sponsor s = new Sponsor();
 		Sponsor saved = new Sponsor();
-		super.authenticate("PacoCustomer");
+		super.authenticate("customer1");
 		s = this.sponsorService.create("Luisa", "Cosa", "Perez", "https://www.url2.com/example", "luisa@gmail.com", "+34746952921", "Reina Mercedes", "luisaSponsor", "81dc9bdb52d04dc20036dbd8313ed055");
 		// Authority auth = new Authority();
 		// auth.setAuthority(Authority.SPONSOR);
