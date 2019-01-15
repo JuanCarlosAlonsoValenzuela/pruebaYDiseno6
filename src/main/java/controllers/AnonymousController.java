@@ -68,9 +68,12 @@ public class AnonymousController extends AbstractController {
 			result = this.createEditModelAndView(handyWorker);
 		} else {
 			try {
-
 				handyWorker.getUserAccount().setPassword(encoder.encodePassword(handyWorker.getUserAccount().getPassword(), null));
-				if (handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (handyWorker.getEmail().matches("[\\w.%-]+\\<[\\w.%-]+\\@+\\>|[\\w.%-]+")) {
+
+					result = new ModelAndView("redirect:/anonymous/createHandyWorker.do");
+
+				} else if (handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || handyWorker.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
 					this.handyWorkerService.saveCreate(handyWorker);
 				} else if (handyWorker.getPhoneNumber().matches("([0-9]{4,})$")) {
 					handyWorker.setPhoneNumber(prefix + handyWorker.getPhoneNumber());
@@ -85,7 +88,6 @@ public class AnonymousController extends AbstractController {
 		}
 		return result;
 	}
-
 	//CreateEditModelAndView
 	protected ModelAndView createEditModelAndView(HandyWorker handyWorker) {
 		ModelAndView result;
@@ -134,8 +136,11 @@ public class AnonymousController extends AbstractController {
 		} else {
 			try {
 				customer.getUserAccount().setPassword(encoder.encodePassword(customer.getUserAccount().getPassword(), null));
+				if (customer.getEmail().matches("[\\w.%-]+\\<[\\w.%-]+\\@+\\>|[\\w.%-]+")) {
 
-				if (customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+					result = new ModelAndView("redirect:/anonymous/createCustomer.do");
+
+				} else if (customer.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || customer.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
 					this.customerService.saveCreate(customer);
 				} else if (customer.getPhoneNumber().matches("([0-9]{4,})$")) {
 					customer.setPhoneNumber(prefix + customer.getPhoneNumber());
@@ -200,7 +205,11 @@ public class AnonymousController extends AbstractController {
 		} else {
 			try {
 				sponsor.getUserAccount().setPassword(encoder.encodePassword(sponsor.getUserAccount().getPassword(), null));
-				if (sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$")) {
+				if (sponsor.getEmail().matches("[\\w.%-]+\\<[\\w.%-]+\\@+\\>|[\\w.%-]+")) {
+
+					result = new ModelAndView("redirect:/anonymous/createSponsor.do");
+
+				} else if (sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})(\\([0-9]{1,3}\\))([0-9]{4,})$") || sponsor.getPhoneNumber().matches("(\\+[0-9]{1,3})([0-9]{4,})$")) {
 					this.sponsorService.saveCreate(sponsor);
 				} else if (sponsor.getPhoneNumber().matches("([0-9]{4,})$")) {
 					sponsor.setPhoneNumber(prefix + sponsor.getPhoneNumber());
